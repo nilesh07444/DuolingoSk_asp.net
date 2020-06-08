@@ -1,0 +1,10 @@
+DuolingoSk/*.nupkg
+DuolingoSk/*.dll
+DuolingoSk/*.pdb
+DuolingoSk/*.xdt
+DuolingoSk/bin
+DuolingoSk/obj
+packages 
+.vs/* 
+/.vs
+/DuolingoSk/Images/HomeMedia

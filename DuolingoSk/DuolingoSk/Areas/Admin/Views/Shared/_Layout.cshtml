@@ -1,0 +1,318 @@
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using Newtonsoft.Json;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Duolingo sk">
+    <meta name="keywords" content="Duolingo sk">
+    <meta name="author" content="Duolingo sk">
+    <link rel="icon" href="~/Content/admin_assets/images/dashboard/fav.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Content/admin_assets/images/dashboard/fav.ico" type="image/x-icon">
+    <title>Duolingo sk</title>
+
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/fontawesome.css">
+
+    <!-- Flag icon-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/flag-icon.css">
+
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/icofont.css">
+
+    <!-- Prism css-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/prism.css">
+
+    <!-- Chartist css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/chartist.css">
+
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/bootstrap.css">
+
+    <!-- Datatable css-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/datatables.css">
+
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/admin.css">
+
+    <!-- Datepicker css-->
+    @*<link rel="stylesheet" type="text/css" href="~/Content/admin_assets/css/date-picker.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" />
+
+    <!-- latest jquery-->
+    <script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="~/Content/admin_assets/js/popper.min.js"></script>
+    <script src="~/Content/admin_assets/js/bootstrap.js"></script>
+
+    <style>
+        .logo-wrapper {
+            text-align: center;
+            display: block !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- page-wrapper Start-->
+    <div class="page-wrapper">
+
+        <!-- Page Header Start-->
+        <div class="page-main-header">
+            <div class="main-header-right row">
+                <div class="main-header-left d-lg-none">
+                    <div class="logo-wrapper">
+                        <a href="/admin/dashboard">
+                            @*<img style="width: 80px; height: 50px;" class="blur-up lazyloaded" src="~/Content/admin_assets/images/logos/logo.png" alt="">*@
+                            Duolingo sk
+                        </a>
+                    </div>
+                </div>
+                <div class="mobile-sidebar">
+                    <div class="media-body text-right switch-sm">
+                        <label class="switch"><a href="#"><i id="sidebar-toggle" data-feather="align-left"></i></a></label>
+                    </div>
+                </div>
+                <div class="nav-right col">
+                    <ul class="nav-menus">
+
+                        <li><a class="text-dark" href="#!" onclick="javascript: toggleFullScreen()"><i data-feather="maximize-2"></i></a></li>
+
+                        <li class="onhover-dropdown">
+                            <div class="media align-items-center">
+                                @if (clsAdminSession.ImagePath != "")
+                                {
+                                    <img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="~/Images/AdminUserMedia/@clsAdminSession.ImagePath" alt="#">
+                                }
+                                else
+                                {
+                                    <img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="~/Images/default_user_image.png" alt="#">
+                                }
+
+                                <div class="dotted-animation"><span class="animate-circle"></span><span class="main-circle"></span></div>
+                            </div>
+                            <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
+                                <li><a href="/admin/myprofile"><i data-feather="user"></i>My Profile</a></li>
+                                <li><a href="/admin/agent/changepassword"><i data-feather="lock"></i>Change Password</a></li>
+                                <li><a href="/admin/setting"><i data-feather="settings"></i>Settings</a></li>
+                                <li><a href="/admin/login/signout"><i data-feather="log-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="d-lg-none mobile-toggle pull-right"><i data-feather="more-horizontal"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header Ends -->
+        <!-- Page Body Start-->
+        <div class="page-body-wrapper">
+
+            <!-- Page Sidebar Start-->
+            <div class="page-sidebar">
+
+                <div class="main-header-left d-none d-lg-block">
+                    <div class="logo-wrapper">
+                        <a href="/admin/dashboard">
+                            @*<img style="width: 190px; height: 50px; border-radius : 10px;" class="blur-up lazyloaded" src="~/Content/admin_assets/images/logos/logo.png" alt="">*@
+                            <h3>Duolingo sk</h3>
+                        </a>
+                    </div>
+                </div>
+                <div class="sidebar custom-scrollbar">
+                    <div class="sidebar-user text-center">
+                        <div>
+                            @if (clsAdminSession.ImagePath != "")
+                            {
+                                <img class="img-60 rounded-circle lazyloaded blur-up" src="~/Images/AdminUserMedia/@clsAdminSession.ImagePath" alt="#">
+                            }
+                            else
+                            {
+                                <img class="img-60 rounded-circle lazyloaded blur-up" src="~/Images/default_user_image.png" alt="#">
+                            }
+
+                        </div>
+                        <h6 class="mt-3 f-14">@clsAdminSession.UserName</h6>
+                        <p>@clsAdminSession.RoleName</p>
+                    </div>
+                    <ul class="sidebar-menu">
+
+                        <li><a class="sidebar-header" href="/admin/dashboard"><i data-feather="home"></i><span>Dashboard</span></a></li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="users"></i><span>Agents</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li class="@(ViewBag.Title == "AddAgent" ? "active" : "")"><a href="/admin/agent/add"><i class="fa fa-circle"></i>Add Agent</a></li>
+                                <li class="@(ViewBag.Title == "AgentList" ? "active" : "")"><a href="/admin/agent"><i class="fa fa-circle"></i>Agent List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="user"></i><span>Students</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li class="@(ViewBag.Title == "AddStudent" ? "active" : "")"><a href="/admin/student/add"><i class="fa fa-circle"></i>Add Student</a></li>
+                                <li class="@(ViewBag.Title == "StudentList" ? "active" : "")"><a href="/admin/student"><i class="fa fa-circle"></i>Student List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Questions</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li class="@(ViewBag.Title == "AddQuestion" ? "active" : "")"><a href="/admin/question/add"><i class="fa fa-circle"></i>Add Question</a></li>
+                                <li class="@(ViewBag.Title == "QuestionList" ? "active" : "")"><a href="/admin/question"><i class="fa fa-circle"></i>Question List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Pending Fees</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li class="@(ViewBag.Title == "PendingFeeList" ? "active" : "")"><a href="/admin/fees"><i class="fa fa-circle"></i>Pending Fees List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Material/Tips</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li class="@(ViewBag.Title == "AddMaterial" ? "active" : "")"><a href="/admin/material/add"><i class="fa fa-circle"></i>Add Material</a></li>
+                                <li class="@(ViewBag.Title == "MaterialList" ? "active" : "")"><a href="/admin/material"><i class="fa fa-circle"></i>Material/Tips List</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="sidebar-header" href=""><i data-feather="settings"></i><span>Settings</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="/admin/setting"><i class="fa fa-circle"></i>Setting</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <!-- Page Sidebar Ends-->
+
+
+            <div class="page-body">
+
+                @RenderBody()
+
+            </div>
+
+            <!-- footer start-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 footer-copyright">
+                            <p class="mb-0">Copyright 2019 © Duolingo Sk - All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer end-->
+        </div>
+
+    </div>
+
+    <!-- feather icon js-->
+    <script src="~/Content/admin_assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="~/Content/admin_assets/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- Sidebar jquery-->
+    <script src="~/Content/admin_assets/js/sidebar-menu.js"></script>
+
+    <!--chartist js-->
+    <script src="~/Content/admin_assets/js/chart/chartist/chartist.js"></script>
+
+    <!--chartjs js-->
+    <script src="~/Content/admin_assets/js/chart/chartjs/chart.min.js"></script>
+
+    <!-- lazyload js-->
+    <script src="~/Content/admin_assets/js/lazysizes.min.js"></script>
+
+    <!--copycode js-->
+    <script src="~/Content/admin_assets/js/prism/prism.min.js"></script>
+    <script src="~/Content/admin_assets/js/clipboard/clipboard.min.js"></script>
+    <script src="~/Content/admin_assets/js/custom-card/custom-card.js"></script>
+
+    <!--counter js-->
+    <script src="~/Content/admin_assets/js/counter/jquery.waypoints.min.js"></script>
+    <script src="~/Content/admin_assets/js/counter/jquery.counterup.min.js"></script>
+    <script src="~/Content/admin_assets/js/counter/counter-custom.js"></script>
+
+    <!--height equal js-->
+    <script src="~/Content/admin_assets/js/height-equal.js"></script>
+
+    <!-- lazyload js-->
+    <script src="~/Content/admin_assets/js/lazysizes.min.js"></script>
+
+    <!--script admin-->
+    <script src="~/Content/admin_assets/js/admin-script.js"></script>
+
+    <!--Datepicker jquery-->
+    @*<script src="~/Content/admin_assets/js/datepicker/datepicker.js"></script>
+        <script src="~/Content/admin_assets/js/datepicker/datepicker.en.js"></script>
+        <script src="~/Content/admin_assets/js/datepicker/datepicker.custom.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+    <!-- Datatables js-->
+    <script src="~/Content/admin_assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/admin_assets/js/datatables/custom-basic.js"></script>
+
+    <!-- BlockUI js-->
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+
+    <script>
+
+        jQuery(document).ready(function () {
+
+            jQuery(".clsDatePicker").datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true
+            });
+
+        });
+
+        function StartLoading() {
+            jQuery.blockUI({ message: "<h4>Please Wait...</h4>" });
+        }
+
+        function StopLoading() {
+            jQuery.unblockUI();
+        }
+
+        $(".lowercase").keyup(function () {
+            this.value = this.value.toLowerCase();
+        });
+
+        $(".uppercase").keyup(function () {
+            this.value = this.value.toLocaleUpperCase();
+        });
+
+        $(".sentensecase").keyup(function () {
+            this.value = this.value.toLowerCase();
+            this.value = this.value.replace(/(?:^|\s)\w/g, function (match) {
+                return match.toUpperCase();
+            });
+        });
+
+        function toTitleCase(str) {
+            var lcStr = str.toLowerCase();
+            return lcStr.replace(/(?:^|\s)\w/g, function (match) {
+                return match.toUpperCase();
+            });
+        }
+
+    </script>
+
+</body>
+</html>

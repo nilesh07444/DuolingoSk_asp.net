@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DuolingoSkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_AdminUsers">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminRoleId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="350" />
+          <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="450" />
+          <Property Name="City" Type="nvarchar" MaxLength="200" />
+          <Property Name="Dob" Type="datetime" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="600" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_GeneralSetting">
+          <Key>
+            <PropertyRef Name="GeneralSettingId" />
+          </Key>
+          <Property Name="GeneralSettingId" Type="bigint" Nullable="false" />
+          <Property Name="SMTPHost" Type="nvarchar" MaxLength="150" />
+          <Property Name="SMTPPort" Type="nvarchar" MaxLength="150" />
+          <Property Name="EnableSSL" Type="bit" />
+          <Property Name="SMTPEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="SMTPPwd" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdminSMSNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdminEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="FromEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="RegistrationFee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="RenewFee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalExamAttempt" Type="int" />
+        </EntityType>
+        <EntityContainer Name="DuolingoSkModelStoreContainer">
+          <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
+    [tbl_GeneralSetting].[SMTPHost] AS [SMTPHost], 
+    [tbl_GeneralSetting].[SMTPPort] AS [SMTPPort], 
+    [tbl_GeneralSetting].[EnableSSL] AS [EnableSSL], 
+    [tbl_GeneralSetting].[SMTPEmail] AS [SMTPEmail], 
+    [tbl_GeneralSetting].[SMTPPwd] AS [SMTPPwd], 
+    [tbl_GeneralSetting].[AdminSMSNumber] AS [AdminSMSNumber], 
+    [tbl_GeneralSetting].[AdminEmail] AS [AdminEmail], 
+    [tbl_GeneralSetting].[FromEmail] AS [FromEmail], 
+    [tbl_GeneralSetting].[RegistrationFee] AS [RegistrationFee], 
+    [tbl_GeneralSetting].[RenewFee] AS [RenewFee], 
+    [tbl_GeneralSetting].[TotalExamAttempt] AS [TotalExamAttempt]
+    FROM [dbo].[tbl_GeneralSetting] AS [tbl_GeneralSetting]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DuolingoSkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_AdminUsers">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminRoleId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Dob" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="DuolingoSkModel.tbl_GeneralSetting" />
+        </EntityContainer>
+        <EntityType Name="tbl_GeneralSetting">
+          <Key>
+            <PropertyRef Name="GeneralSettingId" />
+          </Key>
+          <Property Name="GeneralSettingId" Type="Int64" Nullable="false" />
+          <Property Name="SMTPHost" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPort" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EnableSSL" Type="Boolean" />
+          <Property Name="SMTPEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPwd" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdminSMSNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdminEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FromEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationFee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalExamAttempt" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DuolingoSkModelStoreContainer" CdmEntityContainer="DuolingoSk_Entities">
+          <EntitySetMapping Name="tbl_AdminUsers">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_AdminUsers">
+              <MappingFragment StoreEntitySet="tbl_AdminUsers">
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="AdminRoleId" ColumnName="AdminRoleId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_GeneralSetting">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_GeneralSetting">
+              <MappingFragment StoreEntitySet="tbl_GeneralSetting">
+                <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
+                <ScalarProperty Name="RenewFee" ColumnName="RenewFee" />
+                <ScalarProperty Name="RegistrationFee" ColumnName="RegistrationFee" />
+                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+                <ScalarProperty Name="AdminSMSNumber" ColumnName="AdminSMSNumber" />
+                <ScalarProperty Name="SMTPPwd" ColumnName="SMTPPwd" />
+                <ScalarProperty Name="SMTPEmail" ColumnName="SMTPEmail" />
+                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
+                <ScalarProperty Name="GeneralSettingId" ColumnName="GeneralSettingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
