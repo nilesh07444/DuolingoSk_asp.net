@@ -140,7 +140,135 @@ namespace DuolingoSk.Areas.Admin.Controllers
         }
         public ActionResult Edit(int Id)
         {
-            return View();
+            tbl_QuestionsMaster objQue = _db.tbl_QuestionsMaster.Where(o => o.QuestionId == Id).FirstOrDefault();
+            List<string> mp3files = _db.tbl_Mp3Options.Where(o => o.QuestionId == Id).Select(x => x.Mp3FileName).ToList();
+            ViewData["mp3files"] = mp3files;
+            List<tbl_QuestionType> lstQuestionType = _db.tbl_QuestionType.ToList();
+            ViewData["lstQuestionType"] = lstQuestionType;
+            TimeSpan ts = TimeSpan.FromSeconds(objQue.QuestionTime.Value);
+            int Minues = ts.Minutes;
+            int seconds = ts.Seconds;
+            ViewBag.Minutes = Minues;
+            ViewBag.Seconds = seconds;
+            return View(objQue);
+        }
+
+        [HttpPost]
+        public ActionResult EditQuestion(FormCollection frm)
+        {
+            int QuestionType = Convert.ToInt32(frm["QuestionTypeId"]);
+            int QuestionId = Convert.ToInt32(frm["QuestionId"]);
+            int minutes = Convert.ToInt32(frm["minutes"]);
+            int seconds = Convert.ToInt32(frm["seconds"]);
+            string QuestionText = frm["QuestionText"].ToString();
+            tbl_QuestionsMaster objtbl_QuestionsMaster = _db.tbl_QuestionsMaster.Where(o => o.QuestionId == QuestionId).FirstOrDefault();
+            objtbl_QuestionsMaster.QuestionTypeId = QuestionType;
+            objtbl_QuestionsMaster.QuestionText = QuestionText;
+            objtbl_QuestionsMaster.QuestionTime = (minutes * 60) + seconds;
+            objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;
+            objtbl_QuestionsMaster.ModifiedBy = clsAdminSession.UserID;
+            string pathmp3 = Server.MapPath("~/QuestionMp3/");
+            string pathImg = Server.MapPath("~/QuestionImage/");
+            List<string> filenmsmp3 = new List<string>();
+            if (QuestionType == 1)
+            {
+                string optiontext = frm["QuestionOptionText"].ToString();
+                objtbl_QuestionsMaster.QuestionOptionText = optiontext;
+            }
+            else if (QuestionType == 2)
+            {
+                if (frm["EngWords"] != null)
+                {
+                    string wordss = frm["EngWords"].ToString();
+                    objtbl_QuestionsMaster.Words = wordss;
+                }
+            }
+            else if (QuestionType == 3)
+            {
+                if (frm["MaxReplay"] != null)
+                {
+                    string MaxReplay = frm["MaxReplay"].ToString();
+                    objtbl_QuestionsMaster.MaxReplay = Convert.ToInt32(MaxReplay);
+                }
+            }
+            else if (QuestionType == 6)
+            {
+                if (frm["QuestionOptionText"] != null)
+                {
+                    string QuestionOptionText = frm["QuestionOptionText"].ToString();
+                    objtbl_QuestionsMaster.QuestionOptionText = QuestionOptionText;
+                }
+                if (frm["noofwords"] != null)
+                {
+                    string noofwords = frm["noofwords"].ToString();
+                    objtbl_QuestionsMaster.NoOfWords = Convert.ToInt32(noofwords);
+                }
+
+            }
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                if (QuestionType == 3 && Request.Files.GetKey(i) == "mp3file")
+                {
+                    HttpPostedFileBase fileUpload = Request.Files.Get(i);                    
+                    if (fileUpload != null && fileUpload.ContentLength > 0)
+                    {
+                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        fileUpload.SaveAs(pathmp3 + mp3nm);
+                        objtbl_QuestionsMaster.Mp3FileName = mp3nm;
+                    }   
+                   
+                }
+                if (QuestionType == 4 && Request.Files.GetKey(i) == "imagefile")
+                {
+                    HttpPostedFileBase fileUpload = Request.Files.Get(i);
+                    if(fileUpload != null && fileUpload.ContentLength > 0)
+                    {
+                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        fileUpload.SaveAs(pathImg + mp3nm);
+                        objtbl_QuestionsMaster.ImageName = mp3nm;
+                    }                    
+                }
+                if (QuestionType == 5 && Request.Files.GetKey(i) == "mp3fileeword")
+                {
+                    HttpPostedFileBase fileUpload = Request.Files.Get(i);
+                    if(fileUpload != null && fileUpload.ContentLength > 0)
+                    {
+                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        fileUpload.SaveAs(pathmp3 + mp3nm);
+                        filenmsmp3.Add(mp3nm);
+                    }                  
+                }
+
+            }
+            //_db.tbl_QuestionsMaster.Add(objtbl_QuestionsMaster);
+            _db.SaveChanges();
+            if (QuestionType == 5)
+            {
+                List<tbl_Mp3Options> lstmp3sc = _db.tbl_Mp3Options.Where(o => o.QuestionId == QuestionId).ToList();
+                if(lstmp3sc != null && lstmp3sc.Count() > 0)
+                {
+                    foreach(var mp3opt in lstmp3sc)
+                    {
+                        _db.tbl_Mp3Options.Remove(mp3opt);
+                    }
+                    _db.SaveChanges();
+                }
+                
+                if(frm["hdnMp3s"] != null)
+                {
+                    string[] values = Request.Form.GetValues("hdnMp3s");
+                    filenmsmp3.AddRange(values.ToList());
+                }
+                foreach (string str in filenmsmp3)
+                {
+                    tbl_Mp3Options objMp3 = new tbl_Mp3Options();
+                    objMp3.QuestionId = objtbl_QuestionsMaster.QuestionId;
+                    objMp3.Mp3FileName = str;
+                    _db.tbl_Mp3Options.Add(objMp3);
+                    _db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
