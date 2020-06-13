@@ -9,11 +9,13 @@ namespace DuolingoSk.Helper
     {
         // Admin Portal Messages
         public static string EmailExists = "EmailId is already exist"; 
+        public static string MobileNoExists = "Mobile No is already exist";
 
         // Client Portal Messages
 
 
         // Folder Directory Path
+        public static string DefaultImagePath = "/Images/default_image.jpg";
         public static string UserProfileDirectoryPath = "/Images/UserProfileMedia/"; 
 
     }
