@@ -193,6 +193,9 @@
     <Compile Include="Models\tbl_QuestionsMaster.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_QuestionType.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_StudentFee.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
@@ -3852,13 +3855,6 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
-    <EntityDeploy Include="Models\DuolingoSk.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DuolingoSk.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DuolingoSk.edmx.diagram">
-      <DependentUpon>DuolingoSk.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\Add.cshtml" />
@@ -3889,6 +3885,13 @@
     <Content Include="Areas\Admin\Views\Agent\ChangePassword.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\View.cshtml" />
     <Content Include="Areas\Admin\Views\Student\View.cshtml" />
+    <EntityDeploy Include="Models\DuolingoSk.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DuolingoSk.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DuolingoSk.edmx.diagram">
+      <DependentUpon>DuolingoSk.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

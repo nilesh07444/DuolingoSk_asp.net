@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f42a9cedf09141d8b2492b39d052604c" Name="Diagram1" ZoomLevel="97">
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_AdminUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_GeneralSetting" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_Materials" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_Mp3Options" Width="1.5" PointX="3.75" PointY="5.75" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_QuestionsMaster" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_StudentFee" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DuolingoSkModel.tbl_Students" Width="1.5" PointX="7.75" PointY="0.75" />
-		<EntityTypeShape EntityType="DuolingoSkModel.tbl_QuestionType" Width="1.5" PointX="0.75" PointY="6.75" />
+      <Diagram DiagramId="0ea735332f29499faa7ea9f9d0d6f73f" Name="Diagram1" ZoomLevel="42">
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_AdminUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Materials" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Mp3Options" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionsMaster" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionType" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentFee" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Students" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_GeneralSetting" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
