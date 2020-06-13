@@ -32,6 +32,14 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "AboutUs", action = "Index", id = UrlParameter.Optional }
             );
 
+
+            context.MapRoute(
+                "Client_StartExam",
+                "startexam",
+                new { controller = "StartExam", action = "Index", id = UrlParameter.Optional }
+            );
+
+
             context.MapRoute(
                 "Client_ContactUs",
                 "contactus",
