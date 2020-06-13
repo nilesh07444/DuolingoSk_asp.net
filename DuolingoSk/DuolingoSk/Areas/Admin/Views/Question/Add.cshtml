@@ -1,7 +1,316 @@
-﻿
+﻿@using DuolingoSk.Models;
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add Question";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<tbl_QuestionType> lstQuestionty = ViewData["lstQuestionType"] as List<tbl_QuestionType>;
 }
+<style>
+    .mrb5{
+        margin-bottom:5px;
+        margin-right:5px;
+        display:inline-block;
+    }
+    .wdth330{
+        width:330px;
+    }
+</style>
+<div class="page-body">
 
-<h2>Add</h2>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header-left">
+                        <h3>
+                            Add Question
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/admin/question">Question</a></li>
+                        <li class="breadcrumb-item active">Add Question</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Add Question</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/admin/question/AddQuestion" class="needs-validation" enctype="multipart/form-data" id="QuestionFormId" method="post" role="form" onsubmit="return checkdetails();">
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4" for="QuestionTypeId">Question Type*</label>
+                                <select class="form-control col-md-8" id="QuestionTypeId" name="QuestionTypeId" style="">
+                                    <option value="">- Select Question Type -</option>
+                                    @if (lstQuestionty != null && lstQuestionty.Count() > 0)
+                                    {
+                                        foreach (var objqutyp in lstQuestionty)
+                                        {
+                                            <option value="@objqutyp.QuestionTypeId">@objqutyp.QuestionTypeName</option>
+                                        }
+                                    }
+                                </select>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4" for="QuestionTime">Question Duration*</label>
+                                <select class="form-control" id="minutes" name="minutes" style="width:100px;">
+                                    <option value="">Minute</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
+                                <select class="form-control" id="seconds" name="seconds" style="width:110px;margin-left:5px;">
+                                    <option value="">Seconds</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4" for="QuestionText">Question *</label>
+                                <input class="form-control col-md-8 text-box" id="QuestionText" maxlength="600" name="QuestionText" placeholder="Enter Question" style="width:350px;" type="text" value="" autocomplete="off">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype1">
+                                <label class="col-xl-12 col-md-12"><b>Note: </b>Enter Paragraph below. Put "_" for missing letter</label>
+                            </div>
+                            <div class="form-group row dvtype dvtype1 dvtype6">
+                                <label class="col-xl-3 col-md-4" for="QuestionOptionText">Question Option Text *</label>
+                                <textarea class="form-control col-md-8" id="QuestionOptionText" name="QuestionOptionText" style="min-height:125px;">                                
+                                </textarea>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype6">
+                                <label class="col-xl-3 col-md-4" for="noofwords">No of Words *</label>
+                                <input type="number" class="form-control" style="width:100px;" name="noofwords" />
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype2">
+                                <label class="col-xl-3 col-md-4">English Words *</label>
+                                <div class="col-md-8">
+                                    <div class="dvEngWords">
+                                        <div class="dveng">
+                                            <input type="text" class="form-control mrb5" name="EngWords" placeholder="Enter English Word" style="width:250px;" />
+                                            <a href="javascript:void(0);" onclick="deletethisword(this);"><i class="fa fa-trash font-danger"></i></a>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0);" style="color:blue;" onclick="AddNewWord();">Add New</a>
+                                    <span class="field-validation-valid text-danger"></span>
+                                </div>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype3">
+                                <label class="col-xl-3 col-md-4" for="mp3file">Mp3 File *</label>
+                                <input type="file" class="form-control col-md-8" name="mp3file" accept=".mp3,audio/*" />
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype3">
+                                <label class="col-xl-3 col-md-4" for="MaxReplay">Maximum Replay *</label>
+                                <input type="number" class="form-control" style="width:100px;" name="MaxReplay" />
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype4">
+                                <label class="col-xl-3 col-md-4" for="imagefile">Image *</label>
+                                <input type="file" class="form-control col-md-8" name="imagefile" accept="image/*"/>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype5">
+                                <label class="col-xl-12 col-md-12"><b>Note: </b>Upload Mp3 Files</label>
+                            </div>
+                            <div class="form-group row dvtype dvtype5">
+                                <label class="col-xl-3 col-md-4">Mp3 Files *</label>
+                                <div class="col-md-8">
+                                    <div class="dvMp3Files">
+                                        <div class="dvmp33">
+                                            <input type="file" class="form-control mrb5 wdth330" name="mp3fileeword" />
+                                            <a href="javascript:void(0);" onclick="deletethismp3(this);"><i class="fa fa-trash font-danger"></i></a>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0);" style="color:blue;" onclick="AddNewMp3File();">Add New Mp3 File</a>
+                                    <span class="field-validation-valid text-danger"></span>
+                                </div>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                              
+                            </div>
+                            <div class="form-group row">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <button type="submit" class="btn btn-primary" style="margin-right:10px;">Submit</button>
+                                <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
 
+</div>
+
+<div class="dvSampleWords" style="display:none;">
+    <div class="dveng">
+        <input type="text" class="form-control mrb5" name="EngWords" placeholder="Enter English Word" style="width:250px;" />
+        <a href="javascript:void(0);" onclick="deletethisword(this);"><i class="fa fa-trash font-danger"></i></a>
+    </div>
+</div>
+<div class="dvmp3fl" style="display:none;">
+    <div class="dvmp33">
+        <input type="file" class="form-control mrb5 wdth330" name="mp3fileeword" />
+        <a href="javascript:void(0);" onclick="deletethismp3(this);"><i class="fa fa-trash font-danger"></i></a>
+    </div>
+</div>
+<script src="~/Content/assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
+
+<script>
+    $(".dvtype").hide();
+    $(document).on("click", "#btnCancel", function () {
+        window.location.href = "/admin/question";
+    });
+
+    $("#QuestionTypeId").change(function () {
+        $(".dvtype").hide();
+        $(".dvtype" + $(this).val()).show();
+    });
+
+    function deletethisword(objthis) {
+        $(objthis).parents('div.dveng').remove();
+    }
+
+    function AddNewWord() {
+        $(".dvEngWords").append($(".dvSampleWords").html());
+    }
+
+    function AddNewMp3File() {
+        $(".dvMp3Files").append($(".dvmp3fl").html());
+        
+    }
+    function deletethismp3(objthis) {
+        $(objthis).parents('div.dvmp33').remove();
+    }
+    function checkdetails() {
+        $(".text-danger").html("");
+        var flg = true;
+        if ($("#QuestionTypeId").val() == "") {
+            $("#QuestionTypeId").siblings('span.text-danger').html("Please Select Question Type");
+            flg = false;
+        }
+
+        if ($("#minutes").val() == "" || $("#seconds").val() == "") {
+            $("#minutes").siblings('span.text-danger').html("Please Select Minutes and Seconds");
+            flg = false;
+        }
+
+        if ($("#QuestionText").val() == "") {
+              $("#QuestionText").siblings('span.text-danger').html("Please Enter Question");
+            flg = false;
+        }
+
+        if ($("#QuestionTypeId").val() != "") {
+            if ($("#QuestionTypeId").val() == "1") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option");
+                    flg = false;
+                }
+                else {
+                    if ($("#QuestionOptionText").val().indexOf('_') < 0) {
+                         $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Paragraph with '_' for missing letter");
+                         flg = false;
+                    }
+                }
+            }
+
+            if ($("#QuestionTypeId").val() == "2") {
+                $(".dvEngWords input[name=EngWords]").each(function () {
+                    if ($(this).val() == "") {
+                        $(".dvEngWords").siblings('span.text-danger').html("Please Enter English Word");
+                         flg = false;
+                    }
+                });
+            }
+
+            if ($("#QuestionTypeId").val() == "3") {
+                if ($("input[name=mp3file]").prop('files')[0] == undefined) {
+                    $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Mp3 file");
+                    flg = false;
+                }
+                else {
+                    if ($("input[name=mp3file]").prop('files')[0].name.indexOf('.mp3') < 0) {
+                         $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Valid Mp3 file");
+                    flg = false;
+                    }
+                }
+                  if ($("input[name=MaxReplay]").val() == "" || parseInt($("input[name=MaxReplay]").val()) <= 0) {
+                    $("input[name=MaxReplay]").siblings('span.text-danger').html("Please Enter Maximum Replay for Mp3 file");
+                    flg = false;
+                }                
+            }
+
+            if ($("#QuestionTypeId").val() == "4") {
+                 if ($("input[name=imagefile]").prop('files')[0] == undefined) {
+                    $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Image file");
+                    flg = false;
+                }
+                 else {
+                     var typ = $("input[name=imagefile]").prop('files')[0].type;
+                    if (!(typ.indexOf('/png') >= 0 || typ.indexOf('/jpeg') >= 0 || typ.indexOf('/jpg') >= 0)) {
+                         $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Valid Image file");
+                        flg = false;
+                    }
+                }
+                
+            }
+            if ($("#QuestionTypeId").val() == "5") {
+                  $(".dvMp3Files input[name=mp3fileeword]").each(function () {
+                    if ($(this).prop('files')[0] == undefined || $(this).prop('files')[0].name.indexOf('.mp3') < 0) {
+                        $(".dvMp3Files").siblings('span.text-danger').html("Please Select Valid Mp3 File");
+                        flg = false;
+                    }
+                });
+            }
+           
+           if ($("#QuestionTypeId").val() == "6") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option");
+                    flg = false;
+                }
+                 if ( $("input[name=noofwords]").val() == "" || parseInt($("input[name=noofwords]").val()) <= 0) {
+                    $("input[name=noofwords]").siblings('span.text-danger').html("Please Enter No of Words Minimum");
+                    flg = false;
+                }
+                
+            }
+            
+        }
+        
+        return flg;
+    }
+</script>

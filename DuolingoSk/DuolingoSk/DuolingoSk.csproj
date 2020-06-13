@@ -207,8 +207,10 @@
     <Compile Include="ViewModel\EmailMessageVM.cs" />
     <Compile Include="ViewModel\GeneralVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
+    <Compile Include="ViewModel\Mp3OptionsVM.cs" />
     <Compile Include="ViewModel\OtpVM.cs" />
     <Compile Include="ViewModel\PwdVM.cs" />
+    <Compile Include="ViewModel\QuestionVM.cs" />
     <Compile Include="ViewModel\RegisterVM.cs" />
   </ItemGroup>
   <ItemGroup>

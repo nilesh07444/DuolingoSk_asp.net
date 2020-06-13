@@ -1,7 +1,243 @@
-﻿
+﻿@model List<QuestionVM>
+@using DuolingoSk.Models;
+@using DuolingoSk.ViewModel;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Questions";
+    List<tbl_QuestionType> lstQuestionty = ViewData["lstQuestionType"] as List<tbl_QuestionType>;
+    int counter = 1;
 }
 
-<h2>Index</h2>
+<div class="page-body">
 
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Questions
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Questions</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Questions</h5>
+            </div>
+            <div class="card-body vendor-table">
+                <h3>Filter:</h3>
+                <div class="row" style="margin-top:25px;border-bottom: 2px solid #f8f8f9;padding-bottom: 25px;margin-bottom: 10px;">
+
+                    <div class="col-sm-2">
+                        <label>Question Type</label>
+                        <select id="selectQuestiontype" class="form-control" onchange="filterque();" style="width:250px;">
+                            <option value="-1">All</option>
+                            @if (lstQuestionty != null && lstQuestionty.Count() > 0)
+                            {
+                                foreach (var objqutyp in lstQuestionty)
+                                {
+                                    <option value="@objqutyp.QuestionTypeId">@objqutyp.QuestionTypeName</option>
+                                }
+                            }
+                        </select>
+                    </div>                   
+                </div>
+                <div class="btn-popup pull-right">
+                    <button type="button" class="btn btn-primary" id="btnAdd">Add Question</button>
+                </div>
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="10%;">#</th>
+                            <th width="15%;">Question Text</th>
+                            <th>Question Type</th>                            
+                            <th width="15%;">Active</th>
+                            <th width="15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (QuestionVM que in Model)
+                            {
+                                <tr class="gradeX">
+                                    <td>@counter.</td>
+                                    <td>@que.QuestionText</td>
+                                    <td>@que.QuestionTypeText</td>
+                                    @if (que.IsActive == true)
+                                    {
+                                        <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@que.QuestionId','InActive');">Active</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@que.QuestionId','Active');">InActive</span></td>
+                                    }
+                                    <td>
+                                            <a href="/admin/question/edit/@que.QuestionId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                            <a href="javascript:void(0);" onclick="fnDeleteQuestion('@que.QuestionId')"><i class="fa fa-trash font-danger"></i></a>
+                                     </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteQuestionModal" tabindex="-1" role="dialog" aria-labelledby="deleteQuestionModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteQuestion" />
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button id="btnDeleteQuestion" class="btn btn-primary" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete modal -->
+<div class="modal fade open" id="activeinactiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdndataId" />
+                <input type="hidden" id="hdnstatus" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnChangeStatus" class="btn btn-primary" type="button">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on("click", "#btnAdd", function () {
+        window.location.href = "/admin/question/add";
+    });
+      $(document).ready(function () {
+         $("#selectQuestiontype").val("@ViewBag.Type");                
+    });
+   
+    jQuery(document).on("click", "#btnDeleteQuestion", function () {
+
+        var QuestionId = jQuery("#hdnDeleteQuestion").val();
+        if (QuestionId != "" && QuestionId != null) {
+            $('#deleteQuestionModal').modal('hide');
+            $.blockUI({ message: "<h4>Please Wait...</h4>" });
+            var URL = '@Url.Action("DeleteQuestion", "Question")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?QuestionId=" + QuestionId,
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Question deleted successfully");
+                        window.location.reload();
+                    }
+                    else if (result == "notfound") {
+                        alert("Question Not Found");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                    $.unblockUI();
+                },
+                error: function (resultData) {
+                    console.log("error");
+                    $.unblockUI();
+                }
+            });
+        }
+    });
+
+    function fnDeleteQuestion(queid) {
+        jQuery("#hdnDeleteQuestion").val(queid);
+        $('#deleteQuestionModal').modal('show');
+        }
+
+     function fnChangeStatus(queid,status) {
+         jQuery("#hdndataId").val(queid);
+         jQuery("#hdnstatus").val(status);
+         if (status == "Active") {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make active ?");
+         }
+         else {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make inactive ?");
+         }
+        $('#activeinactiveModal').modal('show');
+    }
+
+       jQuery(document).on("click", "#btnChangeStatus", function () {
+
+        var Id = jQuery("#hdndataId").val();
+        if (Id != "" && Id != null) {
+            $('#activeinactiveModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("ChangeStatus", "Question")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Id=" + Id+"&Status="+jQuery("#hdnstatus").val(),
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Status change Successfully...");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+       });
+
+    
+    function filterque() {
+           var typeid = $("#selectQuestiontype").val();
+        var catid = $("#selectcat").val();
+        
+        location.href = "/admin/question?Type="+typeid;
+    }
+
+</script>

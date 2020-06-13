@@ -140,6 +140,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
+		  <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
@@ -194,6 +195,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_QuestionsMaster" EntityType="DuolingoSkModel.tbl_QuestionsMaster" />
           <EntitySet Name="tbl_StudentFee" EntityType="DuolingoSkModel.tbl_StudentFee" />
           <EntitySet Name="tbl_Students" EntityType="DuolingoSkModel.tbl_Students" />
+		  <EntitySet Name="tbl_QuestionType" EntityType="DuolingoSkModel.tbl_QuestionType" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
