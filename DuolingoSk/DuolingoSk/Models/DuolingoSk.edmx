@@ -47,8 +47,50 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_Mp3Options">
+          <Key>
+            <PropertyRef Name="Mp3OptionId" />
+          </Key>
+          <Property Name="Mp3OptionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="bigint" />
+          <Property Name="Mp3FileName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Mp3Text" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsCorrect" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionsMaster">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionText" Type="nvarchar(max)" />
+          <Property Name="QuestionTime" Type="int" />
+          <Property Name="QuestionTypeId" Type="int" />
+          <Property Name="QuestionOptionText" Type="nvarchar(max)" />
+          <Property Name="Words" Type="nvarchar(max)" />
+          <Property Name="Mp3FileName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Mp3FileText" Type="nvarchar(max)" />
+          <Property Name="MaxReplay" Type="int" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="150" />
+          <Property Name="NoOfWords" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionType">
+          <Key>
+            <PropertyRef Name="QuestionTypeId" />
+          </Key>
+          <Property Name="QuestionTypeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionTypeName" Type="nvarchar" MaxLength="950" />
+        </EntityType>
         <EntityContainer Name="DuolingoSkModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
@@ -96,6 +138,9 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
         <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="DuolingoSkModel.tbl_GeneralSetting" />
+          <EntitySet Name="tbl_Mp3Options" EntityType="DuolingoSkModel.tbl_Mp3Options" />
+          <EntitySet Name="tbl_QuestionsMaster" EntityType="DuolingoSkModel.tbl_QuestionsMaster" />
+          <EntitySet Name="tbl_QuestionType" EntityType="DuolingoSkModel.tbl_QuestionType" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -113,6 +158,45 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RegistrationFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_Mp3Options">
+          <Key>
+            <PropertyRef Name="Mp3OptionId" />
+          </Key>
+          <Property Name="Mp3OptionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int64" />
+          <Property Name="Mp3FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Mp3Text" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsCorrect" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionsMaster">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionTime" Type="Int32" />
+          <Property Name="QuestionTypeId" Type="Int32" />
+          <Property Name="QuestionOptionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Words" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mp3FileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Mp3FileText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaxReplay" Type="Int32" />
+          <Property Name="ImageName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NoOfWords" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionType">
+          <Key>
+            <PropertyRef Name="QuestionTypeId" />
+          </Key>
+          <Property Name="QuestionTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionTypeName" Type="String" MaxLength="950" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -159,6 +243,48 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
                 <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
                 <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
                 <ScalarProperty Name="GeneralSettingId" ColumnName="GeneralSettingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Mp3Options">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_Mp3Options">
+              <MappingFragment StoreEntitySet="tbl_Mp3Options">
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="Mp3Text" ColumnName="Mp3Text" />
+                <ScalarProperty Name="Mp3FileName" ColumnName="Mp3FileName" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Mp3OptionId" ColumnName="Mp3OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_QuestionsMaster">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_QuestionsMaster">
+              <MappingFragment StoreEntitySet="tbl_QuestionsMaster">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="NoOfWords" ColumnName="NoOfWords" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="MaxReplay" ColumnName="MaxReplay" />
+                <ScalarProperty Name="Mp3FileText" ColumnName="Mp3FileText" />
+                <ScalarProperty Name="Mp3FileName" ColumnName="Mp3FileName" />
+                <ScalarProperty Name="Words" ColumnName="Words" />
+                <ScalarProperty Name="QuestionOptionText" ColumnName="QuestionOptionText" />
+                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+                <ScalarProperty Name="QuestionTime" ColumnName="QuestionTime" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_QuestionType">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_QuestionType">
+              <MappingFragment StoreEntitySet="tbl_QuestionType">
+                <ScalarProperty Name="QuestionTypeName" ColumnName="QuestionTypeName" />
+                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

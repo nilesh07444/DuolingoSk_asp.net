@@ -184,6 +184,15 @@
     <Compile Include="Models\tbl_GeneralSetting.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Mp3Options.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_QuestionsMaster.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_QuestionType.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ClientUserVM.cs" />
     <Compile Include="ViewModel\DashboardCountVM.cs" />
