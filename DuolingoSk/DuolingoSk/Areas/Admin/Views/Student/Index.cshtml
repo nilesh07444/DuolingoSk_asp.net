@@ -1,7 +1,234 @@
-﻿
+﻿@using DuolingoSk.Model; 
+@using DuolingoSk.Helper;
+
+@model List<StudentVM>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Student";
+
+    int counter = 1;
 }
 
-<h2>Index</h2>
+<div class="page-body">
 
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Student List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Student List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Student List</h5>
+            </div>
+            <div class="card-body vendor-table">
+
+                @if (clsAdminSession.RoleID == (int)AdminRoles.Agent)
+                {
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-primary" id="btnAdd">Add Student</button>
+                    </div>
+                }
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="10%;">#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email Id</th>
+                            <th>Mobile No</th>
+                            <th width="15%;">Active</th>
+                            <th width="15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (StudentVM obj in Model)
+                            {
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@obj.FirstName</td>
+                                    <td>@obj.LastName</td>
+                                    <td>@obj.Email</td>
+                                    <td>@obj.MobileNo</td>
+                                    @if (obj.IsActive == true)
+                                    {
+                                        <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.StudentId','InActive');">Active</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@obj.StudentId','Active');">InActive</span></td>
+                                    }
+
+                                    <td>
+                                        <a title="View" href="/admin/student/view/@obj.StudentId"><i class="fa fa-eye mr-2 font-success"></i></a>
+                                        <a title="Edit" href="/admin/student/edit/@obj.StudentId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                        <a title="Delete" href="javascript:void(0);" onclick="fnDeleteAdminUser('@obj.StudentId')"><i class="fa fa-trash font-danger"></i></a>
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade open" id="deleteStudentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteStudent" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnDeleteStudent" class="btn btn-primary" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete modal -->
+
+<div class="modal fade open" id="activeinactiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdndataId" />
+                <input type="hidden" id="hdnstatus" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnChangeStatus" class="btn btn-primary" type="button">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+    $(document).on("click", "#btnAdd", function () {
+        window.location.href = "/admin/student/add";
+    });
+
+    function fnDeleteAdminUser(cat_id) {
+        jQuery("#hdnDeleteStudent").val(cat_id);
+        $('#deleteStudentModal').modal('show');
+    }
+
+    jQuery(document).on("click", "#btnDeleteStudent", function () {
+
+        var Student_id = jQuery("#hdnDeleteStudent").val();
+        if (Student_id != "" && AdminUser_id != null) {
+            $('#deleteStudentModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("DeleteStudent", "Student")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?StudentId=" + Student_id,
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Student deleted successfully");
+                        window.location.reload();
+                    }
+                    else if (result == "notfound") {
+                        alert("Student Not Found");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+     function fnChangeStatus(cat_id,status) {
+         jQuery("#hdndataId").val(cat_id);
+         jQuery("#hdnstatus").val(status);
+         if (status == "Active") {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make active ?");
+         }
+         else {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make inactive ?");
+         }
+        $('#activeinactiveModal').modal('show');
+    }
+
+       jQuery(document).on("click", "#btnChangeStatus", function () {
+
+        var Id = jQuery("#hdndataId").val();
+        if (Id != "" && Id != null) {
+            $('#activeinactiveModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("ChangeStatus", "Student")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Id=" + Id+"&Status="+jQuery("#hdnstatus").val(),
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Status change successfully...");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+</script>

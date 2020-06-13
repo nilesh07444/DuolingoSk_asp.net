@@ -21,6 +21,8 @@
           <Property Name="Dob" Type="datetime" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="600" />
           <Property Name="ProfilePicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="StudentRegistrationFee" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="StudentRenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" />
@@ -46,6 +48,21 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RegistrationFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Materials">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaterialType" Type="int" Nullable="false" />
+          <Property Name="MaterialFile" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Mp3Options">
           <Key>
@@ -79,18 +96,51 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="tbl_QuestionType">
+        <EntityType Name="tbl_StudentFee">
           <Key>
-            <PropertyRef Name="QuestionTypeId" />
+            <PropertyRef Name="StudentFeeId" />
           </Key>
-          <Property Name="QuestionTypeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionTypeName" Type="nvarchar" MaxLength="950" />
+          <Property Name="StudentFeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="FeeStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FeeAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalExamAttempt" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="RequestedDate" Type="datetime" Nullable="false" />
+          <Property Name="MarkCompleteDate" Type="datetime" />
+          <Property Name="MarkCompleteBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Students">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminUserId" Type="bigint" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="350" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="450" />
+          <Property Name="City" Type="nvarchar" MaxLength="200" />
+          <Property Name="Dob" Type="datetime" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="600" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityContainer Name="DuolingoSkModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
+		  <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
@@ -134,13 +184,18 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="StudentRegistrationFee" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StudentRenewFee" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="DuolingoSkModel.tbl_GeneralSetting" />
+          <EntitySet Name="tbl_Materials" EntityType="DuolingoSkModel.tbl_Materials" />
           <EntitySet Name="tbl_Mp3Options" EntityType="DuolingoSkModel.tbl_Mp3Options" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="DuolingoSkModel.tbl_QuestionsMaster" />
-          <EntitySet Name="tbl_QuestionType" EntityType="DuolingoSkModel.tbl_QuestionType" />
+          <EntitySet Name="tbl_StudentFee" EntityType="DuolingoSkModel.tbl_StudentFee" />
+          <EntitySet Name="tbl_Students" EntityType="DuolingoSkModel.tbl_Students" />
+		  <EntitySet Name="tbl_QuestionType" EntityType="DuolingoSkModel.tbl_QuestionType" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -158,6 +213,21 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RegistrationFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_Materials">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialType" Type="Int32" Nullable="false" />
+          <Property Name="MaterialFile" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_Mp3Options">
           <Key>
@@ -191,12 +261,42 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_QuestionType">
+        <EntityType Name="tbl_StudentFee">
           <Key>
-            <PropertyRef Name="QuestionTypeId" />
+            <PropertyRef Name="StudentFeeId" />
           </Key>
-          <Property Name="QuestionTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionTypeName" Type="String" MaxLength="950" FixedLength="false" Unicode="true" />
+          <Property Name="StudentFeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="FeeStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FeeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalExamAttempt" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="RequestedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MarkCompleteDate" Type="DateTime" Precision="3" />
+          <Property Name="MarkCompleteBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_Students">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminUserId" Type="Int64" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Dob" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -207,6 +307,8 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_AdminUsers">
             <EntityTypeMapping TypeName="DuolingoSkModel.tbl_AdminUsers">
               <MappingFragment StoreEntitySet="tbl_AdminUsers">
+                <ScalarProperty Name="StudentRenewFee" ColumnName="StudentRenewFee" />
+                <ScalarProperty Name="StudentRegistrationFee" ColumnName="StudentRegistrationFee" />
                 <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
                 <ScalarProperty Name="AdminRoleId" ColumnName="AdminRoleId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -246,6 +348,22 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Materials">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_Materials">
+              <MappingFragment StoreEntitySet="tbl_Materials">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaterialFile" ColumnName="MaterialFile" />
+                <ScalarProperty Name="MaterialType" ColumnName="MaterialType" />
+                <ScalarProperty Name="MaterialTitle" ColumnName="MaterialTitle" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Mp3Options">
             <EntityTypeMapping TypeName="DuolingoSkModel.tbl_Mp3Options">
               <MappingFragment StoreEntitySet="tbl_Mp3Options">
@@ -280,11 +398,42 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_QuestionType">
-            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_QuestionType">
-              <MappingFragment StoreEntitySet="tbl_QuestionType">
-                <ScalarProperty Name="QuestionTypeName" ColumnName="QuestionTypeName" />
-                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+          <EntitySetMapping Name="tbl_StudentFee">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_StudentFee">
+              <MappingFragment StoreEntitySet="tbl_StudentFee">
+                <ScalarProperty Name="MarkCompleteBy" ColumnName="MarkCompleteBy" />
+                <ScalarProperty Name="MarkCompleteDate" ColumnName="MarkCompleteDate" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
+                <ScalarProperty Name="FeeAmount" ColumnName="FeeAmount" />
+                <ScalarProperty Name="FeeStatus" ColumnName="FeeStatus" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Students">
+            <EntityTypeMapping TypeName="DuolingoSkModel.tbl_Students">
+              <MappingFragment StoreEntitySet="tbl_Students">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

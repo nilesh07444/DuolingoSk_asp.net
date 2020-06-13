@@ -12,27 +12,17 @@ namespace DuolingoSk.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_AdminUsers
+    public partial class tbl_Materials
     {
-        public long AdminUserId { get; set; }
-        public int AdminRoleId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string MobileNo { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public Nullable<System.DateTime> Dob { get; set; }
-        public string Remarks { get; set; }
-        public string ProfilePicture { get; set; }
+        public int MaterialId { get; set; }
+        public string MaterialTitle { get; set; }
+        public int MaterialType { get; set; }
+        public string MaterialFile { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<decimal> StudentRegistrationFee { get; set; }
-        public Nullable<decimal> StudentRenewFee { get; set; }
     }
 }

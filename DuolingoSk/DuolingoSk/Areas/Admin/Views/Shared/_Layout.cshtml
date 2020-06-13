@@ -1,6 +1,7 @@
 ﻿@using DuolingoSk.Model;
 @using DuolingoSk.Models;
 @using Newtonsoft.Json;
+@using DuolingoSk.Helper;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +94,7 @@
                             <div class="media align-items-center">
                                 @if (clsAdminSession.ImagePath != "")
                                 {
-                                    <img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="~/Images/AdminUserMedia/@clsAdminSession.ImagePath" alt="#">
+                                    <img class="align-self-center pull-right img-50 rounded-circle blur-up lazyloaded" src="~/Images/UserProfileMedia/@clsAdminSession.ImagePath" alt="#">
                                 }
                                 else
                                 {
@@ -105,7 +106,10 @@
                             <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
                                 <li><a href="/admin/myprofile"><i data-feather="user"></i>My Profile</a></li>
                                 <li><a href="/admin/agent/changepassword"><i data-feather="lock"></i>Change Password</a></li>
-                                <li><a href="/admin/setting"><i data-feather="settings"></i>Settings</a></li>
+                                @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                                {
+                                    <li><a href="/admin/setting"><i data-feather="settings"></i>Settings</a></li>
+                                }
                                 <li><a href="/admin/login/signout"><i data-feather="log-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -134,7 +138,7 @@
                         <div>
                             @if (clsAdminSession.ImagePath != "")
                             {
-                                <img class="img-60 rounded-circle lazyloaded blur-up" src="~/Images/AdminUserMedia/@clsAdminSession.ImagePath" alt="#">
+                                <img class="img-60 rounded-circle lazyloaded blur-up" src="~/Images/UserProfileMedia/@clsAdminSession.ImagePath" alt="#">
                             }
                             else
                             {
@@ -149,52 +153,60 @@
 
                         <li><a class="sidebar-header" href="/admin/dashboard"><i data-feather="home"></i><span>Dashboard</span></a></li>
 
-                        <li>
-                            <a class="sidebar-header" href=""><i data-feather="users"></i><span>Agents</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "AddAgent" ? "active" : "")"><a href="/admin/agent/add"><i class="fa fa-circle"></i>Add Agent</a></li>
-                                <li class="@(ViewBag.Title == "AgentList" ? "active" : "")"><a href="/admin/agent"><i class="fa fa-circle"></i>Agent List</a></li>
-                            </ul>
-                        </li>
+                        @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                        {
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="users"></i><span>Agents</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddAgent" ? "active" : "")"><a href="/admin/agent/add"><i class="fa fa-circle"></i>Add Agent</a></li>
+                                    <li class="@(ViewBag.Title == "AgentList" ? "active" : "")"><a href="/admin/agent"><i class="fa fa-circle"></i>Agent List</a></li>
+                                </ul>
+                            </li>
+                        }
 
                         <li>
                             <a class="sidebar-header" href=""><i data-feather="user"></i><span>Students</span><i class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "AddStudent" ? "active" : "")"><a href="/admin/student/add"><i class="fa fa-circle"></i>Add Student</a></li>
+                                @if (clsAdminSession.RoleID == (int)AdminRoles.Agent)
+                                {
+                                    <li class="@(ViewBag.Title == "AddStudent" ? "active" : "")"><a href="/admin/student/add"><i class="fa fa-circle"></i>Add Student</a></li>
+                                }
                                 <li class="@(ViewBag.Title == "StudentList" ? "active" : "")"><a href="/admin/student"><i class="fa fa-circle"></i>Student List</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Questions</span><i class="fa fa-angle-right pull-right"></i></a>
+                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Student Fees</span><i class="fa fa-angle-right pull-right"></i></a>
                             <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "AddQuestion" ? "active" : "")"><a href="/admin/question/add"><i class="fa fa-circle"></i>Add Question</a></li>
-                                <li class="@(ViewBag.Title == "QuestionList" ? "active" : "")"><a href="/admin/question"><i class="fa fa-circle"></i>Question List</a></li>
+                                <li class="@(ViewBag.Title == "StudentFeeList" ? "active" : "")"><a href="/admin/fees"><i class="fa fa-circle"></i>Student Fees List</a></li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Pending Fees</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "PendingFeeList" ? "active" : "")"><a href="/admin/fees"><i class="fa fa-circle"></i>Pending Fees List</a></li>
-                            </ul>
-                        </li>
+                        @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                        {
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Questions</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddQuestion" ? "active" : "")"><a href="/admin/question/add"><i class="fa fa-circle"></i>Add Question</a></li>
+                                    <li class="@(ViewBag.Title == "QuestionList" ? "active" : "")"><a href="/admin/question"><i class="fa fa-circle"></i>Question List</a></li>
+                                </ul>
+                            </li>
 
-                        <li>
-                            <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Material/Tips</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "AddMaterial" ? "active" : "")"><a href="/admin/material/add"><i class="fa fa-circle"></i>Add Material</a></li>
-                                <li class="@(ViewBag.Title == "MaterialList" ? "active" : "")"><a href="/admin/material"><i class="fa fa-circle"></i>Material/Tips List</a></li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Material/Tips</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddMaterial" ? "active" : "")"><a href="/admin/material/add"><i class="fa fa-circle"></i>Add Material</a></li>
+                                    <li class="@(ViewBag.Title == "MaterialList" ? "active" : "")"><a href="/admin/material"><i class="fa fa-circle"></i>Material/Tips List</a></li>
+                                </ul>
+                            </li>
 
-                        <li>
-                            <a class="sidebar-header" href=""><i data-feather="settings"></i><span>Settings</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li><a href="/admin/setting"><i class="fa fa-circle"></i>Setting</a></li>
-                            </ul>
-                        </li>
-
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="settings"></i><span>Settings</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/admin/setting"><i class="fa fa-circle"></i>Setting</a></li>
+                                </ul>
+                            </li>
+                        }
 
                     </ul>
                 </div>

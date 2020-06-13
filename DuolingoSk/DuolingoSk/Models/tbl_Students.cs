@@ -12,15 +12,15 @@ namespace DuolingoSk.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_AdminUsers
+    public partial class tbl_Students
     {
-        public long AdminUserId { get; set; }
-        public int AdminRoleId { get; set; }
+        public int StudentId { get; set; }
+        public Nullable<long> AdminUserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string MobileNo { get; set; }
+        public string Password { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public Nullable<System.DateTime> Dob { get; set; }
@@ -32,7 +32,5 @@ namespace DuolingoSk.Models
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<decimal> StudentRegistrationFee { get; set; }
-        public Nullable<decimal> StudentRenewFee { get; set; }
     }
 }

@@ -1,7 +1,153 @@
-﻿
+﻿@model List<StudentFeeVM>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Student Fee List";
+
+    int counter = 1;
 }
 
-<h2>Index</h2>
+<div class="page-body">
 
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Student Fee List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Student Fee List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Student Fee List</h5>
+            </div>
+            <div class="card-body vendor-table">
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="5%;">#</th>
+                            <th>Request Date</th>
+                            <th>Student Name</th>
+                            <th>Agent Name</th>
+                            <th>Fee Amount</th>
+                            <th>Total Attempt</th>
+                            <th>Fee Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (StudentFeeVM obj in Model)
+                            {
+                        <tr class="grade">
+                            <td>@counter.</td>
+                            <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
+                            <td>@obj.StudentName</td>
+                            <td>@obj.AgentName</td>
+                            <td>@obj.FeeAmount</td>
+                            <td>@obj.TotalExamAttempt</td>
+                            <td>
+                                @if (obj.FeeStatus == "Complete")
+                                {
+                                    <span class="badge badge-success">@obj.FeeStatus</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-primary" style="cursor:pointer;" title="Mark as Complete" href="javascript:void(0);" onclick="fnMarkCompleFee('@obj.StudentFeeId')">@obj.FeeStatus</span>
+                                }
+                            </td>
+                        </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade open" id="markCompleteFeeStatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Complete Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to complete payment ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnStudentFeeId" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnMarkCompleteFeeStatus" class="btn btn-primary" type="button">Complete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete modal -->
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+    function fnMarkCompleFee(StudentFeeId) {
+        jQuery("#hdnStudentFeeId").val(StudentFeeId);
+        $('#markCompleteFeeStatusModal').modal('show');
+    }
+
+    jQuery(document).on("click", "#btnMarkCompleteFeeStatus", function () {
+
+        var StudentFeeId = jQuery("#hdnStudentFeeId").val();
+        if (StudentFeeId != "" && StudentFeeId != null) {
+            $('#markCompleteFeeStatusModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("MarkCompleteFeeStatus", "Fees")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?StudentFeeId=" + StudentFeeId,
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Status updated successfully");
+                        window.location.reload();
+                    }
+                    else if (result == "notfound") {
+                        alert("Fee Id Not Found");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+</script>

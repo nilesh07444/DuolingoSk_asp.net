@@ -1,7 +1,233 @@
-﻿
+﻿@model List<AdminUserVM>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "AdminUser";
+
+    int counter = 1;
 }
 
-<h2>Index</h2>
+<div class="page-body">
 
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Agent List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Agent List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Agent List</h5>
+            </div>
+            <div class="card-body vendor-table">
+
+                <div class="btn-popup pull-right">
+                    <button type="button" class="btn btn-primary" id="btnAdd">Add Agent</button>
+                </div>
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="5%;">#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Mobile No</th>
+                            <th>Registration Fee</th>
+                            <th>Renew Fee</th>
+                            <th width="10%;">Active</th>
+                            <th width="10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (AdminUserVM obj in Model)
+                            {
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@obj.FirstName</td>
+                                    <td>@obj.LastName</td>
+                                    <td>@obj.MobileNo</td>
+                                    <td>@obj.StudentRegistrationFee</td>
+                                    <td>@obj.StudentRenewFee</td>
+                                    @if (obj.IsActive == true)
+                                    {
+                                        <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.AdminUserId','InActive');">Active</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@obj.AdminUserId','Active');">InActive</span></td>
+                                    }
+
+                                    <td>
+                                        <a title="View" href="/admin/agent/view/@obj.AdminUserId"><i class="fa fa-eye mr-2 font-success"></i></a>
+                                        <a title="Edit" href="/admin/agent/edit/@obj.AdminUserId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                        @if (obj.AdminRoleId != 1)
+                                        {
+                                            <a title="Delete" href="javascript:void(0);" onclick="fnDeleteAdminUser('@obj.AdminUserId')"><i class="fa fa-trash font-danger"></i></a>
+                                        }
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade open" id="deleteAdminUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteAdminUser" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnDeleteAdminUser" class="btn btn-primary" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete modal -->
+
+<div class="modal fade open" id="activeinactiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to active ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdndataId" />
+                <input type="hidden" id="hdnstatus" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnChangeStatus" class="btn btn-primary" type="button">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+    $(document).on("click", "#btnAdd", function () {
+        window.location.href = "/admin/agent/add";
+    });
+
+    function fnDeleteAdminUser(cat_id) {
+        jQuery("#hdnDeleteAdminUser").val(cat_id);
+        $('#deleteAdminUserModal').modal('show');
+    }
+
+    jQuery(document).on("click", "#btnDeleteAdminUser", function () {
+
+        var AdminUser_id = jQuery("#hdnDeleteAdminUser").val();
+        if (AdminUser_id != "" && AdminUser_id != null) {
+            $('#deleteAdminUserModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("DeleteAdminUser", "Agent")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?AdminUserId=" + AdminUser_id,
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Agent deleted successfully");
+                        window.location.reload();
+                    }
+                    else if (result == "notfound") {
+                        alert("Agent Not Found");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+     function fnChangeStatus(cat_id,status) {
+         jQuery("#hdndataId").val(cat_id);
+         jQuery("#hdnstatus").val(status);
+         if (status == "Active") {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make active ?");
+         }
+         else {
+             $('#activeinactiveModal .modal-body').html(" Are you sure you want to make inactive ?");
+         }
+        $('#activeinactiveModal').modal('show');
+    }
+
+       jQuery(document).on("click", "#btnChangeStatus", function () {
+
+        var Id = jQuery("#hdndataId").val();
+        if (Id != "" && Id != null) {
+            $('#activeinactiveModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("ChangeStatus", "Agent")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Id=" + Id+"&Status="+jQuery("#hdnstatus").val(),
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Status change successfully...");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+</script>
