@@ -4,16 +4,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DuolingoSk.Models;
+using DuolingoSk.Helper;
+using DuolingoSk.Model;
 
 namespace DuolingoSk.Areas.Admin.Controllers
 {
     [CustomAuthorize]
     public class MyProfileController : Controller
     {
-        // GET: Admin/MyProfile
+        private readonly DuolingoSk_Entities _db;
+        public string UserProfileDirectoryPath = "";
+
+        public MyProfileController()
+        {
+            _db = new DuolingoSk_Entities();
+            UserProfileDirectoryPath = ErrorMessage.UserProfileDirectoryPath;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            AdminUserVM objAdminUser = new AdminUserVM();
+            long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
+
+            try
+            {
+                objAdminUser = (from a in _db.tbl_AdminUsers  
+                                where a.AdminUserId == LoggedInUserId
+                                select new AdminUserVM
+                                {
+                                    AdminUserId = a.AdminUserId,
+                                    AdminRoleId = a.AdminRoleId,
+                                    FirstName = a.FirstName,
+                                    LastName = a.LastName, 
+                                    Email = a.Email,
+                                    MobileNo = a.MobileNo,
+                                    Password = a.Password, 
+                                    Address = a.Address,
+                                    City = a.City, 
+                                    dtDob = a.Dob, 
+                                    Remarks = a.Remarks,
+                                    ProfilePicture = a.ProfilePicture,
+                                    IsActive = a.IsActive,
+                                    StudentRegistrationFee = a.StudentRegistrationFee,
+                                    StudentRenewFee = a.StudentRenewFee
+                                }).FirstOrDefault();
+
+                //if (objAdminUser.dtDob != null)
+                //{
+                //    objAdminUser.Dob = Convert.ToDateTime(objAdminUser.dtDob).ToString("dd/MM/yyyy");
+                //}
+                  
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(objAdminUser);
         }
     }
 }

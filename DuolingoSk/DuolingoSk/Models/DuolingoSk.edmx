@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Duolingo_skModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Duolingo_skModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_AdminUsers">
           <Key>
             <PropertyRef Name="AdminUserId" />
@@ -30,8 +30,6 @@
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -142,31 +140,15 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
         </EntityType>
         <EntityContainer Name="Duolingo_skModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
-    [tbl_GeneralSetting].[SMTPHost] AS [SMTPHost], 
-    [tbl_GeneralSetting].[SMTPPort] AS [SMTPPort], 
-    [tbl_GeneralSetting].[EnableSSL] AS [EnableSSL], 
-    [tbl_GeneralSetting].[SMTPEmail] AS [SMTPEmail], 
-    [tbl_GeneralSetting].[SMTPPwd] AS [SMTPPwd], 
-    [tbl_GeneralSetting].[AdminSMSNumber] AS [AdminSMSNumber], 
-    [tbl_GeneralSetting].[AdminEmail] AS [AdminEmail], 
-    [tbl_GeneralSetting].[FromEmail] AS [FromEmail], 
-    [tbl_GeneralSetting].[RegistrationFee] AS [RegistrationFee], 
-    [tbl_GeneralSetting].[RenewFee] AS [RenewFee], 
-    [tbl_GeneralSetting].[TotalExamAttempt] AS [TotalExamAttempt]
-    FROM [dbo].[tbl_GeneralSetting] AS [tbl_GeneralSetting]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Duolingo_skModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -286,6 +268,16 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="UpdatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
+          <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" />
+          <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" />
+          <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" />
+          <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" />
+          <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" />
+          <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Duolingo_skModel.tbl_GeneralSetting" />
+        </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -303,16 +295,6 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
-          <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" />
-          <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" />
-          <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" />
-          <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" />
-          <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" />
-          <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" />
-          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -445,18 +427,18 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_GeneralSetting">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_GeneralSetting">
               <MappingFragment StoreEntitySet="tbl_GeneralSetting">
-                <ScalarProperty Name="GeneralSettingId" ColumnName="GeneralSettingId" />
-                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
-                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
-                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
-                <ScalarProperty Name="SMTPEmail" ColumnName="SMTPEmail" />
-                <ScalarProperty Name="SMTPPwd" ColumnName="SMTPPwd" />
-                <ScalarProperty Name="AdminSMSNumber" ColumnName="AdminSMSNumber" />
-                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
-                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
-                <ScalarProperty Name="RegistrationFee" ColumnName="RegistrationFee" />
-                <ScalarProperty Name="RenewFee" ColumnName="RenewFee" />
                 <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
+                <ScalarProperty Name="RenewFee" ColumnName="RenewFee" />
+                <ScalarProperty Name="RegistrationFee" ColumnName="RegistrationFee" />
+                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+                <ScalarProperty Name="AdminSMSNumber" ColumnName="AdminSMSNumber" />
+                <ScalarProperty Name="SMTPPwd" ColumnName="SMTPPwd" />
+                <ScalarProperty Name="SMTPEmail" ColumnName="SMTPEmail" />
+                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
+                <ScalarProperty Name="GeneralSettingId" ColumnName="GeneralSettingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

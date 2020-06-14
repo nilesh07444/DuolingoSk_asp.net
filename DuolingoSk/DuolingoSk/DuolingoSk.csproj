@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminUserVM.cs" />
+    <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\StudentFeeVM.cs" />
     <Compile Include="ViewModel\StudentVM.cs" />
     <Compile Include="ViewModel\DashboardCountVM.cs" />
@@ -3892,6 +3893,7 @@
     <Content Include="Models\DuolingoSk.edmx.diagram">
       <DependentUpon>DuolingoSk.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\MyProfile\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3923,7 +3925,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\MyProfile\" />
     <Folder Include="Areas\Client\Models\" />
   </ItemGroup>
   <ItemGroup>
