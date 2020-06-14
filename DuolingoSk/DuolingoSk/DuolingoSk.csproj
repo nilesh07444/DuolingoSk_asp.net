@@ -3899,6 +3899,12 @@
     <Content Include="Models\DuolingoSk.edmx.diagram">
       <DependentUpon>DuolingoSk.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType1.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType2.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType3.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType4.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType5.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType6.cshtml" />
     <Content Include="Areas\Admin\Views\MyProfile\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

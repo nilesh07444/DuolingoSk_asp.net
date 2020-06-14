@@ -57,7 +57,11 @@ namespace DuolingoSk.Areas.Client
                 "register",
                 new { controller = "StudentRegister", action = "Index", id = UrlParameter.Optional }
             );
-
+            context.MapRoute(
+               "Client_GetQuestion",
+               "getQuestion",
+               new { controller = "StartExam", action = "GetQuestionById", id = UrlParameter.Optional }
+           );
         }
     }
 }
