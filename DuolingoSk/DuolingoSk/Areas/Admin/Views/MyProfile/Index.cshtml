@@ -1,0 +1,103 @@
+﻿@using DuolingoSk.Helper;
+@model AdminUserVM
+
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header-left">
+                        <h3>
+                            My Profile
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">My Profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>My Profile</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="form-group row">
+                                <label for="txtFirstName" class="col-xl-3 col-md-4">First Name</label>
+                                <lable class="form-control col-md-8">@Model.FirstName</lable>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtLastName" class="col-xl-3 col-md-4">Last Name</label>
+                                <lable class="form-control col-md-8">@Model.LastName</lable>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtEmail" class="col-xl-3 col-md-4">Email</label>
+                                <lable class="form-control col-md-8">@Model.Email</lable>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtMobileNo" class="col-xl-3 col-md-4">Mobile No</label>
+                                <lable class="form-control col-md-8">@Model.MobileNo</lable>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtMobileNo" class="col-xl-3 col-md-4">Address</label>
+                                <lable class="form-control col-md-8">@Model.Address</lable>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtMobileNo" class="col-xl-3 col-md-4">City</label>
+                                <lable class="form-control col-md-8">@Model.City</lable>
+                            </div>
+
+                            @*<div class="form-group row">
+                                    <label for="txtMobileNo" class="col-xl-3 col-md-4">Date Of Birth</label>
+                                    <lable class="form-control col-md-8">@(Model.Dob != null ? Model.Dob : "")</lable>
+                                </div>*@
+
+                            <div class="form-group row">
+                                <label for="txtMobileNo" class="col-xl-3 col-md-4">Remarks</label>
+                                <lable class="form-control col-md-8">@Model.Remarks</lable>
+                            </div>
+
+                            @if (Model.AdminRoleId == (int)AdminRoles.Agent)
+                            {
+                                <div class="form-group row">
+                                    <label for="StudentRegistrationFee" class="col-xl-3 col-md-4">Student Registration Fee</label>
+                                    <lable class="form-control col-md-8">@Model.StudentRegistrationFee</lable>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="txtMobileNo" class="col-xl-3 col-md-4">Student Renew Fee</label>
+                                    <lable class="form-control col-md-8">@Model.StudentRenewFee</lable>
+                                </div>
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>

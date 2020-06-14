@@ -7,13 +7,10 @@ namespace DuolingoSk
 {
     public class DashboardCountVM
     {
-        public int TotalOrders { get; set; }
-        public int TotalCustomers { get; set; }
-        public int TotalDistributors { get; set; }
-        public int TotalProductItems { get; set; }
-        public int TotalConfirmOrder {get;set;}
-        public int TotalNewOrder { get; set; } 
-        public int TotalDispatchedOrder { get; set; }        
+        public int TotalAgents { get; set; }
+        public int TotalStudents { get; set; }
+        public int TotalPendingFees { get; set; }
+        public int TotalPendingExams { get; set; }        
 
     }
 }

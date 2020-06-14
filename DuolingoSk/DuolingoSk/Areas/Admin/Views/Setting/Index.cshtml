@@ -1,7 +1,181 @@
-﻿
+﻿@using DuolingoSk.Helper;
+@using DuolingoSk.Model;
+@model GeneralSettingVM
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Settings";
 }
 
-<h2>Index</h2>
+<style>
+    .clserror {
+        color: red;
+    }
 
+    #tblextraamt td {
+        padding: 5px;
+    }
+</style>
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header-left">
+                        <h3>
+                            Settings
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Settings</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>General Settings</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="frmgensettings">
+
+                            <div class="form-group row">
+                                <label for="txtSmtpHost" class="col-xl-3 col-md-4">SMTP Host</label>
+                                <input type="text" class="form-control col-md-8" id="txtSmtpHost" value="@Model.SMTPHost" name="txtSmtpHost" placeholder="Enter SMTP Host">
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_smtphostmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtSmtpPort" class="col-xl-3 col-md-4">SMTP Port</label>
+                                <input type="text" class="form-control col-md-8" id="txtSmtpPort" value="@Model.SMTPPort" name="txtSmtpPort" placeholder="Enter SMTP Port">
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_smtpportmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtSmtpEmail" class="col-xl-3 col-md-4">SMTP Email</label>
+                                <input type="text" class="form-control col-md-8" id="txtSmtpEmail" value="@Model.SMTPEmail" name="txtSmtpEmail" placeholder="Enter SMTP Email">
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_smtpemailmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtSmtpPwd" class="col-xl-3 col-md-4">SMTP Password</label>
+                                <input type="text" class="form-control col-md-8" id="txtSmtpPwd" value="@Model.SMTPPwd" name="txtSmtpPwd" placeholder="Enter SMTP Pwd">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_smtppwdmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtenablessl" class="col-xl-3 col-md-4">Enable SSL</label>
+                                @if (Model.EnableSSL == true)
+                                {
+                                    <label class="radio-inline"><input type="radio" name="rdbSSL" value="Yes" checked>Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="rdbSSL" value="No">No</label>
+                                }
+                                else
+                                {
+                                    <label class="radio-inline"><input type="radio" name="rdbSSL" value="Yes">Yes</label>
+                                    <label class="radio-inline"><input type="radio" name="rdbSSL" value="No" checked>No</label>
+                                }
+                                <lable class="col-xl-3 col-md-4"></lable>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtadminemail" class="col-xl-3 col-md-4">Admin Email</label>
+                                <input type="text" class="form-control col-md-8" id="txtadminemail" value="@Model.AdminEmail" name="txtadminemail" placeholder="Enter Admin Email">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_admnemailmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtfrommail" class="col-xl-3 col-md-4">From Email</label>
+                                <input type="text" class="form-control col-md-8" id="txtfrommail" value="@Model.FromEmail" name="txtfrommail" placeholder="Enter From Email">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_fromemailmsg" class="clserror"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label for="txtsmsmobil" class="col-xl-3 col-md-4">Admin SMS Mobile Number</label>
+                                <input type="text" class="form-control col-md-8" id="txtsmsmobil" value="@Model.AdminSMSNumber" name="txtsmsmobil" placeholder="Enter Admin SMS Mobile Number">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_smsmobilemsg" class="clserror"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtRegistrationFee" class="col-xl-3 col-md-4">Student Registration Fee</label>
+                                <input type="text" class="form-control col-md-8" id="txtRegistrationFee" value="@Model.RegistrationFee" name="txtRegistrationFee" placeholder="Enter Registration Fee">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_RegistrationFee" class="clserror"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtRenewFee" class="col-xl-3 col-md-4">Student Renew Fee</label>
+                                <input type="text" class="form-control col-md-8" id="txtRenewFee" value="@Model.RenewFee" name="txtRenewFee" placeholder="Enter Renew Fee">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_RenewFee" class="clserror"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="txtTotalExamAttempt" class="col-xl-3 col-md-4">Student Total Exam Attempt</label>
+                                <input type="text" class="form-control col-md-8" id="txtTotalExamAttempt" value="@Model.TotalExamAttempt" name="txtTotalExamAttempt" placeholder="Enter Total Exam Attempt">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_TotalExamAttempt" class="clserror"></span>
+                            </div>
+
+                            <button id="btnSavesettings" type="button" class="btn btn-primary">Save Settings</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    var cntsrow = $("#tblextraamt tbody tr").length;
+    jQuery(document).on("click", "#btnSavesettings", function () {
+        var requiredMessage = 'This field is required';
+        var flag = true;
+        jQuery(".clserror").hide();
+
+        if (flag) {
+            $.blockUI({ message: "<h4>Please Wait...</h4>" });
+            var URL = '@Url.Action("SaveGeneralSetting", "Setting")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                data: jQuery('#frmgensettings').serialize(),
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "Success") {
+                        alert("Settings Save successfully");
+                      }
+                    else {
+                        alert("Error: Something went wrong. Please try again.");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+        }
+         
+    });
+
+</script>
