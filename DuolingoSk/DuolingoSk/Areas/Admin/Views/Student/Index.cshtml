@@ -1,9 +1,11 @@
-﻿@using DuolingoSk.Model; 
+﻿@using DuolingoSk.Model;
 @using DuolingoSk.Helper;
 
 @model List<StudentVM>
 @{
     ViewBag.Title = "Student";
+
+    List<AdminUserVM> lstAgents = ViewData["lstAgents"] as List<AdminUserVM>;
 
     int counter = 1;
 }
@@ -39,6 +41,27 @@
             </div>
             <div class="card-body vendor-table">
 
+                @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                {
+                    <h3>Filter:</h3>
+                    <div class="row" style="margin-top:25px;border-bottom: 2px solid #f8f8f9;padding-bottom: 25px;margin-bottom: 10px;">
+
+                        <div class="col-sm-2">
+                            <label>Select Agent</label>
+                            <select id="ddlAgent" class="form-control" onchange="filterAgent();" style="width:250px;">
+                                <option value="-1">All</option>
+                                @if (lstAgents != null && lstAgents.Count() > 0)
+                                {
+                                    foreach (AdminUserVM obj in lstAgents)
+                                    {
+                                        <option value="@obj.AdminUserId">@obj.FullName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                }
+
                 @if (clsAdminSession.RoleID == (int)AdminRoles.Agent)
                 {
                     <div class="btn-popup pull-right">
@@ -49,13 +72,16 @@
                 <table class="display" id="basic-1">
                     <thead>
                         <tr>
-                            <th width="10%;">#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th width="5%;">#</th>
+                            <th>Student Name</th>
                             <th>Email Id</th>
-                            <th>Mobile No</th>
-                            <th width="15%;">Active</th>
-                            <th width="15%;">Action</th>
+                            <th width="10%;">Mobile No</th>
+                            @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                            {
+                                <th>Agent Name</th>
+                            }
+                            <th width="10%;">Active</th>
+                            <th width="10%;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,10 +92,13 @@
                             {
                                 <tr class="grade">
                                     <td>@counter.</td>
-                                    <td>@obj.FirstName</td>
-                                    <td>@obj.LastName</td>
+                                    <td>@obj.FullName</td>
                                     <td>@obj.Email</td>
                                     <td>@obj.MobileNo</td>
+                                    @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                                    {
+                                        <td>@obj.AgentName</td>
+                                    }
                                     @if (obj.IsActive == true)
                                     {
                                         <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.StudentId','InActive');">Active</span></td>
@@ -143,7 +172,12 @@
 
     jQuery(document).ready(function () {
         jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+
+        $("#ddlAgent").val("@ViewBag.agentId");
+
     });
+
+     
 
     $(document).on("click", "#btnAdd", function () {
         window.location.href = "/admin/student/add";
@@ -230,5 +264,10 @@
             });
         }
     });
+
+    function filterAgent() {
+        var id = $("#ddlAgent").val();         
+        location.href = "/admin/student?agentId=" + id;
+    }
 
 </script>

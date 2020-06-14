@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DuolingoSk.Helper;
 using DuolingoSk.Model;
 using DuolingoSk.Models;
 
@@ -44,10 +45,19 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     clsAdminSession.SessionID = Session.SessionID;
                     clsAdminSession.UserID = data.AdminUserId;
                     clsAdminSession.RoleID = data.AdminRoleId;
-                    //clsAdminSession.RoleName = roleData.AdminRoleName;
+                    
                     clsAdminSession.UserName = data.FirstName + " " + data.LastName;
                     clsAdminSession.ImagePath = data.ProfilePicture;
                     clsAdminSession.MobileNumber = data.MobileNo;
+
+                    if(clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                    {
+                        clsAdminSession.RoleName = "Super Admin";
+                    }
+                    else
+                    {
+                        clsAdminSession.RoleName = "Agent";
+                    }
 
                     return RedirectToAction("Index", "Dashboard");
                 }

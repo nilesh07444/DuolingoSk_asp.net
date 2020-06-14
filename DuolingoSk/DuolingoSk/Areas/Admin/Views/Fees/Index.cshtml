@@ -1,4 +1,8 @@
-﻿@model List<StudentFeeVM>
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model List<StudentFeeVM>
 @{
     ViewBag.Title = "Student Fee List";
 
@@ -36,6 +40,40 @@
             </div>
             <div class="card-body vendor-table">
 
+                <h3>Filter:</h3>
+                <div class="row" style="margin-top:25px; border-bottom: 2px solid #f8f8f9; padding-bottom: 25px; margin-bottom: 10px;">
+                    <div class="col-md-2">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.StartDate" id="txtStartDate" placeholder="DD/MM/YYYY" />
+                    </div>
+                    <div class="col-md-2">
+                        <label>End Date</label>
+                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.EndDate" id="txtEndDate" placeholder="DD/MM/YYYY" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Agent</label>
+                        <select id="selectemp" class="form-control">
+                            <option value="-1">All</option>
+                            <option value="1">Nilesh Prajapati</option>
+                            <option value="2">Kamlesh Lalwani</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Payment Status</label>
+                        <select id="selectemp" class="form-control">
+                            <option value="-1">All</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Complete">Complete</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="button" value="Filter" class="btn btn-info" onclick="filterdata();" style="position: absolute; bottom: 0;" />
+                    </div>
+                </div>
+
                 <table class="display" id="basic-1">
                     <thead>
                         <tr>
@@ -54,24 +92,31 @@
                         {
                             foreach (StudentFeeVM obj in Model)
                             {
-                        <tr class="grade">
-                            <td>@counter.</td>
-                            <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
-                            <td>@obj.StudentName</td>
-                            <td>@obj.AgentName</td>
-                            <td>@obj.FeeAmount</td>
-                            <td>@obj.TotalExamAttempt</td>
-                            <td>
-                                @if (obj.FeeStatus == "Complete")
-                                {
-                                    <span class="badge badge-success">@obj.FeeStatus</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-primary" style="cursor:pointer;" title="Mark as Complete" href="javascript:void(0);" onclick="fnMarkCompleFee('@obj.StudentFeeId')">@obj.FeeStatus</span>
-                                }
-                            </td>
-                        </tr>
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@obj.StudentName</td>
+                                    <td>@obj.AgentName</td>
+                                    <td>@obj.FeeAmount</td>
+                                    <td>@obj.TotalExamAttempt</td>
+                                    <td>
+                                        @if (obj.FeeStatus == "Complete")
+                                        {
+                                            <span class="badge badge-success">@obj.FeeStatus</span>
+                                        }
+                                        else
+                                        {
+                                            if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                                            {
+                                                <span class="badge badge-primary" style="cursor:pointer;" title="Mark as Complete" href="javascript:void(0);" onclick="fnMarkCompleFee('@obj.StudentFeeId')">@obj.FeeStatus</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-primary">@obj.FeeStatus</span>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
                                 counter++;
                             }
                         }
