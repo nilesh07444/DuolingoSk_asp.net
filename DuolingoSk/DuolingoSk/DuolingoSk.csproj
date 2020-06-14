@@ -3518,6 +3518,7 @@
     <Content Include="Content\client_assets\js\jquery-3.3.1.min.js" />
     <Content Include="Content\client_assets\js\lightbox-plus-jquery.min.js" />
     <Content Include="Content\client_assets\js\smoothscroll.js" />
+    <Content Include="Content\quiz.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3526,6 +3527,11 @@
     <Content Include="Images\default_image.jpg" />
     <Content Include="Images\default_image.png" />
     <Content Include="Images\default_user_image.png" />
+    <Content Include="Images\I3.png" />
+    <Content Include="Images\I4.png" />
+    <Content Include="Images\I5.png" />
+    <Content Include="Images\I6.png" />
+    <Content Include="Images\speaker-red.svg" />
     <Content Include="Images\star.gif" />
     <Content Include="Images\UserProfileMedia\avatar5-16e8042c-eb3e-4c33-9bc7-0caf1d28593c.png" />
     <Content Include="Images\UserProfileMedia\user7-128x128-15c41fff-b451-4b48-9c37-809657e7df64.jpg" />
