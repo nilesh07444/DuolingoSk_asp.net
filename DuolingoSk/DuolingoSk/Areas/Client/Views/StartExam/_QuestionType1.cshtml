@@ -1,0 +1,109 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+    int Mx = Model.QuestionTime;
+}
+<div class="question" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium">
+            @Model.QuestionText
+        </h5>
+        <div class="audio-secton1 pragrph">
+            <p>
+
+            </p>
+        </div>
+        <div class="columns footsec">
+            <div class="column">
+                <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin btnNxt" disabled="disabled" onclick="clearInterval(tmr);nextquestion(this);">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var tmrvl = '@Model.QuestionTime';    
+   $(document).ready(function () {
+        debugger;
+        $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+        $('progress').attr('max', tmrvl);         
+    var characters = questionss[cntQs].QuestionOptionText.split("");
+    $this = $(".pragrph p");
+        $this.empty();
+        var tbidxx = 1;
+    $.each(characters, function (i, el) {
+        if (el == "_") {
+            $this.append('<span><span><input type="text" maxlength="1" tabindex="' + tbidxx + '" /></span></span>');
+            tbidxx = tbidxx + 1;
+        }
+        else {
+            $this.append("<span><span>" + el + "</span></span>");
+        }
+    });
+
+
+       $(".pragrph input[type=text]").keyup(function () {       
+        if (this.value.length == this.maxLength) {
+            var idxx = parseInt($(this).attr("tabindex"));
+            idxx = idxx + 1;
+            $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
+      //$(this).next('.pragrph input[type=text]').focus();
+           }
+           var enbl = isAtleast1Selct();
+           if (enbl == true) {
+               $(".btnNxt").removeAttr("disabled");
+           }
+           else {
+               $(".btnNxt").attr("disabled","disabled");
+           }
+});
+
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+
+    var tmr = setInterval(function () {       
+        if (tmrvl == 0) {
+            clearInterval(tmr);
+            nextquestion();
+        }
+        else {
+            tmrvl = tmrvl - 1;
+          $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+          $('progress').attr('value', tmrvl);
+        }
+    }, 1000);
+
+    function isAtleast1Selct() {
+        var flg9 = false;
+        $(".pragrph input[type=text]").each(function () {
+            if ($(this).val() != "") {
+                flg9 = true;
+            }
+        });
+        return flg9;
+    }
+</script>

@@ -1,6 +1,8 @@
-﻿
+﻿@using DuolingoSk.ViewModel;
 @{
     ViewBag.Title = "Index";
+    List<QuestionVM> lstQues = ViewData["lstQue"] as List<QuestionVM>;
+    int Cntss = 0;
 }
 <link href="~/Content/quiz.css" rel="stylesheet" />
 <style>
@@ -477,398 +479,24 @@
             </div>
         </div>
     </div>
-    <div class="question 1q" style="display:none;">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    01:50
-                                </p>
-                            </span>
-                            <progress max="180" class="progress is-small is-mycolor" value="109"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-3 has-text-weight-meddium">
-                Type the missing letters to complete the text below
-            </h5>
-            <div class="audio-secton1 pragrph">
-                <p>
-                    <span><span>H</span></span><span><span>o</span></span><span><span>w</span></span><span><span> </span></span><span><span>q</span></span><span><span>u</span></span><span><span>i</span></span><span><span>c</span></span><span><span>k</span></span><span><span>l</span></span><span><span>y</span></span><span><span> </span></span><span><span>i</span></span><span><span>s</span></span><span><span> </span></span><span><span>t</span></span><span><span>h</span></span><span><span>e</span></span><span><span> </span></span><span><span>w</span></span><span><span>o</span></span><span><span>r</span></span><span><span>l</span></span><span><span>d</span></span><span><span>’</span></span><span><span>s</span></span><span><span> </span></span><span><span>p</span></span><span><span>o</span></span><span><span>p</span></span><span><span>u</span></span><span><span>l</span></span><span><span>a</span></span><span><span>t</span></span><span><span>i</span></span><span><span>o</span></span><span><span>n</span></span><span><span> </span></span><span><span>g</span></span><span><span>r</span></span><span><span>o</span></span><span><span>w</span></span><span><span>i</span></span><span><span>n</span></span><span><span>g</span></span><span><span>?</span></span><span><span> </span></span><span><span>I</span></span><span><span>n</span></span><span><span> </span></span><span><span>t</span></span><span><span>h</span></span><span><span>e</span></span><span><span> </span></span><span><span>U</span></span><span><span>n</span></span><span><span>i</span></span><span><span>t</span></span><span><span>e</span></span><span><span>d</span></span><span><span> </span></span><span><span>S</span></span><span><span>t</span></span><span><span>a</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>a</span></span><span><span>n</span></span><span><span>d</span></span><span><span> </span></span><span><span>o</span></span><span><span>t</span></span><span><span>h</span></span><span><span>e</span></span><span><span>r</span></span><span><span> </span></span><span><span>d</span></span><span><span>e</span></span><span><span>v</span></span><span><span>e</span></span><span><span>l</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>c</span></span><span><span>o</span></span><span><span>u</span></span><span><span>n</span></span><span><span>t</span></span><span><span>r</span></span><span><span>i</span></span><span><span>e</span></span><span><span>s</span></span><span><span>,</span></span><span><span> </span></span><span><span>t</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>c</span></span><span><span>u</span></span><span><span>r</span></span><span><span>r</span></span><span><span>e</span></span><span><span>n</span></span><span><span>t</span></span><span><span> </span></span><span><span>g</span></span><span><span>r</span></span><span><span>o</span></span><span><span>w</span></span><span><span>t</span></span><span><span>h</span></span><span><span> </span></span><span><span>r</span></span><span><span>a</span></span><span><span>t</span></span><span><span>e</span></span><span><span> </span></span><span><span>i</span></span><span><span>s</span></span><span><span> </span></span><span><span>v</span></span><span><span>e</span></span><span><span>r</span></span><span><span>y</span></span><span><span> </span></span><span><span>l</span></span><span><span>o</span></span><span><span>w</span></span><span><span>.</span></span><span><span> </span></span><span><span>I</span></span><span><span>n</span></span><span><span> </span></span><span><span>m</span></span><span><span>o</span></span><span><span>s</span></span><span><span>t</span></span><span><span> </span></span><span><span>d</span></span><span><span>e</span></span><span><span>v</span></span><span><span>e</span></span><span><span>l</span></span><span><span>o</span></span><span><span>p</span></span><span><span>i</span></span><span><span>n</span></span><span><span>g</span></span><span><span> </span></span><span><span>c</span></span><span><span>o</span></span><span><span>u</span></span><span><span>n</span></span><span><span>t</span></span><span><span>r</span></span><span><span>i</span></span><span><span>e</span></span><span><span>s</span></span><span><span>,</span></span><span><span> </span></span><span><span>t</span></span><span><span>h</span></span><span><span>e</span></span><span><span> </span></span><span><span>h</span></span><span><span>u</span></span><span><span>m</span></span><span><span>a</span></span><span><span>n</span></span><span><span> </span></span><span><span>p</span></span><span><span>o</span></span><span><span>p</span></span><span><span>u</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>i</span></span><span><span>s</span></span><span><span> </span></span><span><span>g</span></span><span><span>r</span></span><span><span>o</span></span><span><span>w</span></span><span><span>i</span></span><span><span>n</span></span><span><span>g</span></span><span><span> </span></span><span><span>a</span></span><span><span>t</span></span><span><span> </span></span><span><span>a</span></span><span><span> </span></span><span><span>r</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>o</span></span><span><span>f</span></span><span><span> </span></span><span><span>3</span></span><span><span> </span></span><span><span>p</span></span><span><span>e</span></span><span><span>o</span></span><span><span>p</span></span><span><span>l</span></span><span><span>e</span></span><span><span> </span></span><span><span>p</span></span><span><span>e</span></span><span><span>r</span></span><span><span> </span></span><span><span>s</span></span><span><span>e</span></span><span><span>c</span></span><span><span>o</span></span><span><span>n</span></span><span><span>d</span></span><span><span>.</span></span><span><span> </span></span><span><span>B</span></span><span><span>e</span></span><span><span>c</span></span><span><span>a</span></span><span><span>u</span></span><span><span>s</span></span><span><span>e</span></span><span><span> </span></span><span><span>o</span></span><span><span>f</span></span><span><span> </span></span><span><span>t</span></span><span><span>h</span></span><span><span>i</span></span><span><span>s</span></span><span><span> </span></span><span><span>b</span></span><span><span>u</span></span><span><span>s</span></span><span><span>t</span></span><span><span>l</span></span><span><span>i</span></span><span><span>n</span></span><span><span>g</span></span><span><span> </span></span><span><span>g</span></span><span><span>r</span></span><span><span>o</span></span><span><span>w</span></span><span><span>t</span></span><span><span>h</span></span><span><span> </span></span><span><span>r</span></span><span><span>a</span></span><span><span>t</span></span><span><span>e</span></span><span><span>,</span></span><span><span> </span></span><span><span>t</span></span><span><span>h</span></span><span><span>e</span></span><span><span> </span></span><span><span>h</span></span><span><span>u</span></span><span><span>m</span></span><span><span>a</span></span><span><span>n</span></span><span><span> </span></span><span><span>p</span></span><span><span>o</span></span><span><span>p</span></span><span><span>u</span></span><span><span>l</span></span><span><span>a</span></span><span><span>t</span></span><span><span>i</span></span><span><span>o</span></span><span><span>n</span></span><span><span> </span></span><span><span>i</span></span><span><span>s</span></span><span><span> </span></span><span><span>w</span></span><span><span>e</span></span><span><span>l</span></span><span><span>l</span></span><span><span> </span></span><span><span>o</span></span><span><span>n</span></span><span><span> </span></span><span><span>i</span></span><span><span>t</span></span><span><span>s</span></span><span><span> </span></span><span><span>w</span></span><span><span><input type="text" maxlength="1"></span></span><span><span><input type="text" maxlength="1"></span></span><span><span> </span></span><span><span>t</span></span><span><span>o</span></span><span><span> </span></span><span><span>r</span></span><span><span>e</span></span><span><span>a</span></span><span><span>c</span></span><span><span>h</span></span><span><span>i</span></span><span><span>n</span></span><span><span>g</span></span><span><span> </span></span><span><span>9</span></span><span><span> </span></span><span><span>b</span></span><span><span>i</span></span><span><span>l</span></span><span><span>l</span></span><span><span>i</span></span><span><span>o</span></span><span><span>n</span></span><span><span> </span></span><span><span>w</span></span><span><span>i</span></span><span><span>t</span></span><span><span>h</span></span><span><span>i</span></span><span><span>n</span></span><span><span> </span></span><span><span>l</span></span><span><span>i</span></span><span><span>f</span></span><span><span>e</span></span><span><span>t</span></span><span><span>i</span></span><span><span>m</span></span><span><span>e</span></span><span><span>.</span></span>
-                </p>
-            </div>
-            <div class="columns footsec">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="question 2q">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    00:55
-                                </p>
-                            </span>
-                            <progress max="60" class="progress is-small is-mycolor" value="54"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-4 has-text-weight-semibold">
-                Select the real English words in this list
-            </h5>
-            <div class="multiselect">
-                <div class="eng-selector">
-                    <span><input type="checkbox" id="0" class="eng-sec"> <label for="0">Freind</label></span><span><input type="checkbox" id="1" class="eng-sec"> <label for="1">forteen</label></span><span><input type="checkbox" id="2" class="eng-sec"> <label for="2">grammer</label></span><span><input type="checkbox" id="3" class="eng-sec"> <label for="3">fifty</label></span><span><input type="checkbox" id="4" class="eng-sec"> <label for="4">hight</label></span><span><input type="checkbox" id="5" class="eng-sec"> <label for="5">reccomend</label></span><span><input type="checkbox" id="6" class="eng-sec"> <label for="6">government</label></span><span><input type="checkbox" id="7" class="eng-sec"> <label for="7">shedule</label></span><span><input type="checkbox" id="8" class="eng-sec"> <label for="8">definitely</label></span><span><input type="checkbox" id="9" class="eng-sec"> <label for="9">library</label></span><span><input type="checkbox" id="10" class="eng-sec"> <label for="10">mountain</label></span><span><input type="checkbox" id="11" class="eng-sec"> <label for="11">parallell</label></span><span><input type="checkbox" id="12" class="eng-sec"> <label for="12">receive</label></span><span><input type="checkbox" id="13" class="eng-sec"> <label for="13">played</label></span><span><input type="checkbox" id="14" class="eng-sec"> <label for="14">always</label></span><span><input type="checkbox" id="15" class="eng-sec"> <label for="15">content</label></span><span><input type="checkbox" id="16" class="eng-sec"> <label for="16">brvae</label></span><span><input type="checkbox" id="17" class="eng-sec"> <label for="17">colant</label></span>
-                </div>
-            </div>
-            <div class="columns footsec">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="question 3q">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    00:25
-                                </p>
-                            </span>
-                            <progress max="60" class="progress is-small is-mycolor" value="24"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-3 has-text-weight-meddium">Type the statement that you hear</h5>
-            <div class="columns">
-                <div class="column is-4">
-                    <figure class="image is-text-centered imagesection ">
-                        <img src="/Images/speaker-red.svg">
-                        <p class="plytext">click icon to play</p>
-                    </figure>
-                </div>
-                <div class="column is-8">
-                    <div class="control">
-                        <textarea placeholder="Your Response" rows="4" maxlength="250" class="textarea is-shadowless"></textarea>
-                        <p class="is-size-6 has-text-grey-light has-text-weight-semibold">Number of replay lefts : 2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="columns footsec">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="question 4q">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    00:43
-                                </p>
-                            </span>
-                            <progress max="60" class="progress is-small is-mycolor" value="42"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-3 has-text-weight-meddium">Write one or more sentences that describe the image</h5>
-            <div class="columns">
-                <div class="column ">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image is-text-centered imagesection imagesection2">
-                                <img src="https://dtapi.flyingfeathers.com/demo/images/6/6-1.jpg">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <div class="control">
-                                <textarea placeholder="Your Response" rows="5" maxlength="250" class="textarea is-shadowless"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="question playadio 5q ">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    03:49
-                                </p>
-                            </span>
-                            <progress max="90" class="progress is-small is-mycolor" value="228"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-3 has-text-weight-meddium">Select the real English words in this list</h5>
-            <div class="columns is-multiline is-mobile audio-secton1">
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 1</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="0"> <label for="0"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 2</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="1"> <label for="1"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 3</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="2"> <label for="2"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 4</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="3"> <label for="3"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 5</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="4"> <label for="4"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 6</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="5"> <label for="5"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 7</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="6"> <label for="6"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 8</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="7"> <label for="7"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="column is-4-desktop is-12-mobile audios1">
-                    <ul class="audioplay">
-                        <li class="ticksect1">
-                            <div class="columns is-mobile is-marginless">
-                                <div class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered">
-                                    <div class="audiotext">
-                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>  <span class="is-size-6 has-text-weight-semibold">Word 9</span>
-                                    </div>
-                                </div>
-                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts">
-                                    <span class="form-group"><input type="checkbox" id="8"> <label for="8"></label></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="columns footsec">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="question 6q">
-        <div class="questionbg">
-            <span>
-                <div class="columns">
-                    <div class="column is-10">
-                        <div class="porgressbr">
-                            <span class="is-pulled-left">
-                                <p class="is-size-3 has-text-weight-semibold has-text-dark">
-                                    04:47
-                                </p>
-                            </span>
-                            <progress max="300" class="progress is-small is-mycolor" value="286"></progress>
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="vid-align is-pulled-right">
-                            <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                    </div>
-                </div>
-            </span>
-            <h5 class="has-text-centered is-size-3 has-text-weight-meddium">Respond to the question in at least 50 words</h5>
-            <div class="columns">
-                <div class="column is-offset-2 is-8">
-                    <div class="columns">
-                        <div class="column is-5">
-                            <figure class="image is-text-centered imagesection">
-                                <p>"What are the various Causes of Air pollution nowadays?"</p>
-                            </figure>
-                        </div>
-                        <div class="column is-7">
-                            <div class="control">
-                                <textarea placeholder="Your Response" rows="4" maxlength="500" class="textarea is-shadowless"></textarea>
-                                <p class="is-size-6 has-text-grey-light has-text-weight-semibold">Number of words : 0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns footsec">
-                <div class="column">
-                    <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin" onclick="nextquestion(this);">next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
+    var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
+    var cntQs = 0;
     $(document).ready(function () {
         $(".question").hide();
     });
     function Start() {
         $(".question").hide();
-        $(".indexpage").hide();
-        $(".1q").show();
+        $(".indexpage").hide();   
+        var qiid = questionss[cntQs].QuestionId
+        $(".container1").load('\getQuestion?QueId=' + qiid, function () {
+
+        });
+        
+        //$(".1q").show();
     }
 
     function nextintro() {
@@ -877,13 +505,22 @@
     }
 
     function nextquestion(objthis) {
-        $(".question").hide();
-        $(objthis).parents('.question').next('.question').show();
+      
+        cntQs = cntQs + 1;
+        var qiid = questionss[cntQs].QuestionId;
+        $(".container1").load('\getQuestion?QueId=' + qiid, function () {
+
+        });
+        //$(".question").hide();
+       // $(objthis).parents('.question').next('.question').show();
     }
     $(".pragrph input[type=text]").keyup(function () {
         debugger;
-    if (this.value.length == this.maxLength) {
-      $(this).next('.pragrph input[type=text]').focus();
+        if (this.value.length == this.maxLength) {
+            var idxx = parseInt($(this).attr("tabindex"));
+            idxx = idxx + 1;
+            $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
+      //$(this).next('.pragrph input[type=text]').focus();
     }
 });
 </script>

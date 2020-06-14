@@ -1,0 +1,124 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+    int Mx = Model.QuestionTime;
+    int Cntc = 1;
+}
+<div class="question playadio 5q ">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@Model.QuestionText</h5>
+        <div class="columns is-multiline is-mobile audio-secton1">
+            @if (Model.Mp3Options != null && Model.Mp3Options.Count() > 0)
+            {
+                foreach (Mp3OptionsVM objmp in Model.Mp3Options)
+                {                   
+                    int cn = Cntc - 1;                    
+                    <div class="column is-4-desktop is-12-mobile audios1">
+                        <ul class="audioplay">
+                            <li class="ticksect1">
+                                <div class="columns is-mobile is-marginless">
+                                    <div data-mp33="@objmp.Mp3FileName" class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered plymp3">
+                                        <div class="audiotext">
+                                            <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>
+                                            <span class="is-size-6 has-text-weight-semibold">Word @Cntc</span>
+                                        </div>
+                                    </div>
+                                    <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts" style="height:35px;">
+                                        <span class="form-group"><input type="checkbox" id="@cn"> <label for="@cn"></label></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    Cntc = Cntc + 1;
+                }
+            }
+
+        </div>
+        <div class="columns footsec">
+            <div class="column">
+                <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold register-btn-margin btnNxt" disabled="disabled"  onclick="nextquestion(this);">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<audio style="display:none;" id="audo">
+    <source src="http://localhost:64211/QuestionMp3/019b58c8-bab3-49c4-ad20-5d1575fa842e-ukfeast010.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var tmrvl = '@Model.QuestionTime';
+    var tmr;
+    
+   $(document).ready(function () {
+        $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+       $('progress').attr('max', tmrvl);
+
+       
+       $(".plymp3").click(function () {        
+           debugger;
+           $("#audo source").attr("src", "/QuestionMp3/"+$(this).attr("data-mp33"));
+            //$("#audo").get(0).currentTime = 0;               
+           $("#audo").get(0).load();
+                $("#audo").get(0).play();   
+       });
+
+       $(".tickstrts input[type=checkbox]").click(function () {
+           if ($(this).prop("checked") == true) {
+               $(this).parents(".ticksect1").addClass("ticksect").removeClass("ticksect1");
+               $("#audo").get(0).currentTime = 0; 
+               $("#audo").get(0).pause();
+           }
+           else {
+               $(this).parents(".ticksect").addClass("ticksect1").removeClass("ticksect");
+                  $("#audo").get(0).currentTime = 0; 
+               $("#audo").get(0).pause();
+           }
+       });
+
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+
+   var tmr = setInterval(function () {
+        if (tmrvl == 0) {
+            clearInterval(tmr);
+            nextquestion();
+        }
+        else {
+            tmrvl = tmrvl - 1;
+          $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+          $('progress').attr('value', tmrvl);
+        }
+   }, 1000);
+
+    function wordcnt() {
+        var regex = /\s+/gi;
+        var wordCount = $("#txtessay").val().trim().replace(regex, ' ').split(' ').length;
+        return wordCount;
+    }
+</script>

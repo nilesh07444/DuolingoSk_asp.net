@@ -1,0 +1,103 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+    int Mx = Model.QuestionTime;
+   int Cntc = 0;   
+}
+<div class="question 3q" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@Model.QuestionText</h5>
+        <div class="columns">
+            <div class="column is-4">
+                <figure class="image is-text-centered imagesection adu">
+                    <img src="/Images/speaker-red.svg">
+                    <p class="plytext">click icon to play</p>
+                </figure>
+            </div>
+            <div class="column is-8">
+                <div class="control">
+                    <textarea placeholder="Your Response" rows="4" maxlength="250" id="txtresponse" class="textarea is-shadowless"></textarea>
+                    <p class="is-size-6 has-text-grey-light has-text-weight-semibold replyleft">Number of replay lefts : @Model.MaxReplay</p>
+                </div>
+            </div>
+        </div>
+        <div class="columns footsec">
+            <div class="column">
+                <button class="button is-primary borderremove is-borderless is-uppercase is-pulled-right has-text-weight-semibold btnNxt" disabled="disabled" onclick="clearInterval(tmr);nextquestion(this);">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<audio style="display:none;">    
+    <source src="/QuestionMp3/@Model.Mp3FileName" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var tmrvl = '@Model.QuestionTime';
+    var tmr;
+    var noofrtry = '@Model.MaxReplay';
+   $(document).ready(function () {
+        $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+       $('progress').attr('max', tmrvl);
+       setTimeout(function () {
+           $('audio').get(0).play();
+       },350);
+        
+       $("#txtresponse").keyup(function () {
+           debugger;
+           if ($(this).val().trim().length > 0) {
+                $(".btnNxt").removeAttr("disabled");
+           }
+           else {
+               $(".btnNxt").attr("disabled","disabled");
+           }          
+       });
+
+       $(".adu").click(function () {
+           if (parseInt(noofrtry) != 0) {    
+               $('audio').get(0).currentTime = 0;               
+                $('audio').get(0).play();
+              noofrtry = parseInt(noofrtry) - 1;
+              $(".replyleft").html("Number of replay lefts : " + noofrtry);
+           }          
+       });
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+
+   var tmr = setInterval(function () {
+        if (tmrvl == 0) {
+            clearInterval(tmr);
+            nextquestion();
+        }
+        else {
+            tmrvl = tmrvl - 1;
+          $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+          $('progress').attr('value', tmrvl);
+        }
+    }, 1000);  
+</script>
