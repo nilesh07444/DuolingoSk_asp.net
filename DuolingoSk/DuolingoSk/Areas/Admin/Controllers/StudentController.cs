@@ -24,14 +24,24 @@ namespace DuolingoSk.Areas.Admin.Controllers
             UserProfileDirectoryPath = ErrorMessage.UserProfileDirectoryPath;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int agentId = -1)
         {
             List<StudentVM> lstStudents = new List<StudentVM>();
 
             try
             {
+                int LoggedInUserId = Int32.Parse(clsAdminSession.UserID.ToString());
+                bool IsAgent = (clsAdminSession.RoleID == (int)AdminRoles.Agent);
+
                 lstStudents = (from a in _db.tbl_Students
+                               join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
+                               from agent in outerAgent.DefaultIfEmpty()
                                where !a.IsDeleted
+                               && (agentId == -1 || a.AdminUserId == agentId)
+                               && (
+                                        !IsAgent
+                                             || (a.AdminUserId == LoggedInUserId)
+                                    )
                                select new StudentVM
                                {
                                    StudentId = a.StudentId,
@@ -41,8 +51,25 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    Email = a.Email,
                                    MobileNo = a.MobileNo,
                                    ProfilePicture = a.ProfilePicture,
+                                   FullName = a.FirstName + " " + a.LastName,
+                                   AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                                    IsActive = a.IsActive
                                }).ToList();
+
+                ViewBag.agentId = agentId;
+                if (!IsAgent)
+                {
+                    List<AdminUserVM> lstAgents = (from a in _db.tbl_AdminUsers
+                                                   where a.AdminRoleId == (int)AdminRoles.Agent && a.IsActive && !a.IsDeleted
+                                                   select new AdminUserVM
+                                                   {
+                                                       AdminUserId = a.AdminUserId,
+                                                       FullName = a.FirstName + " " + a.LastName
+                                                   }).ToList();
+
+                    ViewData["lstAgents"] = lstAgents;
+                }
+
             }
             catch (Exception ex)
             {
@@ -134,7 +161,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     // Send Notification to User
                     string SmsResponse = SendSMSOfCreateUser(userVM);
-                    
+
                     #endregion SendNotification
 
                     #region PendingFeeEntry
@@ -155,7 +182,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     #endregion PendingFeeEntry
 
                     return RedirectToAction("Index");
-                     
+
                 }
             }
             catch (Exception ex)
@@ -369,10 +396,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
             try
             {
                 objStudent = (from a in _db.tbl_Students
-                              join uC in _db.tbl_Students on a.CreatedBy equals uC.AdminUserId into outerCreated
+                              join uC in _db.tbl_AdminUsers on a.CreatedBy equals uC.AdminUserId into outerCreated
                               from uC in outerCreated.DefaultIfEmpty()
 
-                              join uM in _db.tbl_Students on a.UpdatedBy equals uM.AdminUserId into outerModified
+                              join uM in _db.tbl_AdminUsers on a.UpdatedBy equals uM.AdminUserId into outerModified
                               from uM in outerModified.DefaultIfEmpty()
 
                               where a.StudentId == Id
@@ -402,7 +429,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 {
                     objStudent.Dob = Convert.ToDateTime(objStudent.dtDob).ToString("dd/MM/yyyy");
                 }
-                 
+
             }
             catch (Exception ex)
             {

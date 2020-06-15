@@ -9,7 +9,7 @@ namespace DuolingoSk
     {
         public int TotalAgents { get; set; }
         public int TotalStudents { get; set; }
-        public int TotalPendingFees { get; set; }
+        public decimal TotalPendingFees { get; set; }
         public int TotalPendingExams { get; set; }        
 
     }

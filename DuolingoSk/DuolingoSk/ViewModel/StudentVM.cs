@@ -49,5 +49,6 @@ namespace DuolingoSk
         public string strModifiedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string FullName { get; set; }
+        public string AgentName { get; set; }
     }
 }

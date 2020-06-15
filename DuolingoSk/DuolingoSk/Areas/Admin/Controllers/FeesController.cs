@@ -28,12 +28,19 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             try
             {
+                int LoggedInUserId = Int32.Parse(clsAdminSession.UserID.ToString());
+
+                bool IsAgent = (clsAdminSession.RoleID == (int)AdminRoles.Agent);
+
                 lstFee = (from a in _db.tbl_StudentFee
                           join s in _db.tbl_Students on a.StudentId equals s.StudentId
                           join u in _db.tbl_AdminUsers on s.AdminUserId equals u.AdminUserId into outerAgent
                           from agent in outerAgent.DefaultIfEmpty()
-
                           where !a.IsDeleted
+                          && (
+                                !IsAgent
+                                    || (s.AdminUserId == LoggedInUserId)
+                            )
                           select new StudentFeeVM
                           {
                               StudentFeeId = a.StudentFeeId,
