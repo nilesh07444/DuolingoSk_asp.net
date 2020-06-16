@@ -62,6 +62,7 @@
 
        $(".pragrph input[type=text]").keyup(function () {       
         if (this.value.length == this.maxLength) {
+            $(this).attr("value", $(this).val());
             var idxx = parseInt($(this).attr("tabindex"));
             idxx = idxx + 1;
             $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
@@ -74,7 +75,7 @@
            else {
                $(".btnNxt").attr("disabled","disabled");
            }
-});
+        });
 
     });
     function secondsTimeSpanToHMS(s) {
@@ -106,4 +107,15 @@
         });
         return flg9;
     }
+
+    function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+        }       
+         
+        var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:$(".pragrph").html(),Ans:$(".pragrph").html()};
+        arryresult.push(objans);
+        window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+ 
+     }
 </script>

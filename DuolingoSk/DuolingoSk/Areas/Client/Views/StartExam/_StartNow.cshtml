@@ -1,0 +1,61 @@
+﻿<div class="container1 login statement enginebox">
+
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var arryresult = [];
+    window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+    var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
+    var cntQs = 0;
+    $(document).ready(function () {
+        $(".question").hide();
+    });
+    function Start() {
+        $(".question").hide();
+        $(".indexpage").hide();
+        var qiid = questionss[cntQs].QuestionId
+        $(".container1").load('\getQuestion?QueId=' + qiid, function () {
+
+        });
+
+        //$(".1q").show();
+    }
+
+    function nextintro() {
+        $(".indexpage").hide();
+        $(".intr2").show();
+    }
+
+    function nextquestion(objthis) {   
+        
+        cntQs = cntQs + 1;       
+        
+        if (questionss.length > cntQs) {       
+            SaveAns(cntQs - 1);
+            var qiid = questionss[cntQs].QuestionId;
+            $(".container1").load('\getQuestion?QueId=' + qiid, function () {
+
+            });
+        }
+        else {
+            SaveAns(cntQs - 1);
+            $.ajax({
+                url: '/SaveExamResult',
+                type: 'POST',
+                dataType: 'json',
+                data: window.localStorage.getItem('resultq'),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                // get the result and do some magic with it
+                var message = data.Message;
+               // $("#resultMessage").html(message);
+            }
+        });
+           // saveresult();
+        }
+       
+        //$(".question").hide();
+       // $(objthis).parents('.question').next('.question').show();
+    }
+   
+</script>

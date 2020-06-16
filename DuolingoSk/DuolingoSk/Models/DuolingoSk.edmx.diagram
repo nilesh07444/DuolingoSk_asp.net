@@ -13,6 +13,9 @@
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentFee" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Students" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_GeneralSetting" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Exam" Width="1.5" PointX="9.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_ExamResultDetails" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionLevel" Width="1.5" PointX="0.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

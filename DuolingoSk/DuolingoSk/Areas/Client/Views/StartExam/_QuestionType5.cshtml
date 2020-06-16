@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts" style="height:35px;">
-                                        <span class="form-group"><input type="checkbox" id="@cn"> <label for="@cn"></label></span>
+                                        <span class="form-group"><input type="checkbox" id="@cn" value="@objmp.Mp3FileName"> <label for="@cn"></label></span>
                                     </div>
                                 </div>
                             </li>
@@ -121,4 +121,25 @@
         var wordCount = $("#txtessay").val().trim().replace(regex, ' ').split(' ').length;
         return wordCount;
     }
+
+     function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+         }       
+             var arrywrdd = [];
+          $(".audio-secton1 input[type=checkbox]:checked").each(function () {
+             arrywrdd.push($(this).val());
+         });
+         var strjoins = arrywrdd.join('^');
+
+           var arrywrddnm = [];
+          $(".plymp3").each(function () {
+             arrywrddnm.push($(this).attr("data-mp33"));
+         });
+         var strjoinsnm = arrywrddnm.join('^');
+        var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:strjoinsnm,Ans:strjoins};
+        arryresult.push(objans);
+        window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+ 
+     }
 </script>
