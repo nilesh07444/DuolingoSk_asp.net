@@ -108,12 +108,12 @@
                             </div>
 
                             @*<div class="form-group row">
-                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control col-md-8 clsDatePicker", @placeholder = "DD/MM/YYYY", @data_language = "en", @readonly = "readonly" } })
+                                    @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                    @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control col-md-8 clsDatePicker", @placeholder = "DD/MM/YYYY", @data_language = "en", @readonly = "readonly" } })
 
-                <lable class="col-xl-3 col-md-4"></lable>
-                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
-            </div>*@
+                                    <lable class="col-xl-3 col-md-4"></lable>
+                                    @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+                                </div>*@
 
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
@@ -157,7 +157,7 @@
 
                             <div class="form-group row">
                                 <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.HiddenFor(x => x.AdminUserId) 
+                                @Html.HiddenFor(x => x.AdminUserId)
                                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
                                 <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
                             </div>
