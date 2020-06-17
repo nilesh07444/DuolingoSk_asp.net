@@ -33,5 +33,8 @@ namespace DuolingoSk.Models
         public virtual DbSet<tbl_StudentFee> tbl_StudentFee { get; set; }
         public virtual DbSet<tbl_Students> tbl_Students { get; set; }
         public virtual DbSet<tbl_GeneralSetting> tbl_GeneralSetting { get; set; }
+        public virtual DbSet<tbl_Exam> tbl_Exam { get; set; }
+        public virtual DbSet<tbl_ExamResultDetails> tbl_ExamResultDetails { get; set; }
+        public virtual DbSet<tbl_QuestionLevel> tbl_QuestionLevel { get; set; }
     }
 }

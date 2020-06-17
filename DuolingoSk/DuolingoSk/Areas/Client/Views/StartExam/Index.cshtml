@@ -1,7 +1,9 @@
 ﻿@using DuolingoSk.ViewModel;
+@using DuolingoSk.Models;
 @{
     ViewBag.Title = "Index";
-    List<QuestionVM> lstQues = ViewData["lstQue"] as List<QuestionVM>;
+    List<tbl_QuestionLevel> lstQueslvl =ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
+     
     int Cntss = 0;
 }
 <link href="~/Content/quiz.css" rel="stylesheet" />
@@ -17,173 +19,399 @@
         </div>
     </div>
 </section>
+<div id="dvStartNow">
+    <div class="container1 login statement enginebox">
+        <div class="indexpage" style="display:none;">
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Enter your inforamtion as it appears on your ID</h2>
+            <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">
+                Unreadable or incorect inforamtion will prevent your
+                result from being cerified.
+            </p>
 
-<div class="container1 login statement enginebox">
-    <div class="indexpage" style="display:none;">
-        <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Enter your inforamtion as it appears on your ID</h2>
-        <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">
-            Unreadable or incorect inforamtion will prevent your
-            result from being cerified.
-        </p>
-
-        <form>
-            <div class="columns is-multiline is-mobile">
-                <div class="column totlsec">
-                    <div class="columns is-multiline is-mobile">
-                        <div class="column is-3">
-                            <video height="350px" width="400px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                        </div>
-                        <div class="column is-9" style="margin-top:15px;">
-                            <form class="is-marginless">
-                                <div class="columns is-multiline is-mobile">
-                                    <div class="column is-6">
-                                        <div class="field is-marginless">
-                                            <label class="label">Given Name</label>
-                                            <div class="control has-icons-left has-icons-right">
-                                                <input type="text" name="name" id="name" title="name" placeholder="Name" class="input" aria-required="true" aria-invalid="false">
+            <form>
+                <div class="columns is-multiline is-mobile">
+                    <div class="column totlsec">
+                        <div class="columns is-multiline is-mobile">
+                            <div class="column is-3">
+                                <video height="350px" width="400px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                            </div>
+                            <div class="column is-9" style="margin-top:15px;">
+                                <form class="is-marginless">
+                                    <div class="columns is-multiline is-mobile">
+                                        <div class="column is-6">
+                                            <div class="field is-marginless">
+                                                <label class="label">Given Name</label>
+                                                <div class="control has-icons-left has-icons-right">
+                                                    <input type="text" name="name" id="name" title="name" placeholder="Name" class="input" aria-required="true" aria-invalid="false">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <p class="id-text is-size-7 has-text-weight-normal has-text-grey-light">Make a sure list you all of the names on your ID</p>
-                                        <div class="error" style="display: none;"></div>
-                                    </div>
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label class="label">SurnName(family name,etc)</label>
-                                            <div class="control has-icons-left has-icons-right">
-                                                <input type="text" name="SurnName" id="SurnName" title="SurnName" placeholder="SurnName" class="input" aria-required="true" aria-invalid="false">
-                                            </div>
+                                            <p class="id-text is-size-7 has-text-weight-normal has-text-grey-light">Make a sure list you all of the names on your ID</p>
                                             <div class="error" style="display: none;"></div>
                                         </div>
-                                    </div>
-                                    <div class="column is-12">
-                                        <div class="field">
-                                            <label class="label">Date Of Birth</label>
-                                            <div class="columns">
-                                                <div class="column is-2">
-                                                    <div class="select">
-                                                        <select>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                            <option value="7">7</option>
-                                                            <option value="8">8</option>
-                                                            <option value="9">9</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                                            <option value="13">13</option>
-                                                            <option value="14">14</option>
-                                                            <option value="15">15</option>
-                                                            <option value="16">16</option>
-                                                            <option value="17">17</option>
-                                                            <option value="18">18</option>
-                                                            <option value="19">19</option>
-                                                            <option value="20">20</option>
-                                                            <option value="21">21</option>
-                                                            <option value="22">22</option>
-                                                            <option value="23">23</option>
-                                                            <option value="24">24</option>
-                                                            <option value="25">25</option>
-                                                            <option value="26">26</option>
-                                                            <option value="27">27</option>
-                                                            <option value="28">28</option>
-                                                            <option value="29">29</option>
-                                                            <option value="30">30</option>
-                                                            <option value="31">31</option>
-                                                        </select>
-                                                    </div>
+                                        <div class="column is-6">
+                                            <div class="field">
+                                                <label class="label">SurnName(family name,etc)</label>
+                                                <div class="control has-icons-left has-icons-right">
+                                                    <input type="text" name="SurnName" id="SurnName" title="SurnName" placeholder="SurnName" class="input" aria-required="true" aria-invalid="false">
                                                 </div>
-                                                <div class="column is-3">
-                                                    <div class="select">
-                                                        <select>
-                                                            <option selected="selected" value="1">Janaury</option>
-                                                            <option value="2">February</option>
-                                                            <option value="3">March</option>
-                                                            <option value="4">April</option>
-                                                            <option value="5">May</option>
-                                                            <option value="6">June</option>
-                                                            <option value="7">July</option>
-                                                            <option value="8">August</option>
-                                                            <option value="9">September</option>
-                                                            <option value="10">October</option>
-                                                            <option value="11">November</option>
-                                                            <option value="12">December</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-4">
-                                                    <div class="control">
+                                                <div class="error" style="display: none;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="column is-12">
+                                            <div class="field">
+                                                <label class="label">Date Of Birth</label>
+                                                <div class="columns">
+                                                    <div class="column is-2">
                                                         <div class="select">
                                                             <select>
-                                                                <option value="2020">2020</option>
-                                                                <option value="2019">2019</option>
-                                                                <option value="2018">2018</option>
-                                                                <option value="2017">2017</option>
-                                                                <option value="2016">2016</option>
-                                                                <option value="2015">2015</option>
-                                                                <option value="2014">2014</option>
-                                                                <option value="2013">2013</option>
-                                                                <option value="2012">2012</option>
-                                                                <option value="2011">2011</option>
-                                                                <option value="2010">2010</option>
-                                                                <option value="2009">2009</option>
-                                                                <option value="2008">2008</option>
-                                                                <option value="2007">2007</option>
-                                                                <option value="2006">2006</option>
-                                                                <option value="2005">2005</option>
-                                                                <option value="2004">2004</option>
-                                                                <option value="2003">2003</option>
-                                                                <option value="2002">2002</option>
-                                                                <option value="2001">2001</option>
-                                                                <option value="2000">2000</option>
-                                                                <option value="1999">1999</option>
-                                                                <option value="1998">1998</option>
-                                                                <option value="1997">1997</option>
-                                                                <option value="1996">1996</option>
-                                                                <option value="1995">1995</option>
-                                                                <option value="1994">1994</option>
-                                                                <option value="1993">1993</option>
-                                                                <option value="1992">1992</option>
-                                                                <option value="1991">1991</option>
-                                                                <option value="1990">1990</option>
-                                                                <option value="1989">1989</option>
-                                                                <option value="1988">1988</option>
-                                                                <option value="1987">1987</option>
-                                                                <option value="1986">1986</option>
-                                                                <option value="1985">1985</option>
-                                                                <option value="1984">1984</option>
-                                                                <option value="1983">1983</option>
-                                                                <option value="1982">1982</option>
-                                                                <option value="1981">1981</option>
-                                                                <option value="1980">1980</option>
-                                                                <option value="1979">1979</option>
-                                                                <option value="1978">1978</option>
-                                                                <option value="1977">1977</option>
-                                                                <option value="1976">1976</option>
-                                                                <option value="1975">1975</option>
-                                                                <option value="1974">1974</option>
-                                                                <option value="1973">1973</option>
-                                                                <option value="1972">1972</option>
-                                                                <option value="1971">1971</option>
-                                                                <option value="1970">1970</option>
-                                                                <option value="1969">1969</option>
-                                                                <option value="1968">1968</option>
-                                                                <option value="1967">1967</option>
-                                                                <option value="1966">1966</option>
-                                                                <option value="1965">1965</option>
-                                                                <option value="1964">1964</option>
-                                                                <option value="1963">1963</option>
-                                                                <option value="1962">1962</option>
-                                                                <option value="1961">1961</option>
-                                                                <option value="1960">1960</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-3">
+                                                        <div class="select">
+                                                            <select>
+                                                                <option selected="selected" value="1">Janaury</option>
+                                                                <option value="2">February</option>
+                                                                <option value="3">March</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">May</option>
+                                                                <option value="6">June</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">August</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-4">
+                                                        <div class="control">
+                                                            <div class="select">
+                                                                <select>
+                                                                    <option value="2020">2020</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2015">2015</option>
+                                                                    <option value="2014">2014</option>
+                                                                    <option value="2013">2013</option>
+                                                                    <option value="2012">2012</option>
+                                                                    <option value="2011">2011</option>
+                                                                    <option value="2010">2010</option>
+                                                                    <option value="2009">2009</option>
+                                                                    <option value="2008">2008</option>
+                                                                    <option value="2007">2007</option>
+                                                                    <option value="2006">2006</option>
+                                                                    <option value="2005">2005</option>
+                                                                    <option value="2004">2004</option>
+                                                                    <option value="2003">2003</option>
+                                                                    <option value="2002">2002</option>
+                                                                    <option value="2001">2001</option>
+                                                                    <option value="2000">2000</option>
+                                                                    <option value="1999">1999</option>
+                                                                    <option value="1998">1998</option>
+                                                                    <option value="1997">1997</option>
+                                                                    <option value="1996">1996</option>
+                                                                    <option value="1995">1995</option>
+                                                                    <option value="1994">1994</option>
+                                                                    <option value="1993">1993</option>
+                                                                    <option value="1992">1992</option>
+                                                                    <option value="1991">1991</option>
+                                                                    <option value="1990">1990</option>
+                                                                    <option value="1989">1989</option>
+                                                                    <option value="1988">1988</option>
+                                                                    <option value="1987">1987</option>
+                                                                    <option value="1986">1986</option>
+                                                                    <option value="1985">1985</option>
+                                                                    <option value="1984">1984</option>
+                                                                    <option value="1983">1983</option>
+                                                                    <option value="1982">1982</option>
+                                                                    <option value="1981">1981</option>
+                                                                    <option value="1980">1980</option>
+                                                                    <option value="1979">1979</option>
+                                                                    <option value="1978">1978</option>
+                                                                    <option value="1977">1977</option>
+                                                                    <option value="1976">1976</option>
+                                                                    <option value="1975">1975</option>
+                                                                    <option value="1974">1974</option>
+                                                                    <option value="1973">1973</option>
+                                                                    <option value="1972">1972</option>
+                                                                    <option value="1971">1971</option>
+                                                                    <option value="1970">1970</option>
+                                                                    <option value="1969">1969</option>
+                                                                    <option value="1968">1968</option>
+                                                                    <option value="1967">1967</option>
+                                                                    <option value="1966">1966</option>
+                                                                    <option value="1965">1965</option>
+                                                                    <option value="1964">1964</option>
+                                                                    <option value="1963">1963</option>
+                                                                    <option value="1962">1962</option>
+                                                                    <option value="1961">1961</option>
+                                                                    <option value="1960">1960</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-multiline is-mobile footsec">
+                    <div class="column is-4"></div>
+                    <div class="column is-4">
+                        <progress value="1" max="10" class="progress is-small is-mycolor"></progress>
+                    </div>
+                    <div class="column is-4">
+                        <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold">Next</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="indexpage" style="display:none;">
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Demographic information</h2>
+            <p class="column is-offset-2 is-8 is-size-6 has-text-weight-normal has-text-centered has-text-grey-light">We use this information to make a sure test is fair for everyone.it isn't shared when you send your test result</p>
+            <br>
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-offset-4 is-4">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <form class="is-marginless">
+                                <div class="columns is-multiline is-mobile">
+                                    <div class="column is-12">
+                                        <label>First Lauguage</label>
+                                        <div class="select">
+                                            <select>
+                                                <option value="Abkhaz">Abkhaz (аҧсуа)</option>
+                                                <option value="Afar">Afar (Afaraf)</option>
+                                                <option value="Afrikaans">Afrikaans (Afrikaans)</option>
+                                                <option value="Akan">Akan (Akan)</option>
+                                                <option value="Albanian">Albanian (Shqip)</option>
+                                                <option value="Amharic">Amharic (አማርኛ)</option>
+                                                <option value="Arabic">Arabic (العربية)</option>
+                                                <option value="Aragonese">Aragonese (Aragonés)</option>
+                                                <option value="Armenian">Armenian (Հայերեն)</option>
+                                                <option value="Assamese">Assamese (অসমীয়া)</option>
+                                                <option value="Avaric">Avaric (авар мацӀ, магӀарул мацӀ)</option>
+                                                <option value="Avestan">Avestan (avesta)</option>
+                                                <option value="Aymara">Aymara (aymar aru)</option>
+                                                <option value="Azerbaijani">Azerbaijani (azərbaycan dili)</option>
+                                                <option value="Bambara">Bambara (bamanankan)</option>
+                                                <option value="Bashkir">Bashkir (башҡорт теле)</option>
+                                                <option value="Basque">Basque (euskara, euskera)</option>
+                                                <option value="Belarusian">Belarusian (Беларуская)</option>
+                                                <option value="Bengali">Bengali (বাংলা)</option>
+                                                <option value="Bihari">Bihari (भोजपुरी)</option>
+                                                <option value="Bislama">Bislama (Bislama)</option>
+                                                <option value="Bosnian">Bosnian (bosanski jezik)</option>
+                                                <option value="Breton">Breton (brezhoneg)</option>
+                                                <option value="Bulgarian">Bulgarian (български език)</option>
+                                                <option value="Burmese">Burmese (ဗမာစာ)</option>
+                                                <option value="Catalan; Valencian">Catalan; Valencian (Català)</option>
+                                                <option value="Chamorro">Chamorro (Chamoru)</option>
+                                                <option value="Chechen">Chechen (нохчийн мотт)</option>
+                                                <option value="Chichewa; Chewa; Nyanja">Chichewa; Chewa; Nyanja (chiCheŵa, chinyanja)</option>
+                                                <option value="Chinese">Chinese (中文 (Zhōngwén), 汉语, 漢語)</option>
+                                                <option value="Chuvash">Chuvash (чӑваш чӗлхи)</option>
+                                                <option value="Cornish">Cornish (Kernewek)</option>
+                                                <option value="Corsican">Corsican (corsu, lingua corsa)</option>
+                                                <option value="Cree">Cree (ᓀᐦᐃᔭᐍᐏᐣ)</option>
+                                                <option value="Croatian">Croatian (hrvatski)</option>
+                                                <option value="Czech">Czech (česky, čeština)</option>
+                                                <option value="Danish">Danish (dansk)</option>
+                                                <option value="Divehi; Dhivehi; Maldivian;">Divehi; Dhivehi; Maldivian; (ދިވެހި)</option>
+                                                <option value="Dutch">Dutch (Nederlands, Vlaams)</option>
+                                                <option value="English">English (English)</option>
+                                                <option value="Esperanto">Esperanto (Esperanto)</option>
+                                                <option value="Estonian">Estonian (eesti, eesti keel)</option>
+                                                <option value="Ewe">Ewe (Eʋegbe)</option>
+                                                <option value="Faroese">Faroese (føroyskt)</option>
+                                                <option value="Fijian">Fijian (vosa Vakaviti)</option>
+                                                <option value="Finnish">Finnish (suomi, suomen kieli)</option>
+                                                <option value="French">French (français, langue française)</option>
+                                                <option value="Fula; Fulah; Pulaar; Pular">Fula; Fulah; Pulaar; Pular (Fulfulde, Pulaar, Pular)</option>
+                                                <option value="Galician">Galician (Galego)</option>
+                                                <option value="Georgian">Georgian (ქართული)</option>
+                                                <option value="German">German (Deutsch)</option>
+                                                <option value="Greek, Modern">Greek, Modern (Ελληνικά)</option>
+                                                <option value="Guaraní">Guaraní (Avañeẽ)</option>
+                                                <option value="Gujarati">Gujarati (ગુજરાતી)</option>
+                                                <option value="Haitian; Haitian Creole">Haitian; Haitian Creole (Kreyòl ayisyen)</option>
+                                                <option value="Hausa">Hausa (Hausa, هَوُسَ)</option>
+                                                <option value="Hebrew (modern)">Hebrew (modern) (עברית)</option>
+                                                <option value="Herero">Herero (Otjiherero)</option>
+                                                <option value="Hindi">Hindi (हिन्दी, हिंदी)</option>
+                                                <option value="Hiri Motu">Hiri Motu (Hiri Motu)</option>
+                                                <option value="Hungarian">Hungarian (Magyar)</option>
+                                                <option value="Interlingua">Interlingua (Interlingua)</option>
+                                                <option value="Indonesian">Indonesian (Bahasa Indonesia)</option>
+                                                <option value="Interlingue">Interlingue (Originally called Occidental; then Interlingue after WWII)</option>
+                                                <option value="Irish">Irish (Gaeilge)</option>
+                                                <option value="Igbo">Igbo (Asụsụ Igbo)</option>
+                                                <option value="Inupiaq">Inupiaq (Iñupiaq, Iñupiatun)</option>
+                                                <option value="Ido">Ido (Ido)</option>
+                                                <option value="Icelandic">Icelandic (Íslenska)</option>
+                                                <option value="Italian">Italian (Italiano)</option>
+                                                <option value="Inuktitut">Inuktitut (ᐃᓄᒃᑎᑐᑦ)</option>
+                                                <option value="Japanese">Japanese (日本語 (にほんご／にっぽんご))</option>
+                                                <option value="Javanese">Javanese (basa Jawa)</option>
+                                                <option value="Kalaallisut, Greenlandic">Kalaallisut, Greenlandic (kalaallisut, kalaallit oqaasii)</option>
+                                                <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
+                                                <option value="Kanuri">Kanuri (Kanuri)</option>
+                                                <option value="Kashmiri">Kashmiri (कश्मीरी, كشميري&lrm;)</option>
+                                                <option value="Kazakh">Kazakh (Қазақ тілі)</option>
+                                                <option value="Khmer">Khmer (ភាសាខ្មែរ)</option>
+                                                <option value="Kikuyu, Gikuyu">Kikuyu, Gikuyu (Gĩkũyũ)</option>
+                                                <option value="Kinyarwanda">Kinyarwanda (Ikinyarwanda)</option>
+                                                <option value="Kirghiz, Kyrgyz">Kirghiz, Kyrgyz (кыргыз тили)</option>
+                                                <option value="Komi">Komi (коми кыв)</option>
+                                                <option value="Kongo">Kongo (KiKongo)</option>
+                                                <option value="Korean">Korean (한국어 (韓國語), 조선말 (朝鮮語))</option>
+                                                <option value="Kurdish">Kurdish (Kurdî, كوردی&lrm;)</option>
+                                                <option value="Kwanyama, Kuanyama">Kwanyama, Kuanyama (Kuanyama)</option>
+                                                <option value="Latin">Latin (latine, lingua latina)</option>
+                                                <option value="Luxembourgish, Letzeburgesch">Luxembourgish, Letzeburgesch (Lëtzebuergesch)</option>
+                                                <option value="Luganda">Luganda (Luganda)</option>
+                                                <option value="Limburgish, Limburgan, Limburger">Limburgish, Limburgan, Limburger (Limburgs)</option>
+                                                <option value="Lingala">Lingala (Lingála)</option>
+                                                <option value="Lao">Lao (ພາສາລາວ)</option>
+                                                <option value="Lithuanian">Lithuanian (lietuvių kalba)</option>
+                                                <option value="Luba-Katanga">Luba-Katanga ()</option>
+                                                <option value="Latvian">Latvian (latviešu valoda)</option>
+                                                <option value="Manx">Manx (Gaelg, Gailck)</option>
+                                                <option value="Macedonian">Macedonian (македонски јазик)</option>
+                                                <option value="Malagasy">Malagasy (Malagasy fiteny)</option>
+                                                <option value="Malay">Malay (bahasa Melayu, بهاس ملايو&lrm;)</option>
+                                                <option value="Malayalam">Malayalam (മലയാളം)</option>
+                                                <option value="Maltese">Maltese (Malti)</option>
+                                                <option value="Māori">Māori (te reo Māori)</option>
+                                                <option value="Marathi (Marāṭhī)">Marathi (Marāṭhī) (मराठी)</option>
+                                                <option value="Marshallese">Marshallese (Kajin M̧ajeļ)</option>
+                                                <option value="Mongolian">Mongolian (монгол)</option>
+                                                <option value="Nauru">Nauru (Ekakairũ Naoero)</option>
+                                                <option value="Navajo, Navaho">Navajo, Navaho (Diné bizaad, Dinékʼehǰí)</option>
+                                                <option value="Norwegian Bokmål">Norwegian Bokmål (Norsk bokmål)</option>
+                                                <option value="North Ndebele">North Ndebele (isiNdebele)</option>
+                                                <option value="Nepali">Nepali (नेपाली)</option>
+                                                <option value="Ndonga">Ndonga (Owambo)</option>
+                                                <option value="Norwegian Nynorsk">Norwegian Nynorsk (Norsk nynorsk)</option>
+                                                <option value="Norwegian">Norwegian (Norsk)</option>
+                                                <option value="Nuosu">Nuosu (ꆈꌠ꒿ Nuosuhxop)</option>
+                                                <option value="South Ndebele">South Ndebele (isiNdebele)</option>
+                                                <option value="Occitan">Occitan (Occitan)</option>
+                                                <option value="Ojibwe, Ojibwa">Ojibwe, Ojibwa (ᐊᓂᔑᓈᐯᒧᐎᓐ)</option>
+                                                <option value="Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic">Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic (ѩзыкъ словѣньскъ)</option>
+                                                <option value="Oromo">Oromo (Afaan Oromoo)</option>
+                                                <option value="Oriya">Oriya (ଓଡ଼ିଆ)</option>
+                                                <option value="Ossetian, Ossetic">Ossetian, Ossetic (ирон æвзаг)</option>
+                                                <option value="Panjabi, Punjabi">Panjabi, Punjabi (ਪੰਜਾਬੀ, پنجابی&lrm;)</option>
+                                                <option value="Pāli">Pāli (पाऴि)</option>
+                                                <option value="Persian">Persian (فارسی)</option>
+                                                <option value="Polish">Polish (polski)</option>
+                                                <option value="Pashto, Pushto">Pashto, Pushto (پښتو)</option>
+                                                <option value="Portuguese">Portuguese (Português)</option>
+                                                <option value="Quechua">Quechua (Runa Simi, Kichwa)</option>
+                                                <option value="Romansh">Romansh (rumantsch grischun)</option>
+                                                <option value="Kirundi">Kirundi (kiRundi)</option>
+                                                <option value="Romanian, Moldavian, Moldovan">Romanian, Moldavian, Moldovan (română)</option>
+                                                <option value="Russian">Russian (русский язык)</option>
+                                                <option value="Sanskrit (Saṁskṛta)">Sanskrit (Saṁskṛta) (संस्कृतम्)</option>
+                                                <option value="Sardinian">Sardinian (sardu)</option>
+                                                <option value="Sindhi">Sindhi (सिन्धी, سنڌي، سندھی&lrm;)</option>
+                                                <option value="Northern Sami">Northern Sami (Davvisámegiella)</option>
+                                                <option value="Samoan">Samoan (gagana faa Samoa)</option>
+                                                <option value="Sango">Sango (yângâ tî sängö)</option>
+                                                <option value="Serbian">Serbian (српски језик)</option>
+                                                <option value="Scottish Gaelic; Gaelic">Scottish Gaelic; Gaelic (Gàidhlig)</option>
+                                                <option value="Shona">Shona (chiShona)</option>
+                                                <option value="Sinhala, Sinhalese">Sinhala, Sinhalese (සිංහල)</option>
+                                                <option value="Slovak">Slovak (slovenčina)</option>
+                                                <option value="Slovene">Slovene (slovenščina)</option>
+                                                <option value="Somali">Somali (Soomaaliga, af Soomaali)</option>
+                                                <option value="Southern Sotho">Southern Sotho (Sesotho)</option>
+                                                <option value="Spanish; Castilian">Spanish; Castilian (español, castellano)</option>
+                                                <option value="Sundanese">Sundanese (Basa Sunda)</option>
+                                                <option value="Swahili">Swahili (Kiswahili)</option>
+                                                <option value="Swati">Swati (SiSwati)</option>
+                                                <option value="Swedish">Swedish (svenska)</option>
+                                                <option value="Tamil">Tamil (தமிழ்)</option>
+                                                <option value="Telugu">Telugu (తెలుగు)</option>
+                                                <option value="Tajik">Tajik (тоҷикӣ, toğikī, تاجیکی&lrm;)</option>
+                                                <option value="Thai">Thai (ไทย)</option>
+                                                <option value="Tigrinya">Tigrinya (ትግርኛ)</option>
+                                                <option value="Tibetan Standard, Tibetan, Central">Tibetan Standard, Tibetan, Central (བོད་ཡིག)</option>
+                                                <option value="Turkmen">Turkmen (Türkmen, Түркмен)</option>
+                                                <option value="Tagalog">Tagalog (Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔)</option>
+                                                <option value="Tswana">Tswana (Setswana)</option>
+                                                <option value="Tonga (Tonga Islands)">Tonga (Tonga Islands) (faka Tonga)</option>
+                                                <option value="Turkish">Turkish (Türkçe)</option>
+                                                <option value="Tsonga">Tsonga (Xitsonga)</option>
+                                                <option value="Tatar">Tatar (татарча, tatarça, تاتارچا&lrm;)</option>
+                                                <option value="Twi">Twi (Twi)</option>
+                                                <option value="Tahitian">Tahitian (Reo Tahiti)</option>
+                                                <option value="Uighur, Uyghur">Uighur, Uyghur (Uyƣurqə, ئۇيغۇرچە&lrm;)</option>
+                                                <option value="Ukrainian">Ukrainian (українська)</option>
+                                                <option value="Urdu">Urdu (اردو)</option>
+                                                <option value="Uzbek">Uzbek (zbek, Ўзбек, أۇزبېك&lrm;)</option>
+                                                <option value="Venda">Venda (Tshivenḓa)</option>
+                                                <option value="Vietnamese">Vietnamese (Tiếng Việt)</option>
+                                                <option value="Volapük">Volapük (Volapük)</option>
+                                                <option value="Walloon">Walloon (Walon)</option>
+                                                <option value="Welsh">Welsh (Cymraeg)</option>
+                                                <option value="Wolof">Wolof (Wollof)</option>
+                                                <option value="Western Frisian">Western Frisian (Frysk)</option>
+                                                <option value="Xhosa">Xhosa (isiXhosa)</option>
+                                                <option value="Yiddish">Yiddish (ייִדיש)</option>
+                                                <option value="Yoruba">Yoruba (Yorùbá)</option>
+                                                <option value="Zhuang, Chuang">Zhuang, Chuang (Saɯ cueŋƅ, Saw cuengh)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="column is-12">
+                                        <label>Gender</label>
+                                        <div class="select">
+                                            <select>
+                                                <option value="">Female</option>
+                                                <option value="">Male</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -192,335 +420,150 @@
                     </div>
                 </div>
             </div>
-            <div class="columns is-multiline is-mobile footsec">
-                <div class="column is-4"></div>
+            <div class="columns is-multiline is-mobile last-sec footsec">
                 <div class="column is-4">
-                    <progress value="1" max="10" class="progress is-small is-mycolor"></progress>
+                    <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold">Back</button>
+                </div>
+                <div class="column is-4">
+                    <progress value="2" max="10" class="progress is-small is-mycolor"></progress>
                 </div>
                 <div class="column is-4">
                     <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold">Next</button>
                 </div>
             </div>
-        </form>
+        </div>
+        <div class="indexpage intr0" style="display:block;">
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Select Level</h2>
+            <br>
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-offset-4 is-4">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <form class="is-marginless">
+                                <div class="columns is-multiline is-mobile">
+                                    <div class="column is-12">
+                                        <label>Level</label>
+                                        <div class="select">
+                                            <select id="quelevel">
+                                                @if (lstQueslvl != null && lstQueslvl.Count() > 0)
+                                                {
+                                                    <option value="">Select Level</option>
+                                                    foreach (var objq in lstQueslvl)
+                                                    {
+                                                        <option value="@objq.Level_Id">@objq.LevelName</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>                                 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-multiline is-mobile last-sec footsec">
+                <div class="column is-4">
+                    <progress value="0" max="10" class="progress is-small is-mycolor"></progress>
+                </div>
+                <div class="column is-4">
+                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="indexpage intr1" style="display:none;">
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Ensure you are always fully visible</h2>
+            <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">If you cannot seen at all time, your test will not be certifed</p>
+            <div class="columns is-multiline is-mobile visiblepg">
+                <div class="column is-offset-2 is-8">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-4">
+                            <img src="~/Images/I4.png">
+                            <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Do not leave the camera preview</p>
+                        </div>
+                        <div class="column is-4">
+                            <img src="~/Images/I5.png">
+                            <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Do not look away from the screen</p>
+                        </div>
+                        <div class="column is-4">
+                            <img src="~/Images/I6.png">
+                            <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Keep your ears visible and uncovered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-multiline is-mobile footsec">
+                <div class="column is-4">
+                    <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold" onclick="backintro();">Back</button>
+                </div>
+                <div class="column is-4">
+                    <progress value="4" max="10" class="progress is-small is-mycolor"></progress>
+                </div>
+                <div class="column is-4">
+                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="indexpage intr2" style="display:none;">
+            <div class="ready-text">
+                <img src="~/Images/I3.png" style="width: 70%;">
+                <h2 class="is-size-4 has-text-weight-semibold is-capitalized has-text-centered is-marginless">You're ready to take the test</h2>
+                <p class="is-size-6 has-text-weight-normal has-text-centered has-text-grey-light">The test will take approximately 45-55 mintes to complete a human reviewer will watch a recording of you test.</p>
+            </div>
+            <div class="columns is-multiline is-mobile footsec">
+                <div class="column is-4">
+                    <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold" onclick="backintro();">Back</button>
+                </div>
+                <div class="column is-4">
+                    <progress value="100" max="100" class="progress is-small is-mycolor"></progress>
+                </div>
+                <div class="column is-4">
+                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="Start();">START</button>
+                </div>
+            </div>
+        </div>
 
     </div>
-    <div class="indexpage" style="display:none;">
-        <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Demographic information</h2>
-        <p class="column is-offset-2 is-8 is-size-6 has-text-weight-normal has-text-centered has-text-grey-light">We use this information to make a sure test is fair for everyone.it isn't shared when you send your test result</p>
-        <br>
-        <div class="columns is-multiline is-mobile">
-            <div class="column is-offset-4 is-4">
-                <div class="columns is-multiline is-mobile">
-                    <div class="column is-12">
-                        <form class="is-marginless">
-                            <div class="columns is-multiline is-mobile">
-                                <div class="column is-12">
-                                    <label>First Lauguage</label>
-                                    <div class="select">
-                                        <select>
-                                            <option value="Abkhaz">Abkhaz (аҧсуа)</option>
-                                            <option value="Afar">Afar (Afaraf)</option>
-                                            <option value="Afrikaans">Afrikaans (Afrikaans)</option>
-                                            <option value="Akan">Akan (Akan)</option>
-                                            <option value="Albanian">Albanian (Shqip)</option>
-                                            <option value="Amharic">Amharic (አማርኛ)</option>
-                                            <option value="Arabic">Arabic (العربية)</option>
-                                            <option value="Aragonese">Aragonese (Aragonés)</option>
-                                            <option value="Armenian">Armenian (Հայերեն)</option>
-                                            <option value="Assamese">Assamese (অসমীয়া)</option>
-                                            <option value="Avaric">Avaric (авар мацӀ, магӀарул мацӀ)</option>
-                                            <option value="Avestan">Avestan (avesta)</option>
-                                            <option value="Aymara">Aymara (aymar aru)</option>
-                                            <option value="Azerbaijani">Azerbaijani (azərbaycan dili)</option>
-                                            <option value="Bambara">Bambara (bamanankan)</option>
-                                            <option value="Bashkir">Bashkir (башҡорт теле)</option>
-                                            <option value="Basque">Basque (euskara, euskera)</option>
-                                            <option value="Belarusian">Belarusian (Беларуская)</option>
-                                            <option value="Bengali">Bengali (বাংলা)</option>
-                                            <option value="Bihari">Bihari (भोजपुरी)</option>
-                                            <option value="Bislama">Bislama (Bislama)</option>
-                                            <option value="Bosnian">Bosnian (bosanski jezik)</option>
-                                            <option value="Breton">Breton (brezhoneg)</option>
-                                            <option value="Bulgarian">Bulgarian (български език)</option>
-                                            <option value="Burmese">Burmese (ဗမာစာ)</option>
-                                            <option value="Catalan; Valencian">Catalan; Valencian (Català)</option>
-                                            <option value="Chamorro">Chamorro (Chamoru)</option>
-                                            <option value="Chechen">Chechen (нохчийн мотт)</option>
-                                            <option value="Chichewa; Chewa; Nyanja">Chichewa; Chewa; Nyanja (chiCheŵa, chinyanja)</option>
-                                            <option value="Chinese">Chinese (中文 (Zhōngwén), 汉语, 漢語)</option>
-                                            <option value="Chuvash">Chuvash (чӑваш чӗлхи)</option>
-                                            <option value="Cornish">Cornish (Kernewek)</option>
-                                            <option value="Corsican">Corsican (corsu, lingua corsa)</option>
-                                            <option value="Cree">Cree (ᓀᐦᐃᔭᐍᐏᐣ)</option>
-                                            <option value="Croatian">Croatian (hrvatski)</option>
-                                            <option value="Czech">Czech (česky, čeština)</option>
-                                            <option value="Danish">Danish (dansk)</option>
-                                            <option value="Divehi; Dhivehi; Maldivian;">Divehi; Dhivehi; Maldivian; (ދިވެހި)</option>
-                                            <option value="Dutch">Dutch (Nederlands, Vlaams)</option>
-                                            <option value="English">English (English)</option>
-                                            <option value="Esperanto">Esperanto (Esperanto)</option>
-                                            <option value="Estonian">Estonian (eesti, eesti keel)</option>
-                                            <option value="Ewe">Ewe (Eʋegbe)</option>
-                                            <option value="Faroese">Faroese (føroyskt)</option>
-                                            <option value="Fijian">Fijian (vosa Vakaviti)</option>
-                                            <option value="Finnish">Finnish (suomi, suomen kieli)</option>
-                                            <option value="French">French (français, langue française)</option>
-                                            <option value="Fula; Fulah; Pulaar; Pular">Fula; Fulah; Pulaar; Pular (Fulfulde, Pulaar, Pular)</option>
-                                            <option value="Galician">Galician (Galego)</option>
-                                            <option value="Georgian">Georgian (ქართული)</option>
-                                            <option value="German">German (Deutsch)</option>
-                                            <option value="Greek, Modern">Greek, Modern (Ελληνικά)</option>
-                                            <option value="Guaraní">Guaraní (Avañeẽ)</option>
-                                            <option value="Gujarati">Gujarati (ગુજરાતી)</option>
-                                            <option value="Haitian; Haitian Creole">Haitian; Haitian Creole (Kreyòl ayisyen)</option>
-                                            <option value="Hausa">Hausa (Hausa, هَوُسَ)</option>
-                                            <option value="Hebrew (modern)">Hebrew (modern) (עברית)</option>
-                                            <option value="Herero">Herero (Otjiherero)</option>
-                                            <option value="Hindi">Hindi (हिन्दी, हिंदी)</option>
-                                            <option value="Hiri Motu">Hiri Motu (Hiri Motu)</option>
-                                            <option value="Hungarian">Hungarian (Magyar)</option>
-                                            <option value="Interlingua">Interlingua (Interlingua)</option>
-                                            <option value="Indonesian">Indonesian (Bahasa Indonesia)</option>
-                                            <option value="Interlingue">Interlingue (Originally called Occidental; then Interlingue after WWII)</option>
-                                            <option value="Irish">Irish (Gaeilge)</option>
-                                            <option value="Igbo">Igbo (Asụsụ Igbo)</option>
-                                            <option value="Inupiaq">Inupiaq (Iñupiaq, Iñupiatun)</option>
-                                            <option value="Ido">Ido (Ido)</option>
-                                            <option value="Icelandic">Icelandic (Íslenska)</option>
-                                            <option value="Italian">Italian (Italiano)</option>
-                                            <option value="Inuktitut">Inuktitut (ᐃᓄᒃᑎᑐᑦ)</option>
-                                            <option value="Japanese">Japanese (日本語 (にほんご／にっぽんご))</option>
-                                            <option value="Javanese">Javanese (basa Jawa)</option>
-                                            <option value="Kalaallisut, Greenlandic">Kalaallisut, Greenlandic (kalaallisut, kalaallit oqaasii)</option>
-                                            <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
-                                            <option value="Kanuri">Kanuri (Kanuri)</option>
-                                            <option value="Kashmiri">Kashmiri (कश्मीरी, كشميري&lrm;)</option>
-                                            <option value="Kazakh">Kazakh (Қазақ тілі)</option>
-                                            <option value="Khmer">Khmer (ភាសាខ្មែរ)</option>
-                                            <option value="Kikuyu, Gikuyu">Kikuyu, Gikuyu (Gĩkũyũ)</option>
-                                            <option value="Kinyarwanda">Kinyarwanda (Ikinyarwanda)</option>
-                                            <option value="Kirghiz, Kyrgyz">Kirghiz, Kyrgyz (кыргыз тили)</option>
-                                            <option value="Komi">Komi (коми кыв)</option>
-                                            <option value="Kongo">Kongo (KiKongo)</option>
-                                            <option value="Korean">Korean (한국어 (韓國語), 조선말 (朝鮮語))</option>
-                                            <option value="Kurdish">Kurdish (Kurdî, كوردی&lrm;)</option>
-                                            <option value="Kwanyama, Kuanyama">Kwanyama, Kuanyama (Kuanyama)</option>
-                                            <option value="Latin">Latin (latine, lingua latina)</option>
-                                            <option value="Luxembourgish, Letzeburgesch">Luxembourgish, Letzeburgesch (Lëtzebuergesch)</option>
-                                            <option value="Luganda">Luganda (Luganda)</option>
-                                            <option value="Limburgish, Limburgan, Limburger">Limburgish, Limburgan, Limburger (Limburgs)</option>
-                                            <option value="Lingala">Lingala (Lingála)</option>
-                                            <option value="Lao">Lao (ພາສາລາວ)</option>
-                                            <option value="Lithuanian">Lithuanian (lietuvių kalba)</option>
-                                            <option value="Luba-Katanga">Luba-Katanga ()</option>
-                                            <option value="Latvian">Latvian (latviešu valoda)</option>
-                                            <option value="Manx">Manx (Gaelg, Gailck)</option>
-                                            <option value="Macedonian">Macedonian (македонски јазик)</option>
-                                            <option value="Malagasy">Malagasy (Malagasy fiteny)</option>
-                                            <option value="Malay">Malay (bahasa Melayu, بهاس ملايو&lrm;)</option>
-                                            <option value="Malayalam">Malayalam (മലയാളം)</option>
-                                            <option value="Maltese">Maltese (Malti)</option>
-                                            <option value="Māori">Māori (te reo Māori)</option>
-                                            <option value="Marathi (Marāṭhī)">Marathi (Marāṭhī) (मराठी)</option>
-                                            <option value="Marshallese">Marshallese (Kajin M̧ajeļ)</option>
-                                            <option value="Mongolian">Mongolian (монгол)</option>
-                                            <option value="Nauru">Nauru (Ekakairũ Naoero)</option>
-                                            <option value="Navajo, Navaho">Navajo, Navaho (Diné bizaad, Dinékʼehǰí)</option>
-                                            <option value="Norwegian Bokmål">Norwegian Bokmål (Norsk bokmål)</option>
-                                            <option value="North Ndebele">North Ndebele (isiNdebele)</option>
-                                            <option value="Nepali">Nepali (नेपाली)</option>
-                                            <option value="Ndonga">Ndonga (Owambo)</option>
-                                            <option value="Norwegian Nynorsk">Norwegian Nynorsk (Norsk nynorsk)</option>
-                                            <option value="Norwegian">Norwegian (Norsk)</option>
-                                            <option value="Nuosu">Nuosu (ꆈꌠ꒿ Nuosuhxop)</option>
-                                            <option value="South Ndebele">South Ndebele (isiNdebele)</option>
-                                            <option value="Occitan">Occitan (Occitan)</option>
-                                            <option value="Ojibwe, Ojibwa">Ojibwe, Ojibwa (ᐊᓂᔑᓈᐯᒧᐎᓐ)</option>
-                                            <option value="Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic">Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic (ѩзыкъ словѣньскъ)</option>
-                                            <option value="Oromo">Oromo (Afaan Oromoo)</option>
-                                            <option value="Oriya">Oriya (ଓଡ଼ିଆ)</option>
-                                            <option value="Ossetian, Ossetic">Ossetian, Ossetic (ирон æвзаг)</option>
-                                            <option value="Panjabi, Punjabi">Panjabi, Punjabi (ਪੰਜਾਬੀ, پنجابی&lrm;)</option>
-                                            <option value="Pāli">Pāli (पाऴि)</option>
-                                            <option value="Persian">Persian (فارسی)</option>
-                                            <option value="Polish">Polish (polski)</option>
-                                            <option value="Pashto, Pushto">Pashto, Pushto (پښتو)</option>
-                                            <option value="Portuguese">Portuguese (Português)</option>
-                                            <option value="Quechua">Quechua (Runa Simi, Kichwa)</option>
-                                            <option value="Romansh">Romansh (rumantsch grischun)</option>
-                                            <option value="Kirundi">Kirundi (kiRundi)</option>
-                                            <option value="Romanian, Moldavian, Moldovan">Romanian, Moldavian, Moldovan (română)</option>
-                                            <option value="Russian">Russian (русский язык)</option>
-                                            <option value="Sanskrit (Saṁskṛta)">Sanskrit (Saṁskṛta) (संस्कृतम्)</option>
-                                            <option value="Sardinian">Sardinian (sardu)</option>
-                                            <option value="Sindhi">Sindhi (सिन्धी, سنڌي، سندھی&lrm;)</option>
-                                            <option value="Northern Sami">Northern Sami (Davvisámegiella)</option>
-                                            <option value="Samoan">Samoan (gagana faa Samoa)</option>
-                                            <option value="Sango">Sango (yângâ tî sängö)</option>
-                                            <option value="Serbian">Serbian (српски језик)</option>
-                                            <option value="Scottish Gaelic; Gaelic">Scottish Gaelic; Gaelic (Gàidhlig)</option>
-                                            <option value="Shona">Shona (chiShona)</option>
-                                            <option value="Sinhala, Sinhalese">Sinhala, Sinhalese (සිංහල)</option>
-                                            <option value="Slovak">Slovak (slovenčina)</option>
-                                            <option value="Slovene">Slovene (slovenščina)</option>
-                                            <option value="Somali">Somali (Soomaaliga, af Soomaali)</option>
-                                            <option value="Southern Sotho">Southern Sotho (Sesotho)</option>
-                                            <option value="Spanish; Castilian">Spanish; Castilian (español, castellano)</option>
-                                            <option value="Sundanese">Sundanese (Basa Sunda)</option>
-                                            <option value="Swahili">Swahili (Kiswahili)</option>
-                                            <option value="Swati">Swati (SiSwati)</option>
-                                            <option value="Swedish">Swedish (svenska)</option>
-                                            <option value="Tamil">Tamil (தமிழ்)</option>
-                                            <option value="Telugu">Telugu (తెలుగు)</option>
-                                            <option value="Tajik">Tajik (тоҷикӣ, toğikī, تاجیکی&lrm;)</option>
-                                            <option value="Thai">Thai (ไทย)</option>
-                                            <option value="Tigrinya">Tigrinya (ትግርኛ)</option>
-                                            <option value="Tibetan Standard, Tibetan, Central">Tibetan Standard, Tibetan, Central (བོད་ཡིག)</option>
-                                            <option value="Turkmen">Turkmen (Türkmen, Түркмен)</option>
-                                            <option value="Tagalog">Tagalog (Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔)</option>
-                                            <option value="Tswana">Tswana (Setswana)</option>
-                                            <option value="Tonga (Tonga Islands)">Tonga (Tonga Islands) (faka Tonga)</option>
-                                            <option value="Turkish">Turkish (Türkçe)</option>
-                                            <option value="Tsonga">Tsonga (Xitsonga)</option>
-                                            <option value="Tatar">Tatar (татарча, tatarça, تاتارچا&lrm;)</option>
-                                            <option value="Twi">Twi (Twi)</option>
-                                            <option value="Tahitian">Tahitian (Reo Tahiti)</option>
-                                            <option value="Uighur, Uyghur">Uighur, Uyghur (Uyƣurqə, ئۇيغۇرچە&lrm;)</option>
-                                            <option value="Ukrainian">Ukrainian (українська)</option>
-                                            <option value="Urdu">Urdu (اردو)</option>
-                                            <option value="Uzbek">Uzbek (zbek, Ўзбек, أۇزبېك&lrm;)</option>
-                                            <option value="Venda">Venda (Tshivenḓa)</option>
-                                            <option value="Vietnamese">Vietnamese (Tiếng Việt)</option>
-                                            <option value="Volapük">Volapük (Volapük)</option>
-                                            <option value="Walloon">Walloon (Walon)</option>
-                                            <option value="Welsh">Welsh (Cymraeg)</option>
-                                            <option value="Wolof">Wolof (Wollof)</option>
-                                            <option value="Western Frisian">Western Frisian (Frysk)</option>
-                                            <option value="Xhosa">Xhosa (isiXhosa)</option>
-                                            <option value="Yiddish">Yiddish (ייִדיש)</option>
-                                            <option value="Yoruba">Yoruba (Yorùbá)</option>
-                                            <option value="Zhuang, Chuang">Zhuang, Chuang (Saɯ cueŋƅ, Saw cuengh)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="column is-12">
-                                    <label>Gender</label>
-                                    <div class="select">
-                                        <select>
-                                            <option value="">Female</option>
-                                            <option value="">Male</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="columns is-multiline is-mobile last-sec footsec">
-            <div class="column is-4">
-                <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold">Back</button>
-            </div>
-            <div class="column is-4">
-                <progress value="2" max="10" class="progress is-small is-mycolor"></progress>
-            </div>
-            <div class="column is-4">
-                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold">Next</button>
-            </div>
-        </div>
-    </div>
-    <div class="indexpage intr1" style="display:block;">
-        <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Ensure you are always fully visible</h2>
-        <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">If you cannot seen at all time, your test will not be certifed</p>
-        <div class="columns is-multiline is-mobile visiblepg">
-            <div class="column is-offset-2 is-8">
-                <div class="columns is-multiline is-mobile">
-                    <div class="column is-4">
-                        <img src="~/Images/I4.png">
-                        <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Do not leave the camera preview</p>
-                    </div>
-                    <div class="column is-4">
-                        <img src="~/Images/I5.png">
-                        <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Do not look away from the screen</p>
-                    </div>
-                    <div class="column is-4">
-                        <img src="~/Images/I6.png">
-                        <p class="is-size-6 has-text-weight-semibold has-text-centered has-text-grey">Keep your ears visible and uncovered</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="columns is-multiline is-mobile footsec">
-            <div class="column is-4">
-                <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold" style="display:none;">Back</button>
-            </div>
-            <div class="column is-4">
-                <progress value="3" max="10" class="progress is-small is-mycolor"></progress>
-            </div>
-            <div class="column is-4">
-                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
-            </div>
-        </div>
-    </div>
-    <div class="indexpage intr2" style="display:none;">
-        <div class="ready-text">
-            <img src="~/Images/I3.png" style="width: 70%;">
-            <h2 class="is-size-4 has-text-weight-semibold is-capitalized has-text-centered is-marginless">You're ready to take the test</h2>
-            <p class="is-size-6 has-text-weight-normal has-text-centered has-text-grey-light">The test will take approximately 45-55 mintes to complete a human reviewer will watch a recording of you test.</p>
-        </div>
-        <div class="columns is-multiline is-mobile footsec">
-            <div class="column is-4"></div>
-            <div class="column is-4">
-                <progress value="100" max="100" class="progress is-small is-mycolor"></progress>
-            </div>
-            <div class="column is-4">
-                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="Start();">START</button>
-            </div>
-        </div>
-    </div>
-    
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script>
-    var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
-    var cntQs = 0;
+<script> 
+    var cntintr = 0;
     $(document).ready(function () {
         $(".question").hide();
     });
     function Start() {
-        $(".question").hide();
+        $("#dvStartNow").load('\startnow?LevelId=' + $("#quelevel").val(), function () {
+              $(".question").hide();
         $(".indexpage").hide();   
         var qiid = questionss[cntQs].QuestionId
         $(".container1").load('\getQuestion?QueId=' + qiid, function () {
 
         });
-        
+        });
         //$(".1q").show();
     }
 
     function nextintro() {
-        $(".indexpage").hide();
-        $(".intr2").show();
+        if ($("#quelevel").val() == "") {
+            alert("Please Select Level");
+            return false;
+        }
+        else {
+            $(".intr" + cntintr).hide();
+            cntintr = cntintr + 1;
+            $(".intr" + cntintr).show();
+        }     
     }
 
-    function nextquestion(objthis) {
-      
-        cntQs = cntQs + 1;
-        var qiid = questionss[cntQs].QuestionId;
-        $(".container1").load('\getQuestion?QueId=' + qiid, function () {
-
-        });
-        //$(".question").hide();
-       // $(objthis).parents('.question').next('.question').show();
+     function backintro() {
+        if ($("#quelevel").val() == "") {
+            alert("Please Select Level");
+            return false;
+        }
+        else {
+            $(".intr" + cntintr).hide();
+            cntintr = cntintr - 1;
+            $(".intr" + cntintr).show();
+        }     
     }
-    $(".pragrph input[type=text]").keyup(function () {
-        debugger;
-        if (this.value.length == this.maxLength) {
-            var idxx = parseInt($(this).attr("tabindex"));
-            idxx = idxx + 1;
-            $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
-      //$(this).next('.pragrph input[type=text]').focus();
-    }
-});
 </script>

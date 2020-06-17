@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\WORK\PROJECTS\Kamlesh Lalwani\Duolingo\DuolingoSk_asp.net\DuolingoSk\DuolingoSk\Models\DuolingoSk.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\DuolingoSk\DuolingoSk\DuolingoSk\Models\DuolingoSk.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

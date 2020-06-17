@@ -99,5 +99,15 @@
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
           $('progress').attr('value', tmrvl);
         }
-    }, 1000);  
+   }, 1000);  
+      function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+        }       
+    
+        var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:questionss[qid].Mp3FileName,Ans:$("#txtresponse").val()};
+        arryresult.push(objans);
+       window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+ 
+     }
 </script>

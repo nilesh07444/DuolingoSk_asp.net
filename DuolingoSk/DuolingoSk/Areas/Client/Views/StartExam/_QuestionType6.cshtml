@@ -97,4 +97,14 @@
         var wordCount = $("#txtessay").val().trim().replace(regex, ' ').split(' ').length;
         return wordCount;
     }
+
+    function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+              arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+         }       
+         var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:questionss[qid].QuestionOptionText,Ans:$("#txtessay").val()};
+        arryresult.push(objans);
+         window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+ 
+     }
 </script>

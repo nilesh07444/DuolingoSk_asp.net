@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace DuolingoSk.Areas.Client.Controllers
 {
@@ -18,11 +19,51 @@ namespace DuolingoSk.Areas.Client.Controllers
         // GET: Client/StartExam
         public ActionResult Index()
         {
-            if(Session["lstQuestionsExam"] == null)
+            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(10).ToList();
+            ViewData["lstQuestionLevel"] = lstQuestionLevel;
+            //if(Session["lstQuestionsExam"] == null)
+            //{
+            //    List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
+            //    List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
+            //                                     where p.IsDeleted == false && p.IsActive == true
+            //                                     select new QuestionVM
+            //                                     {
+            //                                         QuestionText = p.QuestionText,
+            //                                         QuestionTime = p.QuestionTime.Value,
+            //                                         QuestionId = p.QuestionId,
+            //                                         QuestionTypeId = p.QuestionTypeId.Value,
+            //                                         QuestionOptionText = p.QuestionOptionText,
+            //                                         Words = p.Words,
+            //                                         Mp3FileName = p.Mp3FileName,
+            //                                         MaxReplay = p.MaxReplay.HasValue ? p.MaxReplay.Value : 0,
+            //                                         ImageName = p.ImageName,
+            //                                         NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0
+            //                                     }).OrderByDescending(x => x.QuestionId).ToList();
+
+            //    lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
+            //    List<QuestionVM> lstQue = new List<QuestionVM>();
+            //    foreach (long TypId in TypIds)
+            //    {
+            //        lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
+            //    }
+            //    lstQue = lstQue.OrderBy(x => Guid.NewGuid()).ToList();
+            //    ViewData["lstQue"] = lstQue;
+            //    Session["lstQuestionsExam"] = lstQue;
+            //}
+            //else
+            //{
+            //    ViewData["lstQue"] = Session["lstQuestionsExam"] as List<QuestionVM>;
+            //}           
+            return View();
+        }
+
+        public ActionResult StartNow(long LevelId)
+        {
+            if (Session["lstQuestionsExam"] == null)
             {
                 List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
                 List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
-                                                 where p.IsDeleted == false && p.IsActive == true
+                                                 where p.IsDeleted == false && p.IsActive == true && p.QuestionLevel == LevelId
                                                  select new QuestionVM
                                                  {
                                                      QuestionText = p.QuestionText,
@@ -31,27 +72,29 @@ namespace DuolingoSk.Areas.Client.Controllers
                                                      QuestionTypeId = p.QuestionTypeId.Value,
                                                      QuestionOptionText = p.QuestionOptionText,
                                                      Words = p.Words,
+                                                     LevelId = p.QuestionLevel.Value,
                                                      Mp3FileName = p.Mp3FileName,
                                                      MaxReplay = p.MaxReplay.HasValue ? p.MaxReplay.Value : 0,
                                                      ImageName = p.ImageName,
                                                      NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0
                                                  }).OrderByDescending(x => x.QuestionId).ToList();
 
-                lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
-                List<QuestionVM> lstQue = new List<QuestionVM>();
-                foreach (long TypId in TypIds)
-                {
-                    lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
-                }
-                lstQue = lstQue.OrderBy(x => Guid.NewGuid()).ToList();
-                ViewData["lstQue"] = lstQue;
-                Session["lstQuestionsExam"] = lstQue;
+                  lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
+                //  List<QuestionVM> lstQue = new List<QuestionVM>();
+                //  foreach (long TypId in TypIds)
+                //  {
+                //     lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
+                // }
+                lstQuestions = lstQuestions.OrderBy(x => Guid.NewGuid()).ToList();
+                ViewData["lstQue"] = lstQuestions;
+                Session["lstQuestionsExam"] = lstQuestions;
             }
             else
             {
                 ViewData["lstQue"] = Session["lstQuestionsExam"] as List<QuestionVM>;
-            }           
-            return View();
+            }
+            
+            return PartialView("~/Areas/Client/Views/StartExam/_StartNow.cshtml");
         }
 
         public List<Mp3OptionsVM> GetMp3Options(long QuestionId)
@@ -100,5 +143,49 @@ namespace DuolingoSk.Areas.Client.Controllers
                 return PartialView("~/Areas/Client/Views/StartExam/_QuestionType6.cshtml", objQ);
             }
         }
+        [HttpPost]
+        public ActionResult SaveExamResult(IList<ExamResultVM> lstExam)
+        {
+            int StudentId = 1;
+            tbl_Exam objExm = new tbl_Exam();
+            objExm.StudentId = StudentId;
+            objExm.ExamDate = DateTime.UtcNow;
+            objExm.AgentId = 1;
+            objExm.Score = "";
+            objExm.ResultText = "";
+            objExm.IsDeleted = false;
+            objExm.QuestionLevelId = 1;
+            objExm.ResultStatus = 1;
+            _db.tbl_Exam.Add(objExm);
+            _db.SaveChanges();
+
+            if(lstExam != null && lstExam.Count() > 0)
+            {
+                foreach(var objj in lstExam)
+                {
+                    tbl_ExamResultDetails objExre = new tbl_ExamResultDetails();
+                    objExre.ExamId = objExm.Exam_Id;
+                    objExre.StudentId = StudentId;
+                    objExre.QuestionText = objj.QuestionTxt;
+                    objExre.QuestionOptionValue = objj.Que;
+                    objExre.QuestionTypeId = objj.QuestionType;
+                    objExre.QuestionOptiont_Ans = objj.Ans;
+                    objExre.CreatedDate = DateTime.UtcNow;
+                    _db.tbl_ExamResultDetails.Add(objExre);
+                }
+                _db.SaveChanges();
+            }
+            //objExm.
+            // this line convert the json to a list of your type, exactly what you want.
+            //IList<ExamResultVM> ctm =
+            // new JavaScriptSerializer().Deserialize<IList<ExamResultVM>>(jsonstr);
+
+            return Json("");
+        }
+    }
+
+    public class ClsExamResult
+    {
+        List<ExamResultVM> lstExamResult { get; set; }
     }
 }

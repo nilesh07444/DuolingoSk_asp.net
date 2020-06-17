@@ -20,6 +20,7 @@ namespace DuolingoSk.ViewModel
         public int NoOfWords { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public int LevelId { get; set; }
         public string QuestionTypeText { get; set; }
         public List<Mp3OptionsVM> Mp3Options { get; set; }
     }

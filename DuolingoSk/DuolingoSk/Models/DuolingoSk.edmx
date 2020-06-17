@@ -30,6 +30,37 @@
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_Exam">
+          <Key>
+            <PropertyRef Name="Exam_Id" />
+          </Key>
+          <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="bigint" />
+          <Property Name="ExamDate" Type="datetime" />
+          <Property Name="AgentId" Type="bigint" />
+          <Property Name="Score" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResultText" Type="nvarchar" MaxLength="550" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="QuestionLevelId" Type="bigint" />
+          <Property Name="ResultStatus" Type="int" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_ExamResultDetails">
+          <Key>
+            <PropertyRef Name="ExamResultDetailId" />
+          </Key>
+          <Property Name="ExamResultDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamId" Type="bigint" />
+          <Property Name="StudentId" Type="bigint" />
+          <Property Name="QuestionText" Type="nvarchar(max)" />
+          <Property Name="QuestionOptionValue" Type="nvarchar(max)" />
+          <Property Name="QuestionTypeId" Type="int" />
+          <Property Name="QuestionOptiont_Ans" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -72,6 +103,16 @@
           <Property Name="Mp3Text" Type="nvarchar" MaxLength="250" />
           <Property Name="IsCorrect" Type="bit" />
         </EntityType>
+        <EntityType Name="tbl_QuestionLevel">
+          <Key>
+            <PropertyRef Name="Level_Id" />
+          </Key>
+          <Property Name="Level_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="nvarchar" MaxLength="550" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
         <EntityType Name="tbl_QuestionsMaster">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -93,6 +134,7 @@
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="QuestionLevel" Type="int" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -140,13 +182,31 @@
         </EntityType>
         <EntityContainer Name="Duolingo_skModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Exam" EntityType="Self.tbl_Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ExamResultDetails" EntityType="Self.tbl_ExamResultDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_QuestionLevel" EntityType="Self.tbl_QuestionLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
+    [tbl_GeneralSetting].[SMTPHost] AS [SMTPHost], 
+    [tbl_GeneralSetting].[SMTPPort] AS [SMTPPort], 
+    [tbl_GeneralSetting].[EnableSSL] AS [EnableSSL], 
+    [tbl_GeneralSetting].[SMTPEmail] AS [SMTPEmail], 
+    [tbl_GeneralSetting].[SMTPPwd] AS [SMTPPwd], 
+    [tbl_GeneralSetting].[AdminSMSNumber] AS [AdminSMSNumber], 
+    [tbl_GeneralSetting].[AdminEmail] AS [AdminEmail], 
+    [tbl_GeneralSetting].[FromEmail] AS [FromEmail], 
+    [tbl_GeneralSetting].[RegistrationFee] AS [RegistrationFee], 
+    [tbl_GeneralSetting].[RenewFee] AS [RenewFee], 
+    [tbl_GeneralSetting].[TotalExamAttempt] AS [TotalExamAttempt]
+    FROM [dbo].[tbl_GeneralSetting] AS [tbl_GeneralSetting]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -223,6 +283,7 @@
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="QuestionLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -277,6 +338,9 @@
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Duolingo_skModel.tbl_GeneralSetting" />
+          <EntitySet Name="tbl_Exam" EntityType="Duolingo_skModel.tbl_Exam" />
+          <EntitySet Name="tbl_ExamResultDetails" EntityType="Duolingo_skModel.tbl_ExamResultDetails" />
+          <EntitySet Name="tbl_QuestionLevel" EntityType="Duolingo_skModel.tbl_QuestionLevel" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -294,6 +358,45 @@
           <Property Name="RegistrationFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_Exam">
+          <Key>
+            <PropertyRef Name="Exam_Id" />
+          </Key>
+          <Property Name="Exam_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int64" />
+          <Property Name="ExamDate" Type="DateTime" Precision="3" />
+          <Property Name="AgentId" Type="Int64" />
+          <Property Name="Score" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResultText" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="QuestionLevelId" Type="Int64" />
+          <Property Name="ResultStatus" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_ExamResultDetails">
+          <Key>
+            <PropertyRef Name="ExamResultDetailId" />
+          </Key>
+          <Property Name="ExamResultDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamId" Type="Int64" />
+          <Property Name="StudentId" Type="Int64" />
+          <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionOptionValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionTypeId" Type="Int32" />
+          <Property Name="QuestionOptiont_Ans" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionLevel">
+          <Key>
+            <PropertyRef Name="Level_Id" />
+          </Key>
+          <Property Name="Level_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -357,6 +460,7 @@
           <EntitySetMapping Name="tbl_QuestionsMaster">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_QuestionsMaster">
               <MappingFragment StoreEntitySet="tbl_QuestionsMaster">
+                <ScalarProperty Name="QuestionLevel" ColumnName="QuestionLevel" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
                 <ScalarProperty Name="QuestionTime" ColumnName="QuestionTime" />
@@ -439,6 +543,48 @@
                 <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
                 <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
                 <ScalarProperty Name="GeneralSettingId" ColumnName="GeneralSettingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Exam">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Exam">
+              <MappingFragment StoreEntitySet="tbl_Exam">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ResultStatus" ColumnName="ResultStatus" />
+                <ScalarProperty Name="QuestionLevelId" ColumnName="QuestionLevelId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ResultText" ColumnName="ResultText" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Exam_Id" ColumnName="Exam_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ExamResultDetails">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_ExamResultDetails">
+              <MappingFragment StoreEntitySet="tbl_ExamResultDetails">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="QuestionOptiont_Ans" ColumnName="QuestionOptiont_Ans" />
+                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+                <ScalarProperty Name="QuestionOptionValue" ColumnName="QuestionOptionValue" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="ExamResultDetailId" ColumnName="ExamResultDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_QuestionLevel">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_QuestionLevel">
+              <MappingFragment StoreEntitySet="tbl_QuestionLevel">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="Level_Id" ColumnName="Level_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

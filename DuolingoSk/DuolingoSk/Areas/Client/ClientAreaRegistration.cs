@@ -62,6 +62,17 @@ namespace DuolingoSk.Areas.Client
                "getQuestion",
                new { controller = "StartExam", action = "GetQuestionById", id = UrlParameter.Optional }
            );
+            context.MapRoute(
+              "Client_GetStarnow",
+              "startnow",
+              new { controller = "StartExam", action = "StartNow", id = UrlParameter.Optional }
+          );
+            context.MapRoute(
+             "Client_Saveexamresult",
+             "SaveExamResult",
+             new { controller = "StartExam", action = "SaveExamResult", id = UrlParameter.Optional }
+         );
+            
         }
     }
 }

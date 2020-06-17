@@ -181,6 +181,12 @@
     <Compile Include="Models\tbl_AdminUsers.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Exam.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ExamResultDetails.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_GeneralSetting.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
@@ -188,6 +194,9 @@
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Mp3Options.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_QuestionLevel.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_QuestionsMaster.cs">
@@ -204,6 +213,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminUserVM.cs" />
+    <Compile Include="ViewModel\ExamResultVM.cs" />
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\MaterialVM.cs" />
     <Compile Include="ViewModel\StudentFeeVM.cs" />
@@ -3907,6 +3917,7 @@
     <Content Include="Areas\Client\Views\StartExam\_QuestionType5.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_QuestionType6.cshtml" />
     <Content Include="Areas\Admin\Views\MyProfile\Index.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_StartNow.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

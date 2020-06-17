@@ -41,6 +41,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
         {
             List<tbl_QuestionType> lstQuestionType = _db.tbl_QuestionType.ToList();
             ViewData["lstQuestionType"] = lstQuestionType;
+            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList();
+            ViewData["lstQuestionLevel"] = lstQuestionLevel;
             return View();
         }
 
@@ -59,6 +61,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             objtbl_QuestionsMaster.IsDeleted = false;
             objtbl_QuestionsMaster.CreatedDate = DateTime.UtcNow;
             objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;
+            objtbl_QuestionsMaster.QuestionLevel = Convert.ToInt32(frm["QuestionLevelId"]);
             objtbl_QuestionsMaster.CreatedBy = clsAdminSession.UserID;
             string pathmp3 = Server.MapPath("~/QuestionMp3/");
             string pathImg = Server.MapPath("~/QuestionImage/");
@@ -145,6 +148,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
             ViewData["mp3files"] = mp3files;
             List<tbl_QuestionType> lstQuestionType = _db.tbl_QuestionType.ToList();
             ViewData["lstQuestionType"] = lstQuestionType;
+            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList();
+            ViewData["lstQuestionLevel"] = lstQuestionLevel;
             TimeSpan ts = TimeSpan.FromSeconds(objQue.QuestionTime.Value);
             int Minues = ts.Minutes;
             int seconds = ts.Seconds;
@@ -164,8 +169,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
             tbl_QuestionsMaster objtbl_QuestionsMaster = _db.tbl_QuestionsMaster.Where(o => o.QuestionId == QuestionId).FirstOrDefault();
             objtbl_QuestionsMaster.QuestionTypeId = QuestionType;
             objtbl_QuestionsMaster.QuestionText = QuestionText;
+            objtbl_QuestionsMaster.QuestionLevel = Convert.ToInt32(frm["QuestionLevelId"]);
             objtbl_QuestionsMaster.QuestionTime = (minutes * 60) + seconds;
-            objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;
+            objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;            
             objtbl_QuestionsMaster.ModifiedBy = clsAdminSession.UserID;
             string pathmp3 = Server.MapPath("~/QuestionMp3/");
             string pathImg = Server.MapPath("~/QuestionImage/");
