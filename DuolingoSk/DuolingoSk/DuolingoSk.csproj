@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AgentController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExamController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
@@ -3918,6 +3919,7 @@
     <Content Include="Areas\Client\Views\StartExam\_QuestionType6.cshtml" />
     <Content Include="Areas\Admin\Views\MyProfile\Index.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_StartNow.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -1,7 +1,108 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Login";
 }
 
-<h2>Index</h2>
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Login</p>
+        </div>
+    </div>
+</section>
 
+<!-- Login -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5">
+        <div class="container py-md-3">
+
+            <div class="heading text-center mx-auto">
+                <h3 class="head">Student Login</h3>
+                <p><hr /></p>
+            </div>
+
+            <div class="row cont-main-top">
+
+                <div class="contacts12-main col-lg-12">
+                    <center>
+                        @using (Html.BeginForm("CheckLogin", "StudentLogin", FormMethod.Post, new { ID = "theFormId", @class = "main-input", onsubmit = "return Login();" }))
+                        {
+
+                            <div class="top-inputs d-grid col-lg-6">
+                                <input type="text" placeholder="Mobile No" name="emailmobile" id="emailmobile" required="">
+                            </div>
+                            <div class="top-inputs d-grid col-lg-6">
+                                <input type="password" placeholder="Password" id="password" name="password" required="">
+                            </div>
+                            @*<div class="text-left col-lg-6">
+                                    <label for="rememberme"><input type="checkbox" id="rememberme" /> Remember Me</label>
+                                </div>*@
+                            <div class="text-left col-lg-6">
+                                <button type="submit" class="btn btn-theme2">Sign In</button>
+                            </div>
+
+                        }
+                    </center>
+                </div>
+                <!-- //contact form -->
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    function Login() {
+        if ($("#emailmobile").val().trim() == "" || $("#password").val().trim() == "") {
+            $(".errorcls").html("Mobilenumber/Email and Password must be required!!");
+            return false;
+        }
+        else {
+            if ($('#hdnotptxt').val() == "") {
+                 var URL = '@Url.Action("SendOTP", "StudentLogin")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?MobileNumber=" + $("#emailmobile").val(),
+                success: function (result) {
+                    if (result == "NotExist") {
+                        alert("Username or Password is Invalid");
+                        return false;
+                    }
+                    if (result == "InActiveAccount") {
+                        alert("Your Account is Inactive. Please contact to support");
+                        return false;
+                    }
+                    else {
+                        alert("Otp Sent to your registerd mobile number and on email.");
+                        $('#hdnotptxt').val(result);
+                        $("#otpmodal").modal();
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+                return false;
+            }
+            else {
+                StartLoading();
+                return true;
+            }
+        }
+    }
+
+    function submitotp() {
+        if ($("#otptxt").val() == "" || $("#otpemiltxt").val() == "") {
+            alert("Please enter otp");
+            return false;
+        }
+
+        if ($("#otptxt").val() != $('#hdnotptxt').val()) {
+             alert("Invalid OTP");
+            return false;
+        }
+
+        $("#theFormId").submit();
+    }
+</script>
