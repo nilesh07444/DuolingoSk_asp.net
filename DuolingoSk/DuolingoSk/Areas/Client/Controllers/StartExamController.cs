@@ -175,6 +175,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 }
                 _db.SaveChanges();
             }
+            Session["lstQuestionsExam"] = null;
             //objExm.
             // this line convert the json to a list of your type, exactly what you want.
             //IList<ExamResultVM> ctm =
