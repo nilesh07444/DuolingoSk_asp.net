@@ -19,7 +19,26 @@ namespace DuolingoSk.Areas.Admin.Controllers
         // GET: Admin/Exam
         public ActionResult Index()
         {
-            return View();
+            List<ExamVM> lstExams = new List<ExamVM>();
+
+            lstExams = (from e in _db.tbl_Exam
+                        join l in _db.tbl_QuestionLevel on e.QuestionLevelId equals l.Level_Id
+                        join s in _db.tbl_Students on e.StudentId equals s.StudentId
+                        join a in _db.tbl_AdminUsers on s.AdminUserId equals a.AdminUserId into outerAgent
+                        from agent in outerAgent.DefaultIfEmpty() 
+                        select new ExamVM
+                        {
+                            Exam_Id = e.Exam_Id,
+                            ExamDate = e.ExamDate,
+                            StudentId = e.StudentId,
+                            StudentName = s.FirstName + " "+ s.LastName,
+                            AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                            LevelName = l.LevelName,
+                            ResultStatus = e.ResultStatus,
+                            Score = e.Score
+                        }).ToList();
+
+            return View(lstExams);
         }
 
         public ActionResult Detail(int Id)

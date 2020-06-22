@@ -1,7 +1,66 @@
-﻿
+﻿@model List<ExamVM>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MyExams";
+    int counter = 1;
 }
 
-<h2>Index</h2>
 
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Exam List</p>
+        </div>
+    </div>
+</section>
+
+<!-- Login -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5">
+        <div class="container py-md-3">
+
+            <div class="heading text-center mx-auto">
+                <h3 class="head">My Exams</h3>
+                <p></p>
+            </div>
+
+            <div class="row cont-main-top">
+
+                <div class="table-responsive" style="margin-top : 50px; margin-bottom : 50px;">
+                    <table id="tblGrid" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="15%">Sr No.</th>
+                                <th>Exam Date</th>
+                                <th>Level Name</th>
+                                <th>Result Status</th>
+                                <th>Score</th>
+                                <th width="10%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (ExamVM obj in Model)
+                                {
+                                    <tr class="grade">
+                                        <td>@counter.</td>
+                                        <td>@Convert.ToDateTime(obj.ExamDate).ToString("dd/MM/yyyy")</td> 
+                                        <td>@obj.LevelName</td>
+                                        <td>@(obj.ResultStatus == 1 ? "Pending" : "Complete")</td>
+                                        <td>@obj.Score</td>
+                                        @*<td>
+                                            <a title="View" href="/admin/myexam/detail/@obj.Exam_Id"><i class="fa fa-eye mr-2 font-success"></i></a>
+                                        </td>*@
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

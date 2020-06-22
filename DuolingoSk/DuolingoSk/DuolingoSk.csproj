@@ -216,6 +216,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminUserVM.cs" />
     <Compile Include="ViewModel\ExamResultVM.cs" />
+    <Compile Include="ViewModel\ExamVM.cs" />
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\MaterialVM.cs" />
     <Compile Include="ViewModel\QuestionLevelVM.cs" />
@@ -3925,6 +3926,7 @@
     <Content Include="Areas\Admin\Views\QuestionLevel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuestionLevel\Add.cshtml" />
     <Content Include="Areas\Admin\Views\QuestionLevel\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
