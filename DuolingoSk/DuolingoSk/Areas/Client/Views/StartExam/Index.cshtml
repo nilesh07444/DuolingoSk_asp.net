@@ -2,8 +2,8 @@
 @using DuolingoSk.Models;
 @{
     ViewBag.Title = "Index";
-    List<tbl_QuestionLevel> lstQueslvl =ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
-     
+    List<tbl_QuestionLevel> lstQueslvl = ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
+
     int Cntss = 0;
 }
 <link href="~/Content/quiz.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
 <section class="w3l-about-breadcrum">
     <div class="breadcrum-bg" style="padding-top: 65px; background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/5.jpg);">
         <div class="container py-5" style="padding-bottom:15px !important;">
-            <p><a href="/">Home</a> &nbsp; / &nbsp; About</p>
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Start New Exam</p>
         </div>
     </div>
 </section>
@@ -433,7 +433,7 @@
             </div>
         </div>
         <div class="indexpage intr0" style="display:block;">
-            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Select Level</h2>
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Select Exam Level</h2>
             <br>
             <div class="columns is-multiline is-mobile">
                 <div class="column is-offset-4 is-4">
@@ -442,12 +442,12 @@
                             <form class="is-marginless">
                                 <div class="columns is-multiline is-mobile">
                                     <div class="column is-12">
-                                        <label>Level</label>
+                                        <label>Exam Level</label>
                                         <div class="select">
                                             <select id="quelevel">
                                                 @if (lstQueslvl != null && lstQueslvl.Count() > 0)
                                                 {
-                                                    <option value="">Select Level</option>
+                                                <option value="">Select Exam Level</option>
                                                     foreach (var objq in lstQueslvl)
                                                     {
                                                         <option value="@objq.Level_Id">@objq.LevelName</option>
@@ -455,7 +455,7 @@
                                                 }
                                             </select>
                                         </div>
-                                    </div>                                 
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -526,20 +526,20 @@
     </div>
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script> 
+<script>
     var cntintr = 0;
     $(document).ready(function () {
         $(".question").hide();
     });
     function Start() {
         $("#dvStartNow").load('\startnow?LevelId=' + $("#quelevel").val(), function () {
-              $(".question").hide();
-        $(".indexpage").hide();   
-        var qiid = questionss[cntQs].QuestionId
-        $(".container1").load('\getQuestion?QueId=' + qiid, function () {
+            $(".question").hide();
+            $(".indexpage").hide();
+            var qiid = questionss[cntQs].QuestionId
+            $(".container1").load('\getQuestion?QueId=' + qiid, function () {
 
+            });
         });
-       });
         //$(".1q").show();
     }
 
@@ -552,10 +552,10 @@
             $(".intr" + cntintr).hide();
             cntintr = cntintr + 1;
             $(".intr" + cntintr).show();
-        }     
+        }
     }
 
-     function backintro() {
+    function backintro() {
         if ($("#quelevel").val() == "") {
             alert("Please Select Level");
             return false;
@@ -564,6 +564,6 @@
             $(".intr" + cntintr).hide();
             cntintr = cntintr - 1;
             $(".intr" + cntintr).show();
-        }     
+        }
     }
 </script>

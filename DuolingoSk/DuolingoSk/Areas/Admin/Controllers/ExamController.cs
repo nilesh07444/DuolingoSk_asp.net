@@ -36,7 +36,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             LevelName = l.LevelName,
                             ResultStatus = e.ResultStatus,
                             Score = e.Score
-                        }).ToList();
+                        }).OrderByDescending(x => x.ExamDate).ToList();
 
             return View(lstExams);
         }
