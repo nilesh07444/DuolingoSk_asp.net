@@ -10,7 +10,7 @@ namespace DuolingoSk.Helper
         // Admin Portal Messages
         public static string EmailExists = "EmailId is already exist"; 
         public static string MobileNoExists = "Mobile No is already exist";
-
+        public static string LevelNameExists = "Level Name is already exist";
         // Client Portal Messages
 
 

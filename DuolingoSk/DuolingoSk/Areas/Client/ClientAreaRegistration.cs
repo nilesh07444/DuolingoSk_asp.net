@@ -2,17 +2,17 @@
 
 namespace DuolingoSk.Areas.Client
 {
-    public class ClientAreaRegistration : AreaRegistration 
+    public class ClientAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Client";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Client_default",
@@ -72,7 +72,31 @@ namespace DuolingoSk.Areas.Client
              "SaveExamResult",
              new { controller = "StartExam", action = "SaveExamResult", id = UrlParameter.Optional }
          );
-            
+
+            context.MapRoute(
+                "Client_Material",
+                "materials",
+                new { controller = "Material", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_Tips",
+                "tips",
+                new { controller = "Tips", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_MyExams",
+                "myexams",
+                new { controller = "MyExams", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_ForgetPassword",
+                "forgetpassword",
+                new { controller = "ForgetPassword", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

@@ -1,0 +1,85 @@
+﻿@model List<QuestionLevelVM>
+@{
+    ViewBag.Title = "QuestionLevel";
+     
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Question Level List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Question Level List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Question Level List</h5>
+            </div>
+            <div class="card-body vendor-table">
+
+                <div class="btn-popup pull-right">
+                    <button type="button" class="btn btn-primary" id="btnAdd">Add Level</button>
+                </div>
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr> 
+                            <th width="10%;">Level No</th>
+                            <th>Level Type</th>
+                            <th width="10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (QuestionLevelVM obj in Model)
+                            {
+                                <tr class="grade"> 
+                                    <td>@obj.Level_Id</td>
+                                    <td>@obj.LevelName</td>
+                                    <td> 
+                                        <a title="Edit" href="/admin/questionlevel/edit/@obj.Level_Id"><i class="fa fa-edit mr-2 font-success"></i></a> 
+                                    </td>
+                                </tr> 
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+    $(document).on("click", "#btnAdd", function () {
+        window.location.href = "/admin/questionlevel/add";
+    });
+
+</script>

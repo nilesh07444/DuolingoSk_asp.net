@@ -191,6 +191,14 @@
                         @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
                         {
                             <li>
+                                <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Question Levels</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddQuestionLevel" ? "active" : "")"><a href="/admin/questionlevel/add"><i class="fa fa-circle"></i>Add Question Level</a></li>
+                                    <li class="@(ViewBag.Title == "QuestionLevelList" ? "active" : "")"><a href="/admin/questionlevel"><i class="fa fa-circle"></i>Question Level List</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Questions</span><i class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">
                                     <li class="@(ViewBag.Title == "AddQuestion" ? "active" : "")"><a href="/admin/question/add"><i class="fa fa-circle"></i>Add Question</a></li>

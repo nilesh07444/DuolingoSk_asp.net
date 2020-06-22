@@ -1,0 +1,78 @@
+﻿@model QuestionLevelVM
+
+@{
+    ViewBag.Title = "Add Level";
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header-left">
+                        <h3>
+                            Edit Level
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/admin/questionlevel">Question Level</a></li>
+                        <li class="breadcrumb-item active">Edit Level</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Edit Level</h5>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Edit", "QuestionLevel", FormMethod.Post, new { @id = "LevelFormId", @class = "needs-validation", enctype = "multipart/form-data", role = "form" }))
+                        {
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.LevelName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                @Html.EditorFor(model => model.LevelName, new { htmlAttributes = new { @class = "form-control col-md-8", @placeholder = "Enter Level Type", maxlength = "100" } })
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                @Html.ValidationMessageFor(model => model.LevelName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group row">
+                                @Html.HiddenFor(x => x.Level_Id)
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <button type="submit" class="btn btn-primary" style="margin-right:10px;">Submit</button>
+                                <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+<script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<script>
+    $(document).on("click", "#btnCancel", function () {
+        window.location.href = "/admin/questionlevel";
+    });
+</script>

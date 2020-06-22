@@ -117,5 +117,21 @@ namespace DuolingoSk.Areas.Client.Controllers
 
         }
 
+        public ActionResult Signout()
+        {
+            clsClientSession.SessionID = "";
+            clsClientSession.UserID = 0;
+            clsClientSession.FirstName = "";
+            clsClientSession.LastName = "";
+            clsClientSession.Email = "";
+            Session.RemoveAll();
+            Session.Clear();
+            Session.Abandon();
+            string GuidNew = Guid.NewGuid().ToString();
+            Response.Cookies["sessionkeyval"].Value = GuidNew;
+            Response.Cookies["sessionkeyval"].Expires = DateTime.Now.AddDays(30);
+            return RedirectToAction("Index", "StudentLogin");
+        }
+
     }
 }
