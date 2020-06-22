@@ -1,6 +1,23 @@
 ﻿<div class="container1 login statement enginebox">
 
 </div>
+<div id="dvresultt" style="display:none;">
+    <a href="#" style="display: none;"></a>
+    <div class="porgressbr">
+        <span class="is-pulled-left"><p class="is-size-3 has-text-weight-semibold has-text-dark uplds">Uploading....</p></span>   
+        <progress max="100" class="progress is-small is-mycolor" value="100"></progress>
+    </div>
+    <h5 class="has-text-centered is-size-4 has-text-weight-semibold">Your test is in review</h5>
+    <div class="level-item has-text-centered centersec">
+        <figure class="image is-centered enginethanks ">            
+            <img src="~/Images/IA2.png" />
+        </figure>
+    </div>
+    <br>
+    <h5 class="has-text-centered is-size-6">
+        Your results will be emailed to your registered email within 48 hours.  
+    </h5>
+</div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-migrate-3.3.0.js"></script>
 <script src="~/Scripts/jquery.blockUI.js"></script>
@@ -9,6 +26,7 @@
     window.localStorage.setItem('resultq',JSON.stringify(arryresult));
     var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
     var cntQs = 0;
+    var tmmmrr = 50;
     $(document).ready(function () {
         $(".question").hide();
     });
@@ -40,19 +58,22 @@
             });
         }
         else {
-            SaveAns(cntQs - 1);           
+            SaveAns(cntQs - 1);          
+            $(".container1").html($("#dvresultt").html());   
+            $("#dvresultt").html("");
+            startimes();
             $.ajax({
                 url: '/SaveExamResult',
                 async: true,
                 type: 'POST',
-                dataType: 'json',
+                dataType: 'json',   
                 data: window.localStorage.getItem('resultq'),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                 // get the result and do some magic with it
                     var message = data.Message;                 
-                alert("Thank you for the exam.You will get result in 24 hours.");
-                location.href = "/homepage/index";
+                //alert("Thank you for the exam.You will get result in 24 hours.");
+                            
                // $("#resultMessage").html(message);
             }
         });
@@ -63,5 +84,16 @@
        // $(objthis).parents('.question').next('.question').show();
     }
 
-   
+    function startimes() {
+        var tmr2 = setInterval(function () {
+            if (tmmmrr == 0) {
+                clearInterval(tmr2);        
+                $(".uplds").html("Upload complete");
+            }
+            else {
+                tmmmrr = tmmmrr - 1;            
+                $('progress').attr('value', tmmmrr);
+            }
+        }, 150);
+    }  
 </script>
