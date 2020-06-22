@@ -1,4 +1,4 @@
-﻿
+﻿@using DuolingoSk.Model;
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,6 +13,9 @@
     <!-- //web fonts -->
     <!-- Template CSS -->
     <link rel="stylesheet" href="~/Content/client_assets/css/style-starter.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
 </head>
 <body>
 
@@ -40,12 +43,34 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/contactus">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
+                        @if (clsClientSession.UserID == 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                        }
+
+                        @if (clsClientSession.UserID > 0)
+                        {
+                            <li class="nav-item dropdown">
+                                @{
+                                    string strnm = clsClientSession.FirstName + " " + clsClientSession.LastName;
+                                }
+                                <a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span>&nbsp;  @strnm </span></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="/myexams" class="dropdown-item">My Exams</a>
+                                    <a href="/materials" class="dropdown-item">Materials</a>
+                                    <a href="/tips" class="dropdown-item">Tips</a>
+                                    <a href="/myprofile" class="dropdown-item">My Profile</a>
+                                    <a href="/myprofile/changepassword" class="dropdown-item">Change Password</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="/client/studentlogin/signout" class="dropdown-item">Logout</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
 
                 </div>
@@ -92,7 +117,10 @@
     </script>
 
     <script src="~/Content/client_assets/js/lightbox-plus-jquery.min.js"></script>
-   
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
@@ -112,15 +140,17 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         }
-    </script>
 
-    <script>
         $(function () {
             $('.navbar-toggler').click(function () {
                 $('body').toggleClass('noscroll');
             })
         });
-      
+
+        jQuery(document).ready(function () {
+            jQuery('#tblGrid').DataTable();
+        });
+
     </script>
 
     <!-- Smooth scrolling -->

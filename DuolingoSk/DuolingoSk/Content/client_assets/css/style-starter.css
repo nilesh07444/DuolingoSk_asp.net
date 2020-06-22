@@ -12220,3 +12220,14 @@ body:after {
     padding-top: 60px; } }
 
 /*# sourceMappingURL=style-starter.css.map */
+
+/*NILESH CSS*/
+
+.heading h3 {
+    font-size: 36px;
+    line-height: 42px;
+    color: var(--title-color);
+    font-weight: 600;
+    text-decoration: underline dashed red;
+    text-underline-position: under;
+}

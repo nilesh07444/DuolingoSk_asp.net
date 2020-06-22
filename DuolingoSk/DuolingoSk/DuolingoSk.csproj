@@ -137,6 +137,7 @@
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Admin\Controllers\MyProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuestionLevelController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\StudentController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="ViewModel\ExamResultVM.cs" />
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\MaterialVM.cs" />
+    <Compile Include="ViewModel\QuestionLevelVM.cs" />
     <Compile Include="ViewModel\StudentFeeVM.cs" />
     <Compile Include="ViewModel\StudentVM.cs" />
     <Compile Include="ViewModel\DashboardCountVM.cs" />
@@ -3920,6 +3922,9 @@
     <Content Include="Areas\Admin\Views\MyProfile\Index.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_StartNow.cshtml" />
     <Content Include="Areas\Admin\Views\Exam\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionLevel\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionLevel\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\QuestionLevel\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
