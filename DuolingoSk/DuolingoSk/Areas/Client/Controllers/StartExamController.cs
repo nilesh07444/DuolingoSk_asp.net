@@ -59,6 +59,7 @@ namespace DuolingoSk.Areas.Client.Controllers
 
         public ActionResult StartNow(long LevelId)
         {
+            Session["lstQuestionsExam"] = null;
             if (Session["lstQuestionsExam"] == null)
             {
                 List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
