@@ -1,4 +1,5 @@
-﻿using DuolingoSk.Models;
+﻿using DuolingoSk.Model;
+using DuolingoSk.Models;
 using DuolingoSk.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -147,9 +148,10 @@ namespace DuolingoSk.Areas.Client.Controllers
         [HttpPost]
         public ActionResult SaveExamResult(IList<ExamResultVM> lstExam)
         {
-            int StudentId = 1;
+            long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
+
             tbl_Exam objExm = new tbl_Exam();
-            objExm.StudentId = StudentId;
+            objExm.StudentId = LoggedInStudentId;
             objExm.ExamDate = DateTime.UtcNow;
             objExm.AgentId = 1;
             objExm.Score = "";
@@ -166,7 +168,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 {
                     tbl_ExamResultDetails objExre = new tbl_ExamResultDetails();
                     objExre.ExamId = objExm.Exam_Id;
-                    objExre.StudentId = StudentId;
+                    objExre.StudentId = LoggedInStudentId;
                     objExre.QuestionText = objj.QuestionTxt;
                     objExre.QuestionOptionValue = objj.Que;
                     objExre.QuestionTypeId = objj.QuestionType;

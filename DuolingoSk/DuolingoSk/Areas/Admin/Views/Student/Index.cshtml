@@ -50,6 +50,7 @@
                             <label>Select Agent</label>
                             <select id="ddlAgent" class="form-control" onchange="filterAgent();" style="width:250px;">
                                 <option value="-1">All</option>
+                                <option value="0">Sk Academy</option>
                                 @if (lstAgents != null && lstAgents.Count() > 0)
                                 {
                                     foreach (AdminUserVM obj in lstAgents)

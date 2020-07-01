@@ -25,13 +25,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2020 14:16:48</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Dashboard/Index.cshtml">
-      <publishTime>06/14/2020 14:48:02</publishTime>
+      <publishTime>06/22/2020 23:45:43</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Detail.cshtml">
-      <publishTime>06/20/2020 22:05:51</publishTime>
+      <publishTime>06/23/2020 00:03:29</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Index.cshtml">
-      <publishTime>06/22/2020 14:58:28</publishTime>
+      <publishTime>06/22/2020 15:47:46</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Fees/Add.cshtml">
       <publishTime>06/07/2020 15:56:15</publishTime>
@@ -115,16 +115,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2020 14:27:23</publishTime>
     </File>
     <File Include="Areas/Client/Views/MyExams/Index.cshtml">
-      <publishTime>06/07/2020 18:07:43</publishTime>
+      <publishTime>06/22/2020 23:28:28</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/MyProfile/ChangePassword.cshtml">
+      <publishTime>06/23/2020 09:21:28</publishTime>
     </File>
     <File Include="Areas/Client/Views/MyProfile/Index.cshtml">
-      <publishTime>06/07/2020 18:08:01</publishTime>
+      <publishTime>06/23/2020 09:24:11</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/RenewAccount/Index.cshtml">
+      <publishTime>06/23/2020 09:30:02</publishTime>
     </File>
     <File Include="Areas/Client/Views/Shared/_Layout.cshtml">
-      <publishTime>06/22/2020 13:55:38</publishTime>
+      <publishTime>06/23/2020 09:26:15</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/Index.cshtml">
-      <publishTime>06/22/2020 13:53:46</publishTime>
+      <publishTime>06/22/2020 23:30:35</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType1.cshtml">
       <publishTime>06/17/2020 22:56:16</publishTime>
@@ -139,19 +145,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/17/2020 22:56:16</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType5.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>06/22/2020 23:38:01</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType6.cshtml">
       <publishTime>06/17/2020 22:56:16</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_StartNow.cshtml">
-      <publishTime>06/22/2020 13:53:46</publishTime>
+      <publishTime>06/22/2020 23:38:57</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentLogin/Index.cshtml">
       <publishTime>06/20/2020 00:39:08</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentRegister/Index.cshtml">
-      <publishTime>06/20/2020 00:00:03</publishTime>
+      <publishTime>06/23/2020 09:22:01</publishTime>
     </File>
     <File Include="Areas/Client/Views/Tips/Index.cshtml">
       <publishTime>06/22/2020 14:27:21</publishTime>
@@ -169,10 +175,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/DuolingoSk.dll">
-      <publishTime>06/22/2020 15:06:34</publishTime>
+      <publishTime>06/23/2020 09:41:35</publishTime>
     </File>
     <File Include="bin/DuolingoSk.pdb">
-      <publishTime>06/22/2020 15:06:34</publishTime>
+      <publishTime>06/23/2020 09:41:35</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -6460,16 +6466,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/21/2020 23:55:01</publishTime>
     </File>
     <File Include="Content/admin_assets/images/mega-menu/vegetable-fruits/1.jpg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>05/21/2020 23:55:00</publishTime>
     </File>
     <File Include="Content/admin_assets/images/mega-menu/vegetable-fruits/2.jpg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>05/21/2020 23:55:00</publishTime>
     </File>
     <File Include="Content/admin_assets/images/mega-menu/vegetable-fruits/3.jpg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>05/21/2020 23:55:00</publishTime>
     </File>
     <File Include="Content/admin_assets/images/mega-menu/vegetable-fruits/vegetable.jpg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>05/21/2020 23:55:00</publishTime>
     </File>
     <File Include="Content/admin_assets/images/mega-menu/watches.jpg">
       <publishTime>05/21/2020 23:54:59</publishTime>
@@ -7825,7 +7831,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/11/2020 22:53:14</publishTime>
     </File>
     <File Include="Content/admin_assets/js/admin-customizer.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>09/14/2019 14:30:00</publishTime>
     </File>
     <File Include="Content/admin_assets/js/admin-reports.js">
       <publishTime>07/30/2019 18:11:30</publishTime>
@@ -10096,7 +10102,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/20/2019 10:05:36</publishTime>
     </File>
     <File Include="Content/admin_assets/js/jsgrid/jsgrid-media.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>07/20/2019 11:04:00</publishTime>
     </File>
     <File Include="Content/admin_assets/js/jsgrid/jsgrid-menu-list.js">
       <publishTime>07/03/2019 16:34:30</publishTime>
@@ -11224,19 +11230,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 15:21:31</publishTime>
     </File>
     <File Include="Images/I3.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>06/14/2020 12:55:00</publishTime>
     </File>
     <File Include="Images/I4.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>06/14/2020 12:55:00</publishTime>
     </File>
     <File Include="Images/I5.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>06/14/2020 12:55:00</publishTime>
     </File>
     <File Include="Images/I6.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>06/14/2020 12:55:00</publishTime>
+    </File>
+    <File Include="Images/IA2.png">
+      <publishTime>06/22/2020 23:38:01</publishTime>
     </File>
     <File Include="Images/speaker-red.svg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>06/14/2020 12:55:00</publishTime>
     </File>
     <File Include="Images/star.gif">
       <publishTime>06/07/2020 15:21:31</publishTime>

@@ -148,6 +148,7 @@
     <Compile Include="Areas\Client\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Client\Controllers\MyExamsController.cs" />
     <Compile Include="Areas\Client\Controllers\MyProfileController.cs" />
+    <Compile Include="Areas\Client\Controllers\RenewAccountController.cs" />
     <Compile Include="Areas\Client\Controllers\StartExamController.cs" />
     <Compile Include="Areas\Client\Controllers\StudentLoginController.cs" />
     <Compile Include="Areas\Client\Controllers\StudentRegisterController.cs" />
@@ -3928,6 +3929,8 @@
     <Content Include="Areas\Admin\Views\QuestionLevel\Add.cshtml" />
     <Content Include="Areas\Admin\Views\QuestionLevel\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Exam\Index.cshtml" />
+    <Content Include="Areas\Client\Views\MyProfile\ChangePassword.cshtml" />
+    <Content Include="Areas\Client\Views\RenewAccount\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

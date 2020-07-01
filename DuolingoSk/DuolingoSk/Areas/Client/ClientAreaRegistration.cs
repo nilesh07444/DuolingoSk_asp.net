@@ -97,6 +97,24 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "ForgetPassword", action = "Index", id = UrlParameter.Optional }
             );
 
+            context.MapRoute(
+                "Client_MyProfile",
+                "myprofile",
+                new { controller = "MyProfile", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_ChangePassword",
+                "myprofile/changepassword",
+                new { controller = "MyProfile", action = "ChangePassword", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_RenewAccount",
+                "renewaccount",
+                new { controller = "RenewAccount", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

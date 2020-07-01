@@ -6,18 +6,12 @@ using System.Web.Mvc;
 
 namespace DuolingoSk.Areas.Client.Controllers
 {
-    public class MyProfileController : Controller
+    public class RenewAccountController : Controller
     {
-        // GET: Client/MyProfile
+        // GET: Client/RenewAccount
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
     }
 }

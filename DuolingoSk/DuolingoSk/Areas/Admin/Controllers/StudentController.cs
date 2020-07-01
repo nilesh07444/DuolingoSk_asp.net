@@ -37,11 +37,12 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
                                from agent in outerAgent.DefaultIfEmpty()
                                where !a.IsDeleted
-                               && (agentId == -1 || a.AdminUserId == agentId)
-                               && (
-                                        !IsAgent
-                                             || (a.AdminUserId == LoggedInUserId)
-                                    )
+                               && (agentId != 0 || a.AdminUserId == 0)
+                               && (!IsAgent || a.AdminUserId == agentId)
+                               //&& (
+                               //         !IsAgent
+                               //              || (a.AdminUserId == LoggedInUserId)
+                               //     )
                                select new StudentVM
                                {
                                    StudentId = a.StudentId,
