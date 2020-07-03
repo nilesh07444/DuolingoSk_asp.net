@@ -115,6 +115,12 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "RenewAccount", action = "Index", id = UrlParameter.Optional }
             );
 
+            context.MapRoute(
+           "ClientSaveAudio",
+           "SaveAudio",
+           new { controller = "StartExam", action = "PostRecordedAudioVideo", id = UrlParameter.Optional }
+       );
+
         }
     }
 }

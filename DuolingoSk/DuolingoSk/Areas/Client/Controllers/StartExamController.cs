@@ -186,6 +186,26 @@ namespace DuolingoSk.Areas.Client.Controllers
 
             return Json("");
         }
+
+        public ActionResult PostRecordedAudioVideo()
+        {            
+            var path = Server.MapPath("~/TempFile/");
+           
+            foreach (string upload in Request.Files)
+            {
+                //AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                
+                var file = Request.Files[upload];
+                if (file == null) continue;
+
+                file.SaveAs(System.IO.Path.Combine(path, Request.Form[0]));
+                var bytes = System.IO.File.ReadAllBytes(System.IO.Path.Combine(path, Request.Form[0]));
+                // lstFiles.Add(Request.Form[0]);               
+
+            }
+
+            return Json(path + Request.Form[0]);
+        }
     }
 
     public class ClsExamResult
