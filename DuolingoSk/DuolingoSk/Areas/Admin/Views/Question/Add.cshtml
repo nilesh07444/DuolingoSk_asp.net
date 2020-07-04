@@ -80,7 +80,7 @@
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
                             <div class="form-group row">
-                                <label class="col-xl-3 col-md-4" for="QuestionTime">Question Duration*</label>
+                                <label class="col-xl-3 col-md-4 quedurationlble" for="QuestionTime">Question Duration*</label>
                                 <select class="form-control" id="minutes" name="minutes" style="width:100px;">
                                     <option value="">Minute</option>
                                     @for (int m = 0; m < 60; m++)
@@ -107,10 +107,48 @@
                             <div class="form-group row dvtype dvtype1">
                                 <label class="col-xl-12 col-md-12"><b>Note: </b>Enter Paragraph below. Put "_" for missing letter</label>
                             </div>
-                            <div class="form-group row dvtype dvtype1 dvtype6">
+                            <div class="form-group row dvtype dvtype1 dvtype6 dvtype7 dvtype8 dvtype9 dvtype10">
                                 <label class="col-xl-3 col-md-4" for="QuestionOptionText">Question Option Text *</label>
                                 <textarea class="form-control col-md-8" id="QuestionOptionText" name="QuestionOptionText" style="min-height:125px;">                                
                                 </textarea>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype8 dvtype9 dvtype10">
+                                <label class="col-xl-3 col-md-4" for="PreparationTime">Preparation Time*</label>
+                                <select class="form-control" id="minutespre" name="minutespre" style="width:100px;">
+                                    <option value="">Minute</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
+                                <select class="form-control" id="secondspre" name="secondspre" style="width:110px;margin-left:5px;">
+                                    <option value="">Seconds</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+                            <div class="form-group row dvtype dvtype9 dvtype10">
+                                <label class="col-xl-3 col-md-4" for="Minimumtime">Minimum Time*</label>
+                                <select class="form-control" id="minutesmin" name="minutesmin" style="width:100px;">
+                                    <option value="">Minute</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
+                                <select class="form-control" id="secondsmin" name="secondsmin" style="width:110px;margin-left:5px;">
+                                    <option value="">Seconds</option>
+                                    @for (int m = 0; m < 60; m++)
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                </select>
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
@@ -135,18 +173,18 @@
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
-                            <div class="form-group row dvtype dvtype3">
+                            <div class="form-group row dvtype dvtype3 dvtype9">
                                 <label class="col-xl-3 col-md-4" for="mp3file">Mp3 File *</label>
                                 <input type="file" class="form-control col-md-8" name="mp3file" accept=".mp3,audio/*" />
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
-                            <div class="form-group row dvtype dvtype3">
+                            <div class="form-group row dvtype dvtype3 dvtype9">
                                 <label class="col-xl-3 col-md-4" for="MaxReplay">Maximum Replay *</label>
                                 <input type="number" class="form-control" style="width:100px;" name="MaxReplay" />
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
-                            <div class="form-group row dvtype dvtype4">
+                            <div class="form-group row dvtype dvtype4 dvtype10">
                                 <label class="col-xl-3 col-md-4" for="imagefile">Image *</label>
                                 <input type="file" class="form-control col-md-8" name="imagefile" accept="image/*" />
                                 <lable class="col-xl-3 col-md-4"></lable>
@@ -165,6 +203,24 @@
                                         </div>
                                     </div>
                                     <a href="javascript:void(0);" style="color:blue;" onclick="AddNewMp3File();">Add New Mp3 File</a>
+                                    <span class="field-validation-valid text-danger"></span>
+                                </div>
+                                <lable class="col-xl-3 col-md-4"></lable>
+
+                            </div>
+                            <div class="form-group row dvtype dvtype8">
+                                <label class="col-xl-12 col-md-12"><b>Note: </b>Upload Images</label>
+                            </div>
+                            <div class="form-group row dvtype dvtype8">
+                                <label class="col-xl-3 col-md-4">Images *</label>
+                                <div class="col-md-8">
+                                    <div class="dvImages">
+                                        <div class="dvimgss">
+                                            <input type="file" class="form-control mrb5 wdth330" name="imgfl" />
+                                            <a href="javascript:void(0);" onclick="deletethisimg(this);"><i class="fa fa-trash font-danger"></i></a>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0);" style="color:blue;" onclick="AddNewImgFile();">Add New Image</a>
                                     <span class="field-validation-valid text-danger"></span>
                                 </div>
                                 <lable class="col-xl-3 col-md-4"></lable>
@@ -195,6 +251,12 @@
     <div class="dvmp33">
         <input type="file" class="form-control mrb5 wdth330" name="mp3fileeword" />
         <a href="javascript:void(0);" onclick="deletethismp3(this);"><i class="fa fa-trash font-danger"></i></a>
+    </div>
+</div>
+<div class="dvmp3imgg" style="display:none;">
+    <div class="dvimgss">
+        <input type="file" class="form-control mrb5 wdth330" name="imgfl" />
+        <a href="javascript:void(0);" onclick="deletethisimg(this);"><i class="fa fa-trash font-danger"></i></a>
     </div>
 </div>
 <script src="~/Content/assets/js/jquery-3.3.1.min.js"></script>
@@ -230,6 +292,15 @@
     }
     function deletethismp3(objthis) {
         $(objthis).parents('div.dvmp33').remove();
+    }
+
+    function AddNewImgFile() {
+        $(".dvImages").append($(".dvmp3imgg").html());
+
+    }
+
+    function deletethisimg(objthis) {
+        $(objthis).parents('div.dvimgss').remove();
     }
     function checkdetails() {
         $(".text-danger").html("");
@@ -333,8 +404,99 @@
                  if ( $("input[name=noofwords]").val() == "" || parseInt($("input[name=noofwords]").val()) <= 0) {
                     $("input[name=noofwords]").siblings('span.text-danger').html("Please Enter No of Words Minimum");
                     flg = false;
+                }                
+            }
+
+            if ($("#QuestionTypeId").val() == "7") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
+                    flg = false;
+                }          
+            }
+
+            if ($("#QuestionTypeId").val() == "8") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
+                    flg = false;
                 }
-                
+                if ($("#minutespre").val() == "" || $("#secondspre").val() == "") {
+                    $("#minutespre").siblings('span.text-danger').html("Please Select Preparation Minutes and Seconds");
+                    flg = false;
+                }
+
+                if ($(".dvImages input[name=imgfl]").length == 0) {
+                    $(".dvImages").siblings('span.text-danger').html("Please add Image File");
+                    flg = false;
+                }
+                $(".dvImages input[name=imgfl]").each(function () {
+                    var typ = $(this).prop('files')[0].type;
+                    if ($(this).prop('files')[0] == undefined || (!(typ.indexOf('/png') >= 0 || typ.indexOf('/jpeg') >= 0 || typ.indexOf('/jpg') >= 0))) {
+                        $(".dvImages").siblings('span.text-danger').html("Please Select Valid Image file");
+                        flg = false;
+                    }                    
+                });
+
+            }
+
+            if ($("#QuestionTypeId").val() == "9") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
+                    flg = false;
+                }
+                if ($("#minutespre").val() == "" || $("#secondspre").val() == "") {
+                    $("#minutespre").siblings('span.text-danger').html("Please Select Preparation Minutes and Seconds");
+                    flg = false;
+                }
+
+                if ($("#minutesmin").val() == "" || $("#secondsmin").val() == "") {
+                    $("#minutesmin").siblings('span.text-danger').html("Please Select Minimum Minutes and Seconds");
+                    flg = false;
+                }
+
+                if ($("input[name=mp3file]").prop('files')[0] == undefined) {
+                    $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Mp3 file");
+                    flg = false;
+                }
+                else {
+                    if ($("input[name=mp3file]").prop('files')[0].name.indexOf('.mp3') < 0) {
+                        $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Valid Mp3 file");
+                        flg = false;
+                    }
+                }
+                if ($("input[name=MaxReplay]").val() == "" || parseInt($("input[name=MaxReplay]").val()) <= 0) {
+                    $("input[name=MaxReplay]").siblings('span.text-danger').html("Please Enter Maximum Replay for Mp3 file");
+                    flg = false;
+                }         
+
+            }
+
+            if ($("#QuestionTypeId").val() == "10") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
+                    flg = false;
+                }
+                if ($("#minutespre").val() == "" || $("#secondspre").val() == "") {
+                    $("#minutespre").siblings('span.text-danger').html("Please Select Preparation Minutes and Seconds");
+                    flg = false;
+                }
+
+                if ($("#minutesmin").val() == "" || $("#secondsmin").val() == "") {
+                    $("#minutesmin").siblings('span.text-danger').html("Please Select Minimum Minutes and Seconds");
+                    flg = false;
+                }
+               
+                if ($("input[name=imagefile]").prop('files')[0] == undefined) {
+                    $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Image file");
+                    flg = false;
+                }
+                else {
+                    var typ = $("input[name=imagefile]").prop('files')[0].type;
+                    if (!(typ.indexOf('/png') >= 0 || typ.indexOf('/jpeg') >= 0 || typ.indexOf('/jpg') >= 0)) {
+                        $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Valid Image file");
+                        flg = false;
+                    }
+                }
+
             }
             
         }

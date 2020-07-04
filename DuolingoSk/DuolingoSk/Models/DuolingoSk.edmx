@@ -59,8 +59,6 @@
           <Property Name="QuestionOptiont_Ans" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -135,6 +133,9 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="QuestionLevel" Type="int" />
+          <Property Name="PreparationTime" Type="int" />
+          <Property Name="MinimumTime" Type="int" />
+          <Property Name="Images" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -184,6 +185,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam" EntityType="Self.tbl_Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Self.tbl_ExamResultDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Self.tbl_QuestionLevel" Schema="dbo" store:Type="Tables" />
@@ -191,22 +193,6 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
-    [tbl_GeneralSetting].[SMTPHost] AS [SMTPHost], 
-    [tbl_GeneralSetting].[SMTPPort] AS [SMTPPort], 
-    [tbl_GeneralSetting].[EnableSSL] AS [EnableSSL], 
-    [tbl_GeneralSetting].[SMTPEmail] AS [SMTPEmail], 
-    [tbl_GeneralSetting].[SMTPPwd] AS [SMTPPwd], 
-    [tbl_GeneralSetting].[AdminSMSNumber] AS [AdminSMSNumber], 
-    [tbl_GeneralSetting].[AdminEmail] AS [AdminEmail], 
-    [tbl_GeneralSetting].[FromEmail] AS [FromEmail], 
-    [tbl_GeneralSetting].[RegistrationFee] AS [RegistrationFee], 
-    [tbl_GeneralSetting].[RenewFee] AS [RenewFee], 
-    [tbl_GeneralSetting].[TotalExamAttempt] AS [TotalExamAttempt]
-    FROM [dbo].[tbl_GeneralSetting] AS [tbl_GeneralSetting]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -284,6 +270,9 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="QuestionLevel" Type="Int32" />
+          <Property Name="PreparationTime" Type="Int32" />
+          <Property Name="MinimumTime" Type="Int32" />
+          <Property Name="Images" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -460,6 +449,9 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_QuestionsMaster">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_QuestionsMaster">
               <MappingFragment StoreEntitySet="tbl_QuestionsMaster">
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="MinimumTime" ColumnName="MinimumTime" />
+                <ScalarProperty Name="PreparationTime" ColumnName="PreparationTime" />
                 <ScalarProperty Name="QuestionLevel" ColumnName="QuestionLevel" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
