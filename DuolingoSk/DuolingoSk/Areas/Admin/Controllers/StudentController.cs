@@ -33,29 +33,88 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 int LoggedInUserId = Int32.Parse(clsAdminSession.UserID.ToString());
                 bool IsAgent = (clsAdminSession.RoleID == (int)AdminRoles.Agent);
 
-                lstStudents = (from a in _db.tbl_Students
-                               join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
-                               from agent in outerAgent.DefaultIfEmpty()
-                               where !a.IsDeleted
-                               && (agentId != 0 || a.AdminUserId == 0)
-                               && (!IsAgent || a.AdminUserId == agentId)
-                               //&& (
-                               //         !IsAgent
-                               //              || (a.AdminUserId == LoggedInUserId)
-                               //     )
-                               select new StudentVM
-                               {
-                                   StudentId = a.StudentId,
-                                   AdminUserId = a.AdminUserId,
-                                   FirstName = a.FirstName,
-                                   LastName = a.LastName,
-                                   Email = a.Email,
-                                   MobileNo = a.MobileNo,
-                                   ProfilePicture = a.ProfilePicture,
-                                   FullName = a.FirstName + " " + a.LastName,
-                                   AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
-                                   IsActive = a.IsActive
-                               }).ToList();
+                if (agentId == 0)
+                {
+                    lstStudents = (from a in _db.tbl_Students
+                                   join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
+                                   from agent in outerAgent.DefaultIfEmpty()
+                                   where !a.IsDeleted
+                                   && a.AdminUserId == 0
+                                   select new StudentVM
+                                   {
+                                       StudentId = a.StudentId,
+                                       AdminUserId = a.AdminUserId,
+                                       FirstName = a.FirstName,
+                                       LastName = a.LastName,
+                                       Email = a.Email,
+                                       MobileNo = a.MobileNo,
+                                       ProfilePicture = a.ProfilePicture,
+                                       FullName = a.FirstName + " " + a.LastName,
+                                       AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                                       IsActive = a.IsActive
+                                   }).ToList();
+
+                }
+                else if (IsAgent && agentId == -1)
+                {
+                    lstStudents = (from a in _db.tbl_Students
+                                   join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
+                                   from agent in outerAgent.DefaultIfEmpty()
+                                   where !a.IsDeleted && a.AdminUserId == LoggedInUserId
+                                   select new StudentVM
+                                   {
+                                       StudentId = a.StudentId,
+                                       AdminUserId = a.AdminUserId,
+                                       FirstName = a.FirstName,
+                                       LastName = a.LastName,
+                                       Email = a.Email,
+                                       MobileNo = a.MobileNo,
+                                       ProfilePicture = a.ProfilePicture,
+                                       FullName = a.FirstName + " " + a.LastName,
+                                       AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                                       IsActive = a.IsActive
+                                   }).ToList();
+                }
+                else if (!IsAgent && agentId == -1)
+                {
+                    lstStudents = (from a in _db.tbl_Students
+                                   join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
+                                   from agent in outerAgent.DefaultIfEmpty()
+                                   where !a.IsDeleted
+                                   select new StudentVM
+                                   {
+                                       StudentId = a.StudentId,
+                                       AdminUserId = a.AdminUserId,
+                                       FirstName = a.FirstName,
+                                       LastName = a.LastName,
+                                       Email = a.Email,
+                                       MobileNo = a.MobileNo,
+                                       ProfilePicture = a.ProfilePicture,
+                                       FullName = a.FirstName + " " + a.LastName,
+                                       AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                                       IsActive = a.IsActive
+                                   }).ToList();
+                }
+                else
+                {
+                    lstStudents = (from a in _db.tbl_Students
+                                   join u in _db.tbl_AdminUsers on a.AdminUserId equals u.AdminUserId into outerAgent
+                                   from agent in outerAgent.DefaultIfEmpty()
+                                   where !a.IsDeleted && a.AdminUserId == agentId
+                                   select new StudentVM
+                                   {
+                                       StudentId = a.StudentId,
+                                       AdminUserId = a.AdminUserId,
+                                       FirstName = a.FirstName,
+                                       LastName = a.LastName,
+                                       Email = a.Email,
+                                       MobileNo = a.MobileNo,
+                                       ProfilePicture = a.ProfilePicture,
+                                       FullName = a.FirstName + " " + a.LastName,
+                                       AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                                       IsActive = a.IsActive
+                                   }).ToList();
+                }
 
                 ViewBag.agentId = agentId;
                 if (!IsAgent)

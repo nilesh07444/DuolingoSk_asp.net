@@ -98,7 +98,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     clsClientSession.Email = data.Email;
                     clsClientSession.MobileNumber = data.MobileNo;
 
-                    return RedirectToAction("Index", "HomePage");
+                    return RedirectToAction("Index", "MyExams");
 
                 }
                 else

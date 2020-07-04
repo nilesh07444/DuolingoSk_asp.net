@@ -1,6 +1,9 @@
-﻿
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@model StudentVM
+
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "MyProfile";
 }
 
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
@@ -25,42 +28,69 @@
 
                 <div class="contacts12-main col-lg-12">
                     <center>
-                        <form class="main-input">
+                        @using (Html.BeginForm("Index", "MyProfile", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form" }))
+                        {
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">First Name *</label>
-                                <input type="text" placeholder="First Name" name="mobileno" id="mobileno" required="">
+                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "", @placeholder = "Enter First Name", maxlength = "200" } })
+
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Last Name *</label>
-                                <input type="text" placeholder="Last Name" name="mobileno" id="mobileno" required="">
+                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "", @placeholder = "Enter Last Name", maxlength = "200" } })
+
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Email Id</label>
-                                <input type="text" placeholder="Email Id" name="mobileno" id="mobileno">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", @placeholder = "Enter Email Id", maxlength = "200" } })
+
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Mobile No *</label>
-                                <input type="text" placeholder="Mobile No" name="mobileno" id="mobileno" required="" disabled>
-                            </div> 
-                            <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Date Of Birth *</label>
-                                <input type="text" placeholder="DD/MM/YYYY" id="password" name="password" required="">
+                                @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "", @placeholder = "Enter Mobile No", maxlength = "200", @readonly="readonly" } })
+
+                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
                             </div>
+                              
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Address *</label>
-                                <input type="text" placeholder="Address" id="password" name="password" required="">
+                                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly = "@readonly" } })
+
+                                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
                             </div>
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">City *</label>
-                                <input type="text" placeholder="City" id="password" name="password" required="">
-                            </div> 
+                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "", @placeholder = "Enter Address", maxlength = "200" } })
+
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="top-inputs d-grid col-lg-6">
+                                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "", @placeholder = "Enter City", maxlength = "200" } })
+
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            </div>
+
                             <div class="text-left col-lg-6">
-                                <button id="btnUpdateProfile" type="button" class="btn btn-theme2">Update</button>
+                                @Html.HiddenFor(x => x.StudentId)
+                                @Html.HiddenFor(x => x.Password)
+                                <button type="submit" class="btn btn-theme2">Update</button>
                             </div>
-                        </form>
+                        }
                     </center>
                 </div>
-                <!-- //contact form -->
 
             </div>
         </div>
@@ -69,11 +99,20 @@
 </section>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 <script>
 
-    $(document).on("click", "#btnUpdateProfile", function () {
+    jQuery(document).ready(function () {
 
-        alert("Development is in process");
+        jQuery(".clsDatePicker").datepicker({
+            format: "dd/mm/yyyy",
+            autoclose: true
+        });
 
     });
 
