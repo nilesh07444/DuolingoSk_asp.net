@@ -48,7 +48,7 @@
                         <h5>Add Question</h5>
                     </div>
                     <div class="card-body">
-                        <form action="/admin/question/AddQuestion" class="needs-validation" enctype="multipart/form-data" id="QuestionFormId" method="post" role="form" onsubmit="return checkdetails();">
+                        <form action="/admin/question/AddQuestion" class="needs-validation" enctype="multipart/form-data" id="QuestionFormId" method="post" role="form">
                             <div class="form-group row">
                                 <label class="col-xl-3 col-md-4" for="QuestionTypeId">Question Type*</label>
                                 <select class="form-control col-md-8" id="QuestionTypeId" name="QuestionTypeId" style="">
@@ -228,7 +228,7 @@
                             </div>
                             <div class="form-group row">
                                 <lable class="col-xl-3 col-md-4"></lable>
-                                <button type="submit" class="btn btn-primary" style="margin-right:10px;">Submit</button>
+                                <button type="button" class="btn btn-primary" style="margin-right:10px;" onclick="checkdetails();" >Submit</button>
                                 <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
                             </div>
                         </form>
@@ -429,8 +429,7 @@
                     flg = false;
                 }
                 $(".dvImages input[name=imgfl]").each(function () {
-                    var typ = $(this).prop('files')[0].type;
-                    if ($(this).prop('files')[0] == undefined || (!(typ.indexOf('/png') >= 0 || typ.indexOf('/jpeg') >= 0 || typ.indexOf('/jpg') >= 0))) {
+                    if ($(this).prop('files')[0] == undefined || (!($(this).prop('files')[0].type.indexOf('/png') >= 0 || $(this).prop('files')[0].type.indexOf('/jpeg') >= 0 || $(this).prop('files')[0].type.indexOf('/jpg') >= 0))) {
                         $(".dvImages").siblings('span.text-danger').html("Please Select Valid Image file");
                         flg = false;
                     }                    
@@ -500,7 +499,9 @@
             }
             
         }
-        
-        return flg;
+
+        if (flg) {
+            $("#QuestionFormId").submit();
+        }
     }
 </script>
