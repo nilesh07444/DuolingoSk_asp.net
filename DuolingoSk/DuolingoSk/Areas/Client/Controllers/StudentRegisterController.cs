@@ -1,4 +1,5 @@
 ﻿using DuolingoSk.Helper;
+using DuolingoSk.Model;
 using DuolingoSk.Models;
 using System;
 using System.Collections.Generic;
@@ -119,7 +120,16 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     #endregion PendingFeeEntry
 
-                    return RedirectToAction("Index");
+                    // Set login details 
+                    clsClientSession.SessionID = Session.SessionID;
+                    clsClientSession.UserID = objStudent.StudentId;
+                    clsClientSession.FirstName = objStudent.FirstName;
+                    clsClientSession.LastName = objStudent.LastName;
+                    clsClientSession.ImagePath = objStudent.ProfilePicture;
+                    clsClientSession.Email = objStudent.Email;
+                    clsClientSession.MobileNumber = objStudent.MobileNo;
+
+                    return RedirectToAction("MyExams");
 
                 }
             }
@@ -150,7 +160,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     msg += "Regards," + "\n";
                     msg += "Duolingo Sk";
 
-                    string url = "http://sms.unitechcenter.com/sendSMS?username=krupab&message=" + msg + "&sendername=KRUPAB&smstype=TRANS&numbers=" + userVM.MobileNo + "&apikey=e8528131-b45b-4f49-94ef-d94adb1010c4";
+                    string url = "http://sms.unitechcenter.com/sendSMS?username=skacademy&message=" + msg + "&sendername=SKANAD&smstype=TRANS&numbers=" + userVM.MobileNo + "&apikey=0b9c3015-bbcd-4ad8-b9ac-30f28451ebe6";
 
                     var json = webClient.DownloadString(url);
                     if (json.Contains("invalidnumber"))

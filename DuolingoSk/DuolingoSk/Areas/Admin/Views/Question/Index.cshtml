@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Questions";
     List<tbl_QuestionType> lstQuestionty = ViewData["lstQuestionType"] as List<tbl_QuestionType>;
+    List<tbl_QuestionLevel> lstQuestionLevel = ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
     int counter = 1;
 }
 
@@ -52,7 +53,22 @@
                                 }
                             }
                         </select>
-                    </div>                   
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label>Question Type</label>
+                        <select id="selectQuestionlevel" class="form-control" onchange="filterque();" style="width:250px;">
+                            <option value="-1">All</option>
+                            @if (lstQuestionLevel != null && lstQuestionLevel.Count() > 0)
+                            {
+                                foreach (var item in lstQuestionLevel)
+                                {
+                                    <option value="@item.Level_Id">@item.LevelName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
                 </div>
                 <div class="btn-popup pull-right">
                     <button type="button" class="btn btn-primary" id="btnAdd">Add Question</button>
@@ -62,7 +78,8 @@
                         <tr>
                             <th width="10%;">#</th>
                             <th width="15%;">Question Text</th>
-                            <th>Question Type</th>                            
+                            <th>Question Type</th>
+                            <th>Question Level</th>
                             <th width="15%;">Active</th>
                             <th width="15%;">Action</th>
                         </tr>
@@ -77,6 +94,7 @@
                                     <td>@counter.</td>
                                     <td>@que.QuestionText</td>
                                     <td>@que.QuestionTypeText</td>
+                                    <td>@que.LevelName</td>
                                     @if (que.IsActive == true)
                                     {
                                         <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@que.QuestionId','InActive');">Active</span></td>
@@ -86,9 +104,9 @@
                                         <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@que.QuestionId','Active');">InActive</span></td>
                                     }
                                     <td>
-                                            <a href="/admin/question/edit/@que.QuestionId"><i class="fa fa-edit mr-2 font-success"></i></a>
-                                            <a href="javascript:void(0);" onclick="fnDeleteQuestion('@que.QuestionId')"><i class="fa fa-trash font-danger"></i></a>
-                                     </td>
+                                        <a href="/admin/question/edit/@que.QuestionId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                        <a href="javascript:void(0);" onclick="fnDeleteQuestion('@que.QuestionId')"><i class="fa fa-trash font-danger"></i></a>
+                                    </td>
                                 </tr>
                                 counter++;
                             }
@@ -144,13 +162,16 @@
 </div>
 
 <script>
+
     $(document).on("click", "#btnAdd", function () {
         window.location.href = "/admin/question/add";
     });
-      $(document).ready(function () {
-         $("#selectQuestiontype").val("@ViewBag.Type");                
+
+    $(document).ready(function () {
+          $("#selectQuestiontype").val("@ViewBag.Type");
+          $("#selectQuestionlevel").val("@ViewBag.Level");
     });
-   
+
     jQuery(document).on("click", "#btnDeleteQuestion", function () {
 
         var QuestionId = jQuery("#hdnDeleteQuestion").val();
@@ -232,12 +253,12 @@
         }
        });
 
-    
+
     function filterque() {
-           var typeid = $("#selectQuestiontype").val();
-        var catid = $("#selectcat").val();
-        
-        location.href = "/admin/question?Type="+typeid;
+        var typeid = $("#selectQuestiontype").val();
+        var levelid = $("#selectQuestionlevel").val();
+
+        location.href = "/admin/question?Type=" + typeid + "&Level=" + levelid;
     }
 
 </script>

@@ -19,22 +19,31 @@ namespace DuolingoSk.Areas.Admin.Controllers
         }
 
         // GET: Admin/Question
-        public ActionResult Index(int Type = -1)
+        public ActionResult Index(int Type = -1, int Level = -1)
         {
-          // List<tbl_QuestionsMaster> lstQuestions = _db.tbl_QuestionsMaster.Where(o => Type == -1 || o.QuestionTypeId == Type).ToList();
-           List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
-                                            join Q in _db.tbl_QuestionType on p.QuestionTypeId.Value equals Q.QuestionTypeId
-                                            where p.IsDeleted == false && (Type == -1 || p.QuestionTypeId == Type)
-                                            select new QuestionVM
-                                            {
-                                               QuestionText = p.QuestionText ,
-                                               QuestionTypeText = Q.QuestionTypeName,                                                                                                                                             
-                                               IsActive = p.IsActive.Value,
-                                               QuestionId = p.QuestionId                                               
-                                            }).OrderByDescending(x => x.QuestionId).ToList();
-            List<tbl_QuestionType> lstQuestionType = _db.tbl_QuestionType.ToList();
+            List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
+                                             join Q in _db.tbl_QuestionType on p.QuestionTypeId.Value equals Q.QuestionTypeId
+                                             join l in _db.tbl_QuestionLevel on (long)p.QuestionLevel equals l.Level_Id
+                                             where p.IsDeleted == false
+                                             && (Type == -1 || p.QuestionTypeId == Type)
+                                             && (Level == -1 || p.QuestionLevel == Level)
+                                             select new QuestionVM
+                                             {
+                                                 QuestionText = p.QuestionText,
+                                                 QuestionTypeText = Q.QuestionTypeName,
+                                                 IsActive = p.IsActive.Value,
+                                                 QuestionId = p.QuestionId,
+                                                 LevelName = l.LevelName
+                                             }).OrderByDescending(x => x.QuestionId).ToList();
+
+            List<tbl_QuestionType> lstQuestionType = _db.tbl_QuestionType.OrderBy(x => x.QuestionTypeName).ToList();
             ViewData["lstQuestionType"] = lstQuestionType;
             ViewBag.Type = Type;
+
+            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.OrderBy(x => x.LevelName).ToList();
+            ViewData["lstQuestionLevel"] = lstQuestionLevel;
+            ViewBag.Level = Level;
+             
             return View(lstQuestions);
         }
         public ActionResult Add()
@@ -73,11 +82,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
             }
             else if (QuestionType == 2)
             {
-                if(frm["EngWords"] != null)
+                if (frm["EngWords"] != null)
                 {
                     string wordss = frm["EngWords"].ToString();
                     objtbl_QuestionsMaster.Words = wordss;
-                }               
+                }
             }
             else if (QuestionType == 3)
             {
@@ -99,7 +108,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     string noofwords = frm["noofwords"].ToString();
                     objtbl_QuestionsMaster.NoOfWords = Convert.ToInt32(noofwords);
                 }
-                
+
             }
             for (int i = 0; i < Request.Files.Count; i++)
             {
@@ -124,19 +133,19 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     fileUpload.SaveAs(pathmp3 + mp3nm);
                     filenmsmp3.Add(mp3nm);
                 }
-             
+
             }
             _db.tbl_QuestionsMaster.Add(objtbl_QuestionsMaster);
             _db.SaveChanges();
-            if(QuestionType == 5)
+            if (QuestionType == 5)
             {
-                foreach(string str in filenmsmp3)
+                foreach (string str in filenmsmp3)
                 {
                     tbl_Mp3Options objMp3 = new tbl_Mp3Options();
                     objMp3.QuestionId = objtbl_QuestionsMaster.QuestionId;
                     objMp3.Mp3FileName = str;
                     _db.tbl_Mp3Options.Add(objMp3);
-                    _db.SaveChanges();                    
+                    _db.SaveChanges();
                 }
             }
             return RedirectToAction("Add");
@@ -171,7 +180,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             objtbl_QuestionsMaster.QuestionText = QuestionText;
             objtbl_QuestionsMaster.QuestionLevel = Convert.ToInt32(frm["QuestionLevelId"]);
             objtbl_QuestionsMaster.QuestionTime = (minutes * 60) + seconds;
-            objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;            
+            objtbl_QuestionsMaster.ModifiedDate = DateTime.UtcNow;
             objtbl_QuestionsMaster.ModifiedBy = clsAdminSession.UserID;
             string pathmp3 = Server.MapPath("~/QuestionMp3/");
             string pathImg = Server.MapPath("~/QuestionImage/");
@@ -215,34 +224,34 @@ namespace DuolingoSk.Areas.Admin.Controllers
             {
                 if (QuestionType == 3 && Request.Files.GetKey(i) == "mp3file")
                 {
-                    HttpPostedFileBase fileUpload = Request.Files.Get(i);                    
+                    HttpPostedFileBase fileUpload = Request.Files.Get(i);
                     if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
                         string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
                         fileUpload.SaveAs(pathmp3 + mp3nm);
                         objtbl_QuestionsMaster.Mp3FileName = mp3nm;
-                    }   
-                   
+                    }
+
                 }
                 if (QuestionType == 4 && Request.Files.GetKey(i) == "imagefile")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    if(fileUpload != null && fileUpload.ContentLength > 0)
+                    if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
                         string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
                         fileUpload.SaveAs(pathImg + mp3nm);
                         objtbl_QuestionsMaster.ImageName = mp3nm;
-                    }                    
+                    }
                 }
                 if (QuestionType == 5 && Request.Files.GetKey(i) == "mp3fileeword")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    if(fileUpload != null && fileUpload.ContentLength > 0)
+                    if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
                         string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
                         fileUpload.SaveAs(pathmp3 + mp3nm);
                         filenmsmp3.Add(mp3nm);
-                    }                  
+                    }
                 }
 
             }
@@ -251,16 +260,16 @@ namespace DuolingoSk.Areas.Admin.Controllers
             if (QuestionType == 5)
             {
                 List<tbl_Mp3Options> lstmp3sc = _db.tbl_Mp3Options.Where(o => o.QuestionId == QuestionId).ToList();
-                if(lstmp3sc != null && lstmp3sc.Count() > 0)
+                if (lstmp3sc != null && lstmp3sc.Count() > 0)
                 {
-                    foreach(var mp3opt in lstmp3sc)
+                    foreach (var mp3opt in lstmp3sc)
                     {
                         _db.tbl_Mp3Options.Remove(mp3opt);
                     }
                     _db.SaveChanges();
                 }
-                
-                if(frm["hdnMp3s"] != null)
+
+                if (frm["hdnMp3s"] != null)
                 {
                     string[] values = Request.Form.GetValues("hdnMp3s");
                     filenmsmp3.AddRange(values.ToList());

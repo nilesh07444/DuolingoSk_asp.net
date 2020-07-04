@@ -12231,3 +12231,7 @@ body:after {
     text-decoration: underline dashed red;
     text-underline-position: under;
 }
+
+.text-danger {
+    text-align: left;
+}

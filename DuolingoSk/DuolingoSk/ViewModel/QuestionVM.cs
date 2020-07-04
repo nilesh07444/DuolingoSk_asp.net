@@ -23,5 +23,8 @@ namespace DuolingoSk.ViewModel
         public int LevelId { get; set; }
         public string QuestionTypeText { get; set; }
         public List<Mp3OptionsVM> Mp3Options { get; set; }
+
+        public string LevelName { get; set; }
+
     }
 }
