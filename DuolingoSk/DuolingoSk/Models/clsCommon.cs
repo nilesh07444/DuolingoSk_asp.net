@@ -45,8 +45,9 @@ namespace DuolingoSk.Models
             objTripleDESCryptoService.Clear();
             return UTF8Encoding.UTF8.GetString(resultArray);
         }
-        public static void SendEmail(string To, string from, string subject, string body)
+        public static bool SendEmail(string To, string from, string subject, string body)
         {
+            bool IsSuccess = false;
             try
             {
                 DuolingoSk_Entities _db = new DuolingoSk_Entities();
@@ -56,7 +57,7 @@ namespace DuolingoSk.Models
                      subject, // Subject of the email message
                       body // Email message body
            );
-                mailMessage.From = new MailAddress(from, "Shopping & Saving");
+                mailMessage.From = new MailAddress(from, "Duolingo Sk");
 
                 tbl_GeneralSetting objGensetting = _db.tbl_GeneralSetting.FirstOrDefault();
                 string SMTPHost = objGensetting.SMTPHost;
@@ -91,12 +92,16 @@ namespace DuolingoSk.Models
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     mailMessage.IsBodyHtml = true;
                     client.Send(mailMessage);
+
+                    IsSuccess = true;
                 }
             }
             catch (Exception e)
             {
-
+                IsSuccess = false;
             }
+
+            return IsSuccess;
         }
          
         public static EmailMessageVM GetSampleEmailTemplate()

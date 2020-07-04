@@ -10,6 +10,7 @@
         </div>
     </div>
 </section>
+
 <!-- contact -->
 <section class="w3l-contacts-12" id="contact">
     <div class="contact-top pt-5">
@@ -22,18 +23,26 @@
                     <form class="main-input">
                         <div class="top-inputs d-grid">
                             <input type="text" placeholder="Full Name" name="name" id="name" required="">
+
+                            <span id="spn_name" class="clserror text-danger"></span>
                         </div>
                         <div class="top-inputs d-grid">
-                            <input type="email" name="email" placeholder="Email" id="emailid" required="">
+                            <input type="email" placeholder="Email" id="emailid" name="emailid" required="">
+
+                            <span id="spn_email" class="clserror text-danger"></span>
                         </div>
                         <div class="top-inputs d-grid">
-                            <input type="text" name="mobileno" placeholder="Mobile No" id="mobileno" required="">
+                            <input type="text" placeholder="Mobile No" id="mobileno" name="mobileno" required="">
+
+                            <span id="spn_mobileno" class="clserror text-danger"></span>
                         </div>
                         <div class="top-inputs d-grid">
-                            <textarea placeholder="Message" name="message" id="message" required=""></textarea>
+                            <textarea placeholder="Message" id="message" name="message" required=""></textarea>
+
+                            <span id="spn_message" class="clserror text-danger"></span>
                         </div>
                         <div class="text-right">
-                            <button type="button" class="btn btn-theme2">Submit Now</button>
+                            <button id="btnSubmit" type="button" class="btn btn-theme2">Submit Now</button>
                         </div>
                     </form>
                 </div>
@@ -74,16 +83,16 @@
                             </div>
                         </div>
                         @*<div class="cont-add add-3">
-                            <div class="cont-add-lft">
-                                <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
-                            </div>
-                            <div class="cont-add-rgt">
-                                <a href="#">
-                                    <p class="contact-text-sub">Download Resume</p>
-                                </a>
-                            </div>
+                                <div class="cont-add-lft">
+                                    <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                </div>
+                                <div class="cont-add-rgt">
+                                    <a href="#">
+                                        <p class="contact-text-sub">Download Resume</p>
+                                    </a>
+                                </div>
 
-                        </div>*@
+                            </div>*@
                     </div>
                 </div>
                 <!-- //contact address -->
@@ -92,12 +101,74 @@
         </div>
         <!-- map -->
         <div class="map">
-            @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d158857.7281066703!2d-0.24168144921176335!3d51.5287718408761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1569921526194!5m2!1sen!2sin"
-                frameborder="0" style="border:0;" allowfullscreen=""></iframe>*@
-
             <iframe src="https://www.google.com/maps/d/embed?mid=19qg8kv05bwAf-JpnmvedePH5JLQ" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
         </div>
         <!-- //map -->
     </div>
 </section>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    jQuery(document).on("click", "#btnSubmit", function () {
+        var requiredMessage = 'This field is required';
+        var flag = true;
+        jQuery(".clserror").hide();
+
+        var name = jQuery.trim(jQuery("#name").val());
+        var emailid = jQuery.trim(jQuery("#emailid").val());
+        var mobileno = jQuery.trim(jQuery("#mobileno").val());
+        var message = jQuery.trim(jQuery("#message").val());
+
+        if (name == "" || name == null) {
+            jQuery("#spn_name").text(requiredMessage);
+            jQuery("#spn_name").show();
+            flag = false;
+        }
+        if (emailid == "" || emailid == null) {
+            jQuery("#spn_emailid").text(requiredMessage);
+            jQuery("#spn_emailid").show();
+            flag = false;
+        }
+        if (mobileno == "" || mobileno == null) {
+            jQuery("#spn_mobileno").text(requiredMessage);
+            jQuery("#spn_mobileno").show();
+            flag = false;
+        }
+        if (message == "" || message == null) {
+            jQuery("#spn_message").text(requiredMessage);
+            jQuery("#spn_message").show();
+            flag = false;
+        }
+
+        if (flag) {
+             $.blockUI({ message: "<h4>Please Wait...</h4>" });
+            var URL = '@Url.Action("SubmitContactForm", "ContactUs")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                data: jQuery('form').serialize(),
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "SUCCESS") {
+                        alert("Thank you.. We will contact you soon."); 
+                    } 
+                    else {
+                        alert("Error: Mail Sending Fail.. Please try after sometime..");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+
+            return false;
+        }
+    });
+
+
+</script>
