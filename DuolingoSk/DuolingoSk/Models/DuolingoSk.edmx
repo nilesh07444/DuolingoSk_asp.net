@@ -136,6 +136,9 @@
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="QuestionLevel" Type="int" />
+          <Property Name="PreparationTime" Type="int" />
+          <Property Name="MinimumTime" Type="int" />
+          <Property Name="Images" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -272,6 +275,9 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="QuestionLevel" Type="Int32" />
+          <Property Name="PreparationTime" Type="Int32" />
+          <Property Name="MinimumTime" Type="Int32" />
+          <Property Name="Images" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -452,6 +458,9 @@
           <EntitySetMapping Name="tbl_QuestionsMaster">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_QuestionsMaster">
               <MappingFragment StoreEntitySet="tbl_QuestionsMaster">
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="MinimumTime" ColumnName="MinimumTime" />
+                <ScalarProperty Name="PreparationTime" ColumnName="PreparationTime" />
                 <ScalarProperty Name="QuestionLevel" ColumnName="QuestionLevel" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />

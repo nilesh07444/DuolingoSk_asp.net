@@ -1,0 +1,189 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+    int Mx = Model.QuestionTime;
+    int MxPre = Model.PreparationTime;
+    List<string> lstimgss = Model.Images.Split('^').ToList();
+    int Cntc = 1;
+}
+<style>
+    .imgrcrd {
+        display: none !important;
+    }
+    .imgrcrd.actv {
+        display: block !important;
+    }
+</style>
+<div class="question qt8">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0" id="prptmr"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <div class="columns">
+            <div class="column is-offset-2 is-8">
+                <div class="imge-set">
+                    <img src="~/Images/I14.png" width="20%" />
+                    <h5 class="has-text-centered is-size-4 has-text-weight-semibold">@Model.QuestionText</h5>
+                    <h6 class="has-text-centered is-size-5 has-text-weight-norml">@Model.QuestionOptionText</h6>
+                </div>
+            </div>
+        </div>
+        <div class="columns footsec">
+            <!----> <!---->
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold startrecrd">record now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="question queimages" style="display:none;">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0" id="prgpesrimg"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <div class="level-item has-text-centered centersec 1image">
+            <figure class="image is-centered enginebox engineboxses1">
+                @if (lstimgss != null && lstimgss.Count() > 0)
+                {
+                    foreach (string str in lstimgss)
+                    {
+                        <img src="/QuestionImage/@str" class="imgrcrd">
+                    }
+                }
+            </figure>
+        </div>
+        <div class="columns footsec">
+            <div class="column">
+                <figure class="image is-centered"><span class="button is-rounded is-small is-danger is-primary">● Recording...</span></figure>
+            </div>
+            <div class="column">
+                <div class="level-item has-text-centered">
+                    <figure class="image is-centered"><img src="/Images/sound-red-big.gif"></figure>
+                </div>
+            </div>
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden active"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold btnnext" disabled="disabled">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/recordcustom.js"></script>
+<script>
+    var lstrecrodingimgs = @Html.Raw(Json.Encode(lstimgss));
+    var tmrvl = '@Model.QuestionTime';
+    var tmptmrvl = tmrvl;
+    var tmrprvl = '@Model.PreparationTime';
+    var tmr;
+    var tmrprep;
+    var totlimgs = $(".imgrcrd").length;
+    var currimgg = 0;
+    $(document).ready(function () {
+        $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
+       // $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+        $('#prptmr').attr('max', tmrprvl);
+        $('#prgpesrimg').attr('max', tmrvl);
+
+      $(".startrecrd").click(function () {
+            clearInterval(tmrprep);
+           $(".qt8").hide();
+          $(".queimages").show();
+          nextimg();
+           startrecrding();
+       });
+
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+
+    var tmrprep = setInterval(function () {
+        if (tmrprvl == 0) {
+            clearInterval(tmrprep);
+            $(".qt8").hide();
+            $(".queimages").show();
+            nextimg();
+            startrecrding();            
+        }
+        else {
+            tmrprvl = tmrprvl - 1;
+            $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
+            $('#prptmr').attr('value', tmrprvl);
+        }
+   }, 1000);
+
+     function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+         }
+         var objans = { QueId: questionss[qid].QuestionId, QuestionTxt: questionss[qid].QuestionText, QuestionType: questionss[qid].QuestionTypeId, Que: questionss[qid].Images, Ans: recrdflnm};
+        arryresult.push(objans);
+        window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+
+    }
+
+    function nextimg() {
+        $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+        if (totlimgs > currimgg) {
+            $(".imgrcrd").removeClass("actv");
+            $(".imgrcrd:eq(" + currimgg + ")").addClass("actv");
+            currimgg = currimgg + 1;
+            var tmr = setInterval(function () {
+                if (tmrvl == 0) {
+                    clearInterval(tmr);
+                    tmrvl = tmptmrvl;
+                    nextimg();
+                }
+                else {
+                    tmrvl = tmrvl - 1;
+                    $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+                    $('#prgpesrimg').attr('value', tmrvl);
+                }
+            }, 1000);
+        }
+        else {
+            stoprecrding();
+            nextquestion();
+        }
+    }
+
+
+
+</script>

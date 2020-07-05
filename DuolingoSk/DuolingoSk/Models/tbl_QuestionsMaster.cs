@@ -32,5 +32,8 @@ namespace DuolingoSk.Models
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> QuestionLevel { get; set; }
+        public Nullable<int> PreparationTime { get; set; }
+        public Nullable<int> MinimumTime { get; set; }
+        public string Images { get; set; }
     }
 }

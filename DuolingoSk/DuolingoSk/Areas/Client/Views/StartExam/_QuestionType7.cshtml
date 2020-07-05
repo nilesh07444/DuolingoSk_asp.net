@@ -1,0 +1,109 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+    int Mx = Model.QuestionTime;
+    int Cntc = 1;
+}
+<div class="question 7q">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@Model.QuestionText</h5>
+        <div class="columns">
+            <div class="column is-offset-2 is-8">
+                <ul class="speck">
+                    <li>
+                        <img src="~/Images/I14.png" width="25%">
+                        <h5 class="is-size-5 has-text-weight-norml">@Model.QuestionOptionText</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="columns footsec recordnotstart">
+            <!----> <!---->
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold startrecrd">record now</button>
+            </div>
+        </div>
+        <div class="columns footsec recordstart" style="display:none;">
+            <div class="column">
+                <figure class="image is-centered"><span class="button is-rounded is-small is-danger is-primary">● Recording...</span></figure>
+            </div>
+            <div class="column">
+                <div class="level-item has-text-centered">
+                    <figure class="image is-centered "><img src="~/Images/sound-red-big.gif"></figure>
+                </div>
+            </div>
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick=" clearInterval(tmr); stoprecrding();nextquestion(this);">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/recordcustom.js"></script>
+<script>
+    var tmrvl = '@Model.QuestionTime';
+    var tmr;
+
+   $(document).ready(function () {
+        $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+       $('progress').attr('max', tmrvl);
+
+       $(".startrecrd").click(function () {
+           $(".recordnotstart").hide();
+           $(".recordstart").show();
+           startrecrding();
+       });
+
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+
+   var tmr = setInterval(function () {
+        if (tmrvl == 0) {
+            clearInterval(tmr);
+            stoprecrding();
+            nextquestion();
+        }
+        else {
+            tmrvl = tmrvl - 1;
+          $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
+          $('progress').attr('value', tmrvl);
+        }
+   }, 1000);
+
+     function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+         }         
+         var objans = { QueId: questionss[qid].QuestionId, QuestionTxt: questionss[qid].QuestionText, QuestionType: questionss[qid].QuestionTypeId, Que: questionss[qid].QuestionOptionText, Ans: recrdflnm};
+        arryresult.push(objans);
+        window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+
+     }
+</script>
