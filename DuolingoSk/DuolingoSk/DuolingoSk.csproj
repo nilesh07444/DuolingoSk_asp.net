@@ -3534,6 +3534,7 @@
     <Content Include="Content\client_assets\js\jquery-3.3.1.min.js" />
     <Content Include="Content\client_assets\js\lightbox-plus-jquery.min.js" />
     <Content Include="Content\client_assets\js\smoothscroll.js" />
+    <Content Include="Content\ideal-image-slider.css" />
     <Content Include="Content\quiz.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -3939,6 +3940,7 @@
     <Content Include="Areas\Client\Views\StartExam\_QuestionType10.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\ideal-image-slider.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -3952,6 +3954,7 @@
     <Content Include="Scripts\MediaStreamRecorder.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\recordcustom.js" />
+    <Content Include="Scripts\slideapp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
