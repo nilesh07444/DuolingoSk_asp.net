@@ -116,6 +116,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objAdminUser.City = userVM.City; 
                     objAdminUser.Remarks = userVM.Remarks;
                     objAdminUser.ProfilePicture = fileName;
+                    objAdminUser.MaxLevel = userVM.MaxLevel;
 
                     //if (!string.IsNullOrEmpty(userVM.Dob))
                     //{
@@ -174,7 +175,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                     StudentRegistrationFee = a.StudentRegistrationFee,
                                     StudentRenewFee = a.StudentRenewFee,
                                     ProfilePicture = a.ProfilePicture,
-                                    IsActive = a.IsActive
+                                    IsActive = a.IsActive,
+                                    MaxLevel = a.MaxLevel
                                 }).FirstOrDefault();
 
                 //if (objAdminUser.dtDob != null)
@@ -246,6 +248,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objAdminUser.City = userVM.City; 
                     objAdminUser.Remarks = userVM.Remarks;
                     objAdminUser.ProfilePicture = fileName;
+                    objAdminUser.MaxLevel = userVM.MaxLevel;
 
                     //if (!string.IsNullOrEmpty(userVM.Dob))
                     //{
@@ -417,6 +420,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                     Password = a.Password, 
                                     Address = a.Address,
                                     City = a.City, 
+                                    MaxLevel = a.MaxLevel,
                                     dtDob = a.Dob, 
                                     Remarks = a.Remarks,
                                     StudentRegistrationFee = a.StudentRegistrationFee,

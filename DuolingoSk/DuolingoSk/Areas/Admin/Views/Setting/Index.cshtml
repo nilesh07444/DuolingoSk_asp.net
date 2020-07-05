@@ -130,6 +130,13 @@
                                 <span id="spn_TotalExamAttempt" class="clserror"></span>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="txtMaxQuestionLevel" class="col-xl-3 col-md-4">Maximum Question Level</label>
+                                <input type="text" class="form-control col-md-8" id="txtMaxQuestionLevel" value="@Model.MaxLevel" name="txtMaxQuestionLevel" placeholder="Enter Max Question Level">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span id="spn_MaxQuestionLevel" class="clserror"></span>
+                            </div>
+
                             <button id="btnSavesettings" type="button" class="btn btn-primary">Save Settings</button>
                         </form>
                     </div>
@@ -147,7 +154,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-    var cntsrow = $("#tblextraamt tbody tr").length;
+  
     jQuery(document).on("click", "#btnSavesettings", function () {
         var requiredMessage = 'This field is required';
         var flag = true;

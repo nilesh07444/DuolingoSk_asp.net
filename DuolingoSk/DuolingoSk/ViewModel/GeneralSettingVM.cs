@@ -20,5 +20,6 @@ namespace DuolingoSk
         public decimal? RegistrationFee { get; set; }
         public decimal? RenewFee { get; set; }
         public int? TotalExamAttempt { get; set; }
+        public int? MaxLevel { get; set; }
     }
 }

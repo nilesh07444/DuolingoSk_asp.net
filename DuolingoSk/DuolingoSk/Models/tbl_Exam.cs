@@ -25,5 +25,6 @@ namespace DuolingoSk.Models
         public Nullable<int> ResultStatus { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<int> StudentFeeId { get; set; }
     }
 }

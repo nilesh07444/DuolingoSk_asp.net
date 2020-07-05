@@ -33,7 +33,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                                   FromEmail = s.FromEmail,
                                                   RegistrationFee = s.RegistrationFee,
                                                   RenewFee = s.RenewFee,
-                                                  TotalExamAttempt = s.TotalExamAttempt
+                                                  TotalExamAttempt = s.TotalExamAttempt,
+                                                  MaxLevel = s.MaxLevel
                                               }).FirstOrDefault();
 
             return View(objGenSetting);
@@ -59,6 +60,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 decimal txtRenewFee = Convert.ToDecimal(frm["txtRenewFee"]);
                 int txtTotalExamAttempt = Convert.ToInt32(frm["txtTotalExamAttempt"]);
 
+                int txtMaxQuestionLevel = Convert.ToInt32(frm["txtMaxQuestionLevel"]);
+
                 if (frm["rdbSSL"].ToString() == "Yes")
                 {
                     EnableSSL = true;
@@ -77,6 +80,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 objGenSetting.RegistrationFee = txtRegistrationFee;
                 objGenSetting.RenewFee = txtRenewFee;
                 objGenSetting.TotalExamAttempt = txtTotalExamAttempt;
+                objGenSetting.MaxLevel = txtMaxQuestionLevel;
 
                 _db.SaveChanges();
                 return "Success";

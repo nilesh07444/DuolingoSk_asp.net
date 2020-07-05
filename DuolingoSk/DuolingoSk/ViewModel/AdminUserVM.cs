@@ -52,7 +52,12 @@ namespace DuolingoSk
 
         [Display(Name = "Profile Picture")]
         public HttpPostedFileBase ProfilePictureFile { get; set; }
-         
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Maximum Level must be greater than 0")]
+        [Display(Name = "Maximum Level *")]
+        public int? MaxLevel { get; set; }
+
         // Addional fields 
         public DateTime? dtDob { get; set; }
         public string RoleName { get; set; }

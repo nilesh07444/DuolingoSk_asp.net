@@ -29,6 +29,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="MaxLevel" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Exam">
           <Key>
@@ -36,6 +37,7 @@
           </Key>
           <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="bigint" />
+          <Property Name="StudentFeeId" Type="int" />
           <Property Name="ExamDate" Type="datetime" />
           <Property Name="AgentId" Type="bigint" />
           <Property Name="Score" Type="nvarchar" MaxLength="50" />
@@ -59,8 +61,6 @@
           <Property Name="QuestionOptiont_Ans" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -77,6 +77,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RegistrationFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="int" />
+          <Property Name="MaxLevel" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Materials">
           <Key>
@@ -156,6 +157,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RequestedDate" Type="datetime" Nullable="false" />
           <Property Name="MarkCompleteDate" Type="datetime" />
           <Property Name="MarkCompleteBy" Type="int" />
+          <Property Name="IsAttemptUsed" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
@@ -184,6 +186,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam" EntityType="Self.tbl_Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Self.tbl_ExamResultDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Self.tbl_QuestionLevel" Schema="dbo" store:Type="Tables" />
@@ -191,22 +194,6 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tbl_GeneralSetting].[GeneralSettingId] AS [GeneralSettingId], 
-    [tbl_GeneralSetting].[SMTPHost] AS [SMTPHost], 
-    [tbl_GeneralSetting].[SMTPPort] AS [SMTPPort], 
-    [tbl_GeneralSetting].[EnableSSL] AS [EnableSSL], 
-    [tbl_GeneralSetting].[SMTPEmail] AS [SMTPEmail], 
-    [tbl_GeneralSetting].[SMTPPwd] AS [SMTPPwd], 
-    [tbl_GeneralSetting].[AdminSMSNumber] AS [AdminSMSNumber], 
-    [tbl_GeneralSetting].[AdminEmail] AS [AdminEmail], 
-    [tbl_GeneralSetting].[FromEmail] AS [FromEmail], 
-    [tbl_GeneralSetting].[RegistrationFee] AS [RegistrationFee], 
-    [tbl_GeneralSetting].[RenewFee] AS [RenewFee], 
-    [tbl_GeneralSetting].[TotalExamAttempt] AS [TotalExamAttempt]
-    FROM [dbo].[tbl_GeneralSetting] AS [tbl_GeneralSetting]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -236,6 +223,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="MaxLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Materials">
           <Key>
@@ -305,6 +293,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RequestedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MarkCompleteDate" Type="DateTime" Precision="3" />
           <Property Name="MarkCompleteBy" Type="Int32" />
+          <Property Name="IsAttemptUsed" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
@@ -358,6 +347,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="RegistrationFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
+          <Property Name="MaxLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Exam">
           <Key>
@@ -374,6 +364,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <Property Name="ResultStatus" Type="Int32" />
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="StudentFeeId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>
@@ -407,6 +398,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_AdminUsers">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_AdminUsers">
               <MappingFragment StoreEntitySet="tbl_AdminUsers">
+                <ScalarProperty Name="MaxLevel" ColumnName="MaxLevel" />
                 <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
                 <ScalarProperty Name="AdminRoleId" ColumnName="AdminRoleId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -492,6 +484,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_StudentFee">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_StudentFee">
               <MappingFragment StoreEntitySet="tbl_StudentFee">
+                <ScalarProperty Name="IsAttemptUsed" ColumnName="IsAttemptUsed" />
                 <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
                 <ScalarProperty Name="FeeStatus" ColumnName="FeeStatus" />
@@ -531,6 +524,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_GeneralSetting">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_GeneralSetting">
               <MappingFragment StoreEntitySet="tbl_GeneralSetting">
+                <ScalarProperty Name="MaxLevel" ColumnName="MaxLevel" />
                 <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
                 <ScalarProperty Name="RenewFee" ColumnName="RenewFee" />
                 <ScalarProperty Name="RegistrationFee" ColumnName="RegistrationFee" />
@@ -549,6 +543,7 @@ warning 6002: The table/view 'Duolingo_sk.dbo.tbl_GeneralSetting' does not have 
           <EntitySetMapping Name="tbl_Exam">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Exam">
               <MappingFragment StoreEntitySet="tbl_Exam">
+                <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ResultStatus" ColumnName="ResultStatus" />
