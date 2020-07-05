@@ -3543,11 +3543,13 @@
     <Content Include="Images\default_image.jpg" />
     <Content Include="Images\default_image.png" />
     <Content Include="Images\default_user_image.png" />
+    <Content Include="Images\I14.png" />
     <Content Include="Images\I3.png" />
     <Content Include="Images\I4.png" />
     <Content Include="Images\I5.png" />
     <Content Include="Images\I6.png" />
     <Content Include="Images\IA2.png" />
+    <Content Include="Images\sound-red-big.gif" />
     <Content Include="Images\speaker-red.svg" />
     <Content Include="Images\star.gif" />
     <Content Include="Images\UserProfileMedia\avatar5-16e8042c-eb3e-4c33-9bc7-0caf1d28593c.png" />
@@ -3931,6 +3933,10 @@
     <Content Include="Areas\Admin\Views\Exam\Index.cshtml" />
     <Content Include="Areas\Client\Views\MyProfile\ChangePassword.cshtml" />
     <Content Include="Areas\Client\Views\RenewAccount\Index.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType7.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType8.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType9.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType10.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3943,7 +3949,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MediaStreamRecorder.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\recordcustom.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
