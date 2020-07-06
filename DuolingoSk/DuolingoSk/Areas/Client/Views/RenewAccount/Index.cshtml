@@ -1,6 +1,11 @@
-﻿
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model List<StudentFeeVM>
 @{
     ViewBag.Title = "Re-Register";
+    int counter = 1;
 }
 
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
@@ -36,14 +41,61 @@
                                 <label class="text-left">Total Exam Attempts *</label>
                                 <input type="text" placeholder="Password" id="examattempt" name="examattempt" value="10" disabled>
                             </div>
-                              
+
                             <div class="text-left col-lg-6">
                                 <button id="btnRenew" type="button" class="btn btn-theme2">Submit</button>
                             </div>
                         </form>
                     </center>
                 </div>
-                <!-- //contact form -->
+
+                <div class="table-responsive" style="margin-top : 50px; margin-bottom : 50px;">
+                    <table id="tblGrid" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="5%;">#</th>
+                                <th>Date</th>
+                                <th>Fee Amount</th>
+                                <th>Total Attempt</th>
+                                <th>Fee Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (StudentFeeVM obj in Model)
+                                {
+                                    <tr class="grade">
+                                        <td>@counter.</td>
+                                        <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@obj.FeeAmount</td>
+                                        <td>@obj.TotalExamAttempt</td>
+                                        <td>
+                                            @if (obj.FeeStatus == "Complete")
+                                            {
+                                                <span class="badge badge-success">@obj.FeeStatus</span>
+                                            }
+                                            else
+                                            {
+                                                if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                                                {
+                                                    <span class="badge badge-primary" style="cursor:pointer;" title="Mark as Complete" href="javascript:void(0);" onclick="fnMarkCompleFee('@obj.StudentFeeId')">@obj.FeeStatus</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-primary">@obj.FeeStatus</span>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
