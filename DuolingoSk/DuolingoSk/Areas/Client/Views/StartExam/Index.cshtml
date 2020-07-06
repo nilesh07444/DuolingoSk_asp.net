@@ -472,7 +472,7 @@
                     <progress value="0" max="10" class="progress is-small is-mycolor"></progress>
                 </div>
                 <div class="column is-4">
-                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
+                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="checklevl();">Next</button>
                 </div>
             </div>
         </div>
@@ -571,6 +571,31 @@
             cntintr = cntintr - 1;
             $(".intr" + cntintr).show();
         }
+    }
+
+    function checklevl() {
+        var qlv = "0";
+        if ($("#quelevel").val() != "") {
+            qlv = $("#quelevel").val();
+        }
+        var URL = '/Client/StartExam/CheckLevel?LevelId=' + qlv;
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: URL,
+            success: function (result) {
+                if (result == "Success") {
+                    nextintro();
+                }
+                else {
+                    alert(result);
+                }
+            },
+            error: function (resultData) {
+                console.log("error");
+                return false;
+            }
+        });
     }
 </script>
 <script>

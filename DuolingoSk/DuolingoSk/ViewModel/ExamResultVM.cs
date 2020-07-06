@@ -12,5 +12,6 @@ namespace DuolingoSk.ViewModel
         public int QuestionType { get; set; }
         public string Que { get; set; }
         public string Ans { get; set; }
+        public int ExamId { get; set; }
     }
 }

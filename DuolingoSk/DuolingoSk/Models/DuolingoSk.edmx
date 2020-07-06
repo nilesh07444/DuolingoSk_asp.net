@@ -37,7 +37,6 @@
           </Key>
           <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="bigint" />
-          <Property Name="StudentFeeId" Type="int" />
           <Property Name="ExamDate" Type="datetime" />
           <Property Name="AgentId" Type="bigint" />
           <Property Name="Score" Type="nvarchar" MaxLength="50" />
@@ -47,6 +46,7 @@
           <Property Name="ResultStatus" Type="int" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="StudentFeeId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>

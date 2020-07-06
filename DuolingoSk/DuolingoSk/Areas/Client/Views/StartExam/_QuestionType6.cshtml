@@ -102,9 +102,21 @@
         if (window.localStorage.getItem('resultq') != null) {
               arryresult = JSON.parse(window.localStorage.getItem('resultq'));
          }       
-         var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:questionss[qid].QuestionOptionText,Ans:$("#txtessay").val()};
+        var objans = { QueId: questionss[qid].QuestionId, QuestionTxt: questionss[qid].QuestionText, QuestionType: questionss[qid].QuestionTypeId, Que: questionss[qid].QuestionOptionText, Ans: $("#txtessay").val(), ExamId: exmid};
         arryresult.push(objans);
          window.localStorage.setItem('resultq',JSON.stringify(arryresult));
- 
+        var arrytemp = [];
+        arrytemp.push(objans);
+        var URL = '/Client/StartExam/SaveExamResultPartially';
+        $.ajax({
+            url: URL,
+            async: true,
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(arrytemp),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+            }
+        });
      }
 </script>

@@ -23,6 +23,7 @@
 <script src="~/Scripts/jquery.blockUI.js"></script>
 <script>
     var arryresult = [];
+    var exmid = '@ViewBag.ExamId';
     window.localStorage.setItem('resultq',JSON.stringify(arryresult));
     var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
     var cntQs = 0;
@@ -62,21 +63,22 @@
             $(".container1").html($("#dvresultt").html());   
             $("#dvresultt").html("");
             startimes();
-            $.ajax({
-                url: '/SaveExamResult',
-                async: true,
-                type: 'POST',
-                dataType: 'json',   
-                data: window.localStorage.getItem('resultq'),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                // get the result and do some magic with it
-                    var message = data.Message;                 
-                alert("Thank you for the exam.You will get result in 24 hours.");
-                location.href = "/myexams";
-               // $("#resultMessage").html(message);
-            }
-        });
+            alert("Thank you for the exam.You will get result in 24 hours.");
+            location.href = "/myexams";
+            //$.ajax({
+            //    url: '/SaveExamResult',
+            //    async: true,
+            //    type: 'POST',
+            //    dataType: 'json',   
+            //    data: window.localStorage.getItem('resultq'),
+            //    contentType: 'application/json; charset=utf-8',
+            //    success: function (data) {
+            //    // get the result and do some magic with it
+            //        var message = data.Message;                 
+               
+            //   // $("#resultMessage").html(message);
+            //}
+        //});
            // saveresult();
         }
 

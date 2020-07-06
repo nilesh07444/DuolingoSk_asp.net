@@ -20,46 +20,105 @@ namespace DuolingoSk.Areas.Client.Controllers
         // GET: Client/StartExam
         public ActionResult Index()
         {
-            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(10).ToList();
-            ViewData["lstQuestionLevel"] = lstQuestionLevel;
-            //if(Session["lstQuestionsExam"] == null)
-            //{
-            //    List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
-            //    List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
-            //                                     where p.IsDeleted == false && p.IsActive == true
-            //                                     select new QuestionVM
-            //                                     {
-            //                                         QuestionText = p.QuestionText,
-            //                                         QuestionTime = p.QuestionTime.Value,
-            //                                         QuestionId = p.QuestionId,
-            //                                         QuestionTypeId = p.QuestionTypeId.Value,
-            //                                         QuestionOptionText = p.QuestionOptionText,
-            //                                         Words = p.Words,
-            //                                         Mp3FileName = p.Mp3FileName,
-            //                                         MaxReplay = p.MaxReplay.HasValue ? p.MaxReplay.Value : 0,
-            //                                         ImageName = p.ImageName,
-            //                                         NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0
-            //                                     }).OrderByDescending(x => x.QuestionId).ToList();
+            int Levl = 0;
+            if(clsClientSession.UserID > 0)
+            {
+               var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
+               if(objStudent != null)
+                {
+                   if(objStudent.AdminUserId == null || objStudent.AdminUserId == 0)
+                    {
+                        Levl = _db.tbl_GeneralSetting.FirstOrDefault().MaxLevel.Value;
+                    }
+                   else
+                    {
+                        var objAdmin = _db.tbl_AdminUsers.Where(o => o.AdminUserId == objStudent.AdminUserId).FirstOrDefault();
+                        if(objAdmin != null)
+                        {
+                            Levl = objAdmin.MaxLevel.HasValue ? objAdmin.MaxLevel.Value : 5;
+                        }
+                    }
+                }
 
-            //    lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
-            //    List<QuestionVM> lstQue = new List<QuestionVM>();
-            //    foreach (long TypId in TypIds)
-            //    {
-            //        lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
-            //    }
-            //    lstQue = lstQue.OrderBy(x => Guid.NewGuid()).ToList();
-            //    ViewData["lstQue"] = lstQue;
-            //    Session["lstQuestionsExam"] = lstQue;
-            //}
-            //else
-            //{
-            //    ViewData["lstQue"] = Session["lstQuestionsExam"] as List<QuestionVM>;
-            //}           
-            return View();
+                List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(Levl).ToList();
+                ViewData["lstQuestionLevel"] = lstQuestionLevel;
+                //if(Session["lstQuestionsExam"] == null)
+                //{
+                //    List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
+                //    List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
+                //                                     where p.IsDeleted == false && p.IsActive == true
+                //                                     select new QuestionVM
+                //                                     {
+                //                                         QuestionText = p.QuestionText,
+                //                                         QuestionTime = p.QuestionTime.Value,
+                //                                         QuestionId = p.QuestionId,
+                //                                         QuestionTypeId = p.QuestionTypeId.Value,
+                //                                         QuestionOptionText = p.QuestionOptionText,
+                //                                         Words = p.Words,
+                //                                         Mp3FileName = p.Mp3FileName,
+                //                                         MaxReplay = p.MaxReplay.HasValue ? p.MaxReplay.Value : 0,
+                //                                         ImageName = p.ImageName,
+                //                                         NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0
+                //                                     }).OrderByDescending(x => x.QuestionId).ToList();
+
+                //    lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
+                //    List<QuestionVM> lstQue = new List<QuestionVM>();
+                //    foreach (long TypId in TypIds)
+                //    {
+                //        lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
+                //    }
+                //    lstQue = lstQue.OrderBy(x => Guid.NewGuid()).ToList();
+                //    ViewData["lstQue"] = lstQue;
+                //    Session["lstQuestionsExam"] = lstQue;
+                //}
+                //else
+                //{
+                //    ViewData["lstQue"] = Session["lstQuestionsExam"] as List<QuestionVM>;
+                //}           
+                return View();
+            }
+            else
+            {
+                return RedirectToRoute("Client_Login");
+            }
+           
         }
 
         public ActionResult StartNow(long LevelId)
         {
+            long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
+            var objStudnt = _db.tbl_Students.Where(o => o.StudentId == LoggedInStudentId).FirstOrDefault();
+            long agntid = 0;
+            string returnvl = "";
+            if (objStudnt != null)
+            {
+                agntid = objStudnt.AdminUserId.Value;
+            }
+
+            var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false)).FirstOrDefault();
+            if (objtblstudfee != null)
+            {
+                tbl_Exam objExm = new tbl_Exam();
+                objExm.StudentId = LoggedInStudentId;
+                objExm.ExamDate = DateTime.UtcNow;
+                objExm.AgentId = agntid;
+                objExm.Score = "";
+                objExm.ResultText = "";
+                objExm.IsDeleted = false;
+                objExm.QuestionLevelId = Convert.ToInt64(LevelId);
+                objExm.ResultStatus = 1;
+                objExm.StudentFeeId = objtblstudfee.StudentFeeId;
+                _db.tbl_Exam.Add(objExm);
+                _db.SaveChanges();
+                int cnt = _db.tbl_StudentFee.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).ToList().Count();
+                if (cnt == objtblstudfee.TotalExamAttempt)
+                {
+                    objtblstudfee.IsAttemptUsed = true;
+                    _db.SaveChanges();
+                }
+                returnvl = objExm.Exam_Id + "";
+            }
+
             Session["lstQuestionsExam"] = null;
             if (Session["lstQuestionsExam"] == null)
             {
@@ -98,7 +157,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 ViewData["lstQue"] = Session["lstQuestionsExam"] as List<QuestionVM>;
             }
-            
+            ViewBag.ExamId = returnvl;
             return PartialView("~/Areas/Client/Views/StartExam/_StartNow.cshtml");
         }
 
@@ -206,6 +265,75 @@ namespace DuolingoSk.Areas.Client.Controllers
             return Json("");
         }
 
+        [HttpPost]
+        public string SaveExamStartResult(string LevelId)
+        {
+            long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
+            var objStudnt = _db.tbl_Students.Where(o => o.StudentId == LoggedInStudentId).FirstOrDefault();
+            long agntid = 0;
+            string returnvl = "";
+            if(objStudnt != null)
+            {
+                agntid = objStudnt.AdminUserId.Value;
+            }
+          
+            var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false)).FirstOrDefault();
+            if(objtblstudfee != null)
+            {
+                tbl_Exam objExm = new tbl_Exam();
+                objExm.StudentId = LoggedInStudentId;
+                objExm.ExamDate = DateTime.UtcNow;
+                objExm.AgentId = agntid;
+                objExm.Score = "";
+                objExm.ResultText = "";             
+                objExm.IsDeleted = false;            
+                objExm.QuestionLevelId = Convert.ToInt64(LevelId);
+                objExm.ResultStatus = 1;
+                objExm.StudentFeeId = objtblstudfee.StudentFeeId;
+                _db.tbl_Exam.Add(objExm);
+                _db.SaveChanges();
+                int cnt = _db.tbl_StudentFee.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).ToList().Count();
+                if(cnt == objtblstudfee.TotalExamAttempt)
+                {
+                    objtblstudfee.IsAttemptUsed = true;
+                    _db.SaveChanges();
+                }
+                returnvl = objExm.Exam_Id+"";
+            }
+            
+            return returnvl;
+        }
+
+        [HttpPost]
+        public ActionResult SaveExamResultPartially(IList<ExamResultVM> lstExam)
+        {
+            long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
+
+            if (lstExam != null && lstExam.Count() > 0)
+            {
+                foreach (var objj in lstExam)
+                {
+                    tbl_ExamResultDetails objExre = new tbl_ExamResultDetails();
+                    objExre.ExamId = objj.ExamId;
+                    objExre.StudentId = LoggedInStudentId;
+                    objExre.QuestionText = objj.QuestionTxt;
+                    objExre.QuestionOptionValue = objj.Que;
+                    objExre.QuestionTypeId = objj.QuestionType;
+                    objExre.QuestionOptiont_Ans = objj.Ans;
+                    objExre.CreatedDate = DateTime.UtcNow;
+                    _db.tbl_ExamResultDetails.Add(objExre);
+                }
+                _db.SaveChanges();
+            }
+            //Session["lstQuestionsExam"] = null;
+            //objExm.
+            // this line convert the json to a list of your type, exactly what you want.
+            //IList<ExamResultVM> ctm =
+            // new JavaScriptSerializer().Deserialize<IList<ExamResultVM>>(jsonstr);
+
+            return Json("");
+        }
+
         public ActionResult PostRecordedAudioVideo()
         {            
             var path = Server.MapPath("~/TempFile/");
@@ -224,6 +352,51 @@ namespace DuolingoSk.Areas.Client.Controllers
             }
 
             return Json(Convert.ToString(Request.Form[0]));
+        }
+
+        [HttpPost]
+        public string CheckLevel(string LevelId)
+        {
+            string ReturnMessage = "";            
+            try
+            {
+                long qlvl = Convert.ToInt64(LevelId);
+                if (clsClientSession.UserID > 0)
+                {
+                    ReturnMessage = "Success";
+                    var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false)).FirstOrDefault();
+                   if(objtblstudfee == null)
+                    {
+                        ReturnMessage = "You don't have any remaining exam attempts. Please renew your account to give more exams.";
+                    }
+                   else
+                    {
+                        var lstq = _db.tbl_QuestionsMaster.Where(o => o.QuestionLevel == qlvl).ToList();
+                        if(lstq != null && lstq.Count() > 0)
+                        {
+                            var tblexmp = _db.tbl_Exam.Where(o => o.StudentId == clsClientSession.UserID && o.StudentFeeId == objtblstudfee.StudentFeeId && o.QuestionLevelId == qlvl).FirstOrDefault();
+                            if (tblexmp != null)
+                            {
+                                ReturnMessage = "You have already used this selected Exam Level. Please use different Level.";
+                            }
+                        }
+                        else
+                        {
+                            ReturnMessage = "This selected Exam Level has not questions. Please use different Level.";
+                        }
+                        
+                    }
+                    
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message.ToString();
+                ReturnMessage = "exception";
+            }
+
+            return ReturnMessage;
         }
     }
 
