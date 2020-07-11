@@ -90,7 +90,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             var objStudnt = _db.tbl_Students.Where(o => o.StudentId == LoggedInStudentId).FirstOrDefault();
             long agntid = 0;
             string returnvl = "";
-            if (objStudnt != null)
+            if (objStudnt != null && objStudnt.AdminUserId != null)
             {
                 agntid = objStudnt.AdminUserId.Value;
             }
@@ -272,7 +272,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             var objStudnt = _db.tbl_Students.Where(o => o.StudentId == LoggedInStudentId).FirstOrDefault();
             long agntid = 0;
             string returnvl = "";
-            if(objStudnt != null)
+            if(objStudnt != null && objStudnt.AdminUserId != null)
             {
                 agntid = objStudnt.AdminUserId.Value;
             }
