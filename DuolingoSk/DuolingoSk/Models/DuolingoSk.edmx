@@ -61,6 +61,17 @@
           <Property Name="QuestionOptiont_Ans" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_Feedback">
+          <Key>
+            <PropertyRef Name="PK_FeedBack_Id" />
+          </Key>
+          <Property Name="PK_FeedBack_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedbackQuestion" Type="nvarchar(max)" />
+          <Property Name="FeedbackAnswer" Type="nvarchar(max)" />
+          <Property Name="ExamId" Type="bigint" />
+          <Property Name="StudentId" Type="bigint" />
+          <Property Name="FeedBackDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
             <PropertyRef Name="GeneralSettingId" />
@@ -189,6 +200,7 @@
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam" EntityType="Self.tbl_Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Self.tbl_ExamResultDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Feedback" EntityType="Self.tbl_Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
@@ -336,6 +348,7 @@
           <EntitySet Name="tbl_Exam" EntityType="Duolingo_skModel.tbl_Exam" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Duolingo_skModel.tbl_ExamResultDetails" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Duolingo_skModel.tbl_QuestionLevel" />
+          <EntitySet Name="tbl_Feedback" EntityType="Duolingo_skModel.tbl_Feedback" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -394,6 +407,17 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_Feedback">
+          <Key>
+            <PropertyRef Name="PK_FeedBack_Id" />
+          </Key>
+          <Property Name="PK_FeedBack_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeedbackQuestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FeedbackAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExamId" Type="Int64" />
+          <Property Name="StudentId" Type="Int64" />
+          <Property Name="FeedBackDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -589,6 +613,18 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
                 <ScalarProperty Name="Level_Id" ColumnName="Level_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Feedback">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Feedback">
+              <MappingFragment StoreEntitySet="tbl_Feedback">
+                <ScalarProperty Name="FeedBackDate" ColumnName="FeedBackDate" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="FeedbackAnswer" ColumnName="FeedbackAnswer" />
+                <ScalarProperty Name="FeedbackQuestion" ColumnName="FeedbackQuestion" />
+                <ScalarProperty Name="PK_FeedBack_Id" ColumnName="PK_FeedBack_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

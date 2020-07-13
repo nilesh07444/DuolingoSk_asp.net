@@ -1,0 +1,96 @@
+﻿<div class="indexpage feedback feedback1" style="display: block;">
+    <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">Please tell us about your experience</p><h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless clsquefeedback">What was the main reason you took the Duolingo English Test?</h2>
+    <div style="margin-top: 50px;margin-left: 100px;">
+        <input type="radio" id="opt1" name="feedopt" checked value="To Study University">
+        <label for="opt1">To Study University</label><br>
+        <input type="radio" id="opt2" name="feedopt" value="To Apply for the Job">
+        <label for="opt2">To Apply for the Job</label><br>
+        <input type="radio" id="opt3" name="feedopt" value="No of the Above">
+        <label for="other">No of the Above</label>
+    </div>
+    <div class="columns is-multiline is-mobile footsec">
+        <div class="column is-4"></div>
+        <div class="column is-4">
+            <progress value="2" max="10" class="progress is-small is-mycolor"></progress>
+        </div>
+        <div class="column is-4">
+            <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" id="btnfeedback1" onclick="nextfeeback(2);" >Next</button>
+        </div>
+    </div>
+</div>
+<div class="indexpage feedback feedback2" style="display: none;">
+    <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">Please tell us about your experience</p>
+    <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless clsquefeedback">Which schools or universities are you applying to?</h2>
+    <div style="margin-top: 50px;margin-left: 100px;">
+        <div class="control">
+            <textarea placeholder="" rows="4" maxlength="500" id="txtfeedback2" class="textarea is-shadowless"></textarea>
+        </div>
+    </div>
+    <div class="columns is-multiline is-mobile footsec">
+        <div class="column is-4"></div>
+        <div class="column is-4">
+            <progress value="4" max="10" class="progress is-small is-mycolor"></progress>
+        </div>
+        <div class="column is-4">
+            <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold"  id="btnfeedback2" onclick="nextfeeback(3);">Next</button>
+        </div>
+    </div>
+</div>
+<div class="indexpage feedback feedback3" style="display: none;">
+    <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">Please tell us about your experience</p>
+    <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless clsquefeedback">Which of the following tests have you taken before?</h2>
+    <div style="margin-top: 50px;margin-left: 100px;">
+        <input type="checkbox" id="opt31" name="feed3opt" value="TOFEL">
+        <label for="opt31">TOFEL</label><br>
+        <input type="checkbox" id="opt32" name="feed3opt" value="IELTS">
+        <label for="opt32">IELTS</label><br>
+    </div>
+    <div class="columns is-multiline is-mobile footsec">
+        <div class="column is-4"></div>
+        <div class="column is-4">
+            <progress value="6" max="10" class="progress is-small is-mycolor"></progress>
+        </div>
+        <div class="column is-4">
+            <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold"  id="btnfeedback3" onclick="nextfeeback(4);">Next</button>
+        </div>
+    </div>
+</div>
+<div class="indexpage feedback feedback4" style="display: none;">
+    <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">Please tell us about your experience</p>
+    <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless clsquefeedback">How difficult did you find the Duolingo English Test?</h2>
+    <div style="margin-top: 50px;text-align:center;">
+        <input type="radio" id="opt41" checked name="feedopt4" value="Too Easy">
+        <label for="opt41">Too Easy</label>
+        <input type="radio" id="opt42" name="feedopt4" value="Just Tight">
+        <label for="opt42">Just Tight</label>
+        <input type="radio" id="opt43" name="feedopt4" value="Too Difficult">
+        <label for="opt43">Too Difficult</label>
+    </div>
+    <div class="columns is-multiline is-mobile footsec">
+        <div class="column is-4"></div>
+        <div class="column is-4">
+            <progress value="8" max="10" class="progress is-small is-mycolor"></progress>
+        </div>
+        <div class="column is-4">
+            <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" id="btnfeedback4" onclick="nextfeeback(5);">Next</button>
+        </div>
+    </div>
+</div>
+<div class="indexpage feedback feedback5" style="display: none;">
+    <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">Please tell us about your experience</p>
+    <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless clsquefeedback">Do you have any feedback about the Duolingo English Test?</h2>
+    <div style="margin-top: 50px;margin-left: 100px;">
+        <div class="control">
+            <textarea placeholder="" rows="4" maxlength="500" id="txtfeedback5" class="textarea is-shadowless"></textarea>
+        </div>
+    </div>
+    <div class="columns is-multiline is-mobile footsec">
+        <div class="column is-4"></div>
+        <div class="column is-4">
+            <progress value="9" max="10" class="progress is-small is-mycolor"></progress>
+        </div>
+        <div class="column is-4">
+            <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold"  id="btnfeedback5" onclick="finishfeeback();">Next</button>
+        </div>
+    </div>
+</div>

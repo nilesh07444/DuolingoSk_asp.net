@@ -4,7 +4,7 @@
     List<tbl_ExamResultDetails> lstExm = ViewData["lstExamsDetls"] as List<tbl_ExamResultDetails>;
     StudentVM objStudert = ViewData["objStudent"] as StudentVM;
     tbl_Exam objexx = ViewData["objexx"] as tbl_Exam;
-
+    List<tbl_Feedback> lstFeedback = ViewData["feedback"] as List<tbl_Feedback>;
     string strimgpath = ErrorMessage.UserProfileDirectoryPath;
     long ExamIdd = 0;
 }
@@ -68,460 +68,477 @@
             foreach (var objExm in lstExm)
             {
                 string clll = "bx" + objExm.QuestionTypeId;
-    <div class="container1 login statement enginebox @clll">
-        @if (objExm.QuestionTypeId == 1)
-        {
-            <div class="question" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                <div class="container1 login statement enginebox @clll">
+                    @if (objExm.QuestionTypeId == 1)
+                    {
+                        <div class="question" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">
+                                    @Html.Raw(objExm.QuestionText)
+                                </h5>
+                                <div class="audio-secton1 pragrph">
+                                    <p>
+                                        @Html.Raw(objExm.QuestionOptiont_Ans)
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">
-                        @Html.Raw(objExm.QuestionText)
-                    </h5>
-                    <div class="audio-secton1 pragrph">
-                        <p>
-                            @Html.Raw(objExm.QuestionOptiont_Ans)
-                        </p>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 2)
-        {
-            string strwrddAns = objExm.QuestionOptiont_Ans;
-            List<string> lststrwrddAns = new List<string>();
-            if (!string.IsNullOrEmpty(strwrddAns))
-            {
-                lststrwrddAns = strwrddAns.Split(',').ToList();
-            }
-            string strwrd = objExm.QuestionOptionValue;
-            List<string> lststrwrdd = new List<string>();
-            if (!string.IsNullOrEmpty(strwrd))
-            {
-                lststrwrdd = strwrd.Split(',').ToList();
-            }
+                    }
+                    else if (objExm.QuestionTypeId == 2)
+                    {
+                        string strwrddAns = objExm.QuestionOptiont_Ans;
+                        List<string> lststrwrddAns = new List<string>();
+                        if (!string.IsNullOrEmpty(strwrddAns))
+                        {
+                            lststrwrddAns = strwrddAns.Split(',').ToList();
+                        }
+                        string strwrd = objExm.QuestionOptionValue;
+                        List<string> lststrwrdd = new List<string>();
+                        if (!string.IsNullOrEmpty(strwrd))
+                        {
+                            lststrwrdd = strwrd.Split(',').ToList();
+                        }
 
-            <div class="question 2q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-4 has-text-weight-semibold">
-                        @objExm.QuestionText
-                    </h5>
-                    <div class="multiselect">
-                        <div class="eng-selector wrdselct">
-                            @if (lststrwrdd != null && lststrwrdd.Count() > 0)
-                            {
-                                foreach (string wrd in lststrwrdd)
-                                {
-                                    if (lststrwrddAns.Any(x => x == wrd))
-                                    {
-                                        <span><input type="checkbox" id="@wrd" value="@wrd" checked class="eng-sec" disabled> <label for="@wrd">@wrd</label></span>
-                                    }
-                                    else
-                                    {
-                                        <span><input type="checkbox" id="@wrd" value="@wrd" class="eng-sec" disabled> <label for="@wrd">@wrd</label></span>
-                                    }
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 3)
-        {
-            <div class="question mp3q 3q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image is-text-centered imagesection adu">
-                                <img src="/Images/speaker-red.svg">
-                                <p class="plytext">click icon to play</p>
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <div class="control">
-                                <textarea placeholder="Your Response" rows="4" maxlength="250" disabled id="txtresponse" class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <audio style="display:none;">
-                    <source src="/QuestionMp3/@objExm.QuestionOptionValue" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-
-        }
-        else if (objExm.QuestionTypeId == 4)
-        {
-            <div class="question 4q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
-                    <div class="columns">
-                        <div class="column ">
-                            <div class="columns">
-                                <div class="column is-4">
-                                    <figure class="image is-text-centered imagesection imagesection2">
-                                        <img src="/QuestionImage/@objExm.QuestionOptionValue">
-                                    </figure>
-                                </div>
-                                <div class="column is-8">
-                                    <div class="control">
-                                        <textarea placeholder="Your Response" id="txtimgtext" rows="5" maxlength="500" disabled class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
+                        <div class="question 2q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-4 has-text-weight-semibold">
+                                    @objExm.QuestionText
+                                </h5>
+                                <div class="multiselect">
+                                    <div class="eng-selector wrdselct">
+                                        @if (lststrwrdd != null && lststrwrdd.Count() > 0)
+                                        {
+                                            foreach (string wrd in lststrwrdd)
+                                            {
+                                                if (lststrwrddAns.Any(x => x == wrd))
+                                                {
+                                                    <span><input type="checkbox" id="@wrd" value="@wrd" checked class="eng-sec" disabled> <label for="@wrd">@wrd</label></span>
+                                                }
+                                                else
+                                                {
+                                                    <span><input type="checkbox" id="@wrd" value="@wrd" class="eng-sec" disabled> <label for="@wrd">@wrd</label></span>
+                                                }
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 5)
-        {
-            string strmp3Ans = objExm.QuestionOptiont_Ans;
-            List<string> lststrwrddAns = new List<string>();
-            if (!string.IsNullOrEmpty(strmp3Ans))
-            {
-                lststrwrddAns = strmp3Ans.Split('^').ToList();
-            }
-            string strmp3f = objExm.QuestionOptionValue;
-            List<string> lststrwrdd = new List<string>();
-            if (!string.IsNullOrEmpty(strmp3f))
-            {
-                lststrwrdd = strmp3f.Split('^').ToList();
-            }
-            <div class="question playadio 5q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-                                        </p>
-                                    </span>
+                    }
+                    else if (objExm.QuestionTypeId == 3)
+                    {
+                        <div class="question mp3q 3q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
+                                <div class="columns">
+                                    <div class="column is-4">
+                                        <figure class="image is-text-centered imagesection adu">
+                                            <img src="/Images/speaker-red.svg">
+                                            <p class="plytext">click icon to play</p>
+                                        </figure>
+                                    </div>
+                                    <div class="column is-8">
+                                        <div class="control">
+                                            <textarea placeholder="Your Response" rows="4" maxlength="250" disabled id="txtresponse" class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
+                            <audio style="display:none;">
+                                <source src="/QuestionMp3/@objExm.QuestionOptionValue" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
                         </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
-                    <div class="columns is-multiline is-mobile audio-secton1">
-                        @if (lststrwrdd != null && lststrwrdd.Count() > 0)
-                        {
-                            int Cntc = 1;
-                            foreach (string flnm in lststrwrdd)
-                            {
-                                int cn = Cntc - 1;
-                                string clstick = "ticksect1";
-                                string checkedd = "";
-                                if (lststrwrddAns.Any(x => x == flnm))
-                                {
-                                    clstick = "ticksect";
-                                    checkedd = "checked";
-                                }
-                                <div class="column is-4-desktop is-12-mobile audios1">
-                                    <ul class="audioplay">
-                                        <li class="@clstick">
-                                            <div class="columns is-mobile is-marginless">
-                                                <div data-mp33="@flnm" class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered plymp3">
-                                                    <div class="audiotext" style="padding-left:8px;padding-right:8px;">
-                                                        <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>
-                                                        <span class="is-size-6 has-text-weight-semibold">Word @Cntc</span>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts" style="height:35px;">
-                                                    <span class="form-group"><input type="checkbox" @checkedd id="@cn" value="@flnm" disabled> <label for="@cn"></label></span>
+
+                    }
+                    else if (objExm.QuestionTypeId == 4)
+                    {
+                        <div class="question 4q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
+                                <div class="columns">
+                                    <div class="column ">
+                                        <div class="columns">
+                                            <div class="column is-4">
+                                                <figure class="image is-text-centered imagesection imagesection2">
+                                                    <img src="/QuestionImage/@objExm.QuestionOptionValue">
+                                                </figure>
+                                            </div>
+                                            <div class="column is-8">
+                                                <div class="control">
+                                                    <textarea placeholder="Your Response" id="txtimgtext" rows="5" maxlength="500" disabled class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                Cntc = Cntc + 1;
-                            }
-                        }
-
-                    </div>
-                </div>
-                <audio style="display:none;" id="audo">
-                    <source src="http://localhost:64211/QuestionMp3/019b58c8-bab3-49c4-ad20-5d1575fa842e-ukfeast010.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 6)
-        {
-            <div class="question 6q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
-                    <div class="columns">
-                        <div class="column is-offset-2 is-8">
-                            <div class="columns">
-                                <div class="column is-5">
-                                    <figure class="image is-text-centered imagesection">
-                                        <p>@objExm.QuestionOptionValue</p>
-                                    </figure>
-                                </div>
-                                <div class="column is-7">
-                                    <div class="control">
-                                        <textarea placeholder="Your Response" rows="4" disabled maxlength="500" id="txtessay" class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
-                                        @*<p class="is-size-6 has-text-grey-light has-text-weight-semibold noofwrd">Number of words : 0</p>*@
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 7)
-        {
-            <div class="question 7q" data-queid="@objExm.ExamResultDetailId">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
-
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
-                    <div class="columns">
-                        <div class="column is-offset-2 is-8">
-                            <ul class="speck">
-                                <li>
-                                    <img src="~/Images/I14.png" width="25%">
-                                    <h5 class="is-size-5 has-text-weight-norml">@objExm.QuestionOptionValue</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div>
-                        Recording:
-                        <audio controls>
-                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 8)
-        {
-            List<string> lstimgss = objExm.QuestionOptionValue.Split('^').ToList();
-            <div class="question qt8">
-                <div class="questionbg">                   
-                    <div class="columns">
-                        <div class="column is-offset-2 is-8">
-                            <div class="imge-set">
-                                <img src="~/Images/I14.png" width="20%" />
-                                <h5 class="has-text-centered is-size-4 has-text-weight-semibold">@objExm.QuestionText</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        @if (lstimgss != null && lstimgss.Count() > 0)
+                    }
+                    else if (objExm.QuestionTypeId == 5)
+                    {
+                        string strmp3Ans = objExm.QuestionOptiont_Ans;
+                        List<string> lststrwrddAns = new List<string>();
+                        if (!string.IsNullOrEmpty(strmp3Ans))
                         {
-                            foreach (string str in lstimgss)
-                            {
-                        <div style="border: solid 1px gray;width:180px;padding:10px;display:inline-block;margin-right:10px;min-height:180px;float:left;margin-bottom:10px;">
-                            <img src="/QuestionImage/@str" class="imgrcrd">
-                        </div>
-                            }
+                            lststrwrddAns = strmp3Ans.Split('^').ToList();
                         }
-                    </div>
-                    <div style="clear:both;padding-top:25px;">
-                        <span>Recording:</span>
-                        <audio controls>
-                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 9)
-        {
-            <div class="question mp3q">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
-                                        </p>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-4 has-text-weight-meddium is-marginless qtxt">@objExm.QuestionText</h5>
-                    <div class="level-item has-text-centered centersec">
-                        <figure class="image is-centered adu">
-                            <img src="/Images/speaker-red.svg">
-                            <p class="plytext">click icon to play</p>
-                        </figure>
-                    </div>
-                    <audio style="display:none;">
-                        <source src="/QuestionMp3/@objExm.QuestionOptionValue" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div>
-                        Recording:
-                        <audio controls>
-                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (objExm.QuestionTypeId == 10)
-        {
-            <div class="question">
-                <div class="questionbg">
-                    <span>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <div class="porgressbr">
-                                    <span class="is-pulled-left">
-                                        <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+                        string strmp3f = objExm.QuestionOptionValue;
+                        List<string> lststrwrdd = new List<string>();
+                        if (!string.IsNullOrEmpty(strmp3f))
+                        {
+                            lststrwrdd = strmp3f.Split('^').ToList();
+                        }
+                        <div class="question playadio 5q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
+                                <div class="columns is-multiline is-mobile audio-secton1">
+                                    @if (lststrwrdd != null && lststrwrdd.Count() > 0)
+                                    {
+                                        int Cntc = 1;
+                                        foreach (string flnm in lststrwrdd)
+                                        {
+                                            int cn = Cntc - 1;
+                                            string clstick = "ticksect1";
+                                            string checkedd = "";
+                                            if (lststrwrddAns.Any(x => x == flnm))
+                                            {
+                                                clstick = "ticksect";
+                                                checkedd = "checked";
+                                            }
+                                            <div class="column is-4-desktop is-12-mobile audios1">
+                                                <ul class="audioplay">
+                                                    <li class="@clstick">
+                                                        <div class="columns is-mobile is-marginless">
+                                                            <div data-mp33="@flnm" class="column is-9-desktop is-10-mobile is-marginless is-paddingless has-text-centered plymp3">
+                                                                <div class="audiotext" style="padding-left:8px;padding-right:8px;">
+                                                                    <span><i aria-hidden="true" class="fa fa-volume-up is-size-5"></i></span>
+                                                                    <span class="is-size-6 has-text-weight-semibold">Word @Cntc</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="column is-3-desktop is-2-mobile is-paddingless tickstrts" style="height:35px;">
+                                                                <span class="form-group"><input type="checkbox" @checkedd id="@cn" value="@flnm" disabled> <label for="@cn"></label></span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            Cntc = Cntc + 1;
+                                        }
+                                    }
 
-                                        </p>
-                                    </span>
                                 </div>
                             </div>
-                            <div class="column is-2">
-                                <div class="vid-align is-pulled-right">
-                                    <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                            <audio style="display:none;" id="audo">
+                                <source src="http://localhost:64211/QuestionMp3/019b58c8-bab3-49c4-ad20-5d1575fa842e-ukfeast010.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    }
+                    else if (objExm.QuestionTypeId == 6)
+                    {
+                        <div class="question 6q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
+                                <div class="columns">
+                                    <div class="column is-offset-2 is-8">
+                                        <div class="columns">
+                                            <div class="column is-5">
+                                                <figure class="image is-text-centered imagesection">
+                                                    <p>@objExm.QuestionOptionValue</p>
+                                                </figure>
+                                            </div>
+                                            <div class="column is-7">
+                                                <div class="control">
+                                                    <textarea placeholder="Your Response" rows="4" disabled maxlength="500" id="txtessay" class="textarea is-shadowless">@objExm.QuestionOptiont_Ans</textarea>
+                                                    @*<p class="is-size-6 has-text-grey-light has-text-weight-semibold noofwrd">Number of words : 0</p>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    else if (objExm.QuestionTypeId == 7)
+                    {
+                        <div class="question 7q" data-queid="@objExm.ExamResultDetailId">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvl">
+
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium">@objExm.QuestionText</h5>
+                                <div class="columns">
+                                    <div class="column is-offset-2 is-8">
+                                        <ul class="speck">
+                                            <li>
+                                                <img src="~/Images/I14.png" width="25%">
+                                                <h5 class="is-size-5 has-text-weight-norml">@objExm.QuestionOptionValue</h5>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    Recording:
+                                    <audio controls>
+                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
                                 </div>
                             </div>
                         </div>
-                    </span>
-                    <h5 class="has-text-centered is-size-3 has-text-weight-meddium qtxt">@objExm.QuestionText</h5>
-                    <div class="level-item has-text-centered centersec image123">
-                        <figure class="image is-centered"><img src="/QuestionImage/@objExm.QuestionOptionValue"></figure>
-                    </div>
-                    <div>
-                        Recording:
-                        <audio controls>
-                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
+                    }
+                    else if (objExm.QuestionTypeId == 8)
+                    {
+                        List<string> lstimgss = objExm.QuestionOptionValue.Split('^').ToList();
+                        <div class="question qt8">
+                            <div class="questionbg">
+                                <div class="columns">
+                                    <div class="column is-offset-2 is-8">
+                                        <div class="imge-set">
+                                            <img src="~/Images/I14.png" width="20%" />
+                                            <h5 class="has-text-centered is-size-4 has-text-weight-semibold">@objExm.QuestionText</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    @if (lstimgss != null && lstimgss.Count() > 0)
+                                    {
+                                        foreach (string str in lstimgss)
+                                        {
+                                            <div style="border: solid 1px gray;width:180px;padding:10px;display:inline-block;margin-right:10px;min-height:180px;float:left;margin-bottom:10px;">
+                                                <img src="/QuestionImage/@str" class="imgrcrd">
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div style="clear:both;padding-top:25px;">
+                                    <span>Recording:</span>
+                                    <audio controls>
+                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (objExm.QuestionTypeId == 9)
+                    {
+                        <div class="question mp3q">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-4 has-text-weight-meddium is-marginless qtxt">@objExm.QuestionText</h5>
+                                <div class="level-item has-text-centered centersec">
+                                    <figure class="image is-centered adu">
+                                        <img src="/Images/speaker-red.svg">
+                                        <p class="plytext">click icon to play</p>
+                                    </figure>
+                                </div>
+                                <audio style="display:none;">
+                                    <source src="/QuestionMp3/@objExm.QuestionOptionValue" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div>
+                                    Recording:
+                                    <audio controls>
+                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (objExm.QuestionTypeId == 10)
+                    {
+                        <div class="question">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium qtxt">@objExm.QuestionText</h5>
+                                <div class="level-item has-text-centered centersec image123">
+                                    <figure class="image is-centered"><img src="/QuestionImage/@objExm.QuestionOptionValue"></figure>
+                                </div>
+                                <div>
+                                    Recording:
+                                    <audio controls>
+                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-            </div>
-        }
-    </div>
             }
 
+            if (lstFeedback != null && lstFeedback.Count > 0)
+            {
+                <div class="container1 statement enginebox" style="height:500px;">
+                    <h5 class="has-text-centered is-size-5 has-text-weight-semibold" style="margin-bottom:10px;">
+                        Feedback
+                    </h5>
+                   @foreach(var objj in lstFeedback)
+                   {
+                    <div style="margin-bottom:10px;">
+                        <h5 class="is-size-6 has-text-weight-semibold">
+                            @objj.FeedbackQuestion
+                        </h5>                       
+                        <h4 class="is-size-6">@objj.FeedbackAnswer</h4>
+                    </div>
+                   }
+                </div>
+            }
             <div class="container1 needs-validation statement enginebox">
                 <div>
                     Enter Result Score <input type="text" class="form-control" id="txtresultscore" value="@objexx.Score" />
