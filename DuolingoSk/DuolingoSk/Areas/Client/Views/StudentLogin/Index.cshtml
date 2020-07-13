@@ -25,7 +25,7 @@
 
                 <div class="contacts12-main col-lg-12">
                     <center>
-                        @using (Html.BeginForm("CheckLogin", "StudentLogin", FormMethod.Post, new { ID = "theFormId", @class = "main-input", onsubmit = "return Login();" }))
+                        @using (Html.BeginForm("CheckLogin", "StudentLogin", FormMethod.Post, new { ID = "theFormId", @class = "main-input" }))
                         {
 
                             <div class="top-inputs d-grid col-lg-6">
@@ -37,6 +37,18 @@
                             @*<div class="text-left col-lg-6">
                                     <label for="rememberme"><input type="checkbox" id="rememberme" /> Remember Me</label>
                                 </div>*@
+
+                            <div class="top-inputs d-grid col-lg-6">
+                                @if (TempData["LoginError"] != null)
+                                {
+                                    <span style="color:red; text-align: left;" class="errorcls">@TempData["LoginError"]</span>
+                                }
+                                else
+                                {
+                                    <span style="color:red;" class="errorcls"></span>
+                                }
+                            </div>
+
                             <div class="text-left col-lg-6">
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
                             </div>
@@ -53,56 +65,5 @@
 </section>
 
 <script>
-    function Login() {
-        if ($("#emailmobile").val().trim() == "" || $("#password").val().trim() == "") {
-            $(".errorcls").html("Mobilenumber/Email and Password must be required!!");
-            return false;
-        }
-        else {
-            if ($('#hdnotptxt').val() == "") {
-                 var URL = '@Url.Action("SendOTP", "StudentLogin")';
-               $.ajax({
-                type: 'POST',
-                async: true,
-                url: URL + "?MobileNumber=" + $("#emailmobile").val(),
-                success: function (result) {
-                    if (result == "NotExist") {
-                        alert("Username or Password is Invalid");
-                        return false;
-                    }
-                    if (result == "InActiveAccount") {
-                        alert("Your Account is Inactive. Please contact to support");
-                        return false;
-                    }
-                    else {
-                        alert("Otp Sent to your registerd mobile number and on email.");
-                        $('#hdnotptxt').val(result);
-                        $("#otpmodal").modal();
-                    }
-                },
-                error: function (resultData) {
-                }
-            });
-                return false;
-            }
-            else {
-                StartLoading();
-                return true;
-            }
-        }
-    }
 
-    function submitotp() {
-        if ($("#otptxt").val() == "" || $("#otpemiltxt").val() == "") {
-            alert("Please enter otp");
-            return false;
-        }
-
-        if ($("#otptxt").val() != $('#hdnotptxt').val()) {
-             alert("Invalid OTP");
-            return false;
-        }
-
-        $("#theFormId").submit();
-    }
 </script>

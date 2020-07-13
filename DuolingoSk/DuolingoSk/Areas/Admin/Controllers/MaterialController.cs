@@ -276,7 +276,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
             return ReturnMessage;
         }
 
-
         private List<SelectListItem> GetMaterialTypeList()
         {
             List<SelectListItem> lst = new List<SelectListItem>();

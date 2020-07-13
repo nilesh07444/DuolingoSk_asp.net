@@ -27,5 +27,6 @@ namespace DuolingoSk.Models
         public Nullable<decimal> RenewFee { get; set; }
         public Nullable<int> TotalExamAttempt { get; set; }
         public Nullable<int> MaxLevel { get; set; }
+        public Nullable<int> FeeExpiryInDays { get; set; }
     }
 }

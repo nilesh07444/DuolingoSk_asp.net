@@ -136,6 +136,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Admin\Controllers\MyProfileController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PackageController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionLevelController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Areas\Client\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Client\Controllers\MyExamsController.cs" />
     <Compile Include="Areas\Client\Controllers\MyProfileController.cs" />
+    <Compile Include="Areas\Client\Controllers\PackageController.cs" />
     <Compile Include="Areas\Client\Controllers\RenewAccountController.cs" />
     <Compile Include="Areas\Client\Controllers\StartExamController.cs" />
     <Compile Include="Areas\Client\Controllers\StudentLoginController.cs" />
@@ -199,6 +201,9 @@
     <Compile Include="Models\tbl_Mp3Options.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Package.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_QuestionLevel.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
@@ -220,6 +225,7 @@
     <Compile Include="ViewModel\ExamVM.cs" />
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\MaterialVM.cs" />
+    <Compile Include="ViewModel\PackageVM.cs" />
     <Compile Include="ViewModel\QuestionLevelVM.cs" />
     <Compile Include="ViewModel\StudentFeeVM.cs" />
     <Compile Include="ViewModel\StudentVM.cs" />
@@ -3956,6 +3962,10 @@
     <Content Include="Areas\Client\Views\StartExam\_QuestionType8.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_QuestionType9.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_QuestionType10.cshtml" />
+    <Content Include="Areas\Admin\Views\Package\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Package\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Package\Edit.cshtml" />
+    <Content Include="Areas\Client\Views\Package\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

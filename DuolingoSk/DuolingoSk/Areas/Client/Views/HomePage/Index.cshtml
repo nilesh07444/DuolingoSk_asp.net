@@ -1,10 +1,31 @@
-﻿<!--  Main banner section -->
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+@{
+
+    DuolingoSk_Entities _db = new DuolingoSk_Entities();
+
+    List<tbl_Package> lstPackages = _db.tbl_Package.Where(x => x.IsActive && !x.IsDeleted).Take(6).ToList();
+
+}
+
+<style>
+
+    .clsPackageSlider .customers-6-content img {
+        width: 100%;
+        border-radius: 0%;
+        width: 268px;
+        height: 268px;
+    }
+</style>
+
+<!--  Main banner section -->
 <section class="w3l-main-banner" id="home">
     <div class="companies20-content">
         <div class="companies-wrapper">
             <div class="item">
 
-                <div class="slider-info banner-view text-center" style="background: url(/Content/client_assets/images/sk/8.jpg) no-repeat right;">
+                <div class="slider-info banner-view text-center" style="        background: url(/Content/client_assets/images/sk/8.jpg) no-repeat right;">
                     <div class="banner-info container">
                         <img src="~/Content/client_assets/images/c1.jpg" alt="about image" class="img-fluid">
                         <h3 class="banner-text mt-5">
@@ -19,6 +40,195 @@
         </div>
     </div>
 </section>
+
+@if (lstPackages != null && lstPackages.Count > 0)
+{
+
+    <section class="w3l-testimonials clsPackageSlider" id="testimonials">
+        <div class="customers-6-content py-5">
+            <div class="container py-lg-3">
+                <div class="heading text-center mx-auto">
+                    <h3 class="head">Packages</h3>
+                    @*<p class="my-3 head ">
+                            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                            Nulla mollis dapibus nunc, ut rhoncus
+                            turpis sodales quis. Integer sit amet mattis quam.
+                        </p>*@
+                </div>
+
+                <div id="customerhnyCarousel" class="carousel slide" data-ride="carousel">
+
+                    @if (lstPackages.Count > 3)
+                    {
+                        <ol class="carousel-indicators">
+                            <li data-target="#customerhnyCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#customerhnyCarousel" data-slide-to="1"></li>
+                        </ol>
+                    }
+
+
+                    <!-- Carousel items -->
+                    <div class="carousel-inner pb-5">
+
+                        <div class="carousel-item active">
+                            <div class="customer row py-5 mt-3">
+
+                                @if (lstPackages.Count > 0)
+                                {
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card">
+
+                                            <div class="card-body">
+
+                                                @if (!string.IsNullOrEmpty(lstPackages[0].PackageImage))
+                                                {
+                                                    <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[0].PackageImage" alt="">
+                                                }
+                                                else
+                                                {
+                                                    <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                }
+
+                                                <h3 class="card-title mt-2">@lstPackages[0].PackageName</h3>
+                                                <p class="sub-title mb-3">@lstPackages[0].PackageAmount</p>
+                                                <a href="/client/package/detail/@lstPackages[0].PackageId" class="btn btn-theme2">Buy Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (lstPackages.Count > 1)
+                                {
+                                    <div class="col-lg-4 col-md-6 off-testi-2">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (!string.IsNullOrEmpty(lstPackages[1].PackageImage))
+                                                {
+                                                    <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[1].PackageImage" alt="">
+                                                }
+                                                else
+                                                {
+                                                    <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                }
+                                                <h3 class="card-title mt-2">@lstPackages[1].PackageName</h3>
+                                                <p class="sub-title mb-3">@lstPackages[1].PackageAmount</p>
+                                                <a href="/client/package/detail/@lstPackages[1].PackageId" class="btn btn-theme2">Buy Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (lstPackages.Count > 2)
+                                {
+                                    <div class="col-lg-4 offset-md-3 offset-lg-0 col-md-6 off-testi">
+                                        <div class="card">
+
+                                            <div class="card-body">
+                                                @if (!string.IsNullOrEmpty(lstPackages[2].PackageImage))
+                                                {
+                                                    <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[2].PackageImage" alt="">
+                                                }
+                                                else
+                                                {
+                                                    <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                }
+                                                <h3 class="card-title mt-2">@lstPackages[2].PackageName</h3>
+                                                <p class="sub-title mb-3">@lstPackages[2].PackageAmount</p>
+                                                <a href="/client/package/detail/@lstPackages[2].PackageId" class="btn btn-theme2">Buy Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                        <!--.item-->
+
+                        @if (lstPackages.Count > 3)
+                        {
+                            <div class="carousel-item">
+                                <div class="customer row py-5 mt-3">
+
+                                    @if (lstPackages.Count > 3)
+                                    {
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    @if (!string.IsNullOrEmpty(lstPackages[3].PackageImage))
+                                                    {
+                                                        <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[3].PackageImage" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                    }
+                                                    <h3 class="card-title mt-2">@lstPackages[3].PackageName</h3>
+                                                    <p class="sub-title mb-3">@lstPackages[3].PackageAmount</p>
+                                                    <a href="/client/package/detail/@lstPackages[3].PackageId" class="btn btn-theme2">Buy Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (lstPackages.Count > 4)
+                                    {
+                                        <div class="col-lg-4 col-md-6 off-testi-2">
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    @if (!string.IsNullOrEmpty(lstPackages[4].PackageImage))
+                                                    {
+                                                        <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[4].PackageImage" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                    }
+                                                    <h3 class="card-title mt-2">@lstPackages[4].PackageName</h3>
+                                                    <p class="sub-title mb-3">@lstPackages[4].PackageAmount</p>
+                                                    <a href="/client/package/detail/@lstPackages[4].PackageId" class="btn btn-theme2">Buy Now</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                    @if (lstPackages.Count > 5)
+                                    {
+                                        <div class="col-lg-4 offset-md-3 offset-lg-0 col-md-6 off-testi">
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    @if (!string.IsNullOrEmpty(lstPackages[5].PackageImage))
+                                                    {
+                                                        <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@lstPackages[5].PackageImage" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                                    }
+                                                    <h3 class="card-title mt-2">@lstPackages[5].PackageName</h3>
+                                                    <p class="sub-title mb-3">@lstPackages[5].PackageAmount</p>
+                                                    <a href="/client/package/detail/@lstPackages[5].PackageId" class="btn btn-theme2">Buy Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <!--.carousel-inner-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
 <!--  //Main banner section -->
 <section class="w3l-about ">
     <div class="skills-bars py-5">
@@ -36,42 +246,48 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
                     <h4>Design</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 50% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 50%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
                     <h4>Marketing</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 80% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 80%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
                     <h4>Photography</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 60% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 60%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
                     <h4>Branding</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 70% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 70%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
                     <h4>Development</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 90% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 90%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids ">
                     <h4>SEO</h4>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="width: 80% ;height:4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 80%;
+        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
@@ -80,8 +296,8 @@
         </div>
     </div>
 </section>
-<section class="w3l-feature-3" id="features" >
-    <div class="grid top-bottom" style="background: url(/Content/client_assets/images/sk/10.jpg) no-repeat center;">
+<section class="w3l-feature-3" id="features">
+    <div class="grid top-bottom" style="        background: url(/Content/client_assets/images/sk/10.jpg) no-repeat center;">
         <div class="container">
             <div class="heading text-center mx-auto">
                 <h3 class="head text-white">I'm Available For Hire</h3>
@@ -318,7 +534,7 @@
 </div>
 
 <section class="services-12" id="experience">
-    <div class="form-12-content" style="background: url(/Content/client_assets/images/sk/5.jpg) no-repeat center;">
+    <div class="form-12-content" style="        background: url(/Content/client_assets/images/sk/5.jpg) no-repeat center;">
         <div class="container">
             <div class="grid grid-column-2 ">
 
@@ -494,5 +710,4 @@
             </div>
         </div>
     </div>
-    <!--//customers -->
 </section>

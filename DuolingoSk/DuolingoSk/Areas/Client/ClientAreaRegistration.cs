@@ -116,11 +116,23 @@ namespace DuolingoSk.Areas.Client
             );
 
             context.MapRoute(
-           "ClientSaveAudio",
-           "SaveAudio",
-           new { controller = "StartExam", action = "PostRecordedAudioVideo", id = UrlParameter.Optional }
-       );
+               "ClientSaveAudio",
+               "SaveAudio",
+               new { controller = "StartExam", action = "PostRecordedAudioVideo", id = UrlParameter.Optional }
+           );
 
+            context.MapRoute(
+                "Client_Package",
+                "package",
+                new { controller = "Package", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_Package_Detail",
+                "package/detail",
+                new { controller = "Package", action = "Detail", id = UrlParameter.Optional }
+            );
+             
         }
     }
 }

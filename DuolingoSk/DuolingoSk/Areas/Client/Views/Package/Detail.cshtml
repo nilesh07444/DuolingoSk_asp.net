@@ -1,0 +1,176 @@
+﻿@using DuolingoSk.Helper;
+@model PackageVM
+
+@{
+    ViewBag.Title = "Package Detail";
+}
+
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Package Detail</p>
+        </div>
+    </div>
+</section>
+
+<!-- contact -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5">
+        <div class="container py-md-3">
+
+            <div class="row cont-main-top">
+
+                <!-- contact address -->
+                <div class="contact col-lg-6 mt-lg-0 mt-5">
+                    <div class="cont-subs">
+                        <div class="cont-add">
+                            <div class="cont-add-lft"> 
+                            </div>
+                            <div class="cont-add-rgt">
+                                <p  style="color: #ff2828;">Package Image:</p>
+                                @if (!string.IsNullOrEmpty(Model.PackageImageName))
+                                {
+                                    <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@Model.PackageImageName" alt="">
+                                }
+                                else
+                                {
+                                    <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="cont-add">
+                            <div class="cont-add-lft"> 
+                            </div>
+                            <div class="cont-add-rgt">
+                                <p style="color: #ff2828;">Package Name:</p>
+                                <p class="contact-text-sub">@Model.PackageName</p>
+                            </div>
+
+                        </div>
+                        <div class="cont-add">
+                            <div class="cont-add-lft"> 
+                            </div>
+                            <div class="cont-add-rgt">
+                                <p style="color: #ff2828;">Package Amount:</p>
+                                <p class="contact-text-sub">@Model.PackageAmount</p>
+                            </div>
+
+                        </div>
+
+                        @*<div class="cont-add add-3">
+                                <div class="cont-add-lft">
+                                    <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                </div>
+                                <div class="cont-add-rgt">
+                                    <a href="#">
+                                        <p class="contact-text-sub">Download Resume</p>
+                                    </a>
+                                </div>
+
+                            </div>*@
+                    </div>
+                </div>
+                <!-- //contact address -->
+                <!-- contact form -->
+                <div class="contacts12-main col-lg-6 ">
+
+                    <form class="main-input">
+                        <div class="top-inputs d-grid">
+                            <input type="text" placeholder="Full Name" name="name" id="name" required="">
+
+                            <span id="spn_name" class="clserror text-danger"></span>
+                        </div>
+                        <div class="top-inputs d-grid">
+                            <input type="email" placeholder="Email" id="emailid" name="emailid" required="">
+
+                            <span id="spn_email" class="clserror text-danger"></span>
+                        </div>
+                        <div class="top-inputs d-grid">
+                            <input type="text" placeholder="Mobile No" id="mobileno" name="mobileno" required="">
+
+                            <span id="spn_mobileno" class="clserror text-danger"></span>
+                        </div>
+                        <div class="top-inputs d-grid">
+                            <textarea placeholder="Message" id="message" name="message" required=""></textarea>
+
+                            <span id="spn_message" class="clserror text-danger"></span>
+                        </div>
+                        <div class="text-right">
+                            <button id="btnSubmit" type="button" class="btn btn-theme2">Submit Now</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- //contact form -->
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    jQuery(document).on("click", "#btnSubmit", function () {
+        var requiredMessage = 'This field is required';
+        var flag = true;
+        jQuery(".clserror").hide();
+
+        var name = jQuery.trim(jQuery("#name").val());
+        var emailid = jQuery.trim(jQuery("#emailid").val());
+        var mobileno = jQuery.trim(jQuery("#mobileno").val());
+        var message = jQuery.trim(jQuery("#message").val());
+
+        if (name == "" || name == null) {
+            jQuery("#spn_name").text(requiredMessage);
+            jQuery("#spn_name").show();
+            flag = false;
+        }
+        if (emailid == "" || emailid == null) {
+            jQuery("#spn_emailid").text(requiredMessage);
+            jQuery("#spn_emailid").show();
+            flag = false;
+        }
+        if (mobileno == "" || mobileno == null) {
+            jQuery("#spn_mobileno").text(requiredMessage);
+            jQuery("#spn_mobileno").show();
+            flag = false;
+        }
+        if (message == "" || message == null) {
+            jQuery("#spn_message").text(requiredMessage);
+            jQuery("#spn_message").show();
+            flag = false;
+        }
+
+        if (flag) {
+             $.blockUI({ message: "<h4>Please Wait...</h4>" });
+            var URL = '@Url.Action("SubmitContactForm", "ContactUs")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                data: jQuery('form').serialize(),
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "SUCCESS") {
+                        alert("Thank you.. We will contact you soon.");
+                    }
+                    else {
+                        alert("Error: Mail Sending Fail.. Please try after sometime..");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+
+            return false;
+        }
+    });
+
+
+</script>

@@ -18,6 +18,7 @@ namespace DuolingoSk.Helper
         public static string DefaultImagePath = "/Images/default_image.jpg";
         public static string UserProfileDirectoryPath = "/Images/UserProfileMedia/";
         public static string MaterialDirectoryPath = "/Images/MaterialMedia/";
+        public static string PackageDirectoryPath = "/Images/PackageMedia/";
 
     }
 }

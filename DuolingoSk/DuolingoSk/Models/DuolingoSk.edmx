@@ -37,6 +37,7 @@
           </Key>
           <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="bigint" />
+          <Property Name="StudentFeeId" Type="int" />
           <Property Name="ExamDate" Type="datetime" />
           <Property Name="AgentId" Type="bigint" />
           <Property Name="Score" Type="nvarchar" MaxLength="50" />
@@ -46,7 +47,6 @@
           <Property Name="ResultStatus" Type="int" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="StudentFeeId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>
@@ -78,6 +78,7 @@
           <Property Name="RenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="int" />
           <Property Name="MaxLevel" Type="int" />
+          <Property Name="FeeExpiryInDays" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Materials">
           <Key>
@@ -103,6 +104,21 @@
           <Property Name="Mp3FileName" Type="nvarchar" MaxLength="250" />
           <Property Name="Mp3Text" Type="nvarchar" MaxLength="250" />
           <Property Name="IsCorrect" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PackageImage" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_QuestionLevel">
           <Key>
@@ -161,6 +177,7 @@
           <Property Name="MarkCompleteDate" Type="datetime" />
           <Property Name="MarkCompleteBy" Type="int" />
           <Property Name="IsAttemptUsed" Type="bit" />
+          <Property Name="FeeExpiryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
@@ -192,6 +209,7 @@
           <EntitySet Name="tbl_GeneralSetting" EntityType="Self.tbl_GeneralSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Package" EntityType="Self.tbl_Package" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Self.tbl_QuestionLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
@@ -300,6 +318,7 @@
           <Property Name="MarkCompleteDate" Type="DateTime" Precision="3" />
           <Property Name="MarkCompleteBy" Type="Int32" />
           <Property Name="IsAttemptUsed" Type="Boolean" />
+          <Property Name="FeeExpiryDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
@@ -336,6 +355,7 @@
           <EntitySet Name="tbl_Exam" EntityType="Duolingo_skModel.tbl_Exam" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Duolingo_skModel.tbl_ExamResultDetails" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Duolingo_skModel.tbl_QuestionLevel" />
+          <EntitySet Name="tbl_Package" EntityType="Duolingo_skModel.tbl_Package" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -354,6 +374,7 @@
           <Property Name="RenewFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalExamAttempt" Type="Int32" />
           <Property Name="MaxLevel" Type="Int32" />
+          <Property Name="FeeExpiryInDays" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Exam">
           <Key>
@@ -394,6 +415,21 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PackageImage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="PackageAmount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -493,6 +529,7 @@
           <EntitySetMapping Name="tbl_StudentFee">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_StudentFee">
               <MappingFragment StoreEntitySet="tbl_StudentFee">
+                <ScalarProperty Name="FeeExpiryDate" ColumnName="FeeExpiryDate" />
                 <ScalarProperty Name="IsAttemptUsed" ColumnName="IsAttemptUsed" />
                 <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -533,6 +570,7 @@
           <EntitySetMapping Name="tbl_GeneralSetting">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_GeneralSetting">
               <MappingFragment StoreEntitySet="tbl_GeneralSetting">
+                <ScalarProperty Name="FeeExpiryInDays" ColumnName="FeeExpiryInDays" />
                 <ScalarProperty Name="MaxLevel" ColumnName="MaxLevel" />
                 <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
                 <ScalarProperty Name="RenewFee" ColumnName="RenewFee" />
@@ -589,6 +627,22 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
                 <ScalarProperty Name="Level_Id" ColumnName="Level_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Package">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Package">
+              <MappingFragment StoreEntitySet="tbl_Package">
+                <ScalarProperty Name="PackageAmount" ColumnName="PackageAmount" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PackageImage" ColumnName="PackageImage" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
