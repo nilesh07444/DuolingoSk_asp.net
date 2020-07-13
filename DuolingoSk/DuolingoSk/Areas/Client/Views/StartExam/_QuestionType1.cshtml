@@ -38,13 +38,15 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
 <script>
-    var tmrvl = '@Model.QuestionTime';    
+    var tmrvl = '@Model.QuestionTime';
    $(document).ready(function () {
         debugger;
         $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
-        $('progress').attr('max', tmrvl);         
+        $('progress').attr('max', tmrvl);
     var characters = questionss[cntQs].QuestionOptionText.split("");
     $this = $(".pragrph p");
         $this.empty();
@@ -60,7 +62,7 @@
     });
 
 
-       $(".pragrph input[type=text]").keyup(function () {       
+       $(".pragrph input[type=text]").keyup(function () {
         if (this.value.length == this.maxLength) {
             $(this).attr("value", $(this).val());
             var idxx = parseInt($(this).attr("tabindex"));
@@ -86,7 +88,7 @@
     return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
    }
 
-    var tmr = setInterval(function () {       
+    var tmr = setInterval(function () {
         if (tmrvl == 0) {
             clearInterval(tmr);
             nextquestion();
@@ -111,8 +113,8 @@
     function SaveAns(qid) {
         if (window.localStorage.getItem('resultq') != null) {
             arryresult = JSON.parse(window.localStorage.getItem('resultq'));
-        }       
-         
+        }
+
         var objans = {QueId:questionss[qid].QuestionId, QuestionTxt:questionss[qid].QuestionText,QuestionType:questionss[qid].QuestionTypeId,Que:$(".pragrph").html(),Ans:$(".pragrph").html(),ExamId:exmid};
         arryresult.push(objans);
         window.localStorage.setItem('resultq', JSON.stringify(arryresult));
@@ -126,9 +128,9 @@
             dataType: 'json',
             data: JSON.stringify(arrytemp),
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {               
+            success: function (data) {
             }
         });
- 
+
      }
 </script>

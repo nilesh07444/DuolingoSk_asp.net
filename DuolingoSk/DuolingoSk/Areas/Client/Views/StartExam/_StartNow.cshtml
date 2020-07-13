@@ -5,7 +5,7 @@
     <a href="#" style="display: none;"></a>
     <div class="porgressbr">
         <span class="is-pulled-left"><p class="is-size-3 has-text-weight-semibold has-text-dark uplds">Uploading....</p></span>   
-        <progress max="100" class="progress is-small is-mycolor" value="100"></progress>
+        <progress max="100" id="progresstmfinish" class="progress is-small is-mycolor" value="100"></progress>
     </div>
     <h5 class="has-text-centered is-size-4 has-text-weight-semibold">Your test is in review</h5>
     <div class="level-item has-text-centered centersec">
@@ -23,7 +23,9 @@
 <script src="~/Scripts/jquery.blockUI.js"></script>
 <script>
     var arryresult = [];
+    var arryfeedback = [];
     var exmid = '@ViewBag.ExamId';
+    var displyfeeback = '@ViewBag.DisplayFeedBack';
     window.localStorage.setItem('resultq',JSON.stringify(arryresult));
     var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
     var cntQs = 0;
@@ -59,12 +61,26 @@
             });
         }
         else {
-            SaveAns(cntQs - 1);          
-            $(".container1").html($("#dvresultt").html());   
+            SaveAns(cntQs - 1);        
+            if (displyfeeback == "yes") {
+                $(".container1").load('\getfeedback', function () {
+
+                });
+            }
+            else {
+                $(".container1").html($("#dvresultt").html());   
             $("#dvresultt").html("");
             startimes();
             alert("Thank you for the exam.You will get result in 24 hours.");
             location.href = "/myexams";
+            }
+
+            
+            //$(".container1").html($("#dvresultt").html());   
+            //$("#dvresultt").html("");
+            //startimes();
+            //alert("Thank you for the exam.You will get result in 24 hours.");
+            //location.href = "/myexams";
             //$.ajax({
             //    url: '/SaveExamResult',
             //    async: true,
@@ -94,8 +110,59 @@
             }
             else {
                 tmmmrr = tmmmrr - 1;            
-                $('progress').attr('value', tmmmrr);
+                $('#progresstmfinish').attr('value', tmmmrr);
             }
         }, 150);
     }  
+    function nextfeeback(q) {
+        $(".feedback").hide();
+        if (q == 2) {
+            var ans = $("input[name=feedopt]:checked").val();
+            var objans = { QuestionTxt: $(".feedback1 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
+            arryfeedback.push(objans);
+            $(".feedback" + q).show();
+        }
+        else if (q == 3) {
+            var ans = $("#txtfeedback2").val();
+            var objans = { QuestionTxt: $(".feedback2 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
+            arryfeedback.push(objans);
+            $(".feedback" + q).show();
+        }
+        else if (q == 4) {
+            var ans = $('input[name=feed3opt]:checked').map(function () {
+                return this.value;
+            }).get().join(",");
+            var objans = { QuestionTxt: $(".feedback3 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
+            arryfeedback.push(objans);
+            $(".feedback" + q).show();
+        }
+        else if (q == 5) {
+            var ans = $("input[name=feedopt4]:checked").val();
+            var objans = { QuestionTxt: $(".feedback4 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
+            arryfeedback.push(objans);      
+            $(".feedback" + q).show();
+        }
+    }
+    function finishfeeback() {
+        var ans = $("#txtfeedback5").val();
+        var objans = { QuestionTxt: $(".feedback5 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
+        arryfeedback.push(objans);   
+        var URL = '/Client/StartExam/SaveFeedBack';
+        $.ajax({
+            url: URL,
+            async: true,
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(arryfeedback),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+           
+            }
+        });
+        $(".container1").html($("#dvresultt").html());
+        $("#dvresultt").html("");
+        startimes();
+        alert("Thank you for the exam.You will get result in 24 hours.");
+        location.href = "/myexams";
+    }
 </script>

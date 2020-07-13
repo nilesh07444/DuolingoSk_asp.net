@@ -49,6 +49,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             select new StudentVM
                             {
                                 FirstName = s.FirstName,
+                                StudentId = s.StudentId,
                                 LastName = s.LastName,
                                 Email = s.Email,
                                 MobileNo = s.MobileNo,
@@ -61,6 +62,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
             ViewData["lstExamsDetls"] = lstExamsDetls;
             ViewData["objStudent"] = objStudent;
             ViewData["objexx"] = objexx;
+           List<tbl_Feedback> lstFeedbk = new List<tbl_Feedback>();
+            lstFeedbk = _db.tbl_Feedback.Where(o => o.ExamId == Id && o.StudentId == objStudent.StudentId).ToList();
+            ViewData["feedback"] = lstFeedbk;
             return View();
         }
 
