@@ -2,7 +2,7 @@
 @model QuestionVM
 @{
     int Mx = Model.QuestionTime;
-   int Cntc = 0;   
+    int Cntc = 0;
 }
 <div class="question 3q" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
     <div class="questionbg">
@@ -46,11 +46,13 @@
         </div>
     </div>
 </div>
-<audio style="display:none;">    
+<audio style="display:none;">
     <source src="/QuestionMp3/@Model.Mp3FileName" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
 <script>
     var tmrvl = '@Model.QuestionTime';
     var tmr;
@@ -61,7 +63,7 @@
        setTimeout(function () {
            $('audio').get(0).play();
        },350);
-        
+
        $("#txtresponse").keyup(function () {
            debugger;
            if ($(this).val().trim().length > 0) {
@@ -69,16 +71,16 @@
            }
            else {
                $(".btnNxt").attr("disabled","disabled");
-           }          
+           }
        });
 
        $(".adu").click(function () {
-           if (parseInt(noofrtry) != 0) {    
-               $('audio').get(0).currentTime = 0;               
+           if (parseInt(noofrtry) != 0) {
+               $('audio').get(0).currentTime = 0;
                 $('audio').get(0).play();
               noofrtry = parseInt(noofrtry) - 1;
               $(".replyleft").html("Number of replay lefts : " + noofrtry);
-           }          
+           }
        });
     });
     function secondsTimeSpanToHMS(s) {
@@ -99,12 +101,12 @@
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
           $('progress').attr('value', tmrvl);
         }
-   }, 1000);  
+   }, 1000);
       function SaveAns(qid) {
         if (window.localStorage.getItem('resultq') != null) {
             arryresult = JSON.parse(window.localStorage.getItem('resultq'));
-        }       
-    
+        }
+
           var objans = { QueId: questionss[qid].QuestionId, QuestionTxt: questionss[qid].QuestionText, QuestionType: questionss[qid].QuestionTypeId, Que: questionss[qid].Mp3FileName, Ans: $("#txtresponse").val(), ExamId: exmid};
         arryresult.push(objans);
        window.localStorage.setItem('resultq',JSON.stringify(arryresult));

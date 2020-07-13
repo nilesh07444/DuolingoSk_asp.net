@@ -29,8 +29,8 @@
             @if (Model.Mp3Options != null && Model.Mp3Options.Count() > 0)
             {
                 foreach (Mp3OptionsVM objmp in Model.Mp3Options)
-                {                   
-                    int cn = Cntc - 1;                    
+                {
+                    int cn = Cntc - 1;
                     <div class="column is-4-desktop is-12-mobile audios1">
                         <ul class="audioplay">
                             <li class="ticksect1">
@@ -64,33 +64,35 @@
     <source src="http://localhost:64211/QuestionMp3/019b58c8-bab3-49c4-ad20-5d1575fa842e-ukfeast010.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
 <script>
     var tmrvl = '@Model.QuestionTime';
     var tmr;
-    
+
    $(document).ready(function () {
         $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
        $('progress').attr('max', tmrvl);
 
-       
-       $(".plymp3").click(function () {        
+
+       $(".plymp3").click(function () {
            debugger;
            $("#audo source").attr("src", "/QuestionMp3/"+$(this).attr("data-mp33"));
-            //$("#audo").get(0).currentTime = 0;               
+            //$("#audo").get(0).currentTime = 0;
            $("#audo").get(0).load();
-                $("#audo").get(0).play();   
+                $("#audo").get(0).play();
        });
 
        $(".tickstrts input[type=checkbox]").click(function () {
            if ($(this).prop("checked") == true) {
                $(this).parents(".ticksect1").addClass("ticksect").removeClass("ticksect1");
-               $("#audo").get(0).currentTime = 0; 
+               $("#audo").get(0).currentTime = 0;
                $("#audo").get(0).pause();
            }
            else {
                $(this).parents(".ticksect").addClass("ticksect1").removeClass("ticksect");
-                  $("#audo").get(0).currentTime = 0; 
+                  $("#audo").get(0).currentTime = 0;
                $("#audo").get(0).pause();
            }
        });
@@ -125,7 +127,7 @@
      function SaveAns(qid) {
         if (window.localStorage.getItem('resultq') != null) {
             arryresult = JSON.parse(window.localStorage.getItem('resultq'));
-         }       
+         }
              var arrywrdd = [];
           $(".audio-secton1 input[type=checkbox]:checked").each(function () {
              arrywrdd.push($(this).val());
