@@ -16,8 +16,7 @@
 /*jshint eqeqeq:false curly:false latedef:false */
 "use strict";
 
-	function setup($) {
-		debugger;
+	function setup($) { 
 		$.fn._fadeIn = $.fn.fadeIn;
 
 		var noOp = $.noop || function() {};
@@ -610,7 +609,6 @@
 
 	}
 
-	debugger;
 	/*global define:true */
 	if (typeof define === 'function' && define.amd && define.amd.jQuery) {
 		define(['jquery'], setup);

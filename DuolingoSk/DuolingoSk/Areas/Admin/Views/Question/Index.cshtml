@@ -43,7 +43,7 @@
 
                     <div class="col-sm-2">
                         <label>Question Type</label>
-                        <select id="selectQuestiontype" class="form-control" onchange="filterque();" style="width:250px;">
+                        <select id="selectQuestiontype" class="form-control" onchange="filterque();">
                             <option value="-1">All</option>
                             @if (lstQuestionty != null && lstQuestionty.Count() > 0)
                             {
@@ -56,8 +56,8 @@
                     </div>
 
                     <div class="col-sm-2">
-                        <label>Question Type</label>
-                        <select id="selectQuestionlevel" class="form-control" onchange="filterque();" style="width:250px;">
+                        <label>Question Level</label>
+                        <select id="selectQuestionlevel" class="form-control" onchange="filterque();">
                             <option value="-1">All</option>
                             @if (lstQuestionLevel != null && lstQuestionLevel.Count() > 0)
                             {

@@ -129,7 +129,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
 
-                    return RedirectToAction("MyExams");
+                    return RedirectToAction("Index", "MyExams");
 
                 }
             }

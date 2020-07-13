@@ -28,7 +28,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2020 23:45:43</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Detail.cshtml">
-      <publishTime>07/04/2020 12:41:18</publishTime>
+      <publishTime>07/05/2020 21:07:28</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Index.cshtml">
       <publishTime>06/22/2020 15:47:46</publishTime>
@@ -58,13 +58,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2020 23:34:18</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Question/Add.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/12/2020 23:09:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Question/Edit.cshtml">
-      <publishTime>06/17/2020 23:37:30</publishTime>
+      <publishTime>07/05/2020 21:07:28</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Question/Index.cshtml">
-      <publishTime>07/04/2020 00:18:08</publishTime>
+      <publishTime>07/12/2020 23:07:41</publishTime>
     </File>
     <File Include="Areas/Admin/Views/QuestionLevel/Add.cshtml">
       <publishTime>06/20/2020 19:54:31</publishTime>
@@ -94,7 +94,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 22:45:54</publishTime>
     </File>
     <File Include="Areas/Admin/Views/web.config">
-      <publishTime>06/07/2020 09:47:58</publishTime>
+      <publishTime>07/13/2020 00:12:19</publishTime>
     </File>
     <File Include="Areas/Admin/Views/_ViewStart.cshtml">
       <publishTime>06/07/2020 13:26:55</publishTime>
@@ -124,34 +124,46 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/04/2020 16:49:59</publishTime>
     </File>
     <File Include="Areas/Client/Views/RenewAccount/Index.cshtml">
-      <publishTime>06/23/2020 09:30:02</publishTime>
+      <publishTime>07/13/2020 01:03:48</publishTime>
     </File>
     <File Include="Areas/Client/Views/Shared/_Layout.cshtml">
       <publishTime>07/04/2020 16:19:40</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/Index.cshtml">
-      <publishTime>07/04/2020 10:39:13</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType1.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_QuestionType10.cshtml">
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType2.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType3.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType4.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType5.cshtml">
-      <publishTime>06/22/2020 23:38:01</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType6.cshtml">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_QuestionType7.cshtml">
+      <publishTime>07/07/2020 12:48:03</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_QuestionType8.cshtml">
+      <publishTime>07/07/2020 12:48:03</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_QuestionType9.cshtml">
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_StartNow.cshtml">
-      <publishTime>06/22/2020 23:38:57</publishTime>
+      <publishTime>07/07/2020 12:48:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentLogin/Index.cshtml">
       <publishTime>06/20/2020 00:39:08</publishTime>
@@ -175,10 +187,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/DuolingoSk.dll">
-      <publishTime>07/05/2020 13:21:13</publishTime>
+      <publishTime>07/13/2020 10:36:03</publishTime>
     </File>
     <File Include="bin/DuolingoSk.pdb">
-      <publishTime>07/05/2020 13:21:13</publishTime>
+      <publishTime>07/13/2020 10:36:03</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -11190,6 +11202,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/client_assets/js/smoothscroll.js">
       <publishTime>03/24/2020 11:21:44</publishTime>
     </File>
+    <File Include="Content/ideal-image-slider.css">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
     <File Include="Content/quiz.css">
       <publishTime>06/20/2020 22:05:51</publishTime>
     </File>
@@ -11229,6 +11244,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/default_user_image.png">
       <publishTime>06/07/2020 15:21:31</publishTime>
     </File>
+    <File Include="Images/I14.png">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
     <File Include="Images/I3.png">
       <publishTime>06/14/2020 12:55:00</publishTime>
     </File>
@@ -11243,6 +11261,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/IA2.png">
       <publishTime>06/22/2020 23:38:01</publishTime>
+    </File>
+    <File Include="Images/sound-red-big.gif">
+      <publishTime>07/05/2020 21:07:28</publishTime>
     </File>
     <File Include="Images/speaker-red.svg">
       <publishTime>06/14/2020 12:55:00</publishTime>
@@ -11259,11 +11280,77 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Models/DuolingoSk.edmx.diagram">
       <publishTime>06/17/2020 22:56:16</publishTime>
     </File>
+    <File Include="QuestionImage/4f9eb5d8-1d7b-4338-b867-3744baa5faa0-cute-baby-animals-1558535060.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/5de50480-1e1d-4c75-9458-d67be8b714e9-download.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/70aabbb2-050c-4803-bf25-712faf4372cc-download.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/7e515f73-120d-496b-bde0-5bbed565d62f-bottom1.png">
+      <publishTime>06/13/2020 18:57:37</publishTime>
+    </File>
+    <File Include="QuestionImage/990d3907-0d9b-490f-addf-7ad1af3313ba-">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/c1d37508-b48e-49b4-ae0c-2cde76e46b23-cute-baby-animals-1558535060.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/d3f8f342-1952-4545-9682-c36cd8c9db84-download.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionImage/f5305cf7-0517-4bdd-b73c-fb1ac7f89aac-112402-rabbit-lucky-animals-510x600.jpg">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="QuestionMp3/019b58c8-bab3-49c4-ad20-5d1575fa842e-ukfeast010.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/07508c25-cfcc-43c0-ab65-cf12eaf93503-ukanarc011.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/1e1d6fc6-fade-49fd-b253-cff0f21afe34-">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/2384ddcb-9593-41db-9ec5-e12c7bcf00ac-">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/31b0f125-d2f4-46be-a538-02a561b31155-ukinfir019.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/4f31f442-cfd8-434c-ac90-3911d60a343d-file_example_MP3_700KB - Copy %282%29.mp3">
+      <publishTime>06/13/2020 18:57:37</publishTime>
+    </File>
+    <File Include="QuestionMp3/601c055c-8d8b-4937-8bfa-26f1d720dd64-file_example_MP3_700KB - Copya12345678901212319992312345678901234567890123456789.mp3">
+      <publishTime>06/13/2020 18:57:37</publishTime>
+    </File>
+    <File Include="QuestionMp3/601c055c-8d8b-4937-8bfa-26f1d720dd64-file_example_MP3_700KB.mp3">
+      <publishTime>06/13/2020 18:57:37</publishTime>
+    </File>
+    <File Include="QuestionMp3/70f875b1-e01b-427d-aab6-15ac0992ada0-file_example_MP3_700KB.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/910e5cca-5c3c-49b0-8d31-c6394054787e-ukanarc017.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/a6abd959-f334-4010-a011-62405bb4ea95-file_example_MP3_700KB.mp3">
+      <publishTime>06/14/2020 18:03:46</publishTime>
+    </File>
+    <File Include="QuestionMp3/c8f7237b-c263-420e-94f6-ca57459de559-file_example_MP3_700KB - Copy.mp3">
+      <publishTime>06/13/2020 18:57:37</publishTime>
+    </File>
+    <File Include="QuestionMp3/dd237dff-ea7d-4759-ba7d-2dbd98f9d9a0-1092283.mp3">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>06/07/2020 09:44:48</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>06/07/2020 09:44:48</publishTime>
+    </File>
+    <File Include="Scripts/ideal-image-slider.js">
+      <publishTime>07/05/2020 21:07:28</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.js">
       <publishTime>06/07/2020 09:44:53</publishTime>
@@ -11284,7 +11371,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:44:53</publishTime>
     </File>
     <File Include="Scripts/jquery.blockUI.js">
-      <publishTime>07/04/2020 10:39:13</publishTime>
+      <publishTime>07/11/2020 10:53:49</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>06/07/2020 13:29:38</publishTime>
@@ -11298,8 +11385,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>06/07/2020 13:29:38</publishTime>
     </File>
+    <File Include="Scripts/MediaStreamRecorder.js">
+      <publishTime>07/04/2020 10:39:13</publishTime>
+    </File>
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>06/07/2020 09:45:48</publishTime>
+    </File>
+    <File Include="Scripts/recordcustom.js">
+      <publishTime>07/05/2020 21:07:28</publishTime>
+    </File>
+    <File Include="Scripts/slideapp.js">
+      <publishTime>07/05/2020 21:07:28</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>06/07/2020 09:44:24</publishTime>
@@ -11323,7 +11419,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:44:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/05/2020 13:21:20</publishTime>
+      <publishTime>07/07/2020 22:43:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

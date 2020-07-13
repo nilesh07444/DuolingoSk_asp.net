@@ -24,8 +24,29 @@ namespace DuolingoSk.Areas.Client.Controllers
 
             try
             {
-                 
-                lstFee = (from a in _db.tbl_StudentFee 
+
+                tbl_Students objStudent = _db.tbl_Students.Where(x => x.StudentId == LoggedInStudentId).FirstOrDefault();
+
+                tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
+                if (objStudent.AdminUserId != null && objStudent.AdminUserId > 0)
+                {
+                    // Agent Student
+                    tbl_AdminUsers objAgent = _db.tbl_AdminUsers.Where(x => x.AdminUserId == objStudent.AdminUserId).FirstOrDefault();
+                    ViewBag.RenewFee = objAgent.StudentRenewFee;
+                    ViewBag.TotalExamAttempt = objSetting.TotalExamAttempt;
+
+                }
+                else
+                {
+                    // Admin Student
+
+                    ViewBag.RenewFee = objSetting.RenewFee;
+                    ViewBag.TotalExamAttempt = objSetting.TotalExamAttempt;
+
+                }
+
+
+                lstFee = (from a in _db.tbl_StudentFee
                           where !a.IsDeleted && a.StudentId == LoggedInStudentId
                           select new StudentFeeVM
                           {
@@ -34,7 +55,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                               FeeStatus = a.FeeStatus,
                               FeeAmount = a.FeeAmount,
                               TotalExamAttempt = a.TotalExamAttempt,
-                              RequestedDate = a.RequestedDate, 
+                              RequestedDate = a.RequestedDate,
                           }).OrderBy(x => x.RequestedDate).ToList();
 
             }
@@ -44,5 +65,67 @@ namespace DuolingoSk.Areas.Client.Controllers
 
             return View(lstFee);
         }
+
+        [HttpPost]
+        public string RenewMyAccount(FormCollection frm)
+        {
+            string ReturnMessage = "";
+            try
+            {
+                long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
+
+                // Validation
+                tbl_StudentFee objStudentFee = _db.tbl_StudentFee.Where(x => x.StudentId == LoggedInStudentId && x.FeeStatus == "Pending").FirstOrDefault();
+                if (objStudentFee != null)
+                {
+                    ReturnMessage = "ALREADY_PENDING_FOUND";
+                }
+                else
+                {
+
+                    decimal? RenewFee = 0;
+                    decimal? TotalExamAttempt = 0;
+
+                    tbl_Students objStudent = _db.tbl_Students.Where(x => x.StudentId == LoggedInStudentId).FirstOrDefault();
+
+                    tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
+                    if (objStudent.AdminUserId != null && objStudent.AdminUserId > 0)
+                    {
+                        // Agent Student
+                        tbl_AdminUsers objAgent = _db.tbl_AdminUsers.Where(x => x.AdminUserId == objStudent.AdminUserId).FirstOrDefault();
+                        RenewFee = objAgent.StudentRenewFee;
+                        TotalExamAttempt = objSetting.TotalExamAttempt;
+                    }
+                    else
+                    {
+                        // Admin Student 
+                        RenewFee = objSetting.RenewFee;
+                        TotalExamAttempt = objSetting.TotalExamAttempt;
+                    }
+
+                    tbl_StudentFee objStudentFee1 = new tbl_StudentFee();
+                    objStudentFee1.StudentId = objStudent.StudentId;
+                    objStudentFee1.FeeStatus = "Pending";
+                    objStudentFee1.FeeAmount = Convert.ToDecimal(RenewFee);
+                    objStudentFee1.TotalExamAttempt = Convert.ToInt32(TotalExamAttempt);
+                    objStudentFee1.IsDeleted = false;
+                    objStudentFee1.RequestedDate = DateTime.UtcNow;
+                    _db.tbl_StudentFee.Add(objStudentFee1);
+                    _db.SaveChanges();
+
+                    ReturnMessage = "SUCCESS";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = ex.Message.ToString();
+                ReturnMessage = "ERROR";
+            }
+
+            return ReturnMessage;
+        }
+
     }
 }

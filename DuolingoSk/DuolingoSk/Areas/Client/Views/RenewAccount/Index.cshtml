@@ -34,12 +34,12 @@
 
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Renew Fee *</label>
-                                <input type="text" placeholder="Password" id="renewfee" name="renewfee" value="800" disabled>
+                                <input type="text" placeholder="Password" id="renewfee" name="renewfee" value="@ViewBag.RenewFee" disabled>
                             </div>
 
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Total Exam Attempts *</label>
-                                <input type="text" placeholder="Password" id="examattempt" name="examattempt" value="10" disabled>
+                                <input type="text" placeholder="Password" id="examattempt" name="examattempt" value="@ViewBag.TotalExamAttempt" disabled>
                             </div>
 
                             <div class="text-left col-lg-6">
@@ -108,7 +108,33 @@
 
     $(document).on("click", "#btnRenew", function () {
 
-        alert("Development is in process");
+        $.blockUI({ message: "<h4>Please Wait...</h4>" });
+
+            var URL = '@Url.Action("RenewMyAccount", "RenewAccount")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                data: jQuery('form').serialize(),
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "SUCCESS") {
+                        alert("Your request has been sent successfully..");
+                    }
+                    else if (data == "ALREADY_PENDING_FOUND") {
+                        alert("Your previous fee status is pending to aproove. You can not send request.");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Something went wrong. Please try again.");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+
+            return false;
 
     });
 
