@@ -63,6 +63,12 @@ namespace DuolingoSk.Areas.Client
                new { controller = "StartExam", action = "GetQuestionById", id = UrlParameter.Optional }
            );
             context.MapRoute(
+               "Client_GetQuestionDemo",
+               "getQuestiondemo",
+               new { controller = "StartExam", action = "GetQuestionByIdDemo", id = UrlParameter.Optional }
+           );
+            
+            context.MapRoute(
                "Client_GetFeedback",
                "getfeedback",
                new { controller = "StartExam", action = "GetFeedbackForm", id = UrlParameter.Optional }
@@ -74,10 +80,22 @@ namespace DuolingoSk.Areas.Client
               new { controller = "StartExam", action = "StartNow", id = UrlParameter.Optional }
           );
             context.MapRoute(
+              "Client_StartNowDemo",
+              "StartNowDemo",
+              new { controller = "StartExam", action = "StartNowDemo", id = UrlParameter.Optional }
+          );
+            
+            context.MapRoute(
              "Client_Saveexamresult",
              "SaveExamResult",
              new { controller = "StartExam", action = "SaveExamResult", id = UrlParameter.Optional }
          );
+
+            context.MapRoute(
+            "Client_ExamDemo",
+            "DemoExam",
+            new { controller = "StartExam", action = "Demo", id = UrlParameter.Optional }
+        );
 
             context.MapRoute(
                 "Client_Material",

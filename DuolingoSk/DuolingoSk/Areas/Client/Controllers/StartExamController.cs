@@ -84,6 +84,13 @@ namespace DuolingoSk.Areas.Client.Controllers
 
         }
 
+        public ActionResult Demo()
+        {
+          List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
+          ViewData["lstQuestionLevel"] = lstQuestionLevel;
+          return View();            
+        }
+
         public ActionResult StartNow(long LevelId)
         {
             long LoggedInStudentId = Convert.ToInt64(clsClientSession.UserID);
@@ -166,6 +173,54 @@ namespace DuolingoSk.Areas.Client.Controllers
             return PartialView("~/Areas/Client/Views/StartExam/_StartNow.cshtml");
         }
 
+        public ActionResult StartNowDemo(long LevelId)
+        {
+            long agntid = 0;
+            string returnvl = "";
+            ViewBag.DisplayFeedBack = "no";
+           
+            Session["lstQuestionsExamDemo"] = null;
+            if (Session["lstQuestionsExamDemo"] == null)
+            {
+                List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
+                List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
+                                                 where p.IsDeleted == false && p.IsActive == true && p.QuestionLevel == LevelId
+                                                 select new QuestionVM
+                                                 {
+                                                     QuestionText = p.QuestionText,
+                                                     QuestionTime = p.QuestionTime.Value,
+                                                     QuestionId = p.QuestionId,
+                                                     QuestionTypeId = p.QuestionTypeId.Value,
+                                                     QuestionOptionText = p.QuestionOptionText,
+                                                     Words = p.Words,
+                                                     LevelId = p.QuestionLevel.Value,
+                                                     Mp3FileName = p.Mp3FileName,
+                                                     MaxReplay = p.MaxReplay.HasValue ? p.MaxReplay.Value : 0,
+                                                     ImageName = p.ImageName,
+                                                     NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0,
+                                                     PreparationTime = p.PreparationTime.HasValue ? p.PreparationTime.Value : 0,
+                                                     MinimumTime = p.MinimumTime.HasValue ? p.MinimumTime.Value : 0,
+                                                     Images = p.Images
+                                                 }).OrderByDescending(x => x.QuestionId).ToList();
+
+                lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
+                //  List<QuestionVM> lstQue = new List<QuestionVM>();
+                //  foreach (long TypId in TypIds)
+                //  {
+                //     lstQue.Add(lstQuestions.Where(x => x.QuestionTypeId == TypId).OrderBy(x => Guid.NewGuid()).ToList().FirstOrDefault());
+                // }
+                lstQuestions = lstQuestions.OrderBy(x => Guid.NewGuid()).ToList();
+                ViewData["lstQue"] = lstQuestions;
+                Session["lstQuestionsExamDemo"] = lstQuestions;
+            }
+            else
+            {
+                ViewData["lstQue"] = Session["lstQuestionsExamDemo"] as List<QuestionVM>;
+            }
+            ViewBag.ExamId = returnvl;
+            return PartialView("~/Areas/Client/Views/StartExam/_StartNowDemo.cshtml");
+        }
+
         public List<Mp3OptionsVM> GetMp3Options(long QuestionId)
         {
             List<Mp3OptionsVM> lstQuestionsMp3 = (from p in _db.tbl_Mp3Options
@@ -185,6 +240,56 @@ namespace DuolingoSk.Areas.Client.Controllers
             if (Session["lstQuestionsExam"] != null)
             {
                 List<QuestionVM> lstQ = Session["lstQuestionsExam"] as List<QuestionVM>;
+                objQ = lstQ.Where(o => o.QuestionId == QueId).FirstOrDefault();
+            }
+            if (objQ.QuestionTypeId == 1)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType1.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 2)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType2.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 3)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType3.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 4)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType4.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 5)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType5.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 6)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType6.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 7)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType7.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 8)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType8.cshtml", objQ);
+            }
+            else if (objQ.QuestionTypeId == 9)
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType9.cshtml", objQ);
+            }
+            else
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType10.cshtml", objQ);
+            }
+        }
+
+        public ActionResult GetQuestionByIdDemo(int QueId)
+        {
+            QuestionVM objQ = new QuestionVM();
+            if (Session["lstQuestionsExamDemo"] != null)
+            {
+                List<QuestionVM> lstQ = Session["lstQuestionsExamDemo"] as List<QuestionVM>;
                 objQ = lstQ.Where(o => o.QuestionId == QueId).FirstOrDefault();
             }
             if (objQ.QuestionTypeId == 1)
