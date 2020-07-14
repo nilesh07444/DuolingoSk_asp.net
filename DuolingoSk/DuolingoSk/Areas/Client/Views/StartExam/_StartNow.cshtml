@@ -24,12 +24,15 @@
 <script>
     var arryresult = [];
     var arryfeedback = [];
+    var arrblob = [];
     var exmid = '@ViewBag.ExamId';
     var displyfeeback = '@ViewBag.DisplayFeedBack';
     window.localStorage.setItem('resultq',JSON.stringify(arryresult));
     var questionss = @Html.Raw(Json.Encode(ViewData["lstQue"]));
     var cntQs = 0;
     var tmmmrr = 50;
+    var jji = 0;
+    var totlwv = 0;  
     $(document).ready(function () {
         $(".question").hide();
     });
@@ -69,10 +72,13 @@
             }
             else {
                 $(".container1").html($("#dvresultt").html());   
-            $("#dvresultt").html("");
-            startimes();
-            alert("Thank you for the exam.You will get result in 24 hours.");
-            location.href = "/myexams";
+                $("#dvresultt").html("");
+                totlwv = arrblob.length;
+                if (totlwv > 0) {
+                    $.blockUI();
+                    savewavfiles(jji);
+                }
+                startimes();              
             }
 
             
@@ -107,6 +113,7 @@
             if (tmmmrr == 0) {
                 clearInterval(tmr2);        
                 $(".uplds").html("Upload complete");
+              
             }
             else {
                 tmmmrr = tmmmrr - 1;            
@@ -144,6 +151,7 @@
         }
     }
     function finishfeeback() {
+        $.blockUI();
         var ans = $("#txtfeedback5").val();
         var objans = { QuestionTxt: $(".feedback5 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
         arryfeedback.push(objans);   
@@ -158,11 +166,47 @@
             success: function (data) {
            
             }
-        });
+        });      
         $(".container1").html($("#dvresultt").html());
-        $("#dvresultt").html("");
-        startimes();
-        alert("Thank you for the exam.You will get result in 24 hours.");
-        location.href = "/myexams";
+        $("#dvresultt").html("");       
+        totlwv = arrblob.length;  
+        if (totlwv > 0) {
+            $.blockUI();
+            savewavfiles(jji);
+        }        
+        startimes();      
     }
+   
+     
+    function savewavfiles(jji) {        
+        var xhr = new XMLHttpRequest();
+
+        xhr.upload.onprogress = function (e) {
+
+        };
+
+        xhr.onreadystatechange = function (e) {
+            if (this.readyState === 4) {
+                console.log(xhr.responseText);
+                if (++jji < totlwv) {
+                    savewavfiles(jji);
+                }
+                else {
+                    $.unblockUI();
+                    alert("Thank you for the exam.You will get result in 24 hours.");
+                    location.href = "/myexams";
+                }
+            }
+        };
+        var objj = arrblob[jji];
+        var formData = new FormData();
+        fileType = "audio";
+        formData.append(fileType + '-filename', objj.recordflnm);
+        formData.append(fileType + '-blob', objj.blobfl);
+        formData.append('guid', objj.guidtxt);
+        xhr.open('POST', '/SaveAudio');
+        xhr.send(formData);        
+    }
+
+  
 </script>

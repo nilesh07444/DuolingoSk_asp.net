@@ -78,28 +78,11 @@ function onMediaSuccess(stream) {
 
     mediaRecorder.audioChannels = 1;// !!document.getElementById('left-channel').checked ? 1 : 2;
     mediaRecorder.ondataavailable = function (blob) {      
-       // var objblb = { recordflnm: recrdflnm, blobfl: blob, guidtxt: guid };
-       // arrblob.push(objblb);
-        var formData = new FormData();       
-        fileType = "audio";
-        formData.append(fileType + '-filename', recrdflnm);
-        formData.append(fileType + '-blob', blob);
-        formData.append('guid', guid);
-        xhr('/SaveAudio', formData, function (fName) {
-           
-        });
-        function xhr(url, data, callback) {
-            var request = new XMLHttpRequest();
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    $.unblockUI();
-                    nextquestion();
-                    //callback(location.href + request.responseText);
-                }
-            };
-            request.open('POST', url);
-            request.send(data);
-        }
+        var objblb = { recordflnm: recrdflnm, blobfl: blob, guidtxt: guid };
+        arrblob.push(objblb);
+        $.unblockUI();
+        nextquestion();
+      
     };
 
     var timeInterval11 = 600000; //document.querySelector('#time-interval').value;
