@@ -19,13 +19,16 @@
     .feedback1 input[type=checkbox], .feedback1 input[type=radio], .feedback4 input[type=radio] {
         height: auto !important;
     }
+
     .feedback3 input[type=checkbox], .feedback3 input[type=radio] {
         height: auto !important;
     }
+
     .feedback1 label, .feedback4 label {
         color: #504747;
         font-weight: 600;
     }
+
     .feedback3 label {
         color: #504747;
         font-weight: 600;
@@ -43,7 +46,7 @@
         <button id="stop-recording">Stop</button>
         <button id="save-recording">Save</button>*@
     <div id="audios-container"></div>
-    <div class="container1 login statement enginebox">       
+    <div class="container1 login statement enginebox">
         <div class="indexpage" style="display:none;">
             <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Enter your inforamtion as it appears on your ID</h2>
             <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">
@@ -548,7 +551,9 @@
 
     </div>
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
 
 <script>
     var cntintr = 0;
@@ -556,12 +561,13 @@
         $(".question").hide();
     });
     function Start() {
+        $.blockUI();
         $("#dvStartNow").load('\startnow?LevelId=' + $("#quelevel").val(), function () {
             $(".question").hide();
             $(".indexpage").hide();
             var qiid = questionss[cntQs].QuestionId
             $(".container1").load('\getQuestion?QueId=' + qiid, function () {
-
+                $.unblockUI();
             });
         });
         //$(".1q").show();

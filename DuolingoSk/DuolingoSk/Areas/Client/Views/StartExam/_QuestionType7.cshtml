@@ -54,7 +54,7 @@
             </div>
             <div class="column">
                 <div class="vue-audio-recorder is-pulled-right is-hidden"><span></span></div>
-                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick=" clearInterval(tmr); stoprecrding();nextquestion(this);">next</button>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick=" clearInterval(tmr); stoprecrding();">next</button>
             </div>
         </div>
     </div>
@@ -66,12 +66,13 @@
 <script>
     var tmrvl = '@Model.QuestionTime';
     var tmr;
-
+    var isstart = false;
    $(document).ready(function () {
         $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
        $('progress').attr('max', tmrvl);
 
-       $(".startrecrd").click(function () {
+       $(".startrecrd").click(function () {          
+           isstart = true;
            $(".recordnotstart").hide();
            $(".recordstart").show();
            startrecrding();
@@ -92,7 +93,10 @@
             stoprecrding();
             nextquestion();
         }
-        else {
+        else {            
+            if (tmrvl == 10 && isstart == false) {
+                $(".startrecrd").click();
+            }
             tmrvl = tmrvl - 1;
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
           $('progress').attr('value', tmrvl);

@@ -84,13 +84,14 @@ function onMediaSuccess(stream) {
         formData.append(fileType + '-blob', blob);
         formData.append('guid', guid);
         xhr('/SaveAudio', formData, function (fName) {
-            alert(guid + fileName + ".wav");
+           
         });
         function xhr(url, data, callback) {
             var request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
                     $.unblockUI();
+                    nextquestion();
                     //callback(location.href + request.responseText);
                 }
             };
