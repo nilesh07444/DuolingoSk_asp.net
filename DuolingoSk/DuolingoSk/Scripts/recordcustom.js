@@ -78,6 +78,8 @@ function onMediaSuccess(stream) {
 
     mediaRecorder.audioChannels = 1;// !!document.getElementById('left-channel').checked ? 1 : 2;
     mediaRecorder.ondataavailable = function (blob) {      
+       // var objblb = { recordflnm: recrdflnm, blobfl: blob, guidtxt: guid };
+       // arrblob.push(objblb);
         var formData = new FormData();       
         fileType = "audio";
         formData.append(fileType + '-filename', recrdflnm);
