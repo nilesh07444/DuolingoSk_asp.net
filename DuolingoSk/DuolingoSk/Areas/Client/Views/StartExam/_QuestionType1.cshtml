@@ -69,6 +69,12 @@
             idxx = idxx + 1;
             $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
       //$(this).next('.pragrph input[type=text]').focus();
+           } 
+
+           if (this.value.length == 0) {
+               var idxx = parseInt($(this).attr("tabindex"));
+               idxx = idxx - 1;
+               $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
            }
            var enbl = isAtleast1Selct();
            if (enbl == true) {

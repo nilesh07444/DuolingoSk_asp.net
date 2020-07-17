@@ -94,6 +94,7 @@
        });
 
         $(".startrecrd").click(function () {
+            $('audio').get(0).pause();
             clearInterval(tmrprep);
             $(".recordnotstart").hide();
             $(".recordstart").show();

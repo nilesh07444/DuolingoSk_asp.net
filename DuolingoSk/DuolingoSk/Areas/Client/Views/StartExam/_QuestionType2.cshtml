@@ -5,6 +5,12 @@
     int Cntc = 0;
     List<string> lstWrdss = Model.Words.Split(',').ToList();
 }
+<style>
+    .eng-selector input[type=checkbox] + label {
+        width: auto !important;
+        min-width: 140px !important;
+    }
+</style>
 <div class="question 2q" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
     <div class="questionbg">
         <span>

@@ -77,8 +77,14 @@
                 if (totlwv > 0) {
                     $.blockUI();
                     savewavfiles(jji);
+                    startimes();  
                 }
-                startimes();              
+                else {
+                    startimes();
+                    alert("Thank you for the exam.You will get result in 24 hours.");
+                    location.href = "/myexams";
+                }
+                            
             }
 
             
@@ -173,8 +179,14 @@
         if (totlwv > 0) {
             $.blockUI();
             savewavfiles(jji);
-        }        
-        startimes();      
+            startimes(); 
+        }
+        else {
+            startimes(); 
+            alert("Thank you for the exam.You will get result in 24 hours.");
+            location.href = "/myexams";
+        }
+            
     }
    
      

@@ -40,6 +40,9 @@ namespace DuolingoSk.Areas.Client.Controllers
                     }
                 }
 
+                ViewBag.FirstName = objStudent.FirstName;
+                ViewBag.LastName = objStudent.LastName;
+                ViewBag.Dob = objStudent.Dob.Value;
                 List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(Levl).ToList();
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
                 //if(Session["lstQuestionsExam"] == null)
@@ -107,7 +110,8 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 ViewBag.DisplayFeedBack = "yes";
             }
-            var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false)).FirstOrDefault();
+            DateTime dtNowUtc = DateTime.UtcNow;
+            var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false) && o.FeeExpiryDate != null && o.FeeExpiryDate >= dtNowUtc).FirstOrDefault();
             if (objtblstudfee != null)
             {
                 tbl_Exam objExm = new tbl_Exam();
@@ -122,7 +126,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 objExm.StudentFeeId = objtblstudfee.StudentFeeId;
                 _db.tbl_Exam.Add(objExm);
                 _db.SaveChanges();
-                int cnt = _db.tbl_StudentFee.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).ToList().Count();
+                int cnt = _db.tbl_Exam.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).ToList().Count();
                 if (cnt == objtblstudfee.TotalExamAttempt)
                 {
                     objtblstudfee.IsAttemptUsed = true;
@@ -473,8 +477,9 @@ namespace DuolingoSk.Areas.Client.Controllers
                 long qlvl = Convert.ToInt64(LevelId);
                 if (clsClientSession.UserID > 0)
                 {
+                    DateTime dtNowUtc = DateTime.UtcNow;
                     ReturnMessage = "Success";
-                    var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false)).FirstOrDefault();
+                    var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false) && o.FeeExpiryDate != null && o.FeeExpiryDate >= dtNowUtc).FirstOrDefault();
                     if (objtblstudfee == null)
                     {
                         ReturnMessage = "You don't have any remaining exam attempts. Please renew your account to give more exams.";
