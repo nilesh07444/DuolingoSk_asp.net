@@ -45,6 +45,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/contactus">Contact</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" onclick="return fnFreeDemo();" style=" background-color: #e86f6f; font-size: 18px; border-radius: 10px; ">Free Demo</a>
+                        </li>
                         @if (clsClientSession.UserID == 0)
                         {
                             <li class="nav-item">
@@ -120,7 +123,7 @@
     </script>
 
     <script src="~/Content/client_assets/js/lightbox-plus-jquery.min.js"></script>
-      
+
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
@@ -158,6 +161,19 @@
         jQuery(document).ready(function () {
             jQuery('#tblGrid').DataTable();
         });
+
+        function fnFreeDemo() {
+
+            var loggedInUser = '@clsClientSession.UserID';
+            if (loggedInUser == 0) {
+                alert("You have to register first to give free demo exam");
+                window.location.href = "/register";
+            }
+            else {
+                window.location.href = "/demoexam";
+            }
+
+        }
 
     </script>
 
