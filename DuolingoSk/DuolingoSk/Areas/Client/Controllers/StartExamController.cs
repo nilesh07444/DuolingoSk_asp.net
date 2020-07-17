@@ -89,9 +89,23 @@ namespace DuolingoSk.Areas.Client.Controllers
 
         public ActionResult Demo()
         {
-          List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
-          ViewData["lstQuestionLevel"] = lstQuestionLevel;
-          return View();            
+          
+            if (clsClientSession.UserID > 0)
+            {
+                var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
+               
+                ViewBag.FirstName = objStudent.FirstName;
+                ViewBag.LastName = objStudent.LastName;
+                ViewBag.Dob = objStudent.Dob.Value;
+                List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
+                ViewData["lstQuestionLevel"] = lstQuestionLevel;
+                return View();
+            }
+            else
+            {
+                return RedirectToRoute("Client_Login");
+            }
+                   
         }
 
         public ActionResult StartNow(long LevelId)

@@ -4,6 +4,7 @@ using DuolingoSk.Model;
 using DuolingoSk.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             UserProfileDirectoryPath = ErrorMessage.UserProfileDirectoryPath;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int agentid = -1,string status ="-1",string startdate="",string enddate="")
         {
             List<StudentFeeVM> lstFee = new List<StudentFeeVM>();
 
@@ -31,12 +32,23 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 int LoggedInUserId = Int32.Parse(clsAdminSession.UserID.ToString());
 
                 bool IsAgent = (clsAdminSession.RoleID == (int)AdminRoles.Agent);
+                DateTime dtStart = DateTime.MinValue;
+                DateTime dtEnd = DateTime.MaxValue;
+                if (!string.IsNullOrEmpty(startdate))
+                {
+                    dtStart = DateTime.ParseExact(startdate, "dd/MM/yyyy", null);
+                }
+
+                if (!string.IsNullOrEmpty(enddate))
+                {
+                    dtEnd = DateTime.ParseExact(enddate, "dd/MM/yyyy", null);
+                }
 
                 lstFee = (from a in _db.tbl_StudentFee
                           join s in _db.tbl_Students on a.StudentId equals s.StudentId
                           join u in _db.tbl_AdminUsers on s.AdminUserId equals u.AdminUserId into outerAgent
                           from agent in outerAgent.DefaultIfEmpty()
-                          where !a.IsDeleted
+                          where !a.IsDeleted && (agentid == -1 || s.AdminUserId == agentid) && (status == "-1" ||a.FeeStatus == status) && a.RequestedDate >= dtStart && a.RequestedDate <= dtEnd
                           && (
                                 !IsAgent
                                     || (s.AdminUserId == LoggedInUserId)
@@ -53,6 +65,14 @@ namespace DuolingoSk.Areas.Admin.Controllers
                               AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : "")
                           }).ToList();
 
+                ViewData["AgentList"] = _db.tbl_AdminUsers.Where(x => x.AdminRoleId == (int)AdminRoles.Agent && !x.IsDeleted)
+                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName+" "+o.LastName})
+                        .OrderBy(x => x.Text).ToList();
+
+                ViewBag.agentid = agentid;
+                ViewBag.status = status;
+                ViewBag.startdate = startdate;
+                ViewBag.enddate = enddate;
             }
             catch (Exception ex)
             {

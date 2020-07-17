@@ -7,6 +7,7 @@
     ViewBag.Title = "Student Fee List";
 
     int counter = 1;
+    List<SelectListItem> lstagents = ViewData["AgentList"] as List<SelectListItem>;
 }
 
 <div class="page-body">
@@ -44,25 +45,30 @@
                 <div class="row" style="margin-top:25px; border-bottom: 2px solid #f8f8f9; padding-bottom: 25px; margin-bottom: 10px;">
                     <div class="col-md-2">
                         <label>Start Date</label>
-                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.StartDate" id="txtStartDate" placeholder="DD/MM/YYYY" />
+                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.startdate" id="txtStartDate" placeholder="DD/MM/YYYY" />
                     </div>
                     <div class="col-md-2">
                         <label>End Date</label>
-                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.EndDate" id="txtEndDate" placeholder="DD/MM/YYYY" />
+                        <input type="text" class="form-control clsDatePicker" value="@ViewBag.enddate" id="txtEndDate" placeholder="DD/MM/YYYY" />
                     </div>
 
                     <div class="col-md-3">
                         <label>Agent</label>
-                        <select id="selectemp" class="form-control">
+                        <select id="selectagent" class="form-control">
                             <option value="-1">All</option>
-                            <option value="1">Nilesh Prajapati</option>
-                            <option value="2">Kamlesh Lalwani</option>
+                            @if (lstagents != null && lstagents.Count() > 0)
+                            {
+                                foreach (var objc in lstagents)
+                                {
+                                    <option value="@objc.Value">@objc.Text</option>
+                                }
+                            }                          
                         </select>
                     </div>
 
                     <div class="col-md-3">
                         <label>Payment Status</label>
-                        <select id="selectemp" class="form-control">
+                        <select id="selectstatus" class="form-control">
                             <option value="-1">All</option>
                             <option value="Pending">Pending</option>
                             <option value="Complete">Complete</option>
@@ -155,6 +161,9 @@
 
     jQuery(document).ready(function () {
         jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+        $("#selectagent").val('@ViewBag.agentid');
+        $("#selectstatus").val('@ViewBag.status');        
+
     });
 
     function fnMarkCompleFee(StudentFeeId) {
@@ -194,5 +203,13 @@
             });
         }
     });
+
+    function filterdata() {
+        var agentid = $("#selectagent").val();
+        var statusid = $("#selectstatus").val();
+        var startdate = $("#txtStartDate").val();
+        var enddate = $("#txtEndDate").val();
+        location.href = "/admin/fees?agentid=" + agentid + "&status=" + statusid + "&startdate=" + startdate + "&enddate=" + enddate;
+    }
 
 </script>
