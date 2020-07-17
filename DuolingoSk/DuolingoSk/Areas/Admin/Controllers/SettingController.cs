@@ -34,7 +34,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                                   RegistrationFee = s.RegistrationFee,
                                                   RenewFee = s.RenewFee,
                                                   TotalExamAttempt = s.TotalExamAttempt,
-                                                  MaxLevel = s.MaxLevel
+                                                  MaxLevel = s.MaxLevel,
+                                                  FeeExpiryInDays = s.FeeExpiryInDays
                                               }).FirstOrDefault();
 
             return View(objGenSetting);
@@ -61,6 +62,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 int txtTotalExamAttempt = Convert.ToInt32(frm["txtTotalExamAttempt"]);
 
                 int txtMaxQuestionLevel = Convert.ToInt32(frm["txtMaxQuestionLevel"]);
+                int txtFeeExpiryInDays = Convert.ToInt32(frm["txtFeeExpiryInDays"]);
 
                 if (frm["rdbSSL"].ToString() == "Yes")
                 {
@@ -81,6 +83,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 objGenSetting.RenewFee = txtRenewFee;
                 objGenSetting.TotalExamAttempt = txtTotalExamAttempt;
                 objGenSetting.MaxLevel = txtMaxQuestionLevel;
+                objGenSetting.FeeExpiryInDays = txtFeeExpiryInDays;
 
                 _db.SaveChanges();
                 return "Success";

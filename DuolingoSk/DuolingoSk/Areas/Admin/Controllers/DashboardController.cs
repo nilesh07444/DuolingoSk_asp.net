@@ -47,6 +47,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                     select f
                                     ).ToList().Sum(x => x.FeeAmount);
 
+            obj.TotalPendingExams = _db.tbl_Exam.Where(x => x.ResultStatus == (int)ExamResultStatus.Pending).ToList().Count;
+
             return View(obj);
 
         }

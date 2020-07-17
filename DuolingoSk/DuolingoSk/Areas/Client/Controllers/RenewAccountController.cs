@@ -56,8 +56,20 @@ namespace DuolingoSk.Areas.Client.Controllers
                               FeeAmount = a.FeeAmount,
                               TotalExamAttempt = a.TotalExamAttempt,
                               RequestedDate = a.RequestedDate,
+                              FeeExpiryDate = a.FeeExpiryDate,
+                              IsAttemptUsed = a.IsAttemptUsed
                           }).OrderBy(x => x.RequestedDate).ToList();
 
+                if (lstFee.Count > 0)
+                {
+                    lstFee.ForEach(fee =>
+                    {
+                        if (fee.IsAttemptUsed != true)
+                        {
+                            //fee.UsedTotalAttempts = getTotalUsedFeeAttempt(fee.StudentFeeId);
+                        }
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -79,9 +91,27 @@ namespace DuolingoSk.Areas.Client.Controllers
                 if (objStudentFee != null)
                 {
                     ReturnMessage = "ALREADY_PENDING_FOUND";
+                    return ReturnMessage;
                 }
                 else
                 {
+                    DateTime todayDate = DateTime.UtcNow.Date;
+
+                    // Validation for unused previous remaining attempts
+                    tbl_StudentFee objRemainingFeeAttempt = (from s in _db.tbl_StudentFee
+                                                             where s.FeeStatus == "Complete" && s.IsAttemptUsed != true && s.FeeExpiryDate > todayDate
+                                                             select s
+                        ).OrderBy(x => x.StudentFeeId).FirstOrDefault();
+
+                    if (objRemainingFeeAttempt != null)
+                    {
+                        int usedExamCount = _db.tbl_Exam.Where(x => x.StudentFeeId == LoggedInStudentId).ToList().Count;
+                        if (usedExamCount < objRemainingFeeAttempt.TotalExamAttempt)
+                        {
+                            ReturnMessage = "PREVIOUS_EXAM_REMAINING";
+                            return ReturnMessage;
+                        }
+                    }
 
                     decimal? RenewFee = 0;
                     decimal? TotalExamAttempt = 0;
@@ -114,6 +144,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                     _db.SaveChanges();
 
                     ReturnMessage = "SUCCESS";
+
+
                 }
 
 

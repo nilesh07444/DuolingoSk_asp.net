@@ -229,11 +229,18 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     tbl_AdminUsers agentProfile = _db.tbl_AdminUsers.Where(x => x.AdminUserId == LoggedInUserId).FirstOrDefault();
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
 
+                    DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
+                    if (objSetting.FeeExpiryInDays != null && objSetting.FeeExpiryInDays > 0)
+                    {
+                        exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objSetting.FeeExpiryInDays));
+                    }
+
                     tbl_StudentFee objStudentFee = new tbl_StudentFee();
                     objStudentFee.StudentId = objStudent.StudentId;
                     objStudentFee.FeeStatus = "Pending";
                     objStudentFee.FeeAmount = Convert.ToDecimal(agentProfile.StudentRegistrationFee);
                     objStudentFee.TotalExamAttempt = Convert.ToInt32(objSetting.TotalExamAttempt);
+                    objStudentFee.FeeExpiryDate = exp_date;
                     objStudentFee.IsDeleted = false;
                     objStudentFee.RequestedDate = DateTime.UtcNow;
                     _db.tbl_StudentFee.Add(objStudentFee);
@@ -517,7 +524,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     msg += "Regards," + "\n";
                     msg += "Duolingo Sk";
 
-                    string url = "http://sms.unitechcenter.com/sendSMS?username=krupab&message=" + msg + "&sendername=KRUPAB&smstype=TRANS&numbers=" + userVM.MobileNo + "&apikey=e8528131-b45b-4f49-94ef-d94adb1010c4";
+                    string url = "http://sms.unitechcenter.com/sendSMS?username=skacademy&message=" + msg + "&sendername=SKANAD&smstype=TRANS&numbers=" + userVM.MobileNo + "&apikey=0b9c3015-bbcd-4ad8-b9ac-30f28451ebe6";
 
                     var json = webClient.DownloadString(url);
                     if (json.Contains("invalidnumber"))

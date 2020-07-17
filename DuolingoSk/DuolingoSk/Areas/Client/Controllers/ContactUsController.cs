@@ -33,15 +33,15 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                 string bodyMsg = "";
 
-                bodyMsg += "Hi Admin, \n";
-                bodyMsg += "We have received contact inquiry from below details: \n\n";
+                bodyMsg += "Hi Admin, \r\n";
+                bodyMsg += "We have received contact inquiry from below details: \r\n\r\n";
 
-                bodyMsg += "Name: " + Name + " \n";
-                bodyMsg += "Email Id: " + EmailId + " \n";
-                bodyMsg += "Mobile No: " + MobileNo + " \n";
-                bodyMsg += "Message: " + Message + " \n\n";
+                bodyMsg += "Name: " + Name + " \r\n";
+                bodyMsg += "Email Id: " + EmailId + " \r\n";
+                bodyMsg += "Mobile No: " + MobileNo + " \r\n";
+                bodyMsg += "Message: " + Message + " \r\n\r\n";
 
-                bodyMsg += "Thanks, \n";
+                bodyMsg += "Thanks, <br>";
                 bodyMsg += "Duolingo Sk";
 
                 tbl_GeneralSetting objGensetting = _db.tbl_GeneralSetting.FirstOrDefault();

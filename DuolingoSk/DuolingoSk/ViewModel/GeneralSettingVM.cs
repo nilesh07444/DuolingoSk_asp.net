@@ -21,5 +21,6 @@ namespace DuolingoSk
         public decimal? RenewFee { get; set; }
         public int? TotalExamAttempt { get; set; }
         public int? MaxLevel { get; set; }
+        public int? FeeExpiryInDays { get; set; }
     }
 }

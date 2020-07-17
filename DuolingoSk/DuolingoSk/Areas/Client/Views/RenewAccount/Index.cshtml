@@ -121,7 +121,11 @@
                         alert("Your request has been sent successfully..");
                     }
                     else if (data == "ALREADY_PENDING_FOUND") {
-                        alert("Your previous fee status is pending to aproove. You can not send request.");
+                        alert("Your previous fee status is pending to aproove. You can not send new request.");
+                        window.location.reload();
+                    }
+                    else if (data == "PREVIOUS_EXAM_REMAINING") {
+                        alert("You have aleady attempts to use. So You can not send new request.");
                         window.location.reload();
                     }
                     else {

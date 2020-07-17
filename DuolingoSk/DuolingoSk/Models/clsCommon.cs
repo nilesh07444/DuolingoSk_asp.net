@@ -57,6 +57,7 @@ namespace DuolingoSk.Models
                      subject, // Subject of the email message
                       body // Email message body
            );
+
                 mailMessage.From = new MailAddress(from, "Duolingo Sk");
 
                 tbl_GeneralSetting objGensetting = _db.tbl_GeneralSetting.FirstOrDefault();
@@ -69,7 +70,7 @@ namespace DuolingoSk.Models
                 {
                     EnablSSL = "true";
                 }
-                mailMessage.IsBodyHtml = true;
+                
                 // System.Net.Mail.MailMessage mailMessage = (System.Net.Mail.MailMessage)mailMsg;
 
                 /* Setting should be kept somewhere so no need to 

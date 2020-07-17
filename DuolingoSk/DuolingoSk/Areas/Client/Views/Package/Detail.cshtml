@@ -27,7 +27,6 @@
                             <div class="cont-add-lft"> 
                             </div>
                             <div class="cont-add-rgt">
-                                <p  style="color: #ff2828;">Package Image:</p>
                                 @if (!string.IsNullOrEmpty(Model.PackageImageName))
                                 {
                                     <img class="img-responsive" src="@ErrorMessage.PackageDirectoryPath/@Model.PackageImageName" alt="">
@@ -37,7 +36,6 @@
                                     <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                 }
                             </div>
-
                         </div>
 
                         <div class="cont-add">
@@ -53,7 +51,7 @@
                             <div class="cont-add-lft"> 
                             </div>
                             <div class="cont-add-rgt">
-                                <p style="color: #ff2828;">Package Amount:</p>
+                                <p style="color: #ff2828;">Package Price:</p>
                                 <p class="contact-text-sub">@Model.PackageAmount</p>
                             </div>
 
@@ -171,6 +169,5 @@
             return false;
         }
     });
-
-
+     
 </script>

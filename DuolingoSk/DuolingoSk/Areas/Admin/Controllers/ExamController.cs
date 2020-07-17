@@ -1,4 +1,5 @@
-﻿using DuolingoSk.Model;
+﻿using DuolingoSk.Helper;
+using DuolingoSk.Model;
 using DuolingoSk.Models;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 {
                     objEx.Score = ResultScore;
                     objEx.ResultText = ResultText;
-                    objEx.ResultStatus = 2;
+                    objEx.ResultStatus = (int)ExamResultStatus.Complete;
                     objEx.ModifiedBy = clsAdminSession.UserID;
                     objEx.ModifiedDate = DateTime.UtcNow;
                     _db.SaveChanges();

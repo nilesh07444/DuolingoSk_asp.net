@@ -53,7 +53,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                         //string msg1 = "Your Otp code for Login is " + num;
                         //try
                         //{
-                        //    clsCommon.SendEmail(objClientUsr.Email, FromEmail, "OTP Code for Login - Krupa Build Gallery", msg1);
+                        //    clsCommon.SendEmail(objClientUsr.Email, FromEmail, "OTP Code for Login - Duolingo Sk", msg1);
                         //}
                         //catch (Exception e)
                         //{

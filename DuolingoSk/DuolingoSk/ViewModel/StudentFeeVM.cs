@@ -21,5 +21,9 @@ namespace DuolingoSk
         public string StudentName { get; set; }
         public string AgentName { get; set; }
         public string MarkCompleteByUserName { get; set; }
+        public DateTime? FeeExpiryDate { get; set; }
+        public bool? IsAttemptUsed { get; set; }
+        public int UsedTotalAttempts { get; set; }
+
     }
 }

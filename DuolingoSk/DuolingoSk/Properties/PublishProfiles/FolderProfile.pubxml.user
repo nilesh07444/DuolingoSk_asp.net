@@ -28,7 +28,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2020 23:45:43</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Detail.cshtml">
-      <publishTime>07/05/2020 21:07:28</publishTime>
+      <publishTime>07/14/2020 19:31:58</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Index.cshtml">
       <publishTime>06/22/2020 15:47:46</publishTime>
@@ -57,6 +57,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/MyProfile/Index.cshtml">
       <publishTime>06/13/2020 23:34:18</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/Package/Add.cshtml">
+      <publishTime>07/13/2020 18:27:41</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Package/Edit.cshtml">
+      <publishTime>07/13/2020 23:17:25</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Package/Index.cshtml">
+      <publishTime>07/13/2020 23:33:05</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/Question/Add.cshtml">
       <publishTime>07/12/2020 23:09:31</publishTime>
     </File>
@@ -76,10 +85,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/20/2020 20:33:29</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Setting/Index.cshtml">
-      <publishTime>07/05/2020 13:10:44</publishTime>
+      <publishTime>07/14/2020 13:14:20</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout.cshtml">
-      <publishTime>06/22/2020 14:59:34</publishTime>
+      <publishTime>07/13/2020 17:38:50</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Student/Add.cshtml">
       <publishTime>06/13/2020 15:28:53</publishTime>
@@ -109,7 +118,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 18:07:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/HomePage/Index.cshtml">
-      <publishTime>06/08/2020 23:51:25</publishTime>
+      <publishTime>07/14/2020 00:55:48</publishTime>
     </File>
     <File Include="Areas/Client/Views/Material/Index.cshtml">
       <publishTime>06/22/2020 14:27:23</publishTime>
@@ -123,50 +132,71 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Client/Views/MyProfile/Index.cshtml">
       <publishTime>07/04/2020 16:49:59</publishTime>
     </File>
+    <File Include="Areas/Client/Views/Package/Detail.cshtml">
+      <publishTime>07/14/2020 13:11:18</publishTime>
+    </File>
     <File Include="Areas/Client/Views/RenewAccount/Index.cshtml">
-      <publishTime>07/13/2020 01:03:48</publishTime>
+      <publishTime>07/14/2020 19:43:01</publishTime>
     </File>
     <File Include="Areas/Client/Views/Shared/_Layout.cshtml">
       <publishTime>07/04/2020 16:19:40</publishTime>
     </File>
+    <File Include="Areas/Client/Views/StartExam/Demo.cshtml">
+      <publishTime>07/15/2020 09:28:14</publishTime>
+    </File>
     <File Include="Areas/Client/Views/StartExam/Index.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_FeedBack1.cshtml">
+      <publishTime>07/14/2020 01:14:51</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_FeedBack2.cshtml">
+      <publishTime>07/14/2020 01:14:51</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_Feedback3.cshtml">
+      <publishTime>07/14/2020 01:14:51</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_Feedback4.cshtml">
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType1.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType10.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType2.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType3.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType4.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType5.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType6.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/14/2020 01:14:51</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType7.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType8.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_QuestionType9.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_StartNow.cshtml">
-      <publishTime>07/07/2020 12:48:03</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/StartExam/_StartNowDemo.cshtml">
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentLogin/Index.cshtml">
-      <publishTime>06/20/2020 00:39:08</publishTime>
+      <publishTime>07/13/2020 17:25:37</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentRegister/Index.cshtml">
       <publishTime>07/04/2020 16:23:46</publishTime>
@@ -187,10 +217,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/DuolingoSk.dll">
-      <publishTime>07/13/2020 10:36:03</publishTime>
+      <publishTime>07/15/2020 09:36:13</publishTime>
     </File>
     <File Include="bin/DuolingoSk.pdb">
-      <publishTime>07/13/2020 10:36:03</publishTime>
+      <publishTime>07/15/2020 09:36:13</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -11278,7 +11308,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2020 12:58:09</publishTime>
     </File>
     <File Include="Models/DuolingoSk.edmx.diagram">
-      <publishTime>06/17/2020 22:56:16</publishTime>
+      <publishTime>07/14/2020 01:16:49</publishTime>
     </File>
     <File Include="QuestionImage/4f9eb5d8-1d7b-4338-b867-3744baa5faa0-cute-baby-animals-1558535060.jpg">
       <publishTime>07/05/2020 21:07:28</publishTime>
@@ -11392,7 +11422,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:45:48</publishTime>
     </File>
     <File Include="Scripts/recordcustom.js">
-      <publishTime>07/05/2020 21:07:28</publishTime>
+      <publishTime>07/15/2020 09:28:14</publishTime>
     </File>
     <File Include="Scripts/slideapp.js">
       <publishTime>07/05/2020 21:07:28</publishTime>
@@ -11419,7 +11449,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:44:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/07/2020 22:43:37</publishTime>
+      <publishTime>07/15/2020 09:36:16</publishTime>
     </File>
   </ItemGroup>
 </Project>

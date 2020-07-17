@@ -108,11 +108,18 @@ namespace DuolingoSk.Areas.Client.Controllers
                      
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
 
+                    DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
+                    if (objSetting.FeeExpiryInDays != null && objSetting.FeeExpiryInDays > 0)
+                    {
+                        exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objSetting.FeeExpiryInDays));
+                    }
+
                     tbl_StudentFee objStudentFee = new tbl_StudentFee();
                     objStudentFee.StudentId = objStudent.StudentId;
                     objStudentFee.FeeStatus = "Pending";
                     objStudentFee.FeeAmount = Convert.ToDecimal(objSetting.RegistrationFee);
                     objStudentFee.TotalExamAttempt = Convert.ToInt32(objSetting.TotalExamAttempt);
+                    objStudentFee.FeeExpiryDate = exp_date;
                     objStudentFee.IsDeleted = false;
                     objStudentFee.RequestedDate = DateTime.UtcNow;
                     _db.tbl_StudentFee.Add(objStudentFee);
