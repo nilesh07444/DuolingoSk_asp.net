@@ -58,137 +58,7 @@
         <button id="save-recording">Save</button>*@
     <div id="audios-container"></div>
     <div class="container1 login statement enginebox">
-        <div class="indexpage intr0" style="display:block;">
-            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Your inforamtion as it appears on your ID</h2>
-            <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">
-                Unreadable or incorect inforamtion will prevent your
-                result from being cerified.
-            </p>
 
-            <form>
-                <div class="columns is-multiline is-mobile">
-                    <div class="column totlsec">
-                        <div class="columns is-multiline is-mobile">
-                            <div class="column is-3">
-                                <video height="350px" width="400px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
-                            </div>
-                            <div class="column is-9" style="margin-top:15px;">
-                                <form class="is-marginless">
-                                    <div class="columns is-multiline is-mobile">
-                                        <div class="column is-6">
-                                            <div class="field is-marginless">
-                                                <label class="label">Given Name</label>
-                                                <div class="control has-icons-left has-icons-right">
-                                                    <input type="text" name="name" id="name" title="name" placeholder="Name" class="input" readonly value="@ViewBag.FirstName" aria-required="true" aria-invalid="false">
-                                                </div>
-                                            </div>
-                                            <p class="id-text is-size-7 has-text-weight-normal has-text-grey-light">Make a sure list you all of the names on your ID</p>
-                                            <div class="error" style="display: none;"></div>
-                                        </div>
-                                        <div class="column is-6">
-                                            <div class="field">
-                                                <label class="label">SurName(family name,etc)</label>
-                                                <div class="control has-icons-left has-icons-right">
-                                                    <input type="text" name="SurnName" id="SurnName" title="SurnName" value="@ViewBag.LastName" readonly placeholder="SurnName" class="input" aria-required="true" aria-invalid="false">
-                                                </div>
-                                                <div class="error" style="display: none;"></div>
-                                            </div>
-                                        </div>
-                                        <div class="column is-12">
-                                            <div class="field">
-                                                <label class="label">Date Of Birth</label>
-                                                <div class="columns">
-                                                    <div class="column is-3">
-                                                        <div class="select">
-                                                            <select id="bdt" disabled>
-                                                                <option selected="selected" value="0">-Select-</option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                                <option value="11">11</option>
-                                                                <option value="12">12</option>
-                                                                <option value="13">13</option>
-                                                                <option value="14">14</option>
-                                                                <option value="15">15</option>
-                                                                <option value="16">16</option>
-                                                                <option value="17">17</option>
-                                                                <option value="18">18</option>
-                                                                <option value="19">19</option>
-                                                                <option value="20">20</option>
-                                                                <option value="21">21</option>
-                                                                <option value="22">22</option>
-                                                                <option value="23">23</option>
-                                                                <option value="24">24</option>
-                                                                <option value="25">25</option>
-                                                                <option value="26">26</option>
-                                                                <option value="27">27</option>
-                                                                <option value="28">28</option>
-                                                                <option value="29">29</option>
-                                                                <option value="30">30</option>
-                                                                <option value="31">31</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="column is-3">
-                                                        <div class="select">
-                                                            <select id="mdt" disabled>
-                                                                <option selected="selected" value="0">-Select-</option>
-                                                                <option value="1">Janaury</option>
-                                                                <option value="2">February</option>
-                                                                <option value="3">March</option>
-                                                                <option value="4">April</option>
-                                                                <option value="5">May</option>
-                                                                <option value="6">June</option>
-                                                                <option value="7">July</option>
-                                                                <option value="8">August</option>
-                                                                <option value="9">September</option>
-                                                                <option value="10">October</option>
-                                                                <option value="11">November</option>
-                                                                <option value="12">December</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="column is-3">
-                                                        <div class="control">
-                                                            <div class="select">
-                                                                <select id="ydt" disabled>
-                                                                    <option selected="selected" value="0">-Select-</option>
-                                                                    @for (int yrr = DateTime.Now.Year; yrr >= 1960; yrr--)
-                                                                    {
-                                                                        <option value="@yrr">@yrr</option>
-                                                                    }
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns is-multiline is-mobile footsec">
-                    <div class="column is-4"></div>
-                    <div class="column is-4">
-                        <progress value="1" max="10" class="progress is-small is-mycolor"></progress>
-                    </div>
-                    <div class="column is-4">
-                        <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
         <div class="indexpage" style="display:none;">
             <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Demographic information</h2>
             <p class="column is-offset-2 is-8 is-size-6 has-text-weight-normal has-text-centered has-text-grey-light">We use this information to make a sure test is fair for everyone.it isn't shared when you send your test result</p>
@@ -415,7 +285,7 @@
                 </div>
             </div>
         </div>
-        <div class="indexpage intr1" style="display:none;">
+        <div class="indexpage intr0" style="display:block;">
             <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Select Exam Level</h2>
             <br>
             <div class="columns is-multiline is-mobile">
@@ -447,14 +317,14 @@
             </div>
             <div class="columns is-multiline is-mobile last-sec footsec">
                 <div class="column is-4">
-                    <progress value="0" max="10" class="progress is-small is-mycolor"></progress>
+                    <progress value="1" max="10" class="progress is-small is-mycolor"></progress>
                 </div>
                 <div class="column is-4">
                     <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="checklevl();">Next</button>
                 </div>
             </div>
         </div>
-        <div class="indexpage intr2" style="display:none;">
+        <div class="indexpage intr1" style="display:none;">
             <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Ensure you are always fully visible</h2>
             <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">If you cannot seen at all time, your test will not be certifed</p>
             <div class="columns is-multiline is-mobile visiblepg">
@@ -487,7 +357,7 @@
                 </div>
             </div>
         </div>
-        <div class="indexpage intr3" style="display:none;">
+        <div class="indexpage intr2" style="display:none;">
             <div class="ready-text">
                 <img src="~/Images/I3.png" style="width: 70%;">
                 <h2 class="is-size-4 has-text-weight-semibold is-capitalized has-text-centered is-marginless">You're ready to take the test</h2>
@@ -498,14 +368,146 @@
                     <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold" onclick="backintro();">Back</button>
                 </div>
                 <div class="column is-4">
-                    <progress value="100" max="100" class="progress is-small is-mycolor"></progress>
+                    <progress value="6" max="10" class="progress is-small is-mycolor"></progress>
                 </div>
                 <div class="column is-4">
-                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="Start();">START</button>
+                    <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="nextintro();">Next</button>
                 </div>
             </div>
         </div>
+        <div class="indexpage intr3" style="display:none;">
+            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Your inforamtion as it appears on your ID</h2>
+            <p class="is-size-5 has-text-weight-normal has-text-centered has-text-grey-light">
+                Unreadable or incorect inforamtion will prevent your
+                result from being cerified.
+            </p>
 
+            <form>
+                <div class="columns is-multiline is-mobile">
+                    <div class="column totlsec">
+                        <div class="columns is-multiline is-mobile">
+                            <div class="column is-3">
+                                <video height="350px" width="400px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                            </div>
+                            <div class="column is-9" style="margin-top:15px;">
+                                <form class="is-marginless">
+                                    <div class="columns is-multiline is-mobile">
+                                        <div class="column is-6">
+                                            <div class="field is-marginless">
+                                                <label class="label">Given Name</label>
+                                                <div class="control has-icons-left has-icons-right">
+                                                    <input type="text" name="name" id="name" title="name" placeholder="Name" class="input" readonly value="@ViewBag.FirstName" aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                            <p class="id-text is-size-7 has-text-weight-normal has-text-grey-light">Make a sure list you all of the names on your ID</p>
+                                            <div class="error" style="display: none;"></div>
+                                        </div>
+                                        <div class="column is-6">
+                                            <div class="field">
+                                                <label class="label">SurName(family name,etc)</label>
+                                                <div class="control has-icons-left has-icons-right">
+                                                    <input type="text" name="SurnName" id="SurnName" title="SurnName" value="@ViewBag.LastName" readonly placeholder="SurnName" class="input" aria-required="true" aria-invalid="false">
+                                                </div>
+                                                <div class="error" style="display: none;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="column is-12">
+                                            <div class="field">
+                                                <label class="label">Date Of Birth</label>
+                                                <div class="columns">
+                                                    <div class="column is-3">
+                                                        <div class="select">
+                                                            <select id="bdt" disabled>
+                                                                <option selected="selected" value="0">-Select-</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-3">
+                                                        <div class="select">
+                                                            <select id="mdt" disabled>
+                                                                <option selected="selected" value="0">-Select-</option>
+                                                                <option value="1">Janaury</option>
+                                                                <option value="2">February</option>
+                                                                <option value="3">March</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">May</option>
+                                                                <option value="6">June</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">August</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-3">
+                                                        <div class="control">
+                                                            <div class="select">
+                                                                <select id="ydt" disabled>
+                                                                    <option selected="selected" value="0">-Select-</option>
+                                                                    @for (int yrr = DateTime.Now.Year; yrr >= 1960; yrr--)
+                                                                    {
+                                                                        <option value="@yrr">@yrr</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-multiline is-mobile footsec">
+                    <div class="column is-4">
+                        <button class="button is-primary bgbutton is-uppercase is-pulled-left has-text-weight-semibold" onclick="backintro();">Back</button>
+                    </div>
+                    <div class="column is-4">
+                        <progress value="100" max="100" class="progress is-small is-mycolor"></progress>
+                    </div>
+                    <div class="column is-4">
+                        <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold" onclick="Start();">START</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
