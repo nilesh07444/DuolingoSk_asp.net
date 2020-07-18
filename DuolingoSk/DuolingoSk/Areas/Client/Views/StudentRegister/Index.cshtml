@@ -11,7 +11,16 @@
     DuolingoSk_Entities _db = new DuolingoSk_Entities();
     tbl_GeneralSetting setting = _db.tbl_GeneralSetting.FirstOrDefault();
 }
-  
+    <style>
+        .modal {
+            top: 25%;
+            opacity: 1 !important;
+        }
+
+        .modal-header {
+            padding-top: 30px;
+        }
+    </style>
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
@@ -34,7 +43,7 @@
 
                 <div class="contacts12-main col-lg-12">
                     <center>
-                        @using (Html.BeginForm("Index", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form" }))
+                        @using (Html.BeginForm("Index", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();"}))
                         {
 
                             @Html.AntiForgeryToken()
@@ -77,7 +86,7 @@
 
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly="@readonly" } })
+                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly = "@readonly" } })
 
                                 @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
                             </div>
@@ -95,7 +104,7 @@
 
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
-
+                            <input type="hidden" id="hdnotptxt" value="" />
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Registration Fee *</label>
                                 <input type="text" placeholder="Registration Fee" value="@setting.RegistrationFee" disabled>
@@ -117,7 +126,24 @@
 
     </div>
 </section>
-
+<div class="modal fade open" id="otpmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Register OTP</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#hdnotptxt').val('');$('#otptxt').val('');">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>Enter OTP</label><input type="text" id="otptxt" value="" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteProductItem" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button" onclick="$('#hdnotptxt').val('');$('#otptxt').val('');">Close</button>
+                <button class="btn btn-primary" type="button" onclick="submitotp();">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -133,5 +159,58 @@
         });
 
     });
+
+    function CheckRegister() {
+        if ($("#FirstName").val() == "" || $("#LastName").val() == "" || $("#MobileNo").val() == "" || $("#MobileNo").val().length < 10 || $("#Password").val() == "") {
+            return false;
+        }
+        else {
+             if ($('#hdnotptxt').val() == "") {
+                 var URL = '@Url.Action("SendOTP", "StudentRegister")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                   url: URL + "?MobileNumber=" + $("#MobileNo").val(),
+                success: function (result) {
+                    if (result == "Mobile Number Already Exist") {
+                        alert("Mobile Number Already Exist");
+                        return false;
+                    }
+                    else if (result == "InvalidNumber")
+                    {
+                        alert("Invalid Mobile Number");
+                        return false;
+                    }
+                    else {
+                        alert("Otp Sent to your mobile number.");
+                        $('#hdnotptxt').val(result);
+                        $("#otpmodal").modal();
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        }
+
+    function submitotp() {
+        if ($("#otptxt").val() == "") {
+            alert("Please enter otp");
+            return false;
+        }
+
+        if ($("#otptxt").val() != $('#hdnotptxt').val()) {
+             alert("Invalid OTP");
+            return false;
+        }
+
+        $("#StudentUserFormId").submit();
+    }
 
 </script>

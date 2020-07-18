@@ -186,6 +186,53 @@ namespace DuolingoSk.Areas.Client.Controllers
                 return ex.Message.ToString();
             }
         }
-         
+
+        public string SendOTP(string MobileNumber)
+        {
+            try
+            {
+                tbl_Students duplicateMobile = _db.tbl_Students.Where(x => x.MobileNo.ToLower() == MobileNumber && !x.IsDeleted).FirstOrDefault();
+                if (duplicateMobile != null)
+                {
+                    return "Mobile Number Already Exist";
+                }
+
+                using (WebClient webClient = new WebClient())
+                {
+                    Random random = new Random();
+                    int num = random.Next(555555, 999999);
+                    string msg = "Your Otp code for Registration is " + num;
+                    string url = "http://sms.unitechcenter.com/sendSMS?username=skacademy&message=" + msg + "&sendername=SKANAD&smstype=TRANS&numbers=" + MobileNumber + "&apikey=0b9c3015-bbcd-4ad8-b9ac-30f28451ebe6";
+                    var json = webClient.DownloadString(url);
+                    if (json.Contains("invalidnumber"))
+                    {
+                        return "InvalidNumber";
+                    }
+                    else
+                    {
+                        //tbl_GeneralSetting objGensetting = _db.tbl_GeneralSetting.FirstOrDefault();
+                        //string FromEmail = objGensetting.FromEmail;
+                        //string msg1 = "Your Otp code for Login is " + num;
+                        //try
+                        //{
+                        //    clsCommon.SendEmail(objClientUsr.Email, FromEmail, "OTP Code for Login - Duolingo Sk", msg1);
+                        //}
+                        //catch (Exception e)
+                        //{
+                        //    string ErrorMessage = e.Message.ToString();
+                        //}
+
+                        return num.ToString();
+
+                    }
+
+                }
+            }
+            catch (WebException ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

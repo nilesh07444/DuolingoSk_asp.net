@@ -2,7 +2,15 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<style>  
+    .modal {
+        top: 25%;
+        opacity: 1 !important; 
+    }
+    .modal-header {
+        padding-top: 30px;
+    }
+</style>
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
@@ -25,7 +33,7 @@
 
                 <div class="contacts12-main col-lg-12">
                     <center>
-                        @using (Html.BeginForm("CheckLogin", "StudentLogin", FormMethod.Post, new { ID = "theFormId", @class = "main-input" }))
+                        @using (Html.BeginForm("CheckLogin", "StudentLogin", FormMethod.Post, new { ID = "theFormId", @class = "main-input", onsubmit = "return Login();" }))
                         {
 
                             <div class="top-inputs d-grid col-lg-6">
@@ -50,6 +58,7 @@
                             </div>
 
                             <div class="text-left col-lg-6">
+                                <input type="hidden" id="hdnotptxt" value="" />
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
                             </div>
 
@@ -66,4 +75,76 @@
 
 <script>
 
+</script>
+<div class="modal fade open" id="otpmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Login OTP</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#hdnotptxt').val('');$('#otptxt').val('');">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>Enter OTP</label><input type="text" id="otptxt" value="" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteProductItem" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button" onclick="$('#hdnotptxt').val('');$('#otptxt').val('');">Close</button>
+                <button class="btn btn-primary" type="button" onclick="submitotp();">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+      function Login() {
+        if ($("#emailmobile").val().trim() == "" || $("#password").val().trim() == "") {
+            $(".errorcls").html("Mobilenumber and Password must be required!!");
+            return false;
+        }
+        else {
+            if ($('#hdnotptxt').val() == "") {
+                 var URL = '@Url.Action("SendOTP", "StudentLogin")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?MobileNumber=" + $("#emailmobile").val(),
+                success: function (result) {
+                    if (result == "NotExist") {
+                        alert("MobileNumber is not Exist");
+                        return false;
+                    }
+                    if (result == "InActiveAccount") {
+                        alert("Your Account is Inactive. Please contact to support");
+                        return false;
+                    }
+                    else {
+                        alert("Otp Sent to your registerd mobile number.");
+                        $('#hdnotptxt').val(result);
+                        $("#otpmodal").modal();
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+                return false;
+            }
+            else {              
+                return true;
+            }
+        }
+    }
+
+    function submitotp() {
+        if ($("#otptxt").val() == "") {
+            alert("Please enter otp");
+            return false;
+        }
+
+        if ($("#otptxt").val() != $('#hdnotptxt').val()) {
+             alert("Invalid OTP");
+            return false;
+        }
+
+        $("#theFormId").submit();
+    }
 </script>
