@@ -5,7 +5,8 @@
 @model List<ExamVM>
 @{
     ViewBag.Title = "ExamList";
-
+    List<SelectListItem> lstlvls = ViewData["LevelList"] as List<SelectListItem>;
+   
     int counter = 1;
 }
 
@@ -39,7 +40,35 @@
                 <h5>Exam List</h5>
             </div>
             <div class="card-body vendor-table">
+                <h3>Filter:</h3>
+                <div class="row" style="margin-top:25px; border-bottom: 2px solid #f8f8f9; padding-bottom: 25px; margin-bottom: 10px;">
+                    <div class="col-md-3">
+                        <label>Level</label>
+                        <select id="selectlevel" class="form-control">
+                            <option value="-1">All</option>
+                            @if (lstlvls != null && lstlvls.Count() > 0)
+                            {
+                                foreach (var objc in lstlvls)
+                                {
+                                    <option value="@objc.Value">@objc.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
 
+                    <div class="col-md-3">
+                        <label>Result Status</label>
+                        <select id="selectstatus" class="form-control">
+                            <option value="-1">All</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Complete">Complete</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="button" value="Filter" class="btn btn-info" onclick="filterdata();" style="position: absolute; bottom: 0;" />
+                    </div>
+                </div>
                 <table class="display" id="basic-1">
                     <thead>
                         <tr>
@@ -59,18 +88,18 @@
                         {
                             foreach (ExamVM obj in Model)
                             {
-                        <tr class="grade">
-                            <td>@counter.</td>
-                            <td>@Convert.ToDateTime(obj.ExamDate).ToString("dd/MM/yyyy")</td>
-                            <td>@obj.StudentName</td>
-                            <td>@obj.AgentName</td>
-                            <td>@obj.LevelName</td>
-                            <td>@(obj.ResultStatus == 1 ? "Pending" : "Complete")</td>
-                            <td>@obj.Score</td>
-                            <td>
-                                <a title="View" href="/admin/exam/detail/@obj.Exam_Id"><i class="fa fa-eye mr-2 font-success"></i></a>
-                            </td>
-                        </tr>
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@Convert.ToDateTime(obj.ExamDate).ToString("dd/MM/yyyy")</td>
+                                    <td>@obj.StudentName</td>
+                                    <td>@obj.AgentName</td>
+                                    <td>@obj.LevelName</td>
+                                    <td>@(obj.ResultStatus == 1 ? "Pending" : "Complete")</td>
+                                    <td>@obj.Score</td>
+                                    <td>
+                                        <a title="View" href="/admin/exam/detail/@obj.Exam_Id"><i class="fa fa-eye mr-2 font-success"></i></a>
+                                    </td>
+                                </tr>
                                 counter++;
                             }
                         }
@@ -88,6 +117,13 @@
 
     jQuery(document).ready(function () {
         jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+        $("#selectlevel").val('@ViewBag.levelid');
+        $("#selectstatus").val('@ViewBag.status');
     });
-     
+    function filterdata() {
+        var levlid = $("#selectlevel").val();
+        var statusid = $("#selectstatus").val();
+        
+        location.href = "/admin/exam?level=" + levlid + "&status=" + statusid;
+    }
 </script>

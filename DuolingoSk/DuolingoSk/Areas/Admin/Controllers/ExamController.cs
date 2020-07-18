@@ -3,6 +3,7 @@ using DuolingoSk.Model;
 using DuolingoSk.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,15 +19,21 @@ namespace DuolingoSk.Areas.Admin.Controllers
             _db = new DuolingoSk_Entities();           
         }
         // GET: Admin/Exam
-        public ActionResult Index()
+        public ActionResult Index(int level = -1, string status = "-1")
         {
             List<ExamVM> lstExams = new List<ExamVM>();
+            int resulstatusid = 2;
+            if(status == "Pending")
+            {
+                resulstatusid = 1;
+            }
 
             lstExams = (from e in _db.tbl_Exam
                         join l in _db.tbl_QuestionLevel on e.QuestionLevelId equals l.Level_Id
                         join s in _db.tbl_Students on e.StudentId equals s.StudentId
                         join a in _db.tbl_AdminUsers on s.AdminUserId equals a.AdminUserId into outerAgent
                         from agent in outerAgent.DefaultIfEmpty() 
+                        where (level == -1 || e.QuestionLevelId == level) && (status == "-1" || e.ResultStatus == resulstatusid)
                         select new ExamVM
                         {
                             Exam_Id = e.Exam_Id,
@@ -39,6 +46,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             Score = e.Score
                         }).OrderByDescending(x => x.ExamDate).ToList();
 
+            ViewData["LevelList"] = _db.tbl_QuestionLevel.Where(x => x.IsDeleted == false)
+                     .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.Level_Id).Trim(), Text = o.LevelName})
+                     .OrderBy(x => x.Text).ToList();
+            ViewBag.levelid = level;
+            ViewBag.status = status;
             return View(lstExams);
         }
 
