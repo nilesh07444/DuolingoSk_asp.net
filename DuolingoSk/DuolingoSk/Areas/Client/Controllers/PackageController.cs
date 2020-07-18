@@ -46,5 +46,39 @@ namespace DuolingoSk.Areas.Client.Controllers
             return View(objPackage);
         }
 
+        [HttpPost]
+        public string SubmitPackageForm(FormCollection frm)
+        {
+            string ReturnMessage = "";
+            try
+            {
+                string Name = frm["name"];
+                string EmailId = frm["emailid"];
+                string MobileNo = frm["mobileno"];
+                string Message = frm["message"];
+                int PackageId = Convert.ToInt32(frm["packageid"]);
+
+                tbl_PackageBuyDetails objDetail = new tbl_PackageBuyDetails();
+                objDetail.FullName = Name;
+                objDetail.EmailId = EmailId;
+                objDetail.MobileNo = MobileNo;
+                objDetail.Message = Message;
+                objDetail.PackageId = PackageId;
+                objDetail.CreatedDate = DateTime.UtcNow;
+                _db.tbl_PackageBuyDetails.Add(objDetail);
+                _db.SaveChanges();
+
+                ReturnMessage = "SUCCESS";
+
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = ex.Message.ToString();
+                ReturnMessage = "ERROR";
+            }
+
+            return ReturnMessage;
+        }
+
     }
 }

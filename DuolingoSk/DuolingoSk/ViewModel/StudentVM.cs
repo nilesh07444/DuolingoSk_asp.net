@@ -38,7 +38,7 @@ namespace DuolingoSk
         public string Remarks { get; set; }
         public bool IsActive { get; set; }
 
-        [Display(Name = "Profile Picture")]
+        [Display(Name = "Student Photo")]
         public HttpPostedFileBase ProfilePictureFile { get; set; }
 
         // Addional fields 

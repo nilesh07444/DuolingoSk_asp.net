@@ -131,6 +131,18 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
+        <EntityType Name="tbl_PackageBuyDetails">
+          <Key>
+            <PropertyRef Name="PackageBuyDetailId" />
+          </Key>
+          <Property Name="PackageBuyDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbl_QuestionLevel">
           <Key>
             <PropertyRef Name="Level_Id" />
@@ -222,6 +234,7 @@
           <EntitySet Name="tbl_Materials" EntityType="Self.tbl_Materials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Package" EntityType="Self.tbl_Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_PackageBuyDetails" EntityType="Self.tbl_PackageBuyDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionLevel" EntityType="Self.tbl_QuestionLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" Schema="dbo" store:Type="Tables" />
@@ -369,6 +382,7 @@
           <EntitySet Name="tbl_QuestionLevel" EntityType="Duolingo_skModel.tbl_QuestionLevel" />
           <EntitySet Name="tbl_Package" EntityType="Duolingo_skModel.tbl_Package" />
           <EntitySet Name="tbl_Feedback" EntityType="Duolingo_skModel.tbl_Feedback" />
+          <EntitySet Name="tbl_PackageBuyDetails" EntityType="Duolingo_skModel.tbl_PackageBuyDetails" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
           <Key>
@@ -454,6 +468,18 @@
           <Property Name="UpdatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="PackageAmount" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbl_PackageBuyDetails">
+          <Key>
+            <PropertyRef Name="PackageBuyDetailId" />
+          </Key>
+          <Property Name="PackageBuyDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -679,6 +705,19 @@
                 <ScalarProperty Name="PackageImage" ColumnName="PackageImage" />
                 <ScalarProperty Name="PackageName" ColumnName="PackageName" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PackageBuyDetails">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_PackageBuyDetails">
+              <MappingFragment StoreEntitySet="tbl_PackageBuyDetails">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PackageBuyDetailId" ColumnName="PackageBuyDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

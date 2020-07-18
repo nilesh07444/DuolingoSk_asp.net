@@ -73,6 +73,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 ViewBag.status = status;
                 ViewBag.startdate = startdate;
                 ViewBag.enddate = enddate;
+
+                ViewBag.IsAgent = IsAgent;
+
             }
             catch (Exception ex)
             {

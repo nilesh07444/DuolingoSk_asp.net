@@ -43,11 +43,18 @@
 
                 <div class="contacts12-main col-lg-12">
                     <center>
-                        @using (Html.BeginForm("Index", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();"}))
+                        @using (Html.BeginForm("Index", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();" }))
                         {
 
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="top-inputs d-grid col-lg-6">
+                            @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "text-left" })                            
+                            @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "" })
+
+                            @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
+                        </div>
 
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })

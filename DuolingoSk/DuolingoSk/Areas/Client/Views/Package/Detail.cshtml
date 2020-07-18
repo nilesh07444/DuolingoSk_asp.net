@@ -96,6 +96,7 @@
                             <span id="spn_message" class="clserror text-danger"></span>
                         </div>
                         <div class="text-right">
+                            <input type="hidden" id="packageid" name="packageid" value="@Model.PackageId" />
                             <button id="btnSubmit" type="button" class="btn btn-theme2">Submit Now</button>
                         </div>
                     </form>
@@ -146,7 +147,7 @@
 
         if (flag) {
              $.blockUI({ message: "<h4>Please Wait...</h4>" });
-            var URL = '@Url.Action("SubmitContactForm", "ContactUs")';
+            var URL = '@Url.Action("SubmitPackageForm", "Package")';
             jQuery.ajax({
                 url: URL,
                 type: 'POST',
@@ -155,9 +156,10 @@
                     $.unblockUI();
                     if (data == "SUCCESS") {
                         alert("Thank you.. We will contact you soon.");
+                        window.location.reload();
                     }
                     else {
-                        alert("Error: Mail Sending Fail.. Please try after sometime..");
+                        alert("Something went wrong. Please try again.");
                     }
                 },
                 error: function (data) {

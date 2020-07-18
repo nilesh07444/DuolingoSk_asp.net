@@ -1,5 +1,6 @@
 ﻿@using DuolingoSk.Model;
 @using DuolingoSk.Models;
+@using DuolingoSk.Helper;
 @model StudentVM
 
 @{
@@ -35,6 +36,21 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             <div class="top-inputs d-grid col-lg-6">
+                                @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "text-left" })
+                                @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "" })
+
+                                @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
+
+                                @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                                {
+                                    <p><a style="float: left;" target="_blank" href="@ErrorMessage.UserProfileDirectoryPath/@Model.ProfilePicture"> Click here to view image </a></p>
+                                }
+
+                            </div>
+
+
+
+                            <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "", @placeholder = "Enter First Name", maxlength = "200" } })
 
@@ -57,11 +73,11 @@
 
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "", @placeholder = "Enter Mobile No", maxlength = "200", @readonly="readonly" } })
+                                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "", @placeholder = "Enter Mobile No", maxlength = "200", @readonly = "readonly" } })
 
                                 @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
                             </div>
-                              
+
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "text-left" })
                                 @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly = "@readonly" } })

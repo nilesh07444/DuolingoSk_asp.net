@@ -21,4 +21,18 @@ namespace DuolingoSk
         //
         public string PackageImageName { get; set; }
     }
+
+    public class PackageInquiryVM
+    {
+        public int PackageBuyDetailId { get; set; }
+        public string FullName { get; set; }
+        public string EmailId { get; set; }
+        public string MobileNo { get; set; }
+        public string Message { get; set; }
+        public int PackageId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string PackageName { get; set; }
+
+    }
+
 }

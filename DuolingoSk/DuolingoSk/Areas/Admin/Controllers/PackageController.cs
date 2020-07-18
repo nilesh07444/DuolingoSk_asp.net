@@ -262,6 +262,63 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             return ReturnMessage;
         }
-         
+
+        public ActionResult Inquiry()
+        {
+            List<PackageInquiryVM> lstPackage = new List<PackageInquiryVM>();
+
+            try
+            {
+                lstPackage = (from m in _db.tbl_PackageBuyDetails 
+                              join p in _db.tbl_Package on m.PackageId equals p.PackageId
+                              select new PackageInquiryVM
+                              {
+                                  PackageBuyDetailId = m.PackageBuyDetailId,
+                                  FullName = m.FullName,
+                                  EmailId = m.EmailId,
+                                  MobileNo = m.MobileNo,
+                                  Message = m.Message,
+                                  CreatedDate = m.CreatedDate,
+                                  PackageId = m.PackageId,
+                                  PackageName = p.PackageName, 
+                              }).ToList();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(lstPackage);
+        }
+
+
+        public ActionResult ViewInquiry(long Id)
+        {
+            PackageInquiryVM objPackage = new PackageInquiryVM();
+
+            try
+            {
+                objPackage = (from m in _db.tbl_PackageBuyDetails
+                              join p in _db.tbl_Package on m.PackageId equals p.PackageId
+                              where m.PackageBuyDetailId == Id
+                              select new PackageInquiryVM
+                              {
+                                  PackageBuyDetailId = m.PackageBuyDetailId,
+                                  FullName = m.FullName,
+                                  EmailId = m.EmailId,
+                                  MobileNo = m.MobileNo,
+                                  Message = m.Message,
+                                  CreatedDate = m.CreatedDate,
+                                  PackageId = m.PackageId,
+                                  PackageName = p.PackageName,
+                              }).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View(objPackage);
+        }
+
+
     }
 }

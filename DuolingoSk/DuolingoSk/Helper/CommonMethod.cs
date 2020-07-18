@@ -32,6 +32,6 @@ namespace DuolingoSk
                 list.Add(items.GetRange(i, Math.Min(sliceSize, items.Count - i)));
             return list;
         }
-
+          
     }
 }

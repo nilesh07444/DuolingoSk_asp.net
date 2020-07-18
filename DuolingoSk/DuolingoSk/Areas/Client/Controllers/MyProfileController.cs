@@ -38,7 +38,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                                         MobileNo = s.MobileNo,
                                         Address = s.Address,
                                         City = s.City,
-                                        dtDob = s.Dob
+                                        dtDob = s.Dob,
+                                        ProfilePicture = s.ProfilePicture
                                     }).FirstOrDefault();
 
             if (objStudent != null && objStudent.dtDob != null)

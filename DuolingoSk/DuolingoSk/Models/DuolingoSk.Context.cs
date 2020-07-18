@@ -38,5 +38,6 @@ namespace DuolingoSk.Models
         public virtual DbSet<tbl_QuestionLevel> tbl_QuestionLevel { get; set; }
         public virtual DbSet<tbl_Package> tbl_Package { get; set; }
         public virtual DbSet<tbl_Feedback> tbl_Feedback { get; set; }
+        public virtual DbSet<tbl_PackageBuyDetails> tbl_PackageBuyDetails { get; set; }
     }
 }
