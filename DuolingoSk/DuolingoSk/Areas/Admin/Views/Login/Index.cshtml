@@ -479,7 +479,8 @@
                 type: 'POST',
                 async: true,
                 url: URL + "?MobileNumber=" + $("#txtUserName").val(),
-                success: function (result) {
+                   success: function (result) {
+                       debugger;
                     if (result == "NotExist") {
                         alert("Username or Password is Invalid");
                         return false;

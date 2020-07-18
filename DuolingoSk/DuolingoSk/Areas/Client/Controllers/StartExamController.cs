@@ -42,7 +42,9 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                 ViewBag.FirstName = objStudent.FirstName;
                 ViewBag.LastName = objStudent.LastName;
-                ViewBag.Dob = objStudent.Dob.Value;
+
+                ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
+
                 List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(Levl).ToList();
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
                 //if(Session["lstQuestionsExam"] == null)
@@ -96,7 +98,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                
                 ViewBag.FirstName = objStudent.FirstName;
                 ViewBag.LastName = objStudent.LastName;
-                ViewBag.Dob = objStudent.Dob.Value;
+                ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
                 List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
                 return View();

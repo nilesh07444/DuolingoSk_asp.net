@@ -36,6 +36,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
+                        @*<li class="nav-item">
+
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#modalLoginForm"> Popup  </a>
+
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
@@ -112,6 +117,57 @@
         <!-- /move top -->
     </section>
 
+    <!-- model popup code start> -->
+
+
+    <form name="f1" id="f1" method="GET" action="">
+         
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color:#A21D22">
+                    <div class="modal-header text-center">
+                        <h1 class="modal-title w-100 font-weight-bold" style="color: white;font-family: myriad pro; margin-top: 15px"> <i>LOGIN</i></h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fa fa-user" style="color:white;"> <label class="fnt" style="color: white;font-size: 18px;">&nbsp;Username </label></i>
+                            <input type="text" name="username" id="username" class="form-control validate" required>
+
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class="fa fa-lock" style="color: white;font-size:20px;"> <label class="fnt" style="color: white;font-size: 18px;">&nbsp;Password </label></i>
+                            <input type="password" name="password" id="password" class="form-control validate " required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class=" text-center" style="margin-top: 20px">
+                        <h1 class=" w-100 font-weight-bold"> <button type="submit" class="btn btn-primary" style="background-color: white;color: #181c33">Login</button></h1>
+
+
+
+                    </div>
+
+
+                    <div class="modal-header text-center">
+                        <h2 class="modal-title w-100 font-weight-bold" data-dismiss="modal"><a class="dropdown-item" href="" data-toggle="modal" data-target="#modalfp" style="color: white;font-family: myriad pro; margin-top: 15px"> <i>  Forget Password ?</i> </a></h2>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <!-- model popup code end> -->
 
     <script src="~/Content/client_assets/js/jquery-3.3.1.min.js"></script>
 
