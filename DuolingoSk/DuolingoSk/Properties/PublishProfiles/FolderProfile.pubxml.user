@@ -28,10 +28,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 23:27:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Detail.cshtml">
-      <publishTime>07/14/2020 19:31:58</publishTime>
+      <publishTime>07/18/2020 23:11:29</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Index.cshtml">
-      <publishTime>06/22/2020 15:47:46</publishTime>
+      <publishTime>07/18/2020 21:22:29</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Fees/Add.cshtml">
       <publishTime>06/07/2020 15:56:15</publishTime>
@@ -40,7 +40,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 15:56:25</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Fees/Index.cshtml">
-      <publishTime>07/18/2020 12:25:28</publishTime>
+      <publishTime>07/19/2020 00:24:16</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Login/Index.cshtml">
       <publishTime>07/18/2020 13:04:23</publishTime>
@@ -55,7 +55,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2020 21:22:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/MyProfile/Index.cshtml">
-      <publishTime>06/13/2020 23:34:18</publishTime>
+      <publishTime>07/19/2020 00:37:08</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Package/Add.cshtml">
       <publishTime>07/13/2020 18:27:41</publishTime>
@@ -65,6 +65,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Areas/Admin/Views/Package/Index.cshtml">
       <publishTime>07/13/2020 23:33:05</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Package/Inquiry.cshtml">
+      <publishTime>07/19/2020 00:00:38</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Package/ViewInquiry.cshtml">
+      <publishTime>07/19/2020 00:05:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Question/Add.cshtml">
       <publishTime>07/12/2020 23:09:31</publishTime>
@@ -88,7 +94,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/14/2020 13:14:20</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout.cshtml">
-      <publishTime>07/13/2020 17:38:50</publishTime>
+      <publishTime>07/18/2020 23:52:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Student/Add.cshtml">
       <publishTime>06/13/2020 15:28:53</publishTime>
@@ -118,7 +124,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 18:07:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/HomePage/Index.cshtml">
-      <publishTime>07/14/2020 00:55:48</publishTime>
+      <publishTime>07/23/2020 23:45:11</publishTime>
     </File>
     <File Include="Areas/Client/Views/Material/Index.cshtml">
       <publishTime>06/22/2020 14:27:23</publishTime>
@@ -130,22 +136,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/04/2020 17:25:27</publishTime>
     </File>
     <File Include="Areas/Client/Views/MyProfile/Index.cshtml">
-      <publishTime>07/04/2020 16:49:59</publishTime>
+      <publishTime>07/19/2020 00:43:56</publishTime>
     </File>
     <File Include="Areas/Client/Views/Package/Detail.cshtml">
-      <publishTime>07/14/2020 13:11:18</publishTime>
+      <publishTime>07/18/2020 23:24:03</publishTime>
     </File>
     <File Include="Areas/Client/Views/RenewAccount/Index.cshtml">
       <publishTime>07/14/2020 19:43:01</publishTime>
     </File>
     <File Include="Areas/Client/Views/Shared/_Layout.cshtml">
-      <publishTime>07/18/2020 14:20:46</publishTime>
+      <publishTime>07/18/2020 21:22:29</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/Demo.cshtml">
-      <publishTime>07/18/2020 14:42:11</publishTime>
+      <publishTime>07/19/2020 00:17:10</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/Index.cshtml">
-      <publishTime>07/18/2020 14:42:31</publishTime>
+      <publishTime>07/18/2020 23:11:29</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_FeedBack1.cshtml">
       <publishTime>07/17/2020 23:34:27</publishTime>
@@ -190,16 +196,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2020 23:34:27</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_StartNow.cshtml">
-      <publishTime>07/17/2020 23:34:27</publishTime>
+      <publishTime>07/18/2020 23:11:29</publishTime>
     </File>
     <File Include="Areas/Client/Views/StartExam/_StartNowDemo.cshtml">
-      <publishTime>07/15/2020 09:28:14</publishTime>
+      <publishTime>07/18/2020 23:11:29</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentLogin/Index.cshtml">
-      <publishTime>07/13/2020 17:25:37</publishTime>
+      <publishTime>07/23/2020 22:36:37</publishTime>
     </File>
     <File Include="Areas/Client/Views/StudentRegister/Index.cshtml">
-      <publishTime>07/04/2020 16:23:46</publishTime>
+      <publishTime>07/19/2020 00:31:50</publishTime>
     </File>
     <File Include="Areas/Client/Views/Tips/Index.cshtml">
       <publishTime>06/22/2020 14:27:21</publishTime>
@@ -217,10 +223,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/DuolingoSk.dll">
-      <publishTime>07/18/2020 14:45:59</publishTime>
+      <publishTime>07/23/2020 23:48:04</publishTime>
     </File>
     <File Include="bin/DuolingoSk.pdb">
-      <publishTime>07/18/2020 14:45:59</publishTime>
+      <publishTime>07/23/2020 23:48:04</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -11101,7 +11107,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:44:49</publishTime>
     </File>
     <File Include="Content/client_assets/css/style-starter.css">
-      <publishTime>07/04/2020 16:24:09</publishTime>
+      <publishTime>07/23/2020 23:42:11</publishTime>
     </File>
     <File Include="Content/client_assets/fonts/fontawesome-webfont.eot">
       <publishTime>03/24/2020 11:21:44</publishTime>
@@ -11137,7 +11143,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/24/2020 11:21:44</publishTime>
     </File>
     <File Include="Content/client_assets/images/c1.jpg">
-      <publishTime>03/24/2020 11:21:44</publishTime>
+      <publishTime>07/23/2020 22:43:22</publishTime>
     </File>
     <File Include="Content/client_assets/images/c2.jpg">
       <publishTime>03/24/2020 11:21:44</publishTime>
@@ -11308,7 +11314,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2020 12:58:09</publishTime>
     </File>
     <File Include="Models/DuolingoSk.edmx.diagram">
-      <publishTime>07/14/2020 01:16:49</publishTime>
+      <publishTime>07/18/2020 23:28:19</publishTime>
     </File>
     <File Include="QuestionImage/4f9eb5d8-1d7b-4338-b867-3744baa5faa0-cute-baby-animals-1558535060.jpg">
       <publishTime>07/05/2020 21:07:28</publishTime>
@@ -11449,7 +11455,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 09:44:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/18/2020 14:46:02</publishTime>
+      <publishTime>07/23/2020 23:48:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

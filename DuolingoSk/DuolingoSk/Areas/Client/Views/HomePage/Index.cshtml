@@ -14,9 +14,14 @@
     .clsPackageSlider .customers-6-content img {
         width: 100%;
         border-radius: 0%;
-        width: 268px;
-        height: 268px;
+        width: 400px;
+        height: 400px;
     }
+
+    .clsPackageSlider .card-body {
+        padding : 0px;
+    }
+
 </style>
 
 <!--  Main banner section -->
@@ -29,10 +34,9 @@
                     <div class="banner-info container">
                         <img src="~/Content/client_assets/images/c1.jpg" alt="about image" class="img-fluid">
                         <h3 class="banner-text mt-5">
-                            Hello, I’m Mark Waugh
+                            Perfect Practice Platform For Duolingo
                         </h3>
-                        <p class="my-4 mb-5">Photographer</p><br>
-
+                        <p class="my-4 mb-5">Select any package start at Rs. 500</p><br> 
                     </div>
                 </div>
 
@@ -90,7 +94,7 @@
                                                 }
 
                                                 <h3 class="card-title mt-2">@lstPackages[0].PackageName</h3>
-                                                <p class="sub-title mb-3">@lstPackages[0].PackageAmount</p>
+                                                <p class="sub-title mb-2">@lstPackages[0].PackageAmount</p>
                                                 <a href="/client/package/detail/@lstPackages[0].PackageId" class="btn btn-theme2">Buy Now</a>
                                             </div>
                                         </div>
@@ -112,7 +116,7 @@
                                                     <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                                 }
                                                 <h3 class="card-title mt-2">@lstPackages[1].PackageName</h3>
-                                                <p class="sub-title mb-3">@lstPackages[1].PackageAmount</p>
+                                                <p class="sub-title mb-2">@lstPackages[1].PackageAmount</p>
                                                 <a href="/client/package/detail/@lstPackages[1].PackageId" class="btn btn-theme2">Buy Now</a>
                                             </div>
                                         </div>
@@ -134,7 +138,7 @@
                                                     <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                                 }
                                                 <h3 class="card-title mt-2">@lstPackages[2].PackageName</h3>
-                                                <p class="sub-title mb-3">@lstPackages[2].PackageAmount</p>
+                                                <p class="sub-title mb-2">@lstPackages[2].PackageAmount</p>
                                                 <a href="/client/package/detail/@lstPackages[2].PackageId" class="btn btn-theme2">Buy Now</a>
                                             </div>
                                         </div>
@@ -165,7 +169,7 @@
                                                         <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                                     }
                                                     <h3 class="card-title mt-2">@lstPackages[3].PackageName</h3>
-                                                    <p class="sub-title mb-3">@lstPackages[3].PackageAmount</p>
+                                                    <p class="sub-title mb-2">@lstPackages[3].PackageAmount</p>
                                                     <a href="/client/package/detail/@lstPackages[3].PackageId" class="btn btn-theme2">Buy Now</a>
                                                 </div>
                                             </div>
@@ -187,7 +191,7 @@
                                                         <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                                     }
                                                     <h3 class="card-title mt-2">@lstPackages[4].PackageName</h3>
-                                                    <p class="sub-title mb-3">@lstPackages[4].PackageAmount</p>
+                                                    <p class="sub-title mb-2">@lstPackages[4].PackageAmount</p>
                                                     <a href="/client/package/detail/@lstPackages[4].PackageId" class="btn btn-theme2">Buy Now</a>
                                                 </div>
                                             </div>
@@ -210,7 +214,7 @@
                                                         <img class="card-img-top img-responsive" src="@ErrorMessage.PackageDirectoryPath" alt="">
                                                     }
                                                     <h3 class="card-title mt-2">@lstPackages[5].PackageName</h3>
-                                                    <p class="sub-title mb-3">@lstPackages[5].PackageAmount</p>
+                                                    <p class="sub-title mb-2">@lstPackages[5].PackageAmount</p>
                                                     <a href="/client/package/detail/@lstPackages[5].PackageId" class="btn btn-theme2">Buy Now</a>
                                                 </div>
                                             </div>
@@ -229,73 +233,7 @@
     </section>
 
 }
-<!--  //Main banner section -->
-<section class="w3l-about ">
-    <div class="skills-bars py-5">
-        <div class="container py-md-3">
-            <div class="heading text-center mx-auto">
-                <h3 class="head">Welcome To Duolingo Sk</h3>
-                <p class="my-3 head">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                    Nulla mollis dapibus nunc, ut rhoncus
-                    turpis sodales quis. Integer sit amet mattis quam.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla mollis dapibus nunc
-                </p>
-
-            </div>
-            <div class="row mt-5 pt-3">
-                <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
-                    <h4>Design</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 50%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
-                    <h4>Marketing</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 80%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
-                    <h4>Photography</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 60%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
-                    <h4>Branding</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 70%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-4 col-sm-6 skills-bar-grids mb-4 pb-2">
-                    <h4>Development</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 90%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 skills-bar-grids ">
-                    <h4>SEO</h4>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-color" role="progressbar" style="        width: 80%;
-        height: 4px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
+ 
 <section class="w3l-feature-3" id="features">
     <div class="grid top-bottom" style="        background: url(/Content/client_assets/images/sk/10.jpg) no-repeat center;">
         <div class="container">
@@ -335,25 +273,16 @@
     <div id="products4-block" class="text-center">
         <div class="container">
             <div class="heading text-center mx-auto mb-5">
-                <h3 class="head">I Love What I Do</h3>
+                <h3 class="head">All Projects</h3>
                 <p class="my-3 head">
                     Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
                     Nulla mollis dapibus nunc, ut rhoncus
                     turpis sodales quis. Integer sit amet mattis quam.
                 </p>
             </div>
-            <input id="tab1" type="radio" name="tabs" checked>
-            <label class="tabtle" for="tab1">All Projects</label>
-
-            <input id="tab2" type="radio" name="tabs">
-            <label class="tabtle" for="tab2">Illustration</label>
-
-            <input id="tab3" type="radio" name="tabs">
-            <label class="tabtle" for="tab3">Photography</label>
-
-            <input id="tab4" type="radio" name="tabs">
-            <label class="tabtle" for="tab4">Website</label>
-
+            <input id="tab1" type="radio" name="tabs" checked style="display:none;">
+            @*<label class="tabtle" for="tab1" >All Projects</label>*@
+              
             <section id="content1" class="tab-content text-left">
                 <div class="d-grid grid-col-3">
                     <div class="product">
@@ -414,120 +343,7 @@
 
                 </div>
             </section>
-
-            <section id="content2" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g7.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g7.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g8.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g8.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g1.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g1.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g2.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g2.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g3.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g3.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g4.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g4.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="content3" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g5.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g5.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g6.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g6.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g7.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g7.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="content4" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g8.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g8.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/Content/client_assets/images/g1.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/Content/client_assets/images/g1.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
+             
         </div>
     </div>
     <!-- Products4 block -->
@@ -540,39 +356,25 @@
 
                 <div class="column1">
                     <h3 class="mb-5">Experiences</h3>
-                    <div class="experience-top">
-                        <h5>2018 - now</h5>
-                        <h4>Fulltime Freelancer</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
+                    <div class="experience-top">           
+                        <h4> Priceless Content </h4>
+                        <p class="my-3 text-white">Our expert team prepares duolingo test series which is similar to real Duolingo exam; this will help aspirants to achieve their dream scores.</p>
                     </div>
-                    <div class="experience-top">
-                        <h5>2014 - 2017</h5>
-                        <h4>Creative Director at Pixar Studio</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    </div>
-                    <div class="experience-top">
-                        <h5>2010 - 2014</h5>
-                        <h4>Web Designer at Microsoft</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    </div>
+                    <div class="experience-top">             
+                        <h4>Expert Team Support</h4>
+                        <p class="my-3 text-white">Our expert team is always ready to help you personally and solve all your doubts (as soon as possible).</p>
+                    </div> 
                 </div>
                 <div class="column2">
                     <h3 class="mb-5">Education</h3>
-                    <div class="experience-top">
-                        <h5>2010</h5>
-                        <h4>Master of Design, University of California</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
+                    <div class="experience-top">               
+                        <h4>Technical Team Support</h4>
+                        <p class="my-3 text-white">Duolingo Expert team is available to answer your question. Live chat option available. Track your question & Get instant answers.</p>
                     </div>
-                    <div class="experience-top">
-                        <h5>2007</h5>
-                        <h4>Bachelor of Arts, Standford University</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    </div>
-                    <div class="experience-top">
-                        <h5>2004</h5>
-                        <h4>Specialize App Design, Harvard University</h4>
-                        <p class="my-3 text-white">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    </div>
+                    <div class="experience-top">                        
+                        <h4>Testing Platform</h4>
+                        <p class="my-3 text-white">Test series are prepared by Duolingo certified teachers who have proper knowledge about this test and they are the backbone of several successful students who have achieved their dreams scores in Duolingo exam</p>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -582,19 +384,19 @@
     <div class="customers-6-content py-5">
         <div class="container py-lg-3">
             <div class="heading text-center mx-auto">
-                <h3 class="head">What They Says</h3>
-                <p class="my-3 head ">
+                <h3 class="head">Testimonial</h3>
+                @*<p class="my-3 head ">
                     Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
                     Nulla mollis dapibus nunc, ut rhoncus
                     turpis sodales quis. Integer sit amet mattis quam.
-                </p>
+                </p>*@
             </div>
 
-            <div id="customerhnyCarousel" class="carousel slide" data-ride="carousel">
+            <div id="customerhnyCarousel1" class="carousel slide" data-ride="carousel">
 
                 <ol class="carousel-indicators">
-                    <li data-target="#customerhnyCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#customerhnyCarousel" data-slide-to="1"></li>
+                    <li data-target="#customerhnyCarousel1" data-slide-to="0" class="active"></li>
+                    <li data-target="#customerhnyCarousel1" data-slide-to="1"></li>
 
                 </ol>
                 <!-- Carousel items -->
@@ -606,11 +408,11 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c1.jpg" alt="">
+                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/testimonial/user1.jpeg" alt="">
                                         <h3 class="card-title mt-2">Henry Nicholas</h3>
                                         <p class="sub-title mb-3">Photographer</p>
                                         <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
+                                            "I like the way of teaching, the cooperative atmosphere and that the courses are affordable and I can choose the most convenient time for me."
                                         </p>
 
 
@@ -621,11 +423,11 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c2.jpg" alt="">
+                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/testimonial/user2.jpeg" alt="">
                                         <h3 class="card-title mt-2">Mark Waugh</h3>
                                         <p class="sub-title mb-3">Web Designer</p>
                                         <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
+                                            "I think the method is good and I like how the teachers involved in helping the students are very approachable and their lessons were very useful for me."
                                         </p>
 
 
@@ -636,14 +438,12 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c3.jpg" alt="">
+                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/testimonial/user3.jpeg" alt="">
                                         <h3 class="card-title mt-2">Sarina Willams</h3>
                                         <p class="sub-title mb-3">Graphic Designer</p>
                                         <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
+                                            "I like the course of conversation because the teachers are great and we are a few people in each batch, so we have the chance to practise a lot. They are experienced and have great skill."
                                         </p>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -657,49 +457,16 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c2.jpg" alt="">
+                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/testimonial/user4.jpeg" alt="">
                                         <h3 class="card-title mt-2">Mark Waugh</h3>
                                         <p class="sub-title mb-3">Engineer</p>
                                         <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
+                                            "The teachers are very helpful and friendly. They explain everything clearly. The atmosphere is very nice. I met a lot of amazing people. It was a good experience for me."
                                         </p>
-
-
                                     </div>
+
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 off-testi-2">
-                                <div class="card">
-
-                                    <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c3.jpg" alt="">
-                                        <h3 class="card-title mt-2">Sarina Willams</h3>
-                                        <p class="sub-title mb-3">Engineer</p>
-                                        <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
-                                        </p>
-
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="col-lg-4 offset-md-3 offset-lg-0 col-md-6 off-testi">
-                                <div class="card">
-
-                                    <div class="card-body">
-                                        <img class="card-img-top img-responsive" src="~/Content/client_assets/images/c1.jpg" alt="">
-                                        <h3 class="card-title mt-2">Henry Nicholas</h3>
-                                        <p class="sub-title mb-3">Engineer</p>
-                                        <p class="card-text">
-                                            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
-                                        </p>
-
-
-                                    </div>
-                                </div>
-                            </div>
+                            </div> 
                         </div>
 
                     </div>
