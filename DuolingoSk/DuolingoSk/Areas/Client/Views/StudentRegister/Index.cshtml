@@ -11,16 +11,19 @@
     DuolingoSk_Entities _db = new DuolingoSk_Entities();
     tbl_GeneralSetting setting = _db.tbl_GeneralSetting.FirstOrDefault();
 }
-    <style>
-        .modal {
-            top: 25%;
-            opacity: 1 !important;
-        }
+<style>
+    .modal {
+        top: 25%;
+        opacity: 1 !important;
+    }
 
-        .modal-header {
-            padding-top: 30px;
-        }
-    </style>
+    .modal-header {
+        padding-top: 30px;
+    }
+</style>
+@*<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>*@
+<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>
+
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
@@ -49,12 +52,12 @@
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="top-inputs d-grid col-lg-6">
-                            @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "text-left" })                            
-                            @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "" })
+                            <div class="top-inputs d-grid col-lg-6">
+                                @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "text-left" })
+                                @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "" })
 
-                            @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
-                        </div>
+                                @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
+                            </div>
 
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })
@@ -114,12 +117,14 @@
                             <input type="hidden" id="hdnotptxt" value="" />
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Registration Fee *</label>
-                                <input type="text" placeholder="Registration Fee" value="@setting.RegistrationFee" disabled>
+                                <input type="text" placeholder="Registration Fee" id="Regfee" value="@setting.RegistrationFee" readonly>
                             </div>
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Total Exam Attempts *</label>
-                                <input type="text" placeholder="Total Exam Attempts" value="@setting.TotalExamAttempt" disabled>
+                                <input type="text" placeholder="Total Exam Attempts" value="@setting.TotalExamAttempt" readonly>
                             </div>
+                            <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />                            
+                            <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
                             <div class="text-left col-lg-6">
                                 <button type="submit" class="btn btn-theme2">Sign Up</button>
                             </div>
@@ -157,7 +162,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-
+    var pymenttokn = "";
     jQuery(document).ready(function () {
 
         jQuery(".clsDatePicker").datepicker({
@@ -172,7 +177,8 @@
             return false;
         }
         else {
-             if ($('#hdnotptxt').val() == "") {
+            if ($('#hdnotptxt').val() == "") {
+              
                  var URL = '@Url.Action("SendOTP", "StudentRegister")';
                $.ajax({
                 type: 'POST',
@@ -216,8 +222,67 @@
              alert("Invalid OTP");
             return false;
         }
+        GetPaymntToken();       
+      
+    }
 
-        $("#StudentUserFormId").submit();
+
+    function GetPaymntToken() {
+        var amt = $("#Regfee").val();
+        var mobileno = $("#MobileNo").val();
+        var emil = $("#Email").val();
+           var URL = '@Url.Action("GetPaymentToken", "StudentRegister")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Amount=" + amt + "&MobileNumber=" + mobileno + "&Email=" + emil,
+                success: function (result) {
+                    if (result.indexOf("Fail") >= 0) {
+                        alert(result);
+                    }
+                    else {                        
+                        $("#hdnPaymentTokenId").val(result);
+                        // Sandbox
+                        //Layer.checkout({
+                        //    token: $("#hdnPaymentTokenId").val(),
+                        //    accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                        //},
+                        Layer.checkout({
+                            token: $("#hdnPaymentTokenId").val(),
+                            accesskey: "8dd56630-d1a3-11ea-b4a4-cd7b8d79485d"
+                        },
+                            function (response) {
+
+                                if (response.status == "captured") {
+                                    $("#StudentUserFormId").submit();
+                                    $("#hdnPaymentId").val(response.payment_id);
+                                    $("#hdnPaymentTokenId").val(response.payment_token_id);
+                                    $("#StudentUserFormId").submit();
+                                    // response.payment_token_id
+                                    // response.payment_id
+
+                                } else if (response.status == "created") {
+
+
+                                } else if (response.status == "pending") {
+                                    alert("Payment Pending");
+
+                                } else if (response.status == "failed") {
+                                    alert("Payment Failed");
+
+                                } else if (response.status == "cancelled") {
+                                    alert("Payment Cancelled");
+                                }
+                            },
+                            function (err) {
+                                //integration errors
+                            }
+                        );
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
     }
 
 </script>

@@ -1,6 +1,7 @@
 ﻿using DuolingoSk.Helper;
 using DuolingoSk.Model;
 using DuolingoSk.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -234,5 +235,59 @@ namespace DuolingoSk.Areas.Client.Controllers
             }
         }
 
+        [HttpPost]
+        public string GetPaymentToken(string Amount,string MobileNumber,string Email)
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                //string sURL = "https://sandbox-icp-api.bankopen.co/api/payment_token";
+                string sURL = "https://icp-api.bankopen.co/api/payment_token";
+            
+                WebRequest wrGETURL;
+                wrGETURL = WebRequest.Create(sURL);
+
+                wrGETURL.Method = "POST";
+                wrGETURL.ContentType = @"application/json; charset=utf-8";
+                //Sandbox
+                //wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
+
+                wrGETURL.Headers.Add("Authorization", "Bearer 8dd56630-d1a3-11ea-b4a4-cd7b8d79485d:b6cea9a3cab16ed39ecc67dc4e87639c31560658");
+                using (var stream = new StreamWriter(wrGETURL.GetRequestStream()))
+                {
+                    var bodyContent = new
+                    {
+                        amount = Amount,
+                        mtx = Guid.NewGuid().ToString(),
+                        currency = "INR",
+                        contact_number = MobileNumber,
+                        email_id = Email
+                    }; // This will need to be changed to an actual class after finding what the specification sheet requires.
+
+                    var json = JsonConvert.SerializeObject(bodyContent);
+
+                    stream.Write(json);
+                }
+                var response = (HttpWebResponse)wrGETURL.GetResponse();
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                PaymentTokenVM myDeserializedClass = JsonConvert.DeserializeObject<PaymentTokenVM>(responseString);
+                return myDeserializedClass.id;
+            }
+            catch(Exception e)
+            {
+                return "Fail"+ e.Message.ToString();
+            }            
+           
+        }
+
+    }
+
+    public class PaymentTokenVM
+    {
+        public string amount { get; set; }
+        public string mtx { get; set; }
+        public string id { get; set; }
+        
     }
 }
