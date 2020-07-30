@@ -9553,7 +9553,7 @@ a.text-dark:hover, a.text-dark:focus {
 :root {
   --theme-color: #0ea8cf;
   --secondary-color: #35a22c;
-  --opposite-color: #35a22c;
+  --opposite-color: #2ACEF4;
   --text-color: #585858;
   --title-color: #1A1D2D;
   --white-color: #ffffff;
@@ -9763,10 +9763,12 @@ a.read:hover {
   color: var(--title-color);
   font-weight: 600; }
 
-.heading p {
-  color: var(--text-color);
-  font-size: 16px;
-  line-height: 24px; }
+    .heading p {
+        color: var(--text-color);
+        font-size: 16px;
+        line-height: 24px;
+        text-align: justify;
+    }
 
 h4.sub-title {
   font-size: 18px;
@@ -10410,12 +10412,12 @@ h4.sub-title {
 
 .w3l-main-banner h3.banner-text {
   font-weight: 400;
-  font-size: 56px;
+  font-size: 42px;
   line-height: 65px;
   color: #fff; }
 
 .w3l-main-banner .banner-info p {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
   color: #fff; }
 
@@ -10436,7 +10438,7 @@ h4.sub-title {
 .w3l-main-banner .banner-view {
   background: url(../images/1.jpg) no-repeat right;
   background-size: cover;
-  min-height: 80vh;
+  min-height: 70vh;
   position: relative;
   z-index: 0;
   display: grid;
@@ -12230,8 +12232,7 @@ body:after {
     font-size: 36px;
     line-height: 42px;
     color: var(--title-color);
-    font-weight: 600;
-    text-decoration: underline dashed red;
+    font-weight: 600; 
     text-underline-position: under;
 }
 
