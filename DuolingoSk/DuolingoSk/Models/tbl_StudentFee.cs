@@ -25,5 +25,9 @@ namespace DuolingoSk.Models
         public Nullable<int> MarkCompleteBy { get; set; }
         public Nullable<bool> IsAttemptUsed { get; set; }
         public Nullable<System.DateTime> FeeExpiryDate { get; set; }
+        public Nullable<int> PackageId { get; set; }
+        public string PackageName { get; set; }
+        public string CouponCode { get; set; }
+        public Nullable<long> CouponId { get; set; }
     }
 }

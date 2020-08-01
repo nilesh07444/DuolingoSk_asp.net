@@ -12,18 +12,15 @@ namespace DuolingoSk.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_Package
+    public partial class tbl_CouponCode
     {
-        public int PackageId { get; set; }
-        public string PackageName { get; set; }
-        public string PackageImage { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
+        public long CouponCodeId { get; set; }
+        public string CouponCodeTitle { get; set; }
+        public string CouponCode { get; set; }
+        public Nullable<decimal> DiscountPercentage { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public Nullable<int> TotalMaxUsage { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<long> UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<decimal> PackageAmount { get; set; }
-        public Nullable<int> TotalAttempt { get; set; }
     }
 }

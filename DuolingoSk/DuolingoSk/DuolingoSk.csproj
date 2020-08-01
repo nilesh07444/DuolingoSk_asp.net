@@ -186,6 +186,9 @@
     <Compile Include="Models\tbl_AdminUsers.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_CouponCode.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Exam.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
@@ -3980,6 +3983,7 @@
     <Content Include="Areas\Client\Views\StartExam\_StartNowDemo.cshtml" />
     <Content Include="Areas\Admin\Views\Package\Inquiry.cshtml" />
     <Content Include="Areas\Admin\Views\Package\ViewInquiry.cshtml" />
+    <Content Include="Areas\Client\Views\StudentRegister\RegisterUsingSocial.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />
