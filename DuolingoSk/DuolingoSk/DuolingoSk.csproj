@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AgentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CouponCodeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExamController.cs" />
     <Compile Include="Areas\Admin\Controllers\FeesController.cs" />
@@ -230,6 +231,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminUserVM.cs" />
+    <Compile Include="ViewModel\CouponCodeVM.cs" />
     <Compile Include="ViewModel\ExamResultVM.cs" />
     <Compile Include="ViewModel\ExamVM.cs" />
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
@@ -3984,6 +3986,9 @@
     <Content Include="Areas\Admin\Views\Package\Inquiry.cshtml" />
     <Content Include="Areas\Admin\Views\Package\ViewInquiry.cshtml" />
     <Content Include="Areas\Client\Views\StudentRegister\RegisterUsingSocial.cshtml" />
+    <Content Include="Areas\Admin\Views\CouponCode\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CouponCode\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\CouponCode\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />
@@ -4058,7 +4063,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64211</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64211/</IISUrl>
+          <IISUrl>https://localhost:44339/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

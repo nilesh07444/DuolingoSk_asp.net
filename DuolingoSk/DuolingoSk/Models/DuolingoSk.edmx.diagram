@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Mp3Options" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionsMaster" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionType" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentFee" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Students" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_GeneralSetting" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Exam" Width="1.5" PointX="9.75" PointY="5.75" />
@@ -19,6 +18,7 @@
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Package" Width="1.5" PointX="3.375" PointY="10.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Feedback" Width="1.5" PointX="3.375" PointY="10.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_PackageBuyDetails" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentFee" Width="1.5" PointX="12.375" PointY="4.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_CouponCode" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>

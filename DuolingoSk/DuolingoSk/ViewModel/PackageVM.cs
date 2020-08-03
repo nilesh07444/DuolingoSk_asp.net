@@ -9,13 +9,38 @@ namespace DuolingoSk
     public class PackageVM
     {
         public int PackageId { get; set; }
+
         [Required]
         [MaxLength(100), Display(Name = "Package Name *")]
         public string PackageName { get; set; }
+
         [Display(Name = "Package Image")]
         public HttpPostedFileBase PackageImage { get; set; }
-        [Display(Name = "Package Amount")]
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "This value must be greater than 0")]
+        [Display(Name = "Package Price")]
         public decimal? PackageAmount { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "This value must be greater than 0")]
+        [Display(Name = "Total Attempt *")]
+        public int? TotalAttempt { get; set; }
+
+        [Required]
+        [Display(Name = "Total Webinar *")]
+        public int? TotalWebinar { get; set; }
+
+        [Required]
+        [Display(Name = "Total Expiry In Days *")]
+        [Range(1, int.MaxValue, ErrorMessage = "This value must be greater than 0")]
+        public int? ExpiryInDays { get; set; }
+
+        [Required]
+        [Display(Name = "Max Level *")]
+        [Range(1, int.MaxValue, ErrorMessage = "This value must be greater than 0")]
+        public int? MaxLevel { get; set; }
+
         public bool IsActive { get; set; }
 
         //

@@ -25,5 +25,8 @@ namespace DuolingoSk.Models
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<decimal> PackageAmount { get; set; }
         public Nullable<int> TotalAttempt { get; set; }
+        public Nullable<int> TotalWebinar { get; set; }
+        public Nullable<int> ExpiryInDays { get; set; }
+        public Nullable<int> MaxLevel { get; set; }
     }
 }

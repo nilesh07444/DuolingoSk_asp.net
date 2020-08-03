@@ -2,9 +2,9 @@
 @using DuolingoSk.Models;
 @using DuolingoSk.Helper;
 
-@model List<PackageVM>
+@model List<CouponCodeVM>
 @{
-    ViewBag.Title = "Package";
+    ViewBag.Title = "CouponCode";
 
     int counter = 1;
 }
@@ -18,14 +18,14 @@
                 <div class="col-lg-6">
                     <div class="page-header-left">
                         <h3>
-                            Package List
+                            Coupon Code List
                         </h3>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <ol class="breadcrumb pull-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
-                        <li class="breadcrumb-item active">Package List</li>
+                        <li class="breadcrumb-item active">Coupon Code List</li>
                     </ol>
                 </div>
             </div>
@@ -36,23 +36,22 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h5>Package List</h5>
+                <h5>Coupon Code List</h5>
             </div>
             <div class="card-body vendor-table">
 
                 <div class="btn-popup pull-right">
-                    <button type="button" class="btn btn-primary" id="btnAdd">Add Package</button>
+                    <button type="button" class="btn btn-primary" id="btnAdd">Add Coupon Code</button>
                 </div>
 
                 <table class="display" id="basic-1">
                     <thead>
                         <tr>
                             <th width="5%;">#</th>
-                            <th>Package Name</th>
-                            <th>Package Price</th>
-                            <th>Total Attempt</th>
-                            <th>Max Level</th>
-                            <th>Total Webinar</th>
+                            <th>Coupon Code</th>
+                            <th>Total Max Usage</th>
+                            <th>Discount Perc (%)</th>
+                            <th>Expiry Date</th> 
 
                             <th width="10%;">Active</th>
                             <th width="10%;">Action</th>
@@ -62,30 +61,29 @@
 
                         @if (Model != null && Model.Count > 0)
                         {
-                            foreach (PackageVM obj in Model)
+                            foreach (CouponCodeVM obj in Model)
                             {
-                                <tr class="grade">
-                                    <td>@counter.</td>
-                                    <td>@obj.PackageName</td>
-                                    <td>@obj.PackageAmount</td>
-                                    <td>@obj.TotalAttempt</td>
-                                    <td>@obj.MaxLevel</td>
-                                    <td>@obj.TotalWebinar</td>
+                        <tr class="grade">
+                            <td>@counter.</td>
+                            <td>@obj.CouponCode</td>
+                            <td>@obj.TotalMaxUsage</td>
+                            <td>@obj.DiscountPercentage %</td>
+                            <td>@Convert.ToDateTime(obj.dtExpiryDate).ToString("dd/MM/yyyy")</td> 
 
-                                    @if (obj.IsActive == true)
-                                    {
-                                        <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.PackageId','InActive');">Active</span></td>
-                                    }
-                                    else
-                                    {
-                                        <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@obj.PackageId','Active');">InActive</span></td>
-                                    }
+                            @if (obj.IsActive == true)
+                            {
+                                <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.CouponCodeId','InActive');">Active</span></td>
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-danger" style="cursor:pointer;" title="Click to Active" onclick="fnChangeStatus('@obj.CouponCodeId','Active');">InActive</span></td>
+                            }
 
-                                    <td>
-                                        <a title="Edit" href="/admin/package/edit/@obj.PackageId"><i class="fa fa-edit mr-2 font-success"></i></a>
-                                        <a title="Delete" href="javascript:void(0);" onclick="fnDeletePackage('@obj.PackageId')"><i class="fa fa-trash font-danger"></i></a>
-                                    </td>
-                                </tr>
+                            <td>
+                                <a title="Edit" href="/admin/couponcode/edit/@obj.CouponCodeId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                <a title="Delete" href="javascript:void(0);" onclick="fnDeleteCouponCode('@obj.CouponCodeId')"><i class="fa fa-trash font-danger"></i></a>
+                            </td>
+                        </tr>
                                 counter++;
                             }
                         }
@@ -100,7 +98,7 @@
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade open" id="deletePackageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade open" id="deleteCouponCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,9 +109,9 @@
                 Are you sure you want to delete ?
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="hdnDeletePackage" />
+                <input type="hidden" id="hdnDeleteCouponCode" />
                 <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
-                <button id="btnDeletePackage" class="btn btn-primary" type="button">Delete</button>
+                <button id="btnDeleteCouponCode" class="btn btn-primary" type="button">Delete</button>
             </div>
         </div>
     </div>
@@ -147,34 +145,34 @@
     });
 
     $(document).on("click", "#btnAdd", function () {
-        window.location.href = "/admin/package/add";
+        window.location.href = "/admin/couponcode/add";
     });
 
-    function fnDeletePackage(cat_id) {
-        jQuery("#hdnDeletePackage").val(cat_id);
-        $('#deletePackageModal').modal('show');
+    function fnDeleteCouponCode(cat_id) {
+        jQuery("#hdnDeleteCouponCode").val(cat_id);
+        $('#deleteCouponCodeModal').modal('show');
     }
 
-    jQuery(document).on("click", "#btnDeletePackage", function () {
+    jQuery(document).on("click", "#btnDeleteCouponCode", function () {
 
-        var PackageId = jQuery("#hdnDeletePackage").val();
-        if (PackageId != "" && PackageId != null) {
-            $('#deletePackageModal').modal('hide');
+        var CouponCodeId = jQuery("#hdnDeleteCouponCode").val();
+        if (CouponCodeId != "" && CouponCodeId != null) {
+            $('#deleteCouponCodeModal').modal('hide');
 
             StartLoading();
 
-            var URL = '@Url.Action("DeletePackage", "Package")';
+            var URL = '@Url.Action("DeleteCouponCode", "CouponCode")';
             $.ajax({
                 type: 'POST',
                 async: true,
-                url: URL + "?PackageId=" + PackageId,
+                url: URL + "?CouponCodeId=" + CouponCodeId,
                 success: function (result) {
                     if (result == "success") {
-                        alert("Package deleted successfully");
+                        alert("CouponCode deleted successfully");
                         window.location.reload();
                     }
                     else if (result == "notfound") {
-                        alert("Package Not Found");
+                        alert("CouponCode Not Found");
                     }
                     else {
                         alert("Something went wrong. Please try again");
@@ -189,7 +187,7 @@
         }
     });
 
-     function fnChangeStatus(cat_id,status) {
+    function fnChangeStatus(cat_id,status) {
          jQuery("#hdndataId").val(cat_id);
          jQuery("#hdnstatus").val(status);
          if (status == "Active") {
@@ -201,7 +199,7 @@
         $('#activeinactiveModal').modal('show');
      }
 
-       jQuery(document).on("click", "#btnChangeStatus", function () {
+    jQuery(document).on("click", "#btnChangeStatus", function () {
 
         var Id = jQuery("#hdndataId").val();
         if (Id != "" && Id != null) {
@@ -209,7 +207,7 @@
 
             StartLoading();
 
-            var URL = '@Url.Action("ChangeStatus", "Package")';
+            var URL = '@Url.Action("ChangeStatus", "CouponCode")';
             $.ajax({
                 type: 'POST',
                 async: true,

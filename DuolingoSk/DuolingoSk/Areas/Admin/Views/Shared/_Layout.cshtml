@@ -1,5 +1,5 @@
 ﻿@using DuolingoSk.Model;
-@using DuolingoSk.Models; 
+@using DuolingoSk.Models;
 @using DuolingoSk.Helper;
 
 <!DOCTYPE html>
@@ -220,6 +220,14 @@
                                     <li class="@(ViewBag.Title == "AddPackage" ? "active" : "")"><a href="/admin/package/add"><i class="fa fa-circle"></i>Add Package</a></li>
                                     <li class="@(ViewBag.Title == "PackageList" ? "active" : "")"><a href="/admin/package"><i class="fa fa-circle"></i>Package List</a></li>
                                     <li class="@(ViewBag.Title == "PackageInquiry" ? "active" : "")"><a href="/admin/package/inquiry"><i class="fa fa-circle"></i>Package Inquiry List</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Coupon Code</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddCouponCode" ? "active" : "")"><a href="/admin/couponcode/add"><i class="fa fa-circle"></i>Add Coupon Code</a></li>
+                                    <li class="@(ViewBag.Title == "CouponCodeList" ? "active" : "")"><a href="/admin/couponcode"><i class="fa fa-circle"></i>Coupon Code List</a></li>
                                 </ul>
                             </li>
 

@@ -28,6 +28,6 @@ namespace DuolingoSk.Models
         public Nullable<int> PackageId { get; set; }
         public string PackageName { get; set; }
         public string CouponCode { get; set; }
-        public Nullable<long> CouponId { get; set; }
+        public Nullable<int> CouponId { get; set; }
     }
 }

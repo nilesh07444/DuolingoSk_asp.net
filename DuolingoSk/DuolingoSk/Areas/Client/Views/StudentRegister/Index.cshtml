@@ -12,7 +12,7 @@
     tbl_GeneralSetting setting = _db.tbl_GeneralSetting.FirstOrDefault();
     List<tbl_Package> lstPackges = ViewData["tbl_Packages"] as List<tbl_Package>;
 }
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
     .modal {
@@ -121,13 +121,7 @@
             </div>
 
             <div class="row cont-main-top">
-                <button id="btnfblogin" class="loginBtn loginBtn--facebook">
-                    Login with Facebook
-                </button>
 
-                <button id="btngooglelogin"class="loginBtn loginBtn--google">
-                    Login with Google
-                </button>                           
                 <div class="contacts12-main col-lg-12">
                     <center>
                         @using (Html.BeginForm("Index", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();" }))
@@ -186,22 +180,14 @@
                             </div>
 
                             <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "", @placeholder = "Enter Address", maxlength = "200" } })
-
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "text-left" })
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "", @placeholder = "Enter City", maxlength = "200" } })
 
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
-                            <input type="hidden" id="hdnotptxt" value="" />
-                            <input type="hidden" id="hdndisc" value="0" />
+
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Package *</label>
+                                <label class="text-left">Select Program *</label>
                                 <select class="form-control" name="Package" id="Package">
                                     <option value="0" data-prc="0" data-attempt="0">Demo</option>
                                     @if (lstPackges != null && lstPackges.Count() > 0)
@@ -213,26 +199,46 @@
                                     }
                                 </select>
                             </div>
-                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
-                                <label class="text-left">Referal Code *</label>                               
-                            </div>
-                            <div style="max-width: 50%;margin-bottom:15px;">
-                                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
-                                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
-                            </div>
+
+
+
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Registration Fee *</label>
                                 <input type="text" placeholder="Registration Fee" id="Regfee" value="0" readonly>
                             </div>
+
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Total Exam Attempts *</label>
-                                <input type="text" placeholder="Total Exam Attempts" value="0"  id="ExamAttempt" readonly>
+                                <input type="text" placeholder="Total Exam Attempts" value="0" id="ExamAttempt" readonly>
+                            </div>
+
+                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
+                                <label class="text-left">Referral Code *</label>
+                            </div>
+
+                            <div style="max-width: 50%;margin-bottom:15px;">
+                                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
+                                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
                             </div>
 
                             <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
                             <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
+                            <input type="hidden" id="hdnotptxt" value="" />
+                            <input type="hidden" id="hdndisc" value="0" />
+
                             <div class="text-left col-lg-6">
                                 <button type="submit" class="btn btn-theme2">Sign Up</button>
+                            </div>
+
+                            <div class="text-left col-lg-6">
+
+                                <button id="btnfblogin" class="loginBtn loginBtn--facebook">
+                                    Login with Facebook
+                                </button>
+
+                                <button id="btngooglelogin" class="loginBtn loginBtn--google">
+                                    Login with Google
+                                </button>
                             </div>
                         }
                     </center>

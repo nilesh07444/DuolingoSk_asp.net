@@ -22,9 +22,9 @@ namespace DuolingoSk
             routes.MapRoute("redirect all other requests", "{*url}", 
             new
             {
-                controller = "HomePage", //  HomePage
+                controller = "Login", //  HomePage
                 action = "Index"
-            }).DataTokens = new RouteValueDictionary(new { area = "Client" }); //  Client
+            }).DataTokens = new RouteValueDictionary(new { area = "Admin" }); //  Client
 
 
         }

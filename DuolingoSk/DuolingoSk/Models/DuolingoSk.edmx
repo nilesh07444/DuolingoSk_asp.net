@@ -36,13 +36,16 @@
             <PropertyRef Name="CouponCodeId" />
           </Key>
           <Property Name="CouponCodeId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CouponCodeTitle" Type="nvarchar(max)" />
           <Property Name="CouponCode" Type="nvarchar" MaxLength="60" />
           <Property Name="DiscountPercentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ExpiryDate" Type="datetime" />
           <Property Name="TotalMaxUsage" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Exam">
           <Key>
@@ -50,6 +53,7 @@
           </Key>
           <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="bigint" />
+          <Property Name="StudentFeeId" Type="int" />
           <Property Name="ExamDate" Type="datetime" />
           <Property Name="AgentId" Type="bigint" />
           <Property Name="Score" Type="nvarchar" MaxLength="50" />
@@ -59,7 +63,6 @@
           <Property Name="ResultStatus" Type="int" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="StudentFeeId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>
@@ -136,24 +139,27 @@
           <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PackageName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PackageImage" Type="nvarchar" MaxLength="100" />
+          <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalAttempt" Type="int" />
+          <Property Name="TotalWebinar" Type="int" />
+          <Property Name="ExpiryInDays" Type="int" />
+          <Property Name="MaxLevel" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
-          <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="TotalAttempt" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PackageBuyDetails">
           <Key>
             <PropertyRef Name="PackageBuyDetailId" />
           </Key>
           <Property Name="PackageBuyDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="EmailId" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" />
           <Property Name="PackageId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -218,7 +224,7 @@
           <Property Name="PackageId" Type="int" />
           <Property Name="PackageName" Type="nvarchar" MaxLength="600" />
           <Property Name="CouponCode" Type="nvarchar" MaxLength="150" />
-          <Property Name="CouponId" Type="bigint" />
+          <Property Name="CouponId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
@@ -348,26 +354,6 @@
           <Property Name="QuestionTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="QuestionTypeName" Type="String" MaxLength="950" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tbl_StudentFee">
-          <Key>
-            <PropertyRef Name="StudentFeeId" />
-          </Key>
-          <Property Name="StudentFeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <Property Name="FeeStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FeeAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TotalExamAttempt" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="RequestedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MarkCompleteDate" Type="DateTime" Precision="3" />
-          <Property Name="MarkCompleteBy" Type="Int32" />
-          <Property Name="IsAttemptUsed" Type="Boolean" />
-          <Property Name="FeeExpiryDate" Type="DateTime" Precision="3" />
-          <Property Name="PackageId" Type="Int32" />
-          <Property Name="PackageName" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
-          <Property Name="CouponCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CouponId" Type="Int64" />
-        </EntityType>
         <EntityType Name="tbl_Students">
           <Key>
             <PropertyRef Name="StudentId" />
@@ -397,7 +383,6 @@
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" />
-          <EntitySet Name="tbl_StudentFee" EntityType="Self.tbl_StudentFee" />
           <EntitySet Name="tbl_Students" EntityType="Self.tbl_Students" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Duolingo_skModel.tbl_GeneralSetting" />
           <EntitySet Name="tbl_Exam" EntityType="Duolingo_skModel.tbl_Exam" />
@@ -406,6 +391,7 @@
           <EntitySet Name="tbl_Package" EntityType="Duolingo_skModel.tbl_Package" />
           <EntitySet Name="tbl_Feedback" EntityType="Duolingo_skModel.tbl_Feedback" />
           <EntitySet Name="tbl_PackageBuyDetails" EntityType="Duolingo_skModel.tbl_PackageBuyDetails" />
+          <EntitySet Name="tbl_StudentFee" EntityType="Duolingo_skModel.tbl_StudentFee" />
           <EntitySet Name="tbl_CouponCode" EntityType="Duolingo_skModel.tbl_CouponCode" />
         </EntityContainer>
         <EntityType Name="tbl_GeneralSetting">
@@ -493,31 +479,57 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="PackageAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TotalAttempt" Type="Int32" />
+          <Property Name="TotalWebinar" Type="Int32" />
+          <Property Name="ExpiryInDays" Type="Int32" />
+          <Property Name="MaxLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_PackageBuyDetails">
           <Key>
             <PropertyRef Name="PackageBuyDetailId" />
           </Key>
           <Property Name="PackageBuyDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PackageId" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_StudentFee">
+          <Key>
+            <PropertyRef Name="StudentFeeId" />
+          </Key>
+          <Property Name="StudentFeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="FeeStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FeeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalExamAttempt" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="RequestedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MarkCompleteDate" Type="DateTime" Precision="3" />
+          <Property Name="MarkCompleteBy" Type="Int32" />
+          <Property Name="IsAttemptUsed" Type="Boolean" />
+          <Property Name="FeeExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="PackageId" Type="Int32" />
+          <Property Name="PackageName" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="CouponCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CouponId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_CouponCode">
           <Key>
             <PropertyRef Name="CouponCodeId" />
           </Key>
           <Property Name="CouponCodeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CouponCodeTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CouponCode" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="DiscountPercentage" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
           <Property Name="TotalMaxUsage" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -611,27 +623,6 @@
               <MappingFragment StoreEntitySet="tbl_QuestionType">
                 <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
                 <ScalarProperty Name="QuestionTypeName" ColumnName="QuestionTypeName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_StudentFee">
-            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_StudentFee">
-              <MappingFragment StoreEntitySet="tbl_StudentFee">
-                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
-                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
-                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
-                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
-                <ScalarProperty Name="FeeExpiryDate" ColumnName="FeeExpiryDate" />
-                <ScalarProperty Name="IsAttemptUsed" ColumnName="IsAttemptUsed" />
-                <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="FeeStatus" ColumnName="FeeStatus" />
-                <ScalarProperty Name="FeeAmount" ColumnName="FeeAmount" />
-                <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
-                <ScalarProperty Name="MarkCompleteDate" ColumnName="MarkCompleteDate" />
-                <ScalarProperty Name="MarkCompleteBy" ColumnName="MarkCompleteBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -737,6 +728,9 @@
           <EntitySetMapping Name="tbl_Package">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Package">
               <MappingFragment StoreEntitySet="tbl_Package">
+                <ScalarProperty Name="MaxLevel" ColumnName="MaxLevel" />
+                <ScalarProperty Name="ExpiryInDays" ColumnName="ExpiryInDays" />
+                <ScalarProperty Name="TotalWebinar" ColumnName="TotalWebinar" />
                 <ScalarProperty Name="TotalAttempt" ColumnName="TotalAttempt" />
                 <ScalarProperty Name="PackageAmount" ColumnName="PackageAmount" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -764,16 +758,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_StudentFee">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_StudentFee">
+              <MappingFragment StoreEntitySet="tbl_StudentFee">
+                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="FeeExpiryDate" ColumnName="FeeExpiryDate" />
+                <ScalarProperty Name="IsAttemptUsed" ColumnName="IsAttemptUsed" />
+                <ScalarProperty Name="MarkCompleteBy" ColumnName="MarkCompleteBy" />
+                <ScalarProperty Name="MarkCompleteDate" ColumnName="MarkCompleteDate" />
+                <ScalarProperty Name="RequestedDate" ColumnName="RequestedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="TotalExamAttempt" ColumnName="TotalExamAttempt" />
+                <ScalarProperty Name="FeeAmount" ColumnName="FeeAmount" />
+                <ScalarProperty Name="FeeStatus" ColumnName="FeeStatus" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_CouponCode">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_CouponCode">
               <MappingFragment StoreEntitySet="tbl_CouponCode">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="TotalMaxUsage" ColumnName="TotalMaxUsage" />
                 <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
                 <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
-                <ScalarProperty Name="CouponCodeTitle" ColumnName="CouponCodeTitle" />
                 <ScalarProperty Name="CouponCodeId" ColumnName="CouponCodeId" />
               </MappingFragment>
             </EntityTypeMapping>

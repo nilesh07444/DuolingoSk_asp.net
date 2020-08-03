@@ -12012,16 +12012,17 @@ body:after {
   margin-bottom: 1.5rem; }
 
 .w3l-contacts-12 form.main-input input,
-.w3l-contacts-12 textarea {
-  color: #222;
-  font-size: 16px;
-  border: none;
-  padding: 12px;
-  border: 1px solid #000000;
-  width: 100%;
-  line-height: 24px;
-  border-radius: 4px;
-  outline: none; }
+.w3l-contacts-12 textarea, .w3l-contacts-12 select {
+    color: #222;
+    font-size: 16px;
+    border: none;
+    padding: 12px;
+    border: 1px solid #000000;
+    width: 100%;
+    line-height: 24px;
+    border-radius: 4px;
+    outline: none;
+}
 
 .w3l-contacts-12 textarea {
   min-height: 170px;

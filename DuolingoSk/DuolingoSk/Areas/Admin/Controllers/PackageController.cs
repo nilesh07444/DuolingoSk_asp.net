@@ -37,6 +37,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                   PackageName = m.PackageName,
                                   PackageImageName = m.PackageImage,
                                   PackageAmount = m.PackageAmount,
+                                  TotalAttempt = m.TotalAttempt,
+                                  MaxLevel = m.MaxLevel,
+                                  TotalWebinar = m.TotalWebinar,
                                   IsActive = m.IsActive
                               }).ToList();
             }
@@ -91,7 +94,12 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     tbl_Package objPackage = new tbl_Package();
                     objPackage.PackageName = packageVM.PackageName;
                     objPackage.PackageAmount = packageVM.PackageAmount;
+                    objPackage.TotalAttempt = packageVM.TotalAttempt;
+                    objPackage.MaxLevel = packageVM.MaxLevel;
+                    objPackage.TotalWebinar = packageVM.TotalWebinar;
+                    objPackage.ExpiryInDays = packageVM.ExpiryInDays;
                     objPackage.PackageImage = fileName;
+
                     objPackage.IsActive = true;
                     objPackage.IsDeleted = false;
                     objPackage.CreatedDate = DateTime.UtcNow;
@@ -126,12 +134,16 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                   PackageId = m.PackageId,
                                   PackageName = m.PackageName,
                                   PackageAmount = m.PackageAmount,
+                                  ExpiryInDays = m.ExpiryInDays,
+                                  TotalWebinar = m.TotalWebinar,
+                                  MaxLevel = m.MaxLevel,
+                                  TotalAttempt = m.TotalAttempt,
                                   PackageImageName = m.PackageImage,
                                   IsActive = m.IsActive
-                              }).FirstOrDefault(); 
+                              }).FirstOrDefault();
             }
             catch (Exception ex)
-            { 
+            {
             }
 
             return View(objPackage);
@@ -178,6 +190,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objPackage.PackageName = packageVM.PackageName;
                     objPackage.PackageAmount = packageVM.PackageAmount;
                     objPackage.PackageImage = fileName;
+                    objPackage.TotalAttempt = packageVM.TotalAttempt;
+                    objPackage.MaxLevel = packageVM.MaxLevel;
+                    objPackage.TotalWebinar = packageVM.TotalWebinar;
+                    objPackage.ExpiryInDays = packageVM.ExpiryInDays;
 
                     objPackage.UpdatedDate = DateTime.UtcNow;
                     objPackage.UpdatedBy = LoggedInUserId;
@@ -269,7 +285,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             try
             {
-                lstPackage = (from m in _db.tbl_PackageBuyDetails 
+                lstPackage = (from m in _db.tbl_PackageBuyDetails
                               join p in _db.tbl_Package on m.PackageId equals p.PackageId
                               select new PackageInquiryVM
                               {
@@ -280,7 +296,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                   Message = m.Message,
                                   CreatedDate = m.CreatedDate,
                                   PackageId = m.PackageId,
-                                  PackageName = p.PackageName, 
+                                  PackageName = p.PackageName,
                               }).ToList();
             }
             catch (Exception ex)

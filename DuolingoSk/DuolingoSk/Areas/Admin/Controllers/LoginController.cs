@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -34,24 +35,21 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                 if (data != null)
                 {
-
-
                     if (!data.IsActive)
                     {
                         TempData["LoginError"] = "Your Account is not active. Please contact administrator.";
                         return View();
                     }
 
-
                     clsAdminSession.SessionID = Session.SessionID;
                     clsAdminSession.UserID = data.AdminUserId;
                     clsAdminSession.RoleID = data.AdminRoleId;
-                    
+
                     clsAdminSession.UserName = data.FirstName + " " + data.LastName;
                     clsAdminSession.ImagePath = data.ProfilePicture;
                     clsAdminSession.MobileNumber = data.MobileNo;
 
-                    if(clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                    if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
                     {
                         clsAdminSession.RoleName = "Super Admin";
                     }
@@ -74,11 +72,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 throw ex;
             }
 
-            return View();
         }
 
         public string SendOTP(string MobileNumber)
         {
+
             try
             {
                 tbl_AdminUsers objtbl_AdminUsers = _db.tbl_AdminUsers.Where(o => o.MobileNo.ToLower() == MobileNumber.ToLower() && !o.IsDeleted).FirstOrDefault();
@@ -90,6 +88,31 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 {
                     return "InActiveAccount";
                 }
+
+                // Below code only for development purpose
+                bool IsDevelopmentMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsDevelopmentMode"]);
+                if (IsDevelopmentMode)
+                {
+                    clsAdminSession.SessionID = Session.SessionID;
+                    clsAdminSession.UserID = objtbl_AdminUsers.AdminUserId;
+                    clsAdminSession.RoleID = objtbl_AdminUsers.AdminRoleId;
+
+                    clsAdminSession.UserName = objtbl_AdminUsers.FirstName + " " + objtbl_AdminUsers.LastName;
+                    clsAdminSession.ImagePath = objtbl_AdminUsers.ProfilePicture;
+                    clsAdminSession.MobileNumber = objtbl_AdminUsers.MobileNo;
+
+                    if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+                    {
+                        clsAdminSession.RoleName = "Super Admin";
+                    }
+                    else
+                    {
+                        clsAdminSession.RoleName = "Agent";
+                    }
+
+                    return "DEVELOPMENTMODE";
+                }
+
 
                 using (WebClient webClient = new WebClient())
                 {
