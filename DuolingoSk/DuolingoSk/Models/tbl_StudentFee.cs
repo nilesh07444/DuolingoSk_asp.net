@@ -29,5 +29,8 @@ namespace DuolingoSk.Models
         public string PackageName { get; set; }
         public string CouponCode { get; set; }
         public Nullable<int> CouponId { get; set; }
+        public Nullable<decimal> Discount { get; set; }
+        public string Paymentoken { get; set; }
+        public Nullable<decimal> OriginalPackagePrice { get; set; }
     }
 }

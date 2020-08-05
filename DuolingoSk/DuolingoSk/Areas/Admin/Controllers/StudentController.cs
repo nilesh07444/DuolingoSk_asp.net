@@ -1,7 +1,9 @@
-﻿using DuolingoSk.Filters;
+﻿using DuolingoSk.Areas.Client.Controllers;
+using DuolingoSk.Filters;
 using DuolingoSk.Helper;
 using DuolingoSk.Model;
 using DuolingoSk.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -141,12 +143,43 @@ namespace DuolingoSk.Areas.Admin.Controllers
         public ActionResult Add()
         {
             StudentVM objStudent = new StudentVM();
-
+            long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
+            List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
+                                                join c in _db.tbl_Package on s.PackageId equals c.PackageId
+                                                join p in _db.tbl_AdminUsers on s.AgentId equals p.AdminUserId
+                                                where !s.IsDeleted.Value && s.AgentId.Value == LoggedInUserId
+                                                select new AgentPackageVM
+                                                {
+                                                    PackageId = s.PackageId.Value,
+                                                    PackageName = c.PackageName,
+                                                    AgentName = p.FirstName + " " + p.LastName,
+                                                    PackageAmountAgent = s.PackageAmount,
+                                                    PackageAgentId = s.PackageAgentId,
+                                                    TotalAttempt = c.TotalAttempt
+                                                }).OrderBy(x => x.PackageName).ToList();
+            List<long> pkgids = new List<long>();
+            if(lstPackages != null && lstPackages.Count() > 0)
+            {
+                pkgids = lstPackages.Select(x => x.PackageId).ToList();
+            }        
+            List<AgentPackageVM> lstPackagesnew = (from s in _db.tbl_Package                                               
+                                                where !s.IsDeleted && !pkgids.Contains(s.PackageId)
+                                                select new AgentPackageVM
+                                                {
+                                                    PackageId = s.PackageId,
+                                                    PackageName = s.PackageName,
+                                                    AgentName = "",
+                                                    PackageAmountAgent = s.PackageAmount,
+                                                    PackageAgentId = 0,
+                                                    TotalAttempt = s.TotalAttempt
+                                                }).OrderBy(x => x.PackageName).ToList();
+            lstPackages.AddRange(lstPackagesnew);
+            ViewData["lstPackages"] = lstPackages.OrderBy(x => x.PackageName).ToList();
             return View(objStudent);
         }
 
         [HttpPost]
-        public ActionResult Add(StudentVM userVM, HttpPostedFileBase ProfilePictureFile)
+        public ActionResult Add(StudentVM userVM, HttpPostedFileBase ProfilePictureFile,FormCollection frm)
         {
             try
             {
@@ -162,6 +195,14 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     if (duplicateMobile != null)
                     {
                         ModelState.AddModelError("MobileNo", ErrorMessage.MobileNoExists);
+                        return View(userVM);
+                    }
+
+                    // Validate duplicate Email 
+                    tbl_Students duplicateEmail = _db.tbl_Students.Where(x => x.Email.ToLower() == userVM.Email && !x.IsDeleted).FirstOrDefault();
+                    if (duplicateMobile != null)
+                    {
+                        ModelState.AddModelError("Email", ErrorMessage.EmailExists);
                         return View(userVM);
                     }
 
@@ -228,24 +269,81 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     tbl_AdminUsers agentProfile = _db.tbl_AdminUsers.Where(x => x.AdminUserId == LoggedInUserId).FirstOrDefault();
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-
-                    DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
-                    if (objSetting.FeeExpiryInDays != null && objSetting.FeeExpiryInDays > 0)
+                                      
+                    int PackageId = Convert.ToInt32(frm["Package"]);
+                    decimal PckPriceForPay = 0;
+                    if (PackageId > 0)
                     {
-                        exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objSetting.FeeExpiryInDays));
+                        var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
+                        if (objPckg != null)
+                        {
+                            DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
+                            if (objPckg.ExpiryInDays != null && objPckg.ExpiryInDays > 0)
+                            {
+                                exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objPckg.ExpiryInDays));
+                            }
+                            var objAgentPckg = _db.tbl_AgentPackage.Where(o => o.AgentId == LoggedInUserId && o.PackageId == objPckg.PackageId && o.IsDeleted == false).FirstOrDefault();
+                            string refralcode = Convert.ToString(frm["refrealcode"]);
+                            int copupnid = 0;
+                            var objcpcode = _db.tbl_CouponCode.Where(o => o.CouponCode == refralcode).FirstOrDefault();
+                            decimal disc = 0;
+                            if (objcpcode != null)
+                            {
+                                if(objAgentPckg != null)
+                                {
+                                    disc = (Convert.ToDecimal(objAgentPckg.PackageAmount) * objcpcode.DiscountPercentage.Value) / 100;
+                                    PckPriceForPay = Convert.ToDecimal(objAgentPckg.PackageAmount);
+                                }
+                                else
+                                {
+                                    disc = (Convert.ToDecimal(objPckg.PackageAmount) * objcpcode.DiscountPercentage.Value) / 100;
+                                    PckPriceForPay = Convert.ToDecimal(objPckg.PackageAmount);
+                                }
+                                copupnid = Convert.ToInt32(objcpcode.CouponCodeId);
+                            }
+                            else
+                            {
+                                if (objAgentPckg != null)
+                                {                                    
+                                    PckPriceForPay = Convert.ToDecimal(objAgentPckg.PackageAmount);
+                                }
+                                else
+                                {                                 
+                                    PckPriceForPay = Convert.ToDecimal(objPckg.PackageAmount);
+                                }
+                            }
+                            tbl_StudentFee objStudentFee = new tbl_StudentFee();
+                            objStudentFee.StudentId = objStudent.StudentId;
+                            if(frm["hdnPaymentId"] != null && !string.IsNullOrEmpty(frm["hdnPaymentId"]))
+                            {
+                                objStudentFee.FeeStatus = "Complete";
+                                objStudentFee.MarkCompleteBy = Convert.ToInt32(clsAdminSession.UserID);
+                                objStudentFee.MarkCompleteDate = DateTime.UtcNow;
+                                objStudentFee.Paymentoken = frm["hdnPaymentId"].ToString();
+                            }
+                            else
+                            {
+                                objStudentFee.FeeStatus = "Pending";
+                            }
+                            objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(PckPriceForPay) - disc, 2);
+                            objStudentFee.TotalExamAttempt = Convert.ToInt32(objPckg.TotalAttempt);
+                            objStudentFee.FeeExpiryDate = exp_date;
+                            objStudentFee.OriginalPackagePrice = objPckg.PackageAmount;
+                            objStudentFee.Discount = disc;
+                            objStudentFee.IsDeleted = false;
+                            objStudentFee.RequestedDate = DateTime.UtcNow;
+                         
+                            objStudentFee.IsAttemptUsed = false;
+                            objStudentFee.PackageId = objPckg.PackageId;
+                            objStudentFee.PackageName = objPckg.PackageName;
+                            objStudentFee.CouponCode = refralcode;
+                            objStudentFee.CouponId = copupnid;
+                            _db.tbl_StudentFee.Add(objStudentFee);
+                            _db.SaveChanges();
+
+
+                        }
                     }
-
-                    tbl_StudentFee objStudentFee = new tbl_StudentFee();
-                    objStudentFee.StudentId = objStudent.StudentId;
-                    objStudentFee.FeeStatus = "Pending";
-                    objStudentFee.FeeAmount = Convert.ToDecimal(agentProfile.StudentRegistrationFee);
-                    objStudentFee.TotalExamAttempt = Convert.ToInt32(objSetting.TotalExamAttempt);
-                    objStudentFee.FeeExpiryDate = exp_date;
-                    objStudentFee.IsDeleted = false;
-                    objStudentFee.RequestedDate = DateTime.UtcNow;
-                    _db.tbl_StudentFee.Add(objStudentFee);
-                    _db.SaveChanges();
-
                     #endregion PendingFeeEntry
 
                     return RedirectToAction("Index");
@@ -542,6 +640,91 @@ namespace DuolingoSk.Areas.Admin.Controllers
             {
                 return ex.Message.ToString();
             }
+        }
+
+        [HttpPost]
+        public string CheckCouponCode(string couponcode)
+        {
+            try
+            {
+                DateTime dtNow = DateTime.UtcNow;
+                var objCop = _db.tbl_CouponCode.Where(o => o.CouponCode == couponcode).FirstOrDefault();
+                if (objCop == null)
+                {
+                    return "Invalid Referal Code";
+                }
+                else
+                {
+                    if (objCop.ExpiryDate >= dtNow)
+                    {
+                        int TotalUsed = _db.tbl_StudentFee.Where(o => o.CouponCode == couponcode).ToList().Count();
+                        if (TotalUsed >= objCop.TotalMaxUsage)
+                        {
+                            return "Referal Code Usage Over";
+                        }
+                        else
+                        {
+                            return "Success^" + objCop.DiscountPercentage.ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        return "Referal Code Expired";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return "Fail" + e.Message.ToString();
+            }
+
+        }
+
+        [HttpPost]
+        public string GetPaymentToken(string Amount, string MobileNumber, string Email)
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                string sURL = "https://sandbox-icp-api.bankopen.co/api/payment_token";
+                //string sURL = "https://icp-api.bankopen.co/api/payment_token";
+
+                WebRequest wrGETURL;
+                wrGETURL = WebRequest.Create(sURL);
+
+                wrGETURL.Method = "POST";
+                wrGETURL.ContentType = @"application/json; charset=utf-8";
+                //Sandbox
+                wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
+
+                //wrGETURL.Headers.Add("Authorization", "Bearer 8dd56630-d1a3-11ea-b4a4-cd7b8d79485d:b6cea9a3cab16ed39ecc67dc4e87639c31560658");
+                using (var stream = new StreamWriter(wrGETURL.GetRequestStream()))
+                {
+                    var bodyContent = new
+                    {
+                        amount = Amount,
+                        mtx = Guid.NewGuid().ToString(),
+                        currency = "INR",
+                        contact_number = MobileNumber,
+                        email_id = Email
+                    }; // This will need to be changed to an actual class after finding what the specification sheet requires.
+
+                    var json = JsonConvert.SerializeObject(bodyContent);
+
+                    stream.Write(json);
+                }
+                var response = (HttpWebResponse)wrGETURL.GetResponse();
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                PaymentTokenVM myDeserializedClass = JsonConvert.DeserializeObject<PaymentTokenVM>(responseString);
+                return myDeserializedClass.id;
+            }
+            catch (Exception e)
+            {
+                return "Fail" + e.Message.ToString();
+            }
+
         }
 
     }

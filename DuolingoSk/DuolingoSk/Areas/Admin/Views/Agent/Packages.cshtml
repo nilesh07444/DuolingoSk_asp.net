@@ -1,0 +1,181 @@
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model List<AgentPackageVM>
+@{
+    ViewBag.Title = "Agent Packages";
+    List<SelectListItem> lstagents =  ViewData["Agents"] as List<SelectListItem>;
+    int counter = 1;
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Agent Packages List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Agent Packages List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Agent Packages List</h5>
+            </div>
+            <div class="card-body vendor-table">
+                <h3>Filter:</h3>
+                <div class="row" style="margin-top:25px;border-bottom: 2px solid #f8f8f9;padding-bottom: 25px;margin-bottom: 10px;">
+
+                    <div class="col-sm-4">
+                        <label>Agents</label>
+                        <select id="selectagent" class="form-control">
+                            <option value="0">All</option>
+                            @if (lstagents != null && lstagents.Count() > 0)
+                            {
+                                foreach (var objc in lstagents)
+                                {
+                                    <option value="@objc.Value">@objc.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>                  
+
+                    <div class="col-sm-2">
+                        <input type="button" value="Filter" class="btn btn-info" onclick="filter();" style="position: absolute; bottom: 0;" />
+                    </div>
+                </div>
+                <div class="btn-popup pull-right">
+                    <button type="button" class="btn btn-primary" id="btnAdd">Add Package</button>
+                </div>
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="5%;">#</th>
+                            <th>Agent Name</th>
+                            <th>Package Name</th>
+                            <th>Package Price</th>
+                            <th width="10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (AgentPackageVM obj in Model)
+                            {
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@obj.AgentName</td>
+                                    <td>@obj.PackageName</td>
+                                    <td>@obj.PackageAmountAgent</td>
+                                    <td>
+                                        <a title="Edit" href="/admin/agent/EditPackage/@obj.PackageAgentId"><i class="fa fa-edit mr-2 font-success"></i></a>
+                                        <a title="Delete" href="javascript:void(0);" onclick="fnDeleteAgentPackage('@obj.PackageAgentId')"><i class="fa fa-trash font-danger"></i></a>
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade open" id="deleteAgentPackageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete ?
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hdnDeleteAgentPackageId" />
+                <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                <button id="btnDeleteAgentPackage" class="btn btn-primary" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete modal -->
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+        $("#selectagent").val("@ViewBag.AgentId");
+    });
+
+    $(document).on("click", "#btnAdd", function () {
+        window.location.href = "/admin/agent/addpackage";
+    });
+
+    function fnDeleteAgentPackage(pkagtid) {
+        jQuery("#hdnDeleteAgentPackageId").val(pkagtid);
+        $('#deleteAgentPackageModal').modal('show');
+    }
+
+    jQuery(document).on("click", "#btnDeleteAgentPackage", function () {
+
+        var PackageAgntId = jQuery("#hdnDeleteAgentPackageId").val();
+        if (PackageAgntId != "" && PackageAgntId  != null) {
+            $('#deleteAgentPackageModal').modal('hide');
+
+            StartLoading();
+
+            var URL = '@Url.Action("DeleteAgentPackage", "Agent")';
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?AgentPackageId=" + PackageAgntId,
+                success: function (result) {
+                    if (result == "success") {
+                        alert("Agent's Package deleted successfully");
+                        window.location.reload();
+                    }
+                    else if (result == "notfound") {
+                        alert("Package Not Found");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again");
+                    }
+
+                   StopLoading();
+                },
+                error: function (resultData) {
+                    StopLoading();
+                }
+            });
+        }
+    });
+
+    function filter() {
+        var agentid = $("#selectagent").val();
+        location.href = "/admin/agent/packages?AgentId=" + agentid;
+    }
+</script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -518,6 +519,207 @@ namespace DuolingoSk.Areas.Admin.Controllers
             {
                 throw ex;
             }
+        }
+
+        public ActionResult Packages(int AgentId = 0)
+        {
+          List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
+                              join c in _db.tbl_Package on s.PackageId equals c.PackageId
+                              join p in _db.tbl_AdminUsers on s.AgentId equals p.AdminUserId
+                              where !s.IsDeleted.Value && (AgentId == 0 || s.AgentId.Value == AgentId)
+                              select new AgentPackageVM
+                              {
+                                  PackageId = s.PackageId.Value,
+                                  PackageName = c.PackageName,
+                                  AgentName = p.FirstName+" "+p.LastName,
+                                  PackageAmountAgent = s.PackageAmount,
+                                  PackageAgentId = s.PackageAgentId
+                              }).OrderBy(x => x.PackageName).ToList();
+           ViewData["Agents"] = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                       .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
+                       .OrderBy(x => x.Text).ToList();
+            ViewBag.AgentId = AgentId;
+            return View(lstPackages);
+        }
+        public ActionResult AddPackage()
+        {
+            AgentPackageVM objAgnt = new AgentPackageVM();
+
+            List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
+          
+            objAgnt.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " "+ o.LastName })
+                        .OrderBy(x => x.Text).ToList();
+            objAgnt.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
+                      .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName})
+                      .OrderBy(x => x.Text).ToList();
+            ViewData["lstPackges"] = lstPackges;
+          
+            return View(objAgnt);
+        }
+
+        [HttpPost]
+        public ActionResult AddPackage(AgentPackageVM pkg)
+        {
+            try
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                if (ModelState.IsValid)
+                {
+                    long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
+
+                    #region Validation
+                 
+                    tbl_AgentPackage duplicate = _db.tbl_AgentPackage.Where(x => x.AgentId == pkg.AgentId && x.PackageId == pkg.PackageId && x.IsDeleted == false).FirstOrDefault();
+                    if (duplicate != null)
+                    {
+                        ModelState.AddModelError("PackageId", ErrorMessage.PackageExistsAgent);
+                        List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
+
+                        pkg.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                                    .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
+                                    .OrderBy(x => x.Text).ToList();
+                        pkg.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
+                                  .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
+                                  .OrderBy(x => x.Text).ToList();
+                        ViewData["lstPackges"] = lstPackges;
+
+                        return View(pkg);
+                    }
+                   
+                    #endregion Validation
+
+                   
+                    tbl_AgentPackage objtbl_AgentPackage = new tbl_AgentPackage();
+
+                    objtbl_AgentPackage.PackageId = Convert.ToInt32(pkg.PackageId);
+                    objtbl_AgentPackage.AgentId = pkg.AgentId;
+                    objtbl_AgentPackage.PackageAmount = pkg.PackageAmountAgent;
+                    objtbl_AgentPackage.IsDeleted = false;
+                    objtbl_AgentPackage.CreatedDate = DateTime.UtcNow;
+                    objtbl_AgentPackage.CreatedBy = LoggedInUserId;
+                    _db.tbl_AgentPackage.Add(objtbl_AgentPackage);
+                    _db.SaveChanges();
+
+                    return RedirectToAction("Packages");
+
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = ex.Message.ToString();
+                throw ex;
+            }
+
+            return View(pkg);
+        }
+
+        public ActionResult EditPackage(long Id)
+        {
+            AgentPackageVM objAgnt = new AgentPackageVM();
+            var objPackgg = _db.tbl_AgentPackage.Where(o => o.PackageAgentId == Id).FirstOrDefault();
+
+            objAgnt.PackageAgentId = Id;
+            objAgnt.PackageId = Convert.ToInt64(objPackgg.PackageId);
+            objAgnt.AgentId = objPackgg.AgentId.Value;
+            objAgnt.PackageAmountAgent = objPackgg.PackageAmount;
+            List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
+
+            objAgnt.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
+                        .OrderBy(x => x.Text).ToList();
+            objAgnt.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
+                      .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
+                      .OrderBy(x => x.Text).ToList();
+            ViewData["lstPackges"] = lstPackges;
+
+            return View(objAgnt);
+        }
+
+        [HttpPost]
+        public ActionResult EditPackage(AgentPackageVM pkg)
+        {
+            try
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                if (ModelState.IsValid)
+                {
+                    long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
+
+                    #region Validation
+
+                    tbl_AgentPackage duplicate = _db.tbl_AgentPackage.Where(x => x.AgentId == pkg.AgentId && x.PackageAgentId != pkg.PackageAgentId && x.PackageId == pkg.PackageId && x.IsDeleted == false).FirstOrDefault();
+                    if (duplicate != null)
+                    {
+                        ModelState.AddModelError("PackageId", ErrorMessage.PackageExistsAgent);
+                        List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
+
+                        pkg.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                                    .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
+                                    .OrderBy(x => x.Text).ToList();
+                        pkg.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
+                                  .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
+                                  .OrderBy(x => x.Text).ToList();
+                        ViewData["lstPackges"] = lstPackges;
+
+                        return View(pkg);
+                    }
+
+                    #endregion Validation
+
+
+                    tbl_AgentPackage objtbl_AgentPackage = _db.tbl_AgentPackage.Where(o => o.PackageAgentId == pkg.PackageAgentId).FirstOrDefault();
+
+                    objtbl_AgentPackage.PackageId = Convert.ToInt32(pkg.PackageId);
+                    objtbl_AgentPackage.AgentId = pkg.AgentId;
+                    objtbl_AgentPackage.PackageAmount = pkg.PackageAmountAgent;                 
+                    objtbl_AgentPackage.ModifiedDate = DateTime.UtcNow;
+                    objtbl_AgentPackage.ModifiedBy = LoggedInUserId;                    
+                    _db.SaveChanges();
+
+                    return RedirectToAction("Packages");
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = ex.Message.ToString();
+                throw ex;
+            }
+
+            return View(pkg);
+        }
+
+        [HttpPost]
+        public string DeleteAgentPackage(int AgentPackageId)
+        {
+            string ReturnMessage = "";
+
+            try
+            {
+                tbl_AgentPackage objPackage = _db.tbl_AgentPackage.Where(x => x.PackageAgentId == AgentPackageId).FirstOrDefault();
+
+                if (objPackage == null)
+                {
+                    ReturnMessage = "notfound";
+                }
+                else
+                {
+                    objPackage.IsDeleted = true;
+                    _db.SaveChanges();
+
+                    ReturnMessage = "success";
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message.ToString();
+                ReturnMessage = "exception";
+            }
+
+            return ReturnMessage;
         }
 
     }

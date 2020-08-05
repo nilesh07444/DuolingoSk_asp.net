@@ -6,8 +6,11 @@
 @{
     ViewBag.Title = "Re-Register";
     int counter = 1;
+    List<AgentPackageVM> lstPackges = ViewData["lstPackages"] as List<AgentPackageVM>;
+    tbl_Students objstud = ViewData["objStudent"] as tbl_Students;
 }
-
+<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
+@*<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
@@ -31,17 +34,41 @@
                 <div class="contacts12-main col-lg-12">
                     <center>
                         <form class="main-input">
+                            <div class="top-inputs d-grid col-lg-6">
+                                <label class="text-left">Select Program *</label>
+                                <select class="form-control" name="Package" id="Package">
+                                    <option value="0" data-prc="0" data-attempt="0">--Select Program--</option>
+                                    @if (lstPackges != null && lstPackges.Count() > 0)
+                                    {
+                                        foreach (var objjj in lstPackges)
+                                        {
+                                            <option value="@objjj.PackageId" data-prc="@objjj.PackageAmountAgent" data-attempt="@objjj.TotalAttempt">@objjj.PackageName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
 
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Renew Fee *</label>
-                                <input type="text" placeholder="Password" id="renewfee" name="renewfee" value="@ViewBag.RenewFee" disabled>
+                                <input type="text" placeholder="Renew Fee" id="Regfee" value="0" readonly>
                             </div>
-
+                            <input type="hidden" value="@objstud.Email" id="email" />
+                            <input type="hidden" value="@objstud.MobileNo" id="mobile" />
                             <div class="top-inputs d-grid col-lg-6">
                                 <label class="text-left">Total Exam Attempts *</label>
-                                <input type="text" placeholder="Password" id="examattempt" name="examattempt" value="@ViewBag.TotalExamAttempt" disabled>
+                                <input type="text" placeholder="Total Exam Attempts" value="0" id="ExamAttempt" readonly>
+                            </div>
+                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
+                                <label class="text-left">Referral Code *</label>
                             </div>
 
+                            <div style="max-width: 50%;margin-bottom:15px;">
+                                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
+                                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
+                            </div>
+                            <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
+                            <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
+                            <input type="hidden" id="hdndisc" value="0" />
                             <div class="text-left col-lg-6">
                                 <button id="btnRenew" type="button" class="btn btn-theme2">Submit</button>
                             </div>
@@ -105,10 +132,90 @@
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
+    jQuery(document).ready(function () {
 
+        jQuery("#Package").change(function () {
+            var prcc = jQuery("#Package option:selected").attr("data-prc");
+            var attemmp = jQuery("#Package option:selected").attr("data-attempt");
+            $("#Regfee").val(prcc);
+            $("#ExamAttempt").val(attemmp);
+            var regfree = parseInt(prcc);
+            var disc = $("#hdndisc").val();
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(prcc) * disc) / 100
+                $("#Regfee").val(Math.round(parseFloat(prcc) - finlamtdisc, 2));
+            }
+        });
+    });
     $(document).on("click", "#btnRenew", function () {
+        if ($("#Package").val() == "0") {
+            alert("Please select Program");
+            return false;
+        }
+        else {
+            CheckRenew();
+        }
 
-        $.blockUI({ message: "<h4>Please Wait...</h4>" });
+    });
+      function GetPaymntToken() {
+        var amt = $("#Regfee").val();
+        var mobileno = $("#mobile").val();
+        var emil = $("#email").val();
+           var URL = '@Url.Action("GetPaymentToken", "StudentRegister")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Amount=" + amt + "&MobileNumber=" + mobileno + "&Email=" + emil,
+                success: function (result) {
+                    if (result.indexOf("Fail") >= 0) {
+                        alert(result);
+                    }
+                    else {
+                        $("#hdnPaymentTokenId").val(result);
+                        // Sandbox
+                        Layer.checkout({
+                            token: $("#hdnPaymentTokenId").val(),
+                            accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                        },
+                        //Layer.checkout({
+                          //  token: $("#hdnPaymentTokenId").val(),
+                            //accesskey: "8dd56630-d1a3-11ea-b4a4-cd7b8d79485d"
+                        //},
+                            function (response) {
+
+                                if (response.status == "captured") {
+                                    $("#hdnPaymentId").val(response.payment_id);
+                                    $("#hdnPaymentTokenId").val(response.payment_token_id);
+                                    Renew();
+                                    // response.payment_token_id
+                                    // response.payment_id
+
+                                } else if (response.status == "created") {
+
+
+                                } else if (response.status == "pending") {
+                                    alert("Payment Pending");
+
+                                } else if (response.status == "failed") {
+                                    alert("Payment Failed");
+
+                                } else if (response.status == "cancelled") {
+                                    alert("Payment Cancelled");
+                                }
+                            },
+                            function (err) {
+                                //integration errors
+                            }
+                        );
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+    }
+
+    function Renew() {
+          $.blockUI({ message: "<h4>Please Wait...</h4>" });
 
             var URL = '@Url.Action("RenewMyAccount", "RenewAccount")';
             jQuery.ajax({
@@ -118,7 +225,8 @@
                 success: function (data) {
                     $.unblockUI();
                     if (data == "SUCCESS") {
-                        alert("Your request has been sent successfully..");
+                        alert("Renew Successfully...");
+                        window.location.reload();
                     }
                     else if (data == "ALREADY_PENDING_FOUND") {
                         alert("Your previous fee status is pending to aproove. You can not send new request.");
@@ -138,8 +246,107 @@
 
             });
 
-            return false;
+    }
 
-    });
+    function resetdiscount() {
+        if ($("#refrealcode").val() == "" || $("#hdndisc").val("0")) {
+            var disc = 0;
+            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+            $("#hdndisc").val(0);
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                $("#Regfee").val(regfree);
+            }
+        }
+    }
 
+    function checkrefrlcode() {
+        $("#hdndisc").val("0");
+        if ($("#refrealcode").val() == "") {
+            alert("Please Enter Referal Code");
+            var disc = 0;
+            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+            $("#hdndisc").val(0);
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                $("#Regfee").val(Math.round(parseFloat(regfree) - finlamtdisc, 2));
+            }
+        }
+        else {
+          var URL = '@Url.Action("CheckCouponCode", "StudentRegister")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                   url: URL + "?couponcode=" + $("#refrealcode").val(),
+                success: function (result) {
+                    if (result.indexOf("Fail") >= 0) {
+                        alert(result);
+                        var disc = 0;
+                        var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                        $("#hdndisc").val(0);
+                        if (regfree > 0) {
+                            var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                            $("#Regfee").val(regfree);
+                        }
+                    }
+                    else {
+                        if (result.indexOf("Success") >= 0) {
+                            var cpn = result.split('^');
+                            var disc = parseFloat(cpn[1]);
+                            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                            $("#hdndisc").val(disc);
+                            if (regfree > 0) {
+                                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                                $("#Regfee").val(Math.round(parseFloat(regfree) - finlamtdisc,2));
+                            }
+
+                        }
+                        else {
+                            alert(result);
+                            var disc = 0;
+                            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                            $("#hdndisc").val(0);
+                            if (regfree > 0) {
+                                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                                $("#Regfee").val(regfree);
+                            }
+                        }
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+        }
+
+    }
+
+        function CheckRenew() {
+          $.blockUI({ message: "<h4>Please Wait...</h4>" });
+
+            var URL = '@Url.Action("CheckRenewMyAccount", "RenewAccount")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "SUCCESS") {
+                        GetPaymntToken();
+                    }
+                    else if (data == "ALREADY_PENDING_FOUND") {
+                        alert("Your previous fee status is pending to aproove. You can not send new request.");
+                    }
+                    else if (data == "PREVIOUS_EXAM_REMAINING") {
+                        alert("You have aleady attempts to use. So You can not send new request.");
+                    }
+                    else {
+                        alert("Something went wrong. Please try again.");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+
+    }
 </script>

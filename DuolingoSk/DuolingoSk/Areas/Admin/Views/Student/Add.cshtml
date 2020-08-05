@@ -11,6 +11,7 @@
     DuolingoSk_Entities _db = new DuolingoSk_Entities();
     long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
     tbl_AdminUsers agentProfile = _db.tbl_AdminUsers.Where(x => x.AdminUserId == LoggedInUserId).FirstOrDefault();
+    List<AgentPackageVM> lstPackges = ViewData["lstPackages"] as List<AgentPackageVM>;
 }
 
 <style>
@@ -18,7 +19,8 @@
         padding-top: 60px;
     }
 </style>
-
+<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
+@*<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -52,7 +54,7 @@
                         <h5>Add Student</h5>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Add", "Student", FormMethod.Post, new { @id = "StudentUserFormId", @class = "needs-validation", enctype = "multipart/form-data", role = "form" }))
+                        @using (Html.BeginForm("Add", "Student", FormMethod.Post, new { @id = "StudentUserFormId", @class = "needs-validation", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();" }))
                         {
 
                             @Html.AntiForgeryToken()
@@ -137,17 +139,38 @@
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
                             </div>
-
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4">Select Program *</label>
+                                <select class="form-control col-md-8" name="Package" id="Package">
+                                    <option value="0" data-prc="0" data-attempt="0">Demo</option>
+                                    @if (lstPackges != null && lstPackges.Count() > 0)
+                                    {
+                                        foreach (var objjj in lstPackges)
+                                        {
+                                            <option value="@objjj.PackageId" data-prc="@objjj.PackageAmountAgent" data-attempt="@objjj.TotalAttempt">@objjj.PackageName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4">Referral Code</label>
+                                <input type="text" class="form-control col-md-4" name="refrealcode" id="refrealcode" style="margin-right:25px;" value="" onblur="resetdiscount();">
+                                <input type="button" value="Apply" class="col-md-1 btn btn-danger" style="width:100px;padding: 10px;" onclick="checkrefrlcode();">
+                            </div>
                             <div class="form-group row">
                                 <label class="col-xl-3 col-md-4">Registration Fee *</label>
-                                <input type="text" class="form-control col-md-8" value="@agentProfile.StudentRegistrationFee" disabled />
+                                <input type="text" class="form-control col-md-8" placeholder="Registration Fee" id="Regfee" value="0" readonly>
                             </div>
-
                             <div class="form-group row">
-                                <label class="col-xl-3 col-md-4">Renew Fee *</label>
-                                <input type="text" class="form-control col-md-8" value="@agentProfile.StudentRenewFee" disabled />
+                                <label class="col-xl-3 col-md-4">Payment By *</label>
+                                <select class="form-control col-md-8" name="PaymentBy" id="PaymentBy">
+                                    <option value="Online">Online</option>
+                                    <option value="Offline">Offline</option>
+                                </select>
                             </div>
-
+                            <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
+                            <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
+                            <input type="hidden" id="hdndisc" value="0" />
                             <div class="form-group row">
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
@@ -169,9 +192,175 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
-
+    var pymenttokn = "";
     $(document).on("click", "#btnCancel", function () {
         window.location.href = "/admin/student";
     });
 
+    $(document).ready(function () {
+
+        $("#Package").change(function () {
+            var prcc = jQuery("#Package option:selected").attr("data-prc");
+            var attemmp = jQuery("#Package option:selected").attr("data-attempt");
+            $("#Regfee").val(prcc);
+            var regfree = parseInt(prcc);
+            var disc = $("#hdndisc").val();
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(prcc) * disc) / 100
+                $("#Regfee").val(Math.round(parseFloat(prcc) - finlamtdisc, 2));
+            }
+        });
+    });
+
+      function resetdiscount() {
+        if ($("#refrealcode").val() == "" || $("#hdndisc").val("0")) {
+            var disc = 0;
+            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+            $("#hdndisc").val(0);
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                $("#Regfee").val(regfree);
+            }
+        }
+    }
+
+       function CheckRegister() {
+        if ($("#FirstName").val() == "" || $("#LastName").val() == "" || $("#MobileNo").val() == "" || $("#MobileNo").val().length < 10 || $("#Password").val() == "") {
+            return false;
+        }
+        else {
+              if (jQuery("#Package option:selected").attr("data-prc") == "0") {
+                 $("#StudentUserFormId").submit();
+              }
+              else {
+                  if ($("#PaymentBy").val() == "Online" && $("#hdnPaymentId").val() == "") {
+                      $("#hdnPaymentId").val("");
+                      GetPaymntToken();
+                      return false;
+                  }
+                  else {
+                      return true;
+                  }
+             }
+       }
+
+     }
+
+
+    function GetPaymntToken() {
+        var amt = $("#Regfee").val();
+        var mobileno = $("#MobileNo").val();
+        var emil = $("#Email").val();
+           var URL = '@Url.Action("GetPaymentToken", "Student")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                url: URL + "?Amount=" + amt + "&MobileNumber=" + mobileno + "&Email=" + emil,
+                success: function (result) {
+                    if (result.indexOf("Fail") >= 0) {
+                        alert(result);
+                    }
+                    else {
+                        $("#hdnPaymentTokenId").val(result);
+                        // Sandbox
+                        Layer.checkout({
+                            token: $("#hdnPaymentTokenId").val(),
+                            accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                        },
+                        //Layer.checkout({
+                          //  token: $("#hdnPaymentTokenId").val(),
+                            //accesskey: "8dd56630-d1a3-11ea-b4a4-cd7b8d79485d"
+                        //},
+                            function (response) {
+
+                                if (response.status == "captured") {
+                                    $("#hdnPaymentId").val(response.payment_id);
+                                    $("#hdnPaymentTokenId").val(response.payment_token_id);
+                                    $("#StudentUserFormId").submit();
+                                    // response.payment_token_id
+                                    // response.payment_id
+
+                                } else if (response.status == "created") {
+
+
+                                } else if (response.status == "pending") {
+                                    alert("Payment Pending");
+
+                                } else if (response.status == "failed") {
+                                    alert("Payment Failed");
+
+                                } else if (response.status == "cancelled") {
+                                    alert("Payment Cancelled");
+                                }
+                            },
+                            function (err) {
+                                //integration errors
+                            }
+                        );
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+    }
+
+    function checkrefrlcode() {
+        $("#hdndisc").val("0");
+        if ($("#refrealcode").val() == "") {
+            alert("Please Enter Referal Code");
+            var disc = 0;
+            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+            $("#hdndisc").val(0);
+            if (regfree > 0) {
+                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                $("#Regfee").val(Math.round(parseFloat(regfree) - finlamtdisc, 2));
+            }
+        }
+        else {
+          var URL = '@Url.Action("CheckCouponCode", "Student")';
+               $.ajax({
+                type: 'POST',
+                async: true,
+                   url: URL + "?couponcode=" + $("#refrealcode").val(),
+                success: function (result) {
+                    if (result.indexOf("Fail") >= 0) {
+                        alert(result);
+                        var disc = 0;
+                        var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                        $("#hdndisc").val(0);
+                        if (regfree > 0) {
+                            var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                            $("#Regfee").val(regfree);
+                        }
+                    }
+                    else {
+                        if (result.indexOf("Success") >= 0) {
+                            var cpn = result.split('^');
+                            var disc = parseFloat(cpn[1]);
+                            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                            $("#hdndisc").val(disc);
+                            if (regfree > 0) {
+                                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                                $("#Regfee").val(Math.round(parseFloat(regfree) - finlamtdisc,2));
+                            }
+
+                        }
+                        else {
+                            alert(result);
+                            var disc = 0;
+                            var regfree = parseInt(jQuery("#Package option:selected").attr("data-prc"));
+                            $("#hdndisc").val(0);
+                            if (regfree > 0) {
+                                var finlamtdisc = (parseFloat(regfree) * disc) / 100
+                                $("#Regfee").val(regfree);
+                            }
+                        }
+                    }
+                },
+                error: function (resultData) {
+                }
+            });
+        }
+
+    }
 </script>

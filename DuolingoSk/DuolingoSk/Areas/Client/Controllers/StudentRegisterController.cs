@@ -118,17 +118,17 @@ namespace DuolingoSk.Areas.Client.Controllers
                     #region PendingFeeEntry
                     int PackageId = Convert.ToInt32(frm["Package"]);
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-
-                    DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
-                    if (objSetting.FeeExpiryInDays != null && objSetting.FeeExpiryInDays > 0)
-                    {
-                        exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objSetting.FeeExpiryInDays));
-                    }
+                                    
                     if (PackageId > 0)
                     {
                         var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
                         if (objPckg != null)
                         {
+                            DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
+                            if (objPckg.ExpiryInDays != null && objPckg.ExpiryInDays > 0)
+                            {
+                                exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objPckg.ExpiryInDays));
+                            }
                             string refralcode = Convert.ToString(frm["refrealcode"]);
                             int copupnid = 0;
                             var objcpcode = _db.tbl_CouponCode.Where(o => o.CouponCode == refralcode).FirstOrDefault();
@@ -149,6 +149,9 @@ namespace DuolingoSk.Areas.Client.Controllers
                             objStudentFee.MarkCompleteBy = objStudent.StudentId;
                             objStudentFee.MarkCompleteDate = DateTime.UtcNow;
                             objStudentFee.IsAttemptUsed = false;
+                            objStudentFee.OriginalPackagePrice = Convert.ToDecimal(objPckg.PackageAmount);
+                            objStudentFee.Discount = disc;
+                            objStudentFee.Paymentoken = frm["hdnPaymentId"].ToString();
                             objStudentFee.PackageId = objPckg.PackageId;
                             objStudentFee.PackageName = objPckg.PackageName;
                             objStudentFee.CouponCode = refralcode;
@@ -419,18 +422,17 @@ namespace DuolingoSk.Areas.Client.Controllers
                     #region PendingFeeEntry
 
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-
-                    DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
-                    if (objSetting.FeeExpiryInDays != null && objSetting.FeeExpiryInDays > 0)
-                    {
-                        exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objSetting.FeeExpiryInDays));
-                    }
-                    if(PackageId > 0)
-                    {
-
-                       var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
+                  
+                    if (PackageId > 0)
+                    {                       
+                        var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
                        if(objPckg != null)
                         {
+                            DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
+                            if (objPckg.ExpiryInDays != null && objPckg.ExpiryInDays > 0)
+                            {
+                                exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objPckg.ExpiryInDays));
+                            }
                             string refralcode = Convert.ToString(frm["refrealcode"]);
                             int copupnid = 0;
                             var objcpcode = _db.tbl_CouponCode.Where(o => o.CouponCode == refralcode).FirstOrDefault();
@@ -453,6 +455,9 @@ namespace DuolingoSk.Areas.Client.Controllers
                             objStudentFee.IsAttemptUsed = false;
                             objStudentFee.PackageId = objPckg.PackageId;
                             objStudentFee.PackageName = objPckg.PackageName;
+                            objStudentFee.OriginalPackagePrice = Convert.ToDecimal(objPckg.PackageAmount);
+                            objStudentFee.Discount = disc;
+                            objStudentFee.Paymentoken = frm["hdnPaymentId"].ToString();
                             objStudentFee.CouponCode = refralcode;
                             objStudentFee.CouponId = copupnid;
                             _db.tbl_StudentFee.Add(objStudentFee);

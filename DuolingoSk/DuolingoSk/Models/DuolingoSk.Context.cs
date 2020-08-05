@@ -40,5 +40,6 @@ namespace DuolingoSk.Models
         public virtual DbSet<tbl_PackageBuyDetails> tbl_PackageBuyDetails { get; set; }
         public virtual DbSet<tbl_StudentFee> tbl_StudentFee { get; set; }
         public virtual DbSet<tbl_CouponCode> tbl_CouponCode { get; set; }
+        public virtual DbSet<tbl_AgentPackage> tbl_AgentPackage { get; set; }
     }
 }
