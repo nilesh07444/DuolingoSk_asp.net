@@ -1,0 +1,150 @@
+﻿@using DuolingoSk.Models
+@{
+    ViewBag.Title = "Exam Levels";
+    List<tbl_QuestionLevel> lstLvl = ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
+    List<long> lvlIdsUsed = ViewData["lvlIdsUsed"] as List<long>;
+    List<StudentVM> lstStudents = ViewData["lststud"] as List<StudentVM>;
+    bool IsCurre = true;
+}
+<style>
+    .clsdisable {
+        background-color: darkgray;
+        cursor: not-allowed;
+    }
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 90%;
+        border-radius: 5px;
+    }
+</style>
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Exam Levels</p>
+        </div>
+    </div>
+</section>
+
+<!-- Login -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5" style="padding-top: 1rem !important;">
+        <div class="container py-md-3">
+
+            <div class="heading text-center mx-auto" style="text-align:left !important;margin-bottom:20px;">
+                <h3 class="head">Exam Levels</h3>
+                <p></p>
+            </div>
+
+            <div class="row cont-main-top">
+
+                <div class="col-md-7">
+                    <div class="card">
+                        @if (lstLvl != null && lstLvl.Count() > 0)
+                        {
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Level Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var objj in lstLvl)
+                                    {
+                                        <tr>
+                                            <td>@objj.LevelName</td>
+                                            @if (lvlIdsUsed.Contains(objj.Level_Id))
+                                            {
+                                                <td style="width:130px;"><span class="label label-success">Complete</span></td>
+                                            }
+                                            else
+                                            {
+                                                if (IsCurre == true)
+                                                {
+                                                    IsCurre = false;
+                                        <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info" onclick="startexm();">Start</a> <input type="hidden" id="hdnlevelid" value="@objj.Level_Id" /></td>
+                                                   
+                                                }
+                                                else
+                                                {
+                                                    <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info clsdisable">Start</a></td>
+                                                }
+                                            }
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>@ViewBag.Message</p>
+                        }
+                    </div>                 
+                </div>
+                <div class="col-md-5">
+                    <div class="card" style="width: 99%;">
+                        @if (lstStudents != null && lstStudents.Count() > 0)
+                        {
+                            int cnts = 1;
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">Leaderboard</th>                                        
+                                    </tr>                                    
+                                </thead>
+                                <tbody>
+                                    @foreach (var objj in lstStudents)
+                                    {
+                                    <tr>
+                                        <td>@cnts</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(objj.ProfilePicture))
+                                            {
+                                                if (File.Exists(Server.MapPath("/Images/UserProfileMedia/" + objj.ProfilePicture)))
+                                                {
+                                                    <img src="/Images/UserProfileMedia/@objj.ProfilePicture" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height:40px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@DuolingoSk.Helper.ErrorMessage.DefaultImagePath" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height: 40px;" />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="@DuolingoSk.Helper.ErrorMessage.DefaultImagePath" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height: 40px;" />
+                                            }
+                                        </td>
+                                        <td>
+                                            <span>@objj.FirstName @objj.LastName</span>
+                                        </td>
+                                        <td><b>@objj.MaxScore pts</b></td>
+                                    </tr>
+                                        cnts = cnts + 1;
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<form id="frmstartexam" action="" method="post">
+    <input type="hidden" value="" name="levelid" id="levelid" />
+</form>
+<script>
+    function startexm() {
+        if ($("#hdnlevelid").length > 0) {
+            $("#levelid").val($("#hdnlevelid").val());
+            $('#frmstartexam').attr('action', "/startexam").submit();
+        }
+    }
+    
+</script>
+

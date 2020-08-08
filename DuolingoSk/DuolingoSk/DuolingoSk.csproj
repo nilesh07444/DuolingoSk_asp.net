@@ -3566,6 +3566,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\close.png" />
+    <Content Include="Images\default-img.png" />
     <Content Include="Images\default_image.jpg" />
     <Content Include="Images\default_image.png" />
     <Content Include="Images\default_user_image.png" />
@@ -4003,6 +4004,7 @@
     <Content Include="Areas\Admin\Views\Agent\AddPackage.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\EditPackage.cshtml" />
     <Content Include="PdfDLL\HiQPdf.dep" />
+    <Content Include="Areas\Client\Views\StartExam\ExamLevel.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

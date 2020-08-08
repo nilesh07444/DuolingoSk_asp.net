@@ -95,9 +95,14 @@
                                     <td>@obj.AgentName</td>
                                     <td>@obj.LevelName</td>
                                     <td>@(obj.ResultStatus == 1 ? "Pending" : "Complete")</td>
-                                    <td>@obj.Score</td>
+                                    <td>@Convert.ToInt32(obj.OverAllScore)</td>
                                     <td>
                                         <a title="View" href="/admin/exam/detail/@obj.Exam_Id"><i class="fa fa-eye mr-2 font-success"></i></a>
+                                        @if (obj.ResultStatus == 2)
+                                        {
+                                            <a title="Result" href="/admin/exam/downloadcertificate?examid=@obj.Exam_Id" target="_blank"><i class="fa fa-list-alt mr-2 font-success"></i></a>
+                                        }
+
                                     </td>
                                 </tr>
                                 counter++;

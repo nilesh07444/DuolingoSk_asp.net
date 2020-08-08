@@ -120,6 +120,13 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "MyExams", action = "Index", id = UrlParameter.Optional }
             );
 
+
+            context.MapRoute(
+                "Client_MyExamsLevel",
+                "examlevel",
+                new { controller = "StartExam", action = "ExamLevels", id = UrlParameter.Optional }
+            );
+
             context.MapRoute(
                 "Client_ForgetPassword",
                 "forgetpassword",

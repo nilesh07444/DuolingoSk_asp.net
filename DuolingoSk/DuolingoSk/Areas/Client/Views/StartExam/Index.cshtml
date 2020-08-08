@@ -289,35 +289,17 @@
             </div>
         </div>
         <div class="indexpage intr0" style="display:block;">
-            <h2 class="is-size-4 has-text-weight-normal has-text-centered is-marginless">Select Exam Level</h2>
             <br>
             <div class="columns is-multiline is-mobile">
                 <div class="column is-offset-4 is-4">
-                    <div class="columns is-multiline is-mobile">
-                        <div class="column is-12">
-                            <form class="is-marginless">
-                                <div class="columns is-multiline is-mobile">
-                                    <div class="column is-12">
-                                        <label>Exam Level</label>
-                                        <div class="select">
-                                            <select id="quelevel">
-                                                @if (lstQueslvl != null && lstQueslvl.Count() > 0)
-                                                {
-                                                    <option value="">Select Exam Level</option>
-                                                    foreach (var objq in lstQueslvl)
-                                                    {
-                                                        <option value="@objq.Level_Id">@objq.LevelName</option>
-                                                    }
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="columns is-multiline is-mobile" style="margin-top: 60px;">
+                        <div class="column is-12" style="text-align: center;font-size: 36px;font-weight: bold;">
+                            <h3>@ViewBag.LevelName</h3>
+                            <input type="hidden" id="quelevel" value="@ViewBag.LevelId" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
             <div class="columns is-multiline is-mobile last-sec footsec">
                 <div class="column is-4"></div>
                 <div class="column is-4">
