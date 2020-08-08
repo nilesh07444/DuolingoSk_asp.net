@@ -135,6 +135,18 @@ namespace DuolingoSk.Model
                 HttpContext.Current.Session["ClientLastName"] = value;
             }
         }
+
+        public static bool IsDemoUsed
+        {
+            get
+            {
+                return HttpContext.Current.Session["DemoUsed"] != null ? Convert.ToBoolean(HttpContext.Current.Session["DemoUsed"]) : true;
+            }
+            set
+            {
+                HttpContext.Current.Session["DemoUsed"] = value;
+            }
+        }
     }
  
 }

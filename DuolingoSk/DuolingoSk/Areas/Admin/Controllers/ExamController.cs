@@ -1,9 +1,11 @@
 ﻿using DuolingoSk.Helper;
 using DuolingoSk.Model;
 using DuolingoSk.Models;
+using HiQPdf;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -82,7 +84,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public string SaveExamResult(long ExamId,string ResultScore,string ResultText)
+        public string SaveExamResult(long ExamId,string Literacy, string Comprehension, string Conversation, string Production, string Overall)
         {
             string ReturnMessage = "";
 
@@ -91,12 +93,68 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 tbl_Exam objEx = _db.tbl_Exam.Where(o => o.Exam_Id == ExamId).FirstOrDefault();
                 if(objEx != null)
                 {
-                    objEx.Score = ResultScore;
-                    objEx.ResultText = ResultText;
+                    objEx.Literacy = Convert.ToDecimal(Literacy);
+                    objEx.Comprehension = Convert.ToDecimal(Comprehension);
+                    objEx.Conversation = Convert.ToDecimal(Conversation);
+                    objEx.Production = Convert.ToDecimal(Production);
+                    objEx.Overall = Convert.ToDecimal(Overall);
+
                     objEx.ResultStatus = (int)ExamResultStatus.Complete;
                     objEx.ModifiedBy = clsAdminSession.UserID;
                     objEx.ModifiedDate = DateTime.UtcNow;
                     _db.SaveChanges();
+                    string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                    if(objEx.Overall >= 40 && objEx.Overall <= 60)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
+                    }
+                    else if (objEx.Overall > 60 && objEx.Overall <= 80)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/60to80.png";
+                    }
+                    else if (objEx.Overall > 80 && objEx.Overall <= 100)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/90to110.png";
+                    }
+                    else if (objEx.Overall > 100 && objEx.Overall <= 120)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/110to130.png";
+                    }
+                    else if (objEx.Overall > 120 && objEx.Overall <= 140)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/130to150.png";
+                    }
+                    else if (objEx.Overall > 140 && objEx.Overall <= 160)
+                    {
+                        meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                    }
+                    string flName = "Result_"+ objEx.Exam_Id+"_"+ objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
+                    StreamReader sr;
+                    string file = Server.MapPath("~/Template/certificate.html");
+                    string htmldata = "";
+                    FileInfo fi = new FileInfo(file);
+                    sr = System.IO.File.OpenText(file);
+                    htmldata += sr.ReadToEnd();
+
+                    // create the HTML to PDF converter
+                    HtmlToPdf htmlToPdfConverter = new HtmlToPdf();
+
+                    // set browser width
+                    htmlToPdfConverter.BrowserWidth = 1200;
+
+                    // set PDF page size and orientation
+                    htmlToPdfConverter.Document.PageSize = PdfPageSize.A4; 
+                    htmlToPdfConverter.Document.PageOrientation = PdfPageOrientation.Portrait;
+                    
+                    // set PDF page margins
+                    htmlToPdfConverter.Document.Margins = new PdfMargins(5);
+
+                    // convert HTML code
+                    htmldata = htmldata.Replace("--OVERALL--", Overall).Replace("--Literacy--", Literacy).Replace("--Comprehension--", Comprehension).Replace("--Conversation--", Conversation).Replace("--Production--", Production).Replace("--METERIMG--", meterimg);
+
+                    // convert HTML code to a PDF memory buffer
+                    htmlToPdfConverter.ConvertHtmlToFile(htmldata,"", Server.MapPath("~/Certificates/") + flName);
+                    
                 }
                 ReturnMessage = "Success";
             }

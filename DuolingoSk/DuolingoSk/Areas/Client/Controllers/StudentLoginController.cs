@@ -97,7 +97,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     clsClientSession.ImagePath = data.ProfilePicture;
                     clsClientSession.Email = data.Email;
                     clsClientSession.MobileNumber = data.MobileNo;
-
+                    clsClientSession.IsDemoUsed = data.IsDemoUsed.HasValue ? data.IsDemoUsed.Value : false;
                     return RedirectToAction("Index", "MyExams");
 
                 }

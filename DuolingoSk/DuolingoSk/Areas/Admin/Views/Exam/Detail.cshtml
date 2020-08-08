@@ -546,10 +546,19 @@
             }
             <div class="container1 needs-validation statement enginebox">
                 <div>
-                    Enter Result Score <input type="text" class="form-control" id="txtresultscore" value="@objexx.Score" />
+                    Literacy* <input type="number" class="form-control" id="Literacy" value="@objexx.Literacy" />
                 </div>
-                <div style="margin-top:10px;">
-                    Enter Result Text  <textarea class="form-control" id="txtresulttext" style="min-height:120px;">@objexx.ResultText</textarea>
+                <div>
+                    Comprehension* <input type="number" class="form-control" id="Comprehension" value="@objexx.Comprehension" />
+                </div>
+                <div>
+                    Conversation* <input type="number" class="form-control" id="Conversation" value="@objexx.Conversation" />
+                </div>
+                <div>
+                    Production* <input type="number" class="form-control" id="Production" value="@objexx.Production" />
+                </div>
+                 <div>
+                    Overall* <input type="number" class="form-control" id="Overall" value="@objexx.Overall" />
                 </div>
                 <input type="hidden" value="@ExamIdd" id="hdnExmId" />
                 <div style="margin-top:25px;">
@@ -578,26 +587,41 @@
     });
 
     function saveresult() {
-        var resultscr = $("#txtresultscore").val();
-        var resultscrtxt = $("#txtresulttext").val();
+        var Literacy = $("#Literacy").val();
+        var Comprehension = $("#Comprehension").val();
+        var Conversation = $("#Conversation").val();
+        var Production = $("#Production").val();
+        var Overall = $("#Overall").val();
         var flgrs = true;
-        if (resultscr == "") {
-            alert("Please Enter Result Score");
+        if (Literacy == "") {
+            alert("Please Enter Literacy Score");
             flgrs = false;
         }
 
-        if (resultscrtxt == "") {
-            alert("Please Enter Result Score Text");
+        if (Comprehension == "") {
+            alert("Please Enter Comprehension Score");
             flgrs = false;
         }
 
+        if (Conversation == "") {
+            alert("Please Enter Conversation Score");
+            flgrs = false;
+        }
+        if (Production == "") {
+            alert("Please Enter Production Score");
+            flgrs = false;
+        }
+        if (Overall == "") {
+            alert("Please Enter Overall Score");
+            flgrs = false;
+        }
         if (flgrs == true) {
 
             var URL = '/Admin/Exam/SaveExamResult';
             jQuery.ajax({
                 type: 'POST',
                 async: true,
-                url: URL + "?ExamId=" + $("#hdnExmId").val() + "&ResultScore=" + encodeURIComponent(resultscr) + "&ResultText=" + encodeURIComponent(resultscrtxt),
+                url: URL + "?ExamId=" + $("#hdnExmId").val() + "&Literacy=" + Literacy + "&Comprehension=" + Comprehension + "&Conversation=" + Conversation + "&Production=" + Production + "&Overall=" + Overall,
                 success: function (result) {
                     if (result == "Success") {
                         alert("Result Save Successfully");

@@ -116,7 +116,7 @@ namespace DuolingoSk.Areas.Client
 
             context.MapRoute(
                 "Client_MyExams",
-                "myexams",
+                "results",
                 new { controller = "MyExams", action = "Index", id = UrlParameter.Optional }
             );
 

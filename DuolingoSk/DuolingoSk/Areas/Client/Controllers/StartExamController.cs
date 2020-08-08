@@ -200,8 +200,15 @@ namespace DuolingoSk.Areas.Client.Controllers
             ViewBag.DisplayFeedBack = "no";
            
             Session["lstQuestionsExamDemo"] = null;
-            if (Session["lstQuestionsExamDemo"] == null)
+            if (Session["lstQuestionsExamDemo"] == null && clsClientSession.IsDemoUsed == false)
             {
+                if (clsClientSession.UserID > 0)
+                {
+                    var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
+                    objStudent.IsDemoUsed = true;
+                    clsClientSession.IsDemoUsed = true;
+                    _db.SaveChanges();
+                }
                 List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
                 List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
                                                  where p.IsDeleted == false && p.IsActive == true && p.QuestionLevel == LevelId
@@ -238,7 +245,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 ViewData["lstQue"] = Session["lstQuestionsExamDemo"] as List<QuestionVM>;
             }
             ViewBag.ExamId = returnvl;
-            return PartialView("~/Areas/Client/Views/StartExam/_StartNowDemo.cshtml");
+           return PartialView("~/Areas/Client/Views/StartExam/_StartNowDemo.cshtml");
         }
 
         public List<Mp3OptionsVM> GetMp3Options(long QuestionId)

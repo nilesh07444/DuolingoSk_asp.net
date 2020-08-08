@@ -51,6 +51,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HiQPdf.Free, Version=11.4.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>PdfDLL\HiQPdf.Free.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -3586,6 +3590,8 @@
       <DependentUpon>DuolingoSk.edmx</DependentUpon>
       <LastGenOutput>DuolingoSk.cs</LastGenOutput>
     </Content>
+    <Content Include="PdfDLL\HiQPdf.Free.dll" />
+    <Content Include="PdfDLL\HiQPdf.Free.xml" />
     <Content Include="QuestionImage\4f9eb5d8-1d7b-4338-b867-3744baa5faa0-cute-baby-animals-1558535060.jpg" />
     <Content Include="QuestionImage\5de50480-1e1d-4c75-9458-d67be8b714e9-download.jpg" />
     <Content Include="QuestionImage\70aabbb2-050c-4803-bf25-712faf4372cc-download.jpg" />
@@ -3996,6 +4002,7 @@
     <Content Include="Areas\Admin\Views\Agent\Packages.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\AddPackage.cshtml" />
     <Content Include="Areas\Admin\Views\Agent\EditPackage.cshtml" />
+    <Content Include="PdfDLL\HiQPdf.dep" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

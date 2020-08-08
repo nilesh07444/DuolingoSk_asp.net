@@ -71,7 +71,7 @@
                                 }
                                 <a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span>&nbsp;  @strnm </span></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="/myexams" class="dropdown-item">My Exams</a>
+                                    <a href="/results" class="dropdown-item">Results</a>
                                     <a href="/materials" class="dropdown-item">Materials</a>
                                     <a href="/tips" class="dropdown-item">Tips</a>
                                     <a href="/renewaccount" class="dropdown-item">Re-Registration</a>
@@ -221,12 +221,19 @@
         function fnFreeDemo() {
 
             var loggedInUser = '@clsClientSession.UserID';
+            var isDemoused = '@clsClientSession.IsDemoUsed';
             if (loggedInUser == 0) {
                 alert("You have to register first to give free demo exam");
                 window.location.href = "/register";
             }
             else {
-                window.location.href = "/demoexam";
+                if (isDemoused.toLowerCase() == "true") {
+                    alert("You have already try free demo exam");
+                }
+                else {
+                    window.location.href = "/demoexam";
+                }
+                
             }
 
         }

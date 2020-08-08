@@ -77,6 +77,11 @@
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="StudentFeeId" Type="int" />
+          <Property Name="Literacy" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Comprehension" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Conversation" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Production" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Overall" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>
@@ -265,6 +270,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsDemoUsed" Type="bit" />
         </EntityType>
         <EntityContainer Name="Duolingo_skModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
@@ -394,6 +400,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int64" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDemoUsed" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
@@ -448,6 +455,11 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="StudentFeeId" Type="Int32" />
+          <Property Name="Literacy" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Comprehension" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Conversation" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Production" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Overall" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_ExamResultDetails">
           <Key>
@@ -665,6 +677,7 @@
           <EntitySetMapping Name="tbl_Students">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Students">
               <MappingFragment StoreEntitySet="tbl_Students">
+                <ScalarProperty Name="IsDemoUsed" ColumnName="IsDemoUsed" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
                 <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -709,6 +722,11 @@
           <EntitySetMapping Name="tbl_Exam">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Exam">
               <MappingFragment StoreEntitySet="tbl_Exam">
+                <ScalarProperty Name="Overall" ColumnName="Overall" />
+                <ScalarProperty Name="Production" ColumnName="Production" />
+                <ScalarProperty Name="Conversation" ColumnName="Conversation" />
+                <ScalarProperty Name="Comprehension" ColumnName="Comprehension" />
+                <ScalarProperty Name="Literacy" ColumnName="Literacy" />
                 <ScalarProperty Name="StudentFeeId" ColumnName="StudentFeeId" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
