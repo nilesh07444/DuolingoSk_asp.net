@@ -489,7 +489,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             string ReturnMessage = "";
             try
             {
-                tbl_Students objStudent = _db.tbl_Students.Where(x => x.AdminUserId == Id).FirstOrDefault();
+                tbl_Students objStudent = _db.tbl_Students.Where(x => x.StudentId == Id).FirstOrDefault();
 
                 if (objStudent != null)
                 {
@@ -508,6 +508,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     _db.SaveChanges();
                     ReturnMessage = "success";
+                }
+                else
+                {
+                    ReturnMessage = "notfound";
                 }
             }
             catch (Exception ex)

@@ -225,6 +225,14 @@
                             </li>
 
                             <li>
+                                <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Webinars</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "AddWebinar" ? "active" : "")"><a href="/admin/webinar/add"><i class="fa fa-circle"></i>Add Webinar</a></li>
+                                    <li class="@(ViewBag.Title == "WebinarList" ? "active" : "")"><a href="/admin/webinar"><i class="fa fa-circle"></i>Webinar List</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <a class="sidebar-header" href=""><i data-feather="align-left"></i><span>Coupon Code</span><i class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">
                                     <li class="@(ViewBag.Title == "AddCouponCode" ? "active" : "")"><a href="/admin/couponcode/add"><i class="fa fa-circle"></i>Add Coupon Code</a></li>

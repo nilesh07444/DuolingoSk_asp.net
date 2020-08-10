@@ -12,6 +12,7 @@ namespace DuolingoSk
         public string FeeStatus { get; set; }
         public decimal FeeAmount { get; set; }
         public int TotalExamAttempt { get; set; }
+        public int? TotalWebinarAttempt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime RequestedDate { get; set; }
         public DateTime? MarkCompleteDate { get; set; }

@@ -37,6 +37,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    MaterialTitle = m.MaterialTitle,
                                    MaterialType = m.MaterialType,
                                    MaterialFileName = m.MaterialFile,
+                                   MaterialVideoLink = m.MaterialVideoLink,
+                                   MaterialFileType = m.MaterialFileType,
                                    IsActive = m.IsActive
                                }).ToList();
             }
@@ -51,6 +53,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
         {
             MaterialVM objMaterial = new MaterialVM();
             objMaterial.MaterialTypeList = GetMaterialTypeList();
+            objMaterial.MaterialFileTypeList = GetMaterialFileTypeList();
 
             return View(objMaterial);
         }
@@ -66,6 +69,44 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
 
                     #region Validation
+
+                    if (materialVM.MaterialFileType == null)
+                    {
+                         
+                            ModelState.AddModelError("MaterialFileType", ErrorMessage.SelectMaterialFileType);
+
+                            materialVM.MaterialTypeList = GetMaterialTypeList();
+                            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                            return View(materialVM);
+                         
+                    }
+
+                    if (materialVM.MaterialFileType == (int)MaterialFileTypes.Document)
+                    {
+                        if (MaterialFile == null)
+                        {
+                            ModelState.AddModelError("MaterialFile", ErrorMessage.SelectMaterialFile);
+
+                            materialVM.MaterialTypeList = GetMaterialTypeList();
+                            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                            return View(materialVM);
+                        }
+                    }
+
+                    if (materialVM.MaterialFileType == (int)MaterialFileTypes.Video)
+                    {
+                        if (string.IsNullOrEmpty(materialVM.MaterialVideoLink))
+                        {
+                            ModelState.AddModelError("MaterialVideoLink", ErrorMessage.EnterMaterialVideoLink);
+
+                            materialVM.MaterialTypeList = GetMaterialTypeList();
+                            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                            return View(materialVM);
+                        }
+                    }
 
                     string fileName = string.Empty;
                     string path = Server.MapPath(MaterialDirectoryPath);
@@ -96,6 +137,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objMaterial.MaterialTitle = materialVM.MaterialTitle;
                     objMaterial.MaterialType = materialVM.MaterialType;
                     objMaterial.MaterialFile = fileName;
+                    objMaterial.MaterialFileType = materialVM.MaterialFileType;
+                    objMaterial.MaterialVideoLink = materialVM.MaterialVideoLink;
 
                     objMaterial.IsActive = true;
                     objMaterial.IsDeleted = false;
@@ -116,6 +159,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             }
 
             materialVM.MaterialTypeList = GetMaterialTypeList();
+            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
 
             return View(materialVM);
         }
@@ -126,23 +170,27 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             try
             {
-                objMaterial = (from m in _db.tbl_Materials
-                                where m.MaterialId == Id
-                                select new MaterialVM
-                                {
-                                    MaterialId = m.MaterialId,
-                                    MaterialTitle = m.MaterialTitle,
-                                    MaterialType = m.MaterialType,
-                                    MaterialFileName = m.MaterialFile,
-                                    IsActive = m.IsActive
-                                }).FirstOrDefault();
+                objMaterial = (from m in _db.tbl_Materials 
+                               where m.MaterialId == Id
+                               select new MaterialVM
+                               {
+                                   MaterialId = m.MaterialId,
+                                   MaterialTitle = m.MaterialTitle,
+                                   MaterialType = m.MaterialType,
+                                   MaterialFileName = m.MaterialFile,
+                                   MaterialVideoLink = m.MaterialVideoLink,
+                                   MaterialFileType = m.MaterialFileType,
+                                   IsActive = m.IsActive 
+                               }).FirstOrDefault();
 
                 objMaterial.MaterialTypeList = GetMaterialTypeList();
+                objMaterial.MaterialFileTypeList = GetMaterialFileTypeList();
 
             }
             catch (Exception ex)
             {
-
+                string ErrorMessage = ex.Message.ToString();
+                throw ex;
             }
 
             return View(objMaterial);
@@ -159,8 +207,48 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
 
                     #region Validation
-                      
+
                     tbl_Materials objMaterial = _db.tbl_Materials.Where(x => x.MaterialId == materialVM.MaterialId).FirstOrDefault();
+
+                    if (materialVM.MaterialFileType == null)
+                    {
+
+                        ModelState.AddModelError("MaterialFileType", ErrorMessage.SelectMaterialFileType);
+
+                        materialVM.MaterialTypeList = GetMaterialTypeList();
+                        materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                        return View(materialVM);
+
+                    }
+
+                    if (materialVM.MaterialFileType == (int)MaterialFileTypes.Document)
+                    {
+                        if (MaterialFile == null && string.IsNullOrEmpty(objMaterial.MaterialFile))
+                        {
+                            ModelState.AddModelError("MaterialFile", ErrorMessage.SelectMaterialFile);
+
+                            materialVM.MaterialTypeList = GetMaterialTypeList();
+                            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                            return View(materialVM);
+                        }
+                    }
+
+                    if (materialVM.MaterialFileType == (int)MaterialFileTypes.Video)
+                    {
+                        if (string.IsNullOrEmpty(materialVM.MaterialVideoLink))
+                        {
+                            ModelState.AddModelError("MaterialVideoLink", ErrorMessage.EnterMaterialVideoLink);
+
+                            materialVM.MaterialTypeList = GetMaterialTypeList();
+                            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
+
+                            return View(materialVM);
+                        }
+                    }
+
+                    
 
                     string fileName = string.Empty;
                     string path = Server.MapPath(MaterialDirectoryPath);
@@ -189,6 +277,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objMaterial.MaterialTitle = materialVM.MaterialTitle;
                     objMaterial.MaterialType = materialVM.MaterialType;
                     objMaterial.MaterialFile = fileName;
+                    objMaterial.MaterialFileType = materialVM.MaterialFileType;
+                    objMaterial.MaterialVideoLink = materialVM.MaterialVideoLink;
 
                     objMaterial.UpdatedDate = DateTime.UtcNow;
                     objMaterial.UpdatedBy = LoggedInUserId;
@@ -203,11 +293,55 @@ namespace DuolingoSk.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 string ErrorMessage = ex.Message.ToString();
+                throw ex;
             }
 
             materialVM.MaterialTypeList = GetMaterialTypeList();
+            materialVM.MaterialFileTypeList = GetMaterialFileTypeList();
 
             return View(materialVM);
+        }
+
+        public ActionResult View(int Id)
+        {
+            MaterialVM objMaterial = new MaterialVM();
+
+            try
+            {
+
+                objMaterial = (from m in _db.tbl_Materials
+
+                               join uC in _db.tbl_AdminUsers on m.CreatedBy equals uC.AdminUserId into outerCreated
+                               from uC in outerCreated.DefaultIfEmpty()
+
+                               join uM in _db.tbl_AdminUsers on m.UpdatedBy equals uM.AdminUserId into outerModified
+                               from uM in outerModified.DefaultIfEmpty()
+
+                               where m.MaterialId == Id
+                               select new MaterialVM
+                               {
+                                   MaterialId = m.MaterialId,
+                                   MaterialTitle = m.MaterialTitle,
+                                   MaterialType = m.MaterialType,
+                                   MaterialFileName = m.MaterialFile,
+                                   MaterialVideoLink = m.MaterialVideoLink,
+                                   MaterialFileType = m.MaterialFileType,
+                                   IsActive = m.IsActive,
+
+                                   CreatedDate = m.CreatedDate,
+                                   UpdatedDate = m.UpdatedDate,
+                                   strCreatedBy = (uC != null ? uC.FirstName + " " + uC.LastName : ""),
+                                   strModifiedBy = (uM != null ? uM.FirstName + " " + uM.LastName : "")
+
+                               }).FirstOrDefault();
+                  
+            }
+            catch (Exception ex)
+            {
+                string ErrorMessage = ex.Message.ToString();
+            }
+
+            return View(objMaterial);
         }
 
         [HttpPost]
@@ -282,6 +416,16 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             lst.Add(new SelectListItem { Value = "1", Text = "Material" });
             lst.Add(new SelectListItem { Value = "2", Text = "Tips" });
+
+            return lst;
+        }
+
+        private List<SelectListItem> GetMaterialFileTypeList()
+        {
+            List<SelectListItem> lst = new List<SelectListItem>();
+
+            lst.Add(new SelectListItem { Value = "1", Text = "Document" });
+            lst.Add(new SelectListItem { Value = "2", Text = "Video" });
 
             return lst;
         }

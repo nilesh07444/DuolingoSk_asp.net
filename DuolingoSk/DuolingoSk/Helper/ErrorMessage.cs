@@ -12,6 +12,11 @@ namespace DuolingoSk.Helper
         public static string MobileNoExists = "Mobile No is already exist";
         public static string LevelNameExists = "Level Name is already exist";
         public static string PackageExistsAgent = "Package is already exist for Agent";
+
+        public static string SelectMaterialFileType = "Please Select Material File Type";
+        public static string SelectMaterialFile = "Please Select Material File";
+        public static string EnterMaterialVideoLink = "Please Enter Material Video Link";
+
         // Client Portal Messages
 
 

@@ -82,8 +82,8 @@
                             <tr>
                                 <th width="5%;">#</th>
                                 <th>Date</th>
-                                <th>Fee Amount</th>
                                 <th>Total Attempt</th>
+                                <th>Total Webinar</th>
                                 <th>Fee Status</th>
                             </tr>
                         </thead>
@@ -96,8 +96,8 @@
                                     <tr class="grade">
                                         <td>@counter.</td>
                                         <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
-                                        <td>@obj.FeeAmount</td>
                                         <td>@obj.TotalExamAttempt</td>
+                                        <td>@obj.TotalWebinarAttempt</td>
                                         <td>
                                             @if (obj.FeeStatus == "Complete")
                                             {
@@ -105,14 +105,7 @@
                                             }
                                             else
                                             {
-                                                if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
-                                                {
-                                                    <span class="badge badge-primary" style="cursor:pointer;" title="Mark as Complete" href="javascript:void(0);" onclick="fnMarkCompleFee('@obj.StudentFeeId')">@obj.FeeStatus</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-primary">@obj.FeeStatus</span>
-                                                }
+                                                <span class="badge badge-primary">@obj.FeeStatus</span>
                                             }
                                         </td>
                                     </tr>

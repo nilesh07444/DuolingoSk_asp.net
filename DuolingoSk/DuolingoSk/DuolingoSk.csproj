@@ -146,6 +146,7 @@
     <Compile Include="Areas\Admin\Controllers\QuestionLevelController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\StudentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebinarController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\AboutUsController.cs" />
     <Compile Include="Areas\Client\Controllers\ContactUsController.cs" />
@@ -236,6 +237,12 @@
     <Compile Include="Models\tbl_Students.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_StudentWebinar.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Webinar.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminUserVM.cs" />
     <Compile Include="ViewModel\AgentPackageVM.cs" />
@@ -257,6 +264,8 @@
     <Compile Include="ViewModel\PwdVM.cs" />
     <Compile Include="ViewModel\QuestionVM.cs" />
     <Compile Include="ViewModel\RegisterVM.cs" />
+    <Compile Include="ViewModel\StudentWebinarVM.cs" />
+    <Compile Include="ViewModel\WebinarVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin_assets\css\admin.css" />
@@ -4005,6 +4014,9 @@
     <Content Include="Areas\Admin\Views\Agent\EditPackage.cshtml" />
     <Content Include="PdfDLL\HiQPdf.dep" />
     <Content Include="Areas\Client\Views\StartExam\ExamLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Material\View.cshtml" />
+    <Content Include="Areas\Admin\Views\Webinar\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Webinar\Add.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

@@ -1,0 +1,132 @@
+﻿
+@using DuolingoSk.Models;
+@{
+    ViewBag.Title = "Add Webinar";
+}
+
+@{
+    List<tbl_Package> lstPackages = ViewData["lstPackages"] as List<tbl_Package>;
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <div class="page-header-left">
+                        <h3>
+                            Add Webinar
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="/admin/Webinar">Webinar</a></li>
+                        <li class="breadcrumb-item active">Add Webinar</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Add Webinar</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <form class="needs-validation">
+
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4" for="FirstName">Package Name *</label>
+                                <select class="form-control col-md-8" id="PackageId" name="PackageId">
+                                    <option value="">- Select Package -</option>
+                                    @if (lstPackages != null && lstPackages.Count() > 0)
+                                    {
+                                        foreach (var obj in lstPackages)
+                                        {
+                                            <option value="@obj.PackageId">@obj.PackageName</option>
+                                        }
+                                    }
+                                </select>
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-xl-3 col-md-4" for="FirstName">Webinar Message *</label>
+                                <textarea class="form-control col-md-8" id="WebinarMessage" name="WebinarMessage" maxlength="500" placeholder="Enter Webinar Message"></textarea>
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <button id="btnSubmit" type="button" class="btn btn-primary" style="margin-right:10px;">Submit</button>
+                                <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>
+
+<script src="~/Content/admin_assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).on("click", "#btnCancel", function () {
+        window.location.href = "/admin/webinar";
+    });
+
+    jQuery(document).on("click", "#btnSubmit", function () {
+        var requiredMessage = 'This field is required';
+        var flag = true;
+        jQuery(".clserror").hide();
+
+        if (flag) {
+             $.blockUI({ message: "<h4>Please Wait...</h4>" });
+            var URL = '@Url.Action("SaveWebinar", "Webinar")';
+            jQuery.ajax({
+                url: URL,
+                type: 'POST',
+                data: jQuery('form').serialize(),
+                success: function (data) {
+                    $.unblockUI();
+                    if (data == "SUCCESS") {
+                        alert("Webinar sent successfully");
+                        window.location.href = "/admin/webinar";
+                    }
+                    else if (data == "NOSTUDENTFOUND") {
+                    }
+                    else {
+                        alert("No Any student found to send webinar of this package");
+                    }
+                },
+                error: function (data) {
+                    alert("Something went wrong. Please try again.");
+                }
+
+            });
+
+            return false;
+        }
+    });
+
+</script>
+

@@ -32,5 +32,6 @@ namespace DuolingoSk.Models
         public Nullable<decimal> Discount { get; set; }
         public string Paymentoken { get; set; }
         public Nullable<decimal> OriginalPackagePrice { get; set; }
+        public Nullable<int> TotalWebinarAttempt { get; set; }
     }
 }

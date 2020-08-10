@@ -40,7 +40,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             ViewData["lstQuestionType"] = lstQuestionType;
             ViewBag.Type = Type;
 
-            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.OrderBy(x => x.LevelName).ToList();
+            List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList();
             ViewData["lstQuestionLevel"] = lstQuestionLevel;
             ViewBag.Level = Level;
              

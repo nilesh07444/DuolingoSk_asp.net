@@ -51,7 +51,7 @@ namespace DuolingoSk
         public DateTime? UpdatedDate { get; set; }
         public string FullName { get; set; }
         public string AgentName { get; set; }
-        public decimal MaxScore { get; set; }
+        public decimal MaxScore { get; set; } 
 
     }
 }

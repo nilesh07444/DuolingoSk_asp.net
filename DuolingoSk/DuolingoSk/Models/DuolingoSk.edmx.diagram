@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="0ea735332f29499faa7ea9f9d0d6f73f" Name="Diagram1" ZoomLevel="65">
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_AdminUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Materials" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_Mp3Options" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionsMaster" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_QuestionType" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
@@ -21,6 +20,9 @@
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentFee" Width="1.5" PointX="12.375" PointY="4.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_CouponCode" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="Duolingo_skModel.tbl_AgentPackage" Width="1.5" PointX="12.375" PointY="9.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Materials" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_StudentWebinar" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Duolingo_skModel.tbl_Webinar" Width="1.5" PointX="7.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

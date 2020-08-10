@@ -143,6 +143,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             objStudentFee.FeeStatus = "Complete";
                             objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(objPckg.PackageAmount) - disc, 2);
                             objStudentFee.TotalExamAttempt = Convert.ToInt32(objPckg.TotalAttempt);
+                            objStudentFee.TotalWebinarAttempt = objPckg.TotalWebinar != null ? Convert.ToInt32(objPckg.TotalWebinar) : 0;
                             objStudentFee.FeeExpiryDate = exp_date;
                             objStudentFee.IsDeleted = false;
                             objStudentFee.RequestedDate = DateTime.UtcNow;
@@ -447,6 +448,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             objStudentFee.FeeStatus = "Complete";
                             objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(objPckg.PackageAmount) - disc, 2);                          
                             objStudentFee.TotalExamAttempt = Convert.ToInt32(objPckg.TotalAttempt);
+                            objStudentFee.TotalWebinarAttempt = objPckg.TotalWebinar != null ? Convert.ToInt32(objPckg.TotalWebinar) : 0;
                             objStudentFee.FeeExpiryDate = exp_date;
                             objStudentFee.IsDeleted = false;
                             objStudentFee.RequestedDate = DateTime.UtcNow;

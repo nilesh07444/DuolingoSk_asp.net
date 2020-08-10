@@ -50,7 +50,7 @@
                             <th width="5%;">#</th>
                             <th>Material Title</th>
                             <th>Material Type</th>
-                            <th>View File</th>
+                            <th>Material File Type</th>
                             <th width="10%;">Active</th>
                             <th width="10%;">Action</th>
                         </tr>
@@ -64,10 +64,8 @@
                                 <tr class="grade">
                                     <td>@counter.</td>
                                     <td>@obj.MaterialTitle</td>
-                                    <td>@(obj.MaterialType == 1 ? "Material" : "Tips")</td>
-                                    <td>
-                                        <a target="_blank" class="btn btn-warning" href="@ErrorMessage.MaterialDirectoryPath/@obj.MaterialFileName">File</a>
-                                    </td>
+                                    <td>@(obj.MaterialType == (int)MaterialTypes.Material ? "Material" : "Tips")</td>
+                                    <td>@(obj.MaterialFileType == (int)MaterialFileTypes.Document ? "Document" : (obj.MaterialFileType == (int)MaterialFileTypes.Video ? "Video" : ""))</td>
                                     @if (obj.IsActive == true)
                                     {
                                         <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.MaterialId','InActive');">Active</span></td>
