@@ -61,6 +61,22 @@
                             </div>
 
                             <div class="form-group row">
+                                @Html.LabelFor(model => model.MaterialFileType, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                @Html.DropDownListFor(model => model.MaterialFileType, new SelectList(Model.MaterialFileTypeList, "Value", "Text"), "- Select Material File Type -", new { @class = "form-control col-md-8", style = "" })
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                @Html.ValidationMessageFor(model => model.MaterialFileType, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group row dvVideoLink" style="display:none;">
+                                @Html.LabelFor(model => model.MaterialVideoLink, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                @Html.EditorFor(model => model.MaterialVideoLink, new { htmlAttributes = new { @class = "form-control col-md-8", @placeholder = "Enter Material Video Link", maxlength = "100" } })
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                @Html.ValidationMessageFor(model => model.MaterialVideoLink, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group row dvFileUpload" style="display:none;">
                                 @Html.LabelFor(model => model.MaterialFile, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
                                 @Html.TextBoxFor(model => model.MaterialFile, new { type = "file", @class = "form-control col-md-8" })
 
@@ -103,4 +119,38 @@
     $(document).on("click", "#btnCancel", function () {
         window.location.href = "/admin/material";
     });
+
+    $(document).ready(function () {
+
+        var value = '@Model.MaterialFileType';
+        UpdateTypeData(value);
+
+    });
+
+    $(document).on("change", "#MaterialFileType", function () {
+
+        var value = $("#MaterialFileType option:selected").val();
+        UpdateTypeData(value);
+
+    });
+
+    function UpdateTypeData(value) {
+
+        if (value == 1) {
+            // Document
+            $(".dvFileUpload").show();
+            $(".dvVideoLink").hide();
+        }
+        else if (value == 2) {
+            // Video
+            $(".dvFileUpload").hide();
+            $(".dvVideoLink").show();
+        }
+        else {
+            // blank
+            $(".dvFileUpload").hide();
+            $(".dvVideoLink").hide();
+        }
+    }
+
 </script>

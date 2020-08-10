@@ -26,7 +26,6 @@ namespace DuolingoSk.Models
         }
     
         public virtual DbSet<tbl_AdminUsers> tbl_AdminUsers { get; set; }
-        public virtual DbSet<tbl_Materials> tbl_Materials { get; set; }
         public virtual DbSet<tbl_Mp3Options> tbl_Mp3Options { get; set; }
         public virtual DbSet<tbl_QuestionsMaster> tbl_QuestionsMaster { get; set; }
         public virtual DbSet<tbl_QuestionType> tbl_QuestionType { get; set; }
@@ -41,5 +40,8 @@ namespace DuolingoSk.Models
         public virtual DbSet<tbl_StudentFee> tbl_StudentFee { get; set; }
         public virtual DbSet<tbl_CouponCode> tbl_CouponCode { get; set; }
         public virtual DbSet<tbl_AgentPackage> tbl_AgentPackage { get; set; }
+        public virtual DbSet<tbl_Materials> tbl_Materials { get; set; }
+        public virtual DbSet<tbl_StudentWebinar> tbl_StudentWebinar { get; set; }
+        public virtual DbSet<tbl_Webinar> tbl_Webinar { get; set; }
     }
 }

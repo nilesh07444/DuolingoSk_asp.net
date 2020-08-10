@@ -17,4 +17,16 @@ namespace DuolingoSk.Helper
         Complete = 2
     }
 
+    public enum MaterialFileTypes
+    {
+        Document = 1,
+        Video = 2
+    }
+
+    public enum MaterialTypes
+    {
+        Material = 1,
+        Tips = 2
+    }
+
 }

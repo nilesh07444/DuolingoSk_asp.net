@@ -18,6 +18,8 @@ namespace DuolingoSk.Models
         public string MaterialTitle { get; set; }
         public int MaterialType { get; set; }
         public string MaterialFile { get; set; }
+        public Nullable<int> MaterialFileType { get; set; }
+        public string MaterialVideoLink { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<long> CreatedBy { get; set; }

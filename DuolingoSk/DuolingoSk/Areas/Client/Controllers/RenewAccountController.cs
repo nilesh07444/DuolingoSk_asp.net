@@ -34,7 +34,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     tbl_AdminUsers objAgent = _db.tbl_AdminUsers.Where(x => x.AdminUserId == objStudent.AdminUserId).FirstOrDefault();
                     ViewBag.RenewFee = objAgent.StudentRenewFee;
                     ViewBag.TotalExamAttempt = objSetting.TotalExamAttempt;
-                   
+
                     List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
                                                         join c in _db.tbl_Package on s.PackageId equals c.PackageId
                                                         join p in _db.tbl_AdminUsers on s.AgentId equals p.AdminUserId
@@ -85,7 +85,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                                                                PackageAgentId = 0,
                                                                TotalAttempt = s.TotalAttempt
                                                            }).OrderBy(x => x.PackageName).ToList();
-                 
+
                     ViewData["lstPackages"] = lstPackagesnew.OrderBy(x => x.PackageName).ToList();
 
                 }
@@ -102,7 +102,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                               TotalExamAttempt = a.TotalExamAttempt,
                               RequestedDate = a.RequestedDate,
                               FeeExpiryDate = a.FeeExpiryDate,
-                              IsAttemptUsed = a.IsAttemptUsed
+                              IsAttemptUsed = a.IsAttemptUsed,
+                              TotalWebinarAttempt = a.TotalWebinarAttempt,
                           }).OrderBy(x => x.RequestedDate).ToList();
 
                 if (lstFee.Count > 0)
@@ -120,7 +121,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             catch (Exception ex)
             {
             }
-          
+
             return View(lstFee);
         }
 
@@ -158,7 +159,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             return ReturnMessage;
                         }
                     }
-                   
+
                     decimal? RenewFee = 0;
                     decimal? TotalExamAttempt = 0;
 
@@ -176,7 +177,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                                 exp_date = DateTime.UtcNow.AddDays(Convert.ToInt32(objPckg.ExpiryInDays));
                             }
                             long agntid = -1;
-                            if(objStudent.AdminUserId != null && objStudent.AdminUserId > 0)
+                            if (objStudent.AdminUserId != null && objStudent.AdminUserId > 0)
                             {
                                 agntid = objStudent.AdminUserId.Value;
                             }
@@ -226,6 +227,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             }
                             objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(PckPriceForPay) - disc, 2);
                             objStudentFee.TotalExamAttempt = Convert.ToInt32(objPckg.TotalAttempt);
+                            objStudentFee.TotalWebinarAttempt = objPckg.TotalWebinar != null ? Convert.ToInt32(objPckg.TotalWebinar) : 0;
                             objStudentFee.FeeExpiryDate = exp_date;
                             objStudentFee.OriginalPackagePrice = objPckg.PackageAmount;
                             objStudentFee.Discount = disc;
@@ -318,7 +320,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             return ReturnMessage;
                         }
                     }
-              
+
                     ReturnMessage = "SUCCESS";
                 }
 
