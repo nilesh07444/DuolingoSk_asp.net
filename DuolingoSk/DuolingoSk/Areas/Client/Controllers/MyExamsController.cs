@@ -1,7 +1,9 @@
 ﻿using DuolingoSk.Model;
 using DuolingoSk.Models;
+using HiQPdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,7 +40,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                             LevelName = l.LevelName,
                             ResultStatus = e.ResultStatus,
-                            OverAllScore = e.Overall.HasValue ? e.Overall.Value : 0
+                            OverAllScore = e.Overall.HasValue ? e.Overall.Value : 0,
                             Score = e.Score
                         }).OrderByDescending(x => x.ExamDate).ToList();
 
