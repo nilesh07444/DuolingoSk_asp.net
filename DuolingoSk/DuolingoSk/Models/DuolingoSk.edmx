@@ -54,10 +54,10 @@
           <Property Name="DiscountPercentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ExpiryDate" Type="datetime" />
           <Property Name="TotalMaxUsage" Type="int" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
@@ -67,7 +67,6 @@
           </Key>
           <Property Name="Exam_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="bigint" />
-          <Property Name="StudentFeeId" Type="int" />
           <Property Name="ExamDate" Type="datetime" />
           <Property Name="AgentId" Type="bigint" />
           <Property Name="Score" Type="nvarchar" MaxLength="50" />
@@ -77,6 +76,7 @@
           <Property Name="ResultStatus" Type="int" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="StudentFeeId" Type="int" />
           <Property Name="Literacy" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Comprehension" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Conversation" Type="decimal" Precision="18" Scale="2" />
@@ -133,15 +133,15 @@
           <Property Name="MaterialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaterialTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MaterialType" Type="int" Nullable="false" />
-          <Property Name="MaterialFile" Type="nvarchar" MaxLength="200" />
-          <Property Name="MaterialFileType" Type="int" />
-          <Property Name="MaterialVideoLink" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaterialFile" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="MaterialFileType" Type="int" />
+          <Property Name="MaterialVideoLink" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_Mp3Options">
           <Key>
@@ -160,27 +160,27 @@
           <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PackageName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PackageImage" Type="nvarchar" MaxLength="100" />
-          <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="TotalAttempt" Type="int" />
-          <Property Name="TotalWebinar" Type="int" />
-          <Property Name="ExpiryInDays" Type="int" />
-          <Property Name="MaxLevel" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="PackageAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalAttempt" Type="int" />
+          <Property Name="TotalWebinar" Type="int" />
+          <Property Name="ExpiryInDays" Type="int" />
+          <Property Name="MaxLevel" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PackageBuyDetails">
           <Key>
             <PropertyRef Name="PackageBuyDetailId" />
           </Key>
           <Property Name="PackageBuyDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
-          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
-          <Property Name="Message" Type="nvarchar" MaxLength="500" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PackageId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -219,6 +219,7 @@
           <Property Name="PreparationTime" Type="int" />
           <Property Name="MinimumTime" Type="int" />
           <Property Name="Images" Type="nvarchar(max)" />
+          <Property Name="QuestionsHtml" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -284,7 +285,7 @@
           <Property Name="StudentId" Type="bigint" Nullable="false" />
           <Property Name="StudentFeeId" Type="bigint" Nullable="false" />
           <Property Name="PackageId" Type="bigint" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Webinar">
           <Key>
@@ -292,10 +293,10 @@
           </Key>
           <Property Name="WebinarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PackageId" Type="int" Nullable="false" />
-          <Property Name="WebinarMessage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WebinarMessage" Type="nvarchar(max)" />
           <Property Name="TotalAttendedStudent" Type="int" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
         </EntityType>
         <EntityContainer Name="Duolingo_skModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
@@ -382,6 +383,7 @@
           <Property Name="PreparationTime" Type="Int32" />
           <Property Name="MinimumTime" Type="Int32" />
           <Property Name="Images" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionsHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_QuestionType">
           <Key>
@@ -533,10 +535,10 @@
             <PropertyRef Name="PackageBuyDetailId" />
           </Key>
           <Property Name="PackageBuyDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PackageId" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -601,9 +603,9 @@
           <Property Name="MaterialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaterialTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaterialType" Type="Int32" Nullable="false" />
-          <Property Name="MaterialFile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialFile" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaterialFileType" Type="Int32" />
-          <Property Name="MaterialVideoLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialVideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="Int64" />
@@ -620,7 +622,7 @@
           <Property Name="StudentId" Type="Int64" Nullable="false" />
           <Property Name="StudentFeeId" Type="Int64" Nullable="false" />
           <Property Name="PackageId" Type="Int64" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_Webinar">
           <Key>
@@ -628,10 +630,10 @@
           </Key>
           <Property Name="WebinarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PackageId" Type="Int32" Nullable="false" />
-          <Property Name="WebinarMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WebinarMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TotalAttendedStudent" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -680,6 +682,7 @@
           <EntitySetMapping Name="tbl_QuestionsMaster">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_QuestionsMaster">
               <MappingFragment StoreEntitySet="tbl_QuestionsMaster">
+                <ScalarProperty Name="QuestionsHtml" ColumnName="QuestionsHtml" />
                 <ScalarProperty Name="Images" ColumnName="Images" />
                 <ScalarProperty Name="MinimumTime" ColumnName="MinimumTime" />
                 <ScalarProperty Name="PreparationTime" ColumnName="PreparationTime" />

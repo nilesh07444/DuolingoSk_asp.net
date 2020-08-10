@@ -1,0 +1,183 @@
+﻿@using DuolingoSk.ViewModel;
+@model QuestionVM
+@{
+
+    int Cntc = 1;
+}
+<style>
+    ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    ol, ul {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+    .qheight{
+        height:590px !important;
+    }
+</style>
+<div class="question">
+    <div class="questionbg">
+        <span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="porgressbr">
+                        <span class="is-pulled-left">
+                            <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+
+                            </p>
+                        </span>
+                        <progress max="1" class="progress is-small is-mycolor" value="0" id="prptmr"></progress>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="vid-align is-pulled-right">
+                        <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium qtxt">@Model.QuestionText</h5>
+        <h5 class="has-text-centered is-size-3 has-text-weight-meddium qoptxt" style="display:none;">@Model.QuestionOptionText</h5>
+        <div class="level-item has-text-centered centersec image123" style="width: 60% !important; text-align: left !important;">
+            <div style="border: 1px solid black; padding: 10px; border-radius: 11px;" >
+                @Html.Raw(Model.QuestionsHtml)
+            </div>
+        </div>
+        <div class="columns footsec recordnotstart">
+            <!----> <!---->
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold startrecrd">record now</button>
+            </div>
+        </div>
+        <div class="columns footsec recordstart" style="display:none;">
+            <div class="column">
+                <figure class="image is-centered"><span class="button is-rounded is-small is-danger is-primary">● Recording...</span></figure>
+            </div>
+            <div class="column">
+                <div class="level-item has-text-centered">
+                    <figure class="image is-centered"><img src="/Images/sound-red-big.gif"></figure>
+                </div>
+            </div>
+            <div class="column">
+                <div class="vue-audio-recorder is-pulled-right is-hidden active"><span></span></div>
+                <button class="button is-primary is-uppercase is-pulled-right has-text-weight-semibold btnnext" disabled="disabled" onclick="clearInterval(tmrglbl);stoprecrding();">next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+<script src="~/Scripts/recordcustom.js"></script>
+<script>
+    var tmrvl = '@Model.QuestionTime';
+    var tmr;
+    var tmrminvl = '@Model.MinimumTime';
+    var tmrprvl = '@Model.PreparationTime';
+    var tmrglbl;
+    var tmrprep;
+    var cntmin = 0;
+    $(document).ready(function () {
+        if (!$(".container1").hasClass("qheight")) {
+            $(".container1").addClass("qheight");
+        }
+        
+        $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
+        $('#prptmr').attr('max', tmrprvl);
+
+        $(".startrecrd").click(function () {
+            clearInterval(tmrprep);
+            $(".recordnotstart").hide();
+            $(".recordstart").show();
+            $(".qtxt").hide();
+            $(".qoptxt").show();
+            $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrvl));
+            $('#prptmr').attr('max', tmrvl);
+            startrecrding();
+            starttimersprgress();
+        });
+    });
+    function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return (m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+   }
+    var tmrprep = setInterval(function () {
+        if (tmrprvl == 0) {
+            clearInterval(tmrprep);
+            $(".recordnotstart").hide();
+            $(".recordstart").show();
+            $(".qtxt").hide();
+            $(".qoptxt").show();
+            startrecrding();
+            starttimersprgress();
+        }
+        else {
+            tmrprvl = tmrprvl - 1;
+            $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
+            $('#prptmr').attr('value', tmrprvl);
+        }
+    }, 1000);
+
+
+
+      function SaveAns(qid) {
+        if (window.localStorage.getItem('resultq') != null) {
+            arryresult = JSON.parse(window.localStorage.getItem('resultq'));
+        }
+
+          var objans = { QueId: questionss[qid].QuestionId, QuestionTxt: questionss[qid].QuestionText, QuestionType: questionss[qid].QuestionTypeId, Que: questionss[qid].QuestionsHtml, Ans: recrdflnm, ExamId: exmid};
+        arryresult.push(objans);
+       window.localStorage.setItem('resultq',JSON.stringify(arryresult));
+          var arrytemp = [];
+          arrytemp.push(objans);
+          var URL = '/Client/StartExam/SaveExamResultPartially';
+          $.ajax({
+              url: URL,
+              async: true,
+              type: 'POST',
+              dataType: 'json',
+              data: JSON.stringify(arrytemp),
+              contentType: 'application/json; charset=utf-8',
+              success: function (data) {
+              }
+          });
+    }
+    function starttimersprgress() {
+        $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrvl));
+        $('#prptmr').attr('max', tmrvl);
+        tmrglbl = setInterval(function () {
+            if (tmrvl == 0) {
+                clearInterval(tmrglbl);
+                stoprecrding();
+            }
+            else {
+                tmrvl = tmrvl - 1;
+                if (tmrminvl == cntmin) {
+                    $(".btnnext").removeAttr("disabled");
+                }
+                cntmin = cntmin + 1;
+                $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrvl));
+                $('progress').attr('value', tmrvl);
+            }
+        }, 1000);
+    }
+</script>

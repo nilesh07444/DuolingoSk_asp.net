@@ -6,15 +6,18 @@
     List<tbl_QuestionLevel> lstQueLevel = ViewData["lstQuestionLevel"] as List<tbl_QuestionLevel>;
 }
 <style>
-    .mrb5{
-        margin-bottom:5px;
-        margin-right:5px;
-        display:inline-block;
+    .mrb5 {
+        margin-bottom: 5px;
+        margin-right: 5px;
+        display: inline-block;
     }
-    .wdth330{
-        width:330px;
+
+    .wdth330 {
+        width: 330px;
     }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -107,13 +110,20 @@
                             <div class="form-group row dvtype dvtype1">
                                 <label class="col-xl-12 col-md-12"><b>Note: </b>Enter Paragraph below. Put "_" for missing letter</label>
                             </div>
-                            <div class="form-group row dvtype dvtype1 dvtype6 dvtype7 dvtype8 dvtype9 dvtype10">
+                            <div class="form-group row dvtype dvtype1 dvtype6 dvtype7 dvtype8 dvtype9 dvtype10 dvtype11">
                                 <label class="col-xl-3 col-md-4" for="QuestionOptionText">Question Option Text *</label>
                                 <textarea class="form-control col-md-8" id="QuestionOptionText" name="QuestionOptionText" style="min-height:125px;"></textarea>
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
-                            <div class="form-group row dvtype dvtype8 dvtype9 dvtype10">
+                            <div class="form-group row dvtype dvtype11">
+                                <label class="col-xl-3 col-md-4" for="qcardtextques">Q-Card Questions *</label>
+                                <textarea id="qcardtextques" class="form-control col-md-8" name="qcardtextques"></textarea>                             
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                <span class="field-validation-valid text-danger"></span>
+                            </div>
+
+                            <div class="form-group row dvtype dvtype8 dvtype9 dvtype10 dvtype11">
                                 <label class="col-xl-3 col-md-4" for="PreparationTime">Preparation Time*</label>
                                 <select class="form-control" id="minutespre" name="minutespre" style="width:100px;">
                                     <option value="">Minute</option>
@@ -132,7 +142,7 @@
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 <span class="field-validation-valid text-danger"></span>
                             </div>
-                            <div class="form-group row dvtype dvtype9 dvtype10">
+                            <div class="form-group row dvtype dvtype9 dvtype10 dvtype11">
                                 <label class="col-xl-3 col-md-4" for="Minimumtime">Minimum Time*</label>
                                 <select class="form-control" id="minutesmin" name="minutesmin" style="width:100px;">
                                     <option value="">Minute</option>
@@ -227,7 +237,7 @@
                             </div>
                             <div class="form-group row">
                                 <lable class="col-xl-3 col-md-4"></lable>
-                                <button type="button" class="btn btn-primary" style="margin-right:10px;" onclick="checkdetails();" >Submit</button>
+                                <button type="button" class="btn btn-primary" style="margin-right:10px;" onclick="checkdetails();">Submit</button>
                                 <button type="button" class="btn btn-danger" id="btnCancel">Cancel</button>
                             </div>
                         </form>
@@ -265,9 +275,46 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
-
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<style>
+    ul {        
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+    ol, ul {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+    .btn:not(:disabled):not(.disabled).active {
+        /* background-image: none; */
+        background-color: lightgray;
+    }
+</style>
 <script>
     $(".dvtype").hide();
+    $('#qcardtextques').summernote({
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+        height:200
+    });
+
     $(document).on("click", "#btnCancel", function () {
         window.location.href = "/admin/question";
     });
@@ -287,7 +334,7 @@
 
     function AddNewMp3File() {
         $(".dvMp3Files").append($(".dvmp3fl").html());
-        
+
     }
     function deletethismp3(objthis) {
         $(objthis).parents('div.dvmp33').remove();
@@ -315,12 +362,12 @@
         }
 
         if ($("#QuestionText").val() == "") {
-              $("#QuestionText").siblings('span.text-danger').html("Please Enter Question");
+            $("#QuestionText").siblings('span.text-danger').html("Please Enter Question");
             flg = false;
         }
 
         if ($("#QuestionLevelId").val() == "") {
-              $("#QuestionLevelId").siblings('span.text-danger').html("Please Select Question Level");
+            $("#QuestionLevelId").siblings('span.text-danger').html("Please Select Question Level");
             flg = false;
         }
 
@@ -332,21 +379,21 @@
                 }
                 else {
                     if ($("#QuestionOptionText").val().indexOf('_') < 0) {
-                         $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Paragraph with '_' for missing letter");
-                         flg = false;
+                        $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Paragraph with '_' for missing letter");
+                        flg = false;
                     }
                 }
             }
 
             if ($("#QuestionTypeId").val() == "2") {
                 if ($(".dvEngWords input[name=EngWords]").length == 0) {
-                     $(".dvEngWords").siblings('span.text-danger').html("Please Add English Word");
-                         flg = false;
+                    $(".dvEngWords").siblings('span.text-danger').html("Please Add English Word");
+                    flg = false;
                 }
                 $(".dvEngWords input[name=EngWords]").each(function () {
                     if ($(this).val() == "") {
                         $(".dvEngWords").siblings('span.text-danger').html("Please Enter English Word");
-                         flg = false;
+                        flg = false;
                     }
                 });
             }
@@ -358,59 +405,59 @@
                 }
                 else {
                     if ($("input[name=mp3file]").prop('files')[0].name.indexOf('.mp3') < 0) {
-                         $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Valid Mp3 file");
-                    flg = false;
+                        $("input[name=mp3file]").siblings('span.text-danger').html("Please Select Valid Mp3 file");
+                        flg = false;
                     }
                 }
-                  if ($("input[name=MaxReplay]").val() == "" || parseInt($("input[name=MaxReplay]").val()) <= 0) {
+                if ($("input[name=MaxReplay]").val() == "" || parseInt($("input[name=MaxReplay]").val()) <= 0) {
                     $("input[name=MaxReplay]").siblings('span.text-danger').html("Please Enter Maximum Replay for Mp3 file");
                     flg = false;
-                }                
+                }
             }
 
             if ($("#QuestionTypeId").val() == "4") {
-                 if ($("input[name=imagefile]").prop('files')[0] == undefined) {
+                if ($("input[name=imagefile]").prop('files')[0] == undefined) {
                     $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Image file");
                     flg = false;
                 }
-                 else {
-                     var typ = $("input[name=imagefile]").prop('files')[0].type;
+                else {
+                    var typ = $("input[name=imagefile]").prop('files')[0].type;
                     if (!(typ.indexOf('/png') >= 0 || typ.indexOf('/jpeg') >= 0 || typ.indexOf('/jpg') >= 0)) {
-                         $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Valid Image file");
+                        $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Valid Image file");
                         flg = false;
                     }
                 }
-                
+
             }
             if ($("#QuestionTypeId").val() == "5") {
                 if ($(".dvMp3Files input[name=mp3fileeword]").length == 0) {
-                     $(".dvMp3Files").siblings('span.text-danger').html("Please add Mp3 File");
-                        flg = false;
+                    $(".dvMp3Files").siblings('span.text-danger').html("Please add Mp3 File");
+                    flg = false;
                 }
-                  $(".dvMp3Files input[name=mp3fileeword]").each(function () {
+                $(".dvMp3Files input[name=mp3fileeword]").each(function () {
                     if ($(this).prop('files')[0] == undefined || $(this).prop('files')[0].name.indexOf('.mp3') < 0) {
                         $(".dvMp3Files").siblings('span.text-danger').html("Please Select Valid Mp3 File");
                         flg = false;
                     }
                 });
             }
-           
-           if ($("#QuestionTypeId").val() == "6") {
+
+            if ($("#QuestionTypeId").val() == "6") {
                 if ($("#QuestionOptionText").val().trim() == "") {
                     $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option");
                     flg = false;
                 }
-                 if ( $("input[name=noofwords]").val() == "" || parseInt($("input[name=noofwords]").val()) <= 0) {
+                if ($("input[name=noofwords]").val() == "" || parseInt($("input[name=noofwords]").val()) <= 0) {
                     $("input[name=noofwords]").siblings('span.text-danger').html("Please Enter No of Words Minimum");
                     flg = false;
-                }                
+                }
             }
 
             if ($("#QuestionTypeId").val() == "7") {
                 if ($("#QuestionOptionText").val().trim() == "") {
                     $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
                     flg = false;
-                }          
+                }
             }
 
             if ($("#QuestionTypeId").val() == "8") {
@@ -431,7 +478,7 @@
                     if ($(this).prop('files')[0] == undefined || (!($(this).prop('files')[0].type.indexOf('/png') >= 0 || $(this).prop('files')[0].type.indexOf('/jpeg') >= 0 || $(this).prop('files')[0].type.indexOf('/jpg') >= 0))) {
                         $(".dvImages").siblings('span.text-danger').html("Please Select Valid Image file");
                         flg = false;
-                    }                    
+                    }
                 });
 
             }
@@ -464,7 +511,7 @@
                 if ($("input[name=MaxReplay]").val() == "" || parseInt($("input[name=MaxReplay]").val()) <= 0) {
                     $("input[name=MaxReplay]").siblings('span.text-danger').html("Please Enter Maximum Replay for Mp3 file");
                     flg = false;
-                }         
+                }
 
             }
 
@@ -482,7 +529,7 @@
                     $("#minutesmin").siblings('span.text-danger').html("Please Select Minimum Minutes and Seconds");
                     flg = false;
                 }
-               
+
                 if ($("input[name=imagefile]").prop('files')[0] == undefined) {
                     $("input[name=imagefile]").siblings('span.text-danger').html("Please Select Image file");
                     flg = false;
@@ -496,7 +543,28 @@
                 }
 
             }
+
+            if ($("#QuestionTypeId").val() == "11") {
+                if ($("#QuestionOptionText").val().trim() == "") {
+                    $("#QuestionOptionText").siblings('span.text-danger').html("Please Enter Question Option Text");
+                    flg = false;
+                }
+                if ($("#minutespre").val() == "" || $("#secondspre").val() == "") {
+                    $("#minutespre").siblings('span.text-danger').html("Please Select Preparation Minutes and Seconds");
+                    flg = false;
+                }
+
+                if ($("#minutesmin").val() == "" || $("#secondsmin").val() == "") {
+                    $("#minutesmin").siblings('span.text-danger').html("Please Select Minimum Minutes and Seconds");
+                    flg = false;
+                }
+                if ($('#qcardtextques').summernote('isEmpty')) {
+                    $("#qcardtextques").siblings('span.text-danger').html("Please Enter Questions");
+                    flg = false;
+                }
+            }
             
+
         }
 
         if (flg) {

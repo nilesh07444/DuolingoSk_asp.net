@@ -3570,6 +3570,7 @@
     <Content Include="Content\client_assets\js\smoothscroll.js" />
     <Content Include="Content\ideal-image-slider.css" />
     <Content Include="Content\quiz.css" />
+    <Content Include="Content\summernote.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -4017,6 +4018,7 @@
     <Content Include="Areas\Admin\Views\Material\View.cshtml" />
     <Content Include="Areas\Admin\Views\Webinar\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Webinar\Add.cshtml" />
+    <Content Include="Areas\Client\Views\StartExam\_QuestionType11.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />
@@ -4037,6 +4039,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\recordcustom.js" />
     <Content Include="Scripts\slideapp.js" />
+    <Content Include="Scripts\summernote.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4091,7 +4094,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64211</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44339/</IISUrl>
+          <IISUrl>http://localhost:44331/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

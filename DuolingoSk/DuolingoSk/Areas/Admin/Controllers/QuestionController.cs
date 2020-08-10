@@ -55,13 +55,14 @@ namespace DuolingoSk.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost,ValidateInput(false)]
         public ActionResult AddQuestion(FormCollection frm)
         {
             int QuestionType = Convert.ToInt32(frm["QuestionTypeId"]);
             int minutes = Convert.ToInt32(frm["minutes"]);
             int seconds = Convert.ToInt32(frm["seconds"]);
             string QuestionText = frm["QuestionText"].ToString();
+            string questionss = frm["qcardtextques"].ToString();
             tbl_QuestionsMaster objtbl_QuestionsMaster = new tbl_QuestionsMaster();
             objtbl_QuestionsMaster.QuestionTypeId = QuestionType;
             objtbl_QuestionsMaster.QuestionText = QuestionText;
@@ -111,22 +112,26 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 }
 
             }
+            else if(QuestionType == 11)
+            {                
+                objtbl_QuestionsMaster.QuestionsHtml = questionss;
+            }
             
-            if(QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10)
+            if(QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
             {
                 if (frm["QuestionOptionText"] != null)
                 {
                     string QuestionOptionText = frm["QuestionOptionText"].ToString();
                     objtbl_QuestionsMaster.QuestionOptionText = QuestionOptionText;
                 }
-                if (QuestionType == 8 || QuestionType == 9 || QuestionType == 10)
+                if (QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
                 {
                     int minutespre = Convert.ToInt32(frm["minutespre"]);
                     int secondspre = Convert.ToInt32(frm["secondspre"]);
                     objtbl_QuestionsMaster.PreparationTime = (minutespre * 60) + secondspre;
                 }
 
-                if(QuestionType == 9 || QuestionType == 10)
+                if(QuestionType == 9 || QuestionType == 10 || QuestionType == 11) 
                 {
                     int minutesmin = Convert.ToInt32(frm["minutesmin"]);
                     int secondsmin = Convert.ToInt32(frm["secondsmin"]);
@@ -206,26 +211,26 @@ namespace DuolingoSk.Areas.Admin.Controllers
             ViewBag.PreSeconds = 0;
             ViewBag.minminute = 0;
             ViewBag.miSeconds = 0;
-            if (objQue.QuestionTypeId == 8 || objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10)
+            if (objQue.QuestionTypeId == 8 || objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10 || objQue.QuestionTypeId == 11)
             {
                 TimeSpan ts1 = TimeSpan.FromSeconds(objQue.PreparationTime.Value);
                 int prpminutes = ts1.Minutes;
                 int preseconds = ts1.Seconds;
                 ViewBag.PreMinutes = prpminutes;
                 ViewBag.PreSeconds = preseconds;
-                if(objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10)
+                if(objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10 || objQue.QuestionTypeId == 11) 
                 {
                     TimeSpan ts2 = TimeSpan.FromSeconds(objQue.MinimumTime.Value);
                     int minminutes = ts2.Minutes;
                     int minseconds = ts2.Seconds;
-                    ViewBag.minminute = prpminutes;
-                    ViewBag.miSeconds = preseconds;
+                    ViewBag.minminute = minminutes;
+                    ViewBag.miSeconds = minseconds;
                 }
             }
             return View(objQue);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult EditQuestion(FormCollection frm)
         {
             int QuestionType = Convert.ToInt32(frm["QuestionTypeId"]);
@@ -233,6 +238,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             int minutes = Convert.ToInt32(frm["minutes"]);
             int seconds = Convert.ToInt32(frm["seconds"]);            
             string QuestionText = frm["QuestionText"].ToString();
+            string questionss = frm["qcardtextques"].ToString();
             tbl_QuestionsMaster objtbl_QuestionsMaster = _db.tbl_QuestionsMaster.Where(o => o.QuestionId == QuestionId).FirstOrDefault();
             objtbl_QuestionsMaster.QuestionTypeId = QuestionType;
             objtbl_QuestionsMaster.QuestionText = QuestionText;
@@ -279,26 +285,30 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 }
 
             }
+            else if (QuestionType == 11)
+            {
+                objtbl_QuestionsMaster.QuestionsHtml = questionss;
+            }
 
-            if (QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10)
+            if (QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
             {
                 if (frm["QuestionOptionText"] != null)
                 {
                     string QuestionOptionText = frm["QuestionOptionText"].ToString();
                     objtbl_QuestionsMaster.QuestionOptionText = QuestionOptionText;
                 }
-                if (QuestionType == 8 || QuestionType == 9 || QuestionType == 10)
+                if (QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
                 {
                     int minutespre = Convert.ToInt32(frm["minutespre"]);
                     int secondspre = Convert.ToInt32(frm["secondspre"]);
                     objtbl_QuestionsMaster.PreparationTime = (minutespre * 60) + secondspre;
                 }
 
-                if (QuestionType == 9 || QuestionType == 10)
+                if (QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
                 {
                     int minutesmin = Convert.ToInt32(frm["minutesmin"]);
                     int secondsmin = Convert.ToInt32(frm["secondsmin"]);
-                    objtbl_QuestionsMaster.PreparationTime = (minutesmin * 60) + secondsmin;
+                    objtbl_QuestionsMaster.MinimumTime = (minutesmin * 60) + secondsmin;
                 }
             }
 

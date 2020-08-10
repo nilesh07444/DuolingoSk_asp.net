@@ -19,6 +19,6 @@ namespace DuolingoSk.Models
         public string WebinarMessage { get; set; }
         public Nullable<int> TotalAttendedStudent { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public long CreatedBy { get; set; }
+        public Nullable<long> CreatedBy { get; set; }
     }
 }

@@ -198,7 +198,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                                                      NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0,
                                                      PreparationTime = p.PreparationTime.HasValue ? p.PreparationTime.Value : 0,
                                                      MinimumTime = p.MinimumTime.HasValue ? p.MinimumTime.Value : 0,
-                                                     Images = p.Images
+                                                     Images = p.Images,
+                                                     QuestionsHtml = p.QuestionsHtml
                                                  }).OrderByDescending(x => x.QuestionId).ToList();
 
                 lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
@@ -253,7 +254,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                                                      NoOfWords = p.NoOfWords.HasValue ? p.NoOfWords.Value : 0,
                                                      PreparationTime = p.PreparationTime.HasValue ? p.PreparationTime.Value : 0,
                                                      MinimumTime = p.MinimumTime.HasValue ? p.MinimumTime.Value : 0,
-                                                     Images = p.Images
+                                                     Images = p.Images,
+                                                     QuestionsHtml = p.QuestionsHtml
                                                  }).OrderByDescending(x => x.QuestionId).ToList();
 
                 lstQuestions.Where(x => x.QuestionTypeId == 5).ToList().ForEach(x => x.Mp3Options = GetMp3Options(x.QuestionId));
@@ -331,9 +333,13 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 return PartialView("~/Areas/Client/Views/StartExam/_QuestionType9.cshtml", objQ);
             }
-            else
+            else if (objQ.QuestionTypeId == 10)
             {
                 return PartialView("~/Areas/Client/Views/StartExam/_QuestionType10.cshtml", objQ);
+            }
+            else
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType11.cshtml", objQ);
             }
         }
 
@@ -381,9 +387,13 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 return PartialView("~/Areas/Client/Views/StartExam/_QuestionType9.cshtml", objQ);
             }
-            else
+            else if (objQ.QuestionTypeId == 10)
             {
                 return PartialView("~/Areas/Client/Views/StartExam/_QuestionType10.cshtml", objQ);
+            }
+            else
+            {
+                return PartialView("~/Areas/Client/Views/StartExam/_QuestionType11.cshtml", objQ);
             }
         }
         [HttpPost]

@@ -28,5 +28,7 @@ namespace DuolingoSk.ViewModel
         public string Images { get; set; }
         public string LevelName { get; set; }
 
+        public string QuestionsHtml { get; set; }
+
     }
 }

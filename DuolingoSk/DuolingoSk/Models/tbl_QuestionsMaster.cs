@@ -35,5 +35,6 @@ namespace DuolingoSk.Models
         public Nullable<int> PreparationTime { get; set; }
         public Nullable<int> MinimumTime { get; set; }
         public string Images { get; set; }
+        public string QuestionsHtml { get; set; }
     }
 }

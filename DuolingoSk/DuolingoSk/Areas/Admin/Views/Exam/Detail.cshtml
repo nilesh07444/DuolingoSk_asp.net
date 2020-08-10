@@ -26,26 +26,58 @@
         outline: auto;
         border: 0;
     }
-    .imgcll{
-        height:200px !important;
-        width:200px !important;
-        display:inline-block;
-        margin-right:15px;
+
+    .imgcll {
+        height: 200px !important;
+        width: 200px !important;
+        display: inline-block;
+        margin-right: 15px;
     }
-    .bx8{
-        height:740px !important;    
+
+    .bx8 {
+        height: 740px !important;
     }
+
+    .bx11 {
+        height: 590px !important;
+    }
+
     .imgrcrd {
         width: 160px !important;
-        height:auto !important;
-        max-height:160px !important;
-        margin-right:10px;
+        height: auto !important;
+        max-height: 160px !important;
+        margin-right: 10px;
     }
 
     .eng-selector input[type=checkbox] + label {
         width: auto !important;
         min-width: 140px !important;
     }
+
+    ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+    }
+
+    ol, ul {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+
+    .qheight {
+        height: 580px !important;
+    }
+
 </style>
 
 <div class="page-body">
@@ -515,6 +547,44 @@
                                     <figure class="image is-centered"><img src="/QuestionImage/@objExm.QuestionOptionValue"></figure>
                                 </div>
                                 <div>
+                                    Recording:
+                                    <audio controls>
+                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                     else if (objExm.QuestionTypeId == 11)
+                    {
+                        <div class="question">
+                            <div class="questionbg">
+                                <span>
+                                    <div class="columns">
+                                        <div class="column is-10">
+                                            <div class="porgressbr">
+                                                <span class="is-pulled-left">
+                                                    <p class="is-size-3 has-text-weight-semibold has-text-dark tmrvlpre">
+
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="column is-2">
+                                            <div class="vid-align is-pulled-right">
+                                                <video height="200px" width="100px" autoplay="autoplay" id="videoElement" muted="muted" class=" video-pad"></video>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h5 class="has-text-centered is-size-3 has-text-weight-meddium qtxt">@objExm.QuestionText</h5>
+                                <div class="level-item has-text-centered centersec image123" style="width: 60% !important; text-align: left !important;">
+                                    <div style="border: 1px solid black; padding: 10px; border-radius: 11px;">
+                                        @Html.Raw(objExm.QuestionOptionValue)
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px;">
                                     Recording:
                                     <audio controls>
                                         <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
