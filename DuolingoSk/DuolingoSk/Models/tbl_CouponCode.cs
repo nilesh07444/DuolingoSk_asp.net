@@ -25,5 +25,6 @@ namespace DuolingoSk.Models
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<long> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string CouponCodeTitle { get; set; }
     }
 }

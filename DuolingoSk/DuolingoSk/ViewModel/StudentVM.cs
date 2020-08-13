@@ -10,29 +10,27 @@ namespace DuolingoSk
     {
         public int StudentId { get; set; } 
         [Required]
-        [MaxLength(100), Display(Name = "First Name *")]
-        public string FirstName { get; set; }
-        [Required]
-        [MaxLength(100), Display(Name = "Last Name *")]
-        public string LastName { get; set; }
+        [MaxLength(100), Display(Name = "Full Name *")]
+        public string FullName { get; set; }
+        //[Required]
+        //[MaxLength(100), Display(Name = "Last Name *")]
+        //public string LastName { get; set; }
         [Required]
         [MaxLength(100), Display(Name = "Email Id")]
         public string Email { get; set; }
         [Required]
-        [MaxLength(10), MinLength(10), Display(Name = "Mobile No *")]
+        [MaxLength(10), MinLength(10), Display(Name = "Mobile No *")]        
         public string MobileNo { get; set; }
         [Required]
         [MinLength(5), MaxLength(20), Display(Name = "Password *")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } 
 
         [MaxLength(200), Display(Name = "Address")]
         public string Address { get; set; }
         [MaxLength(100), Display(Name = "City")]
         public string City { get; set; }
-
-        [Display(Name = "Date Of Birth")]
-        public string Dob { get; set; }
-
+          
         public string ProfilePicture { get; set; }
 
         [MaxLength(200), Display(Name = "Remarks")]
@@ -43,13 +41,11 @@ namespace DuolingoSk
         public HttpPostedFileBase ProfilePictureFile { get; set; }
 
         // Addional fields 
-        public long? AdminUserId { get; set; }
-        public DateTime? dtDob { get; set; }  
+        public long? AdminUserId { get; set; } 
         public string strCreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string strModifiedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public string FullName { get; set; }
+        public DateTime? UpdatedDate { get; set; } 
         public string AgentName { get; set; }
         public decimal MaxScore { get; set; } 
 

@@ -61,7 +61,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                               FeeAmount = a.FeeAmount,
                               TotalExamAttempt = a.TotalExamAttempt,
                               RequestedDate = a.RequestedDate,
-                              StudentName = s.FirstName + " " + s.LastName,
+                              StudentName = s.FullName,
                               AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : "")
                           }).ToList();
 

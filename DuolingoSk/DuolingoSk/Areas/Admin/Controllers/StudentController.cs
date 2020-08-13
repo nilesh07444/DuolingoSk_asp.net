@@ -46,12 +46,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    {
                                        StudentId = a.StudentId,
                                        AdminUserId = a.AdminUserId,
-                                       FirstName = a.FirstName,
-                                       LastName = a.LastName,
+                                       FullName = a.FullName,
                                        Email = a.Email,
                                        MobileNo = a.MobileNo,
                                        ProfilePicture = a.ProfilePicture,
-                                       FullName = a.FirstName + " " + a.LastName,
                                        AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                                        IsActive = a.IsActive
                                    }).ToList();
@@ -67,12 +65,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    {
                                        StudentId = a.StudentId,
                                        AdminUserId = a.AdminUserId,
-                                       FirstName = a.FirstName,
-                                       LastName = a.LastName,
+                                       FullName = a.FullName,
                                        Email = a.Email,
                                        MobileNo = a.MobileNo,
                                        ProfilePicture = a.ProfilePicture,
-                                       FullName = a.FirstName + " " + a.LastName,
                                        AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                                        IsActive = a.IsActive
                                    }).ToList();
@@ -87,12 +83,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    {
                                        StudentId = a.StudentId,
                                        AdminUserId = a.AdminUserId,
-                                       FirstName = a.FirstName,
-                                       LastName = a.LastName,
+                                       FullName = a.FullName,
                                        Email = a.Email,
                                        MobileNo = a.MobileNo,
                                        ProfilePicture = a.ProfilePicture,
-                                       FullName = a.FirstName + " " + a.LastName,
                                        AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                                        IsActive = a.IsActive
                                    }).ToList();
@@ -107,12 +101,10 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                    {
                                        StudentId = a.StudentId,
                                        AdminUserId = a.AdminUserId,
-                                       FirstName = a.FirstName,
-                                       LastName = a.LastName,
+                                       FullName = a.FullName,
                                        Email = a.Email,
                                        MobileNo = a.MobileNo,
                                        ProfilePicture = a.ProfilePicture,
-                                       FullName = a.FirstName + " " + a.LastName,
                                        AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                                        IsActive = a.IsActive
                                    }).ToList();
@@ -158,28 +150,28 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                                     TotalAttempt = c.TotalAttempt
                                                 }).OrderBy(x => x.PackageName).ToList();
             List<long> pkgids = new List<long>();
-            if(lstPackages != null && lstPackages.Count() > 0)
+            if (lstPackages != null && lstPackages.Count() > 0)
             {
                 pkgids = lstPackages.Select(x => x.PackageId).ToList();
-            }        
-            List<AgentPackageVM> lstPackagesnew = (from s in _db.tbl_Package                                               
-                                                where !s.IsDeleted && !pkgids.Contains(s.PackageId)
-                                                select new AgentPackageVM
-                                                {
-                                                    PackageId = s.PackageId,
-                                                    PackageName = s.PackageName,
-                                                    AgentName = "",
-                                                    PackageAmountAgent = s.PackageAmount,
-                                                    PackageAgentId = 0,
-                                                    TotalAttempt = s.TotalAttempt
-                                                }).OrderBy(x => x.PackageName).ToList();
+            }
+            List<AgentPackageVM> lstPackagesnew = (from s in _db.tbl_Package
+                                                   where !s.IsDeleted && !pkgids.Contains(s.PackageId)
+                                                   select new AgentPackageVM
+                                                   {
+                                                       PackageId = s.PackageId,
+                                                       PackageName = s.PackageName,
+                                                       AgentName = "",
+                                                       PackageAmountAgent = s.PackageAmount,
+                                                       PackageAgentId = 0,
+                                                       TotalAttempt = s.TotalAttempt
+                                                   }).OrderBy(x => x.PackageName).ToList();
             lstPackages.AddRange(lstPackagesnew);
             ViewData["lstPackages"] = lstPackages.OrderBy(x => x.PackageName).ToList();
             return View(objStudent);
         }
 
         [HttpPost]
-        public ActionResult Add(StudentVM userVM, HttpPostedFileBase ProfilePictureFile,FormCollection frm)
+        public ActionResult Add(StudentVM userVM, HttpPostedFileBase ProfilePictureFile, FormCollection frm)
         {
             try
             {
@@ -233,8 +225,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     tbl_Students objStudent = new tbl_Students();
 
                     objStudent.AdminUserId = LoggedInUserId;
-                    objStudent.FirstName = userVM.FirstName;
-                    objStudent.LastName = userVM.LastName;
+                    objStudent.FullName = userVM.FullName;
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
                     objStudent.Password = userVM.Password;
@@ -242,12 +233,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-
-                    if (!string.IsNullOrEmpty(userVM.Dob))
-                    {
-                        DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                        objStudent.Dob = exp_Dob;
-                    }
 
                     objStudent.IsActive = true;
                     objStudent.IsDeleted = false;
@@ -269,7 +254,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     tbl_AdminUsers agentProfile = _db.tbl_AdminUsers.Where(x => x.AdminUserId == LoggedInUserId).FirstOrDefault();
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-                                      
+
                     int PackageId = Convert.ToInt32(frm["Package"]);
                     decimal PckPriceForPay = 0;
                     if (PackageId > 0)
@@ -289,7 +274,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             decimal disc = 0;
                             if (objcpcode != null)
                             {
-                                if(objAgentPckg != null)
+                                if (objAgentPckg != null)
                                 {
                                     disc = (Convert.ToDecimal(objAgentPckg.PackageAmount) * objcpcode.DiscountPercentage.Value) / 100;
                                     PckPriceForPay = Convert.ToDecimal(objAgentPckg.PackageAmount);
@@ -304,17 +289,17 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             else
                             {
                                 if (objAgentPckg != null)
-                                {                                    
+                                {
                                     PckPriceForPay = Convert.ToDecimal(objAgentPckg.PackageAmount);
                                 }
                                 else
-                                {                                 
+                                {
                                     PckPriceForPay = Convert.ToDecimal(objPckg.PackageAmount);
                                 }
                             }
                             tbl_StudentFee objStudentFee = new tbl_StudentFee();
                             objStudentFee.StudentId = objStudent.StudentId;
-                            if(frm["hdnPaymentId"] != null && !string.IsNullOrEmpty(frm["hdnPaymentId"]))
+                            if (frm["hdnPaymentId"] != null && !string.IsNullOrEmpty(frm["hdnPaymentId"]))
                             {
                                 objStudentFee.FeeStatus = "Complete";
                                 objStudentFee.MarkCompleteBy = Convert.ToInt32(clsAdminSession.UserID);
@@ -332,7 +317,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                             objStudentFee.Discount = disc;
                             objStudentFee.IsDeleted = false;
                             objStudentFee.RequestedDate = DateTime.UtcNow;
-                         
+                            objStudentFee.TotalWebinarAttempt = objPckg.TotalWebinar != null ? Convert.ToInt32(objPckg.TotalWebinar) : 0;
+
                             objStudentFee.IsAttemptUsed = false;
                             objStudentFee.PackageId = objPckg.PackageId;
                             objStudentFee.PackageName = objPckg.PackageName;
@@ -371,28 +357,20 @@ namespace DuolingoSk.Areas.Admin.Controllers
                               {
                                   StudentId = a.StudentId,
                                   AdminUserId = a.AdminUserId,
-                                  FirstName = a.FirstName,
-                                  LastName = a.LastName,
+                                  FullName = a.FullName,
                                   Email = a.Email,
                                   MobileNo = a.MobileNo,
                                   Password = a.Password,
                                   Address = a.Address,
                                   City = a.City,
-                                  dtDob = a.Dob,
                                   Remarks = a.Remarks,
                                   ProfilePicture = a.ProfilePicture,
                                   IsActive = a.IsActive
                               }).FirstOrDefault();
 
-                if (objStudent.dtDob != null)
-                {
-                    objStudent.Dob = Convert.ToDateTime(objStudent.dtDob).ToString("dd/MM/yyyy");
-                }
-
             }
             catch (Exception ex)
             {
-
             }
 
             return View(objStudent);
@@ -445,8 +423,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     #region UpdateUser
 
-                    objStudent.FirstName = userVM.FirstName;
-                    objStudent.LastName = userVM.LastName;
+                    objStudent.FullName = userVM.FullName;
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
                     objStudent.Password = userVM.Password;
@@ -454,16 +431,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-
-                    if (!string.IsNullOrEmpty(userVM.Dob))
-                    {
-                        DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                        objStudent.Dob = exp_Dob;
-                    }
-                    else
-                    {
-                        objStudent.Dob = null;
-                    }
 
                     objStudent.UpdatedDate = DateTime.UtcNow;
                     objStudent.UpdatedBy = LoggedInUserId;
@@ -576,14 +543,12 @@ namespace DuolingoSk.Areas.Admin.Controllers
                               {
                                   StudentId = a.StudentId,
                                   AdminUserId = a.AdminUserId,
-                                  FirstName = a.FirstName,
-                                  LastName = a.LastName,
+                                  FullName = a.FullName,
                                   Email = a.Email,
                                   MobileNo = a.MobileNo,
                                   Password = a.Password,
                                   Address = a.Address,
                                   City = a.City,
-                                  dtDob = a.Dob,
                                   Remarks = a.Remarks,
                                   ProfilePicture = a.ProfilePicture,
                                   IsActive = a.IsActive,
@@ -593,11 +558,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                   strModifiedBy = (uM != null ? uM.FirstName + " " + uM.LastName : "")
 
                               }).FirstOrDefault();
-
-                if (objStudent.dtDob != null)
-                {
-                    objStudent.Dob = Convert.ToDateTime(objStudent.dtDob).ToString("dd/MM/yyyy");
-                }
 
             }
             catch (Exception ex)
@@ -616,7 +576,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 {
                     WebClient client = new WebClient();
 
-                    string msg = "Hello " + userVM.FirstName + "\n\n";
+                    string msg = "Hello " + userVM.FullName + "\n\n";
                     msg += "You are student of Duolingo sk." + "\n\n";
 
                     msg += "Below are login details:" + "\n";

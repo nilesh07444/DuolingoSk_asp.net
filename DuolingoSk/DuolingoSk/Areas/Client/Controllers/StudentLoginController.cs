@@ -92,8 +92,7 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     clsClientSession.SessionID = Session.SessionID;
                     clsClientSession.UserID = data.StudentId; 
-                    clsClientSession.FirstName = data.FirstName;
-                    clsClientSession.LastName = data.LastName;
+                    clsClientSession.FullName = data.FullName; 
                     clsClientSession.ImagePath = data.ProfilePicture;
                     clsClientSession.Email = data.Email;
                     clsClientSession.MobileNumber = data.MobileNo;
@@ -121,8 +120,7 @@ namespace DuolingoSk.Areas.Client.Controllers
         {
             clsClientSession.SessionID = "";
             clsClientSession.UserID = 0;
-            clsClientSession.FirstName = "";
-            clsClientSession.LastName = "";
+            clsClientSession.FullName = ""; 
             clsClientSession.Email = "";
             Session.RemoveAll();
             Session.Clear();

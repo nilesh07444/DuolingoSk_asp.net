@@ -182,15 +182,17 @@
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Student Exams</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li class="@(ViewBag.Title == "StudentExamList" ? "active" : "")"><a href="/admin/exam"><i class="fa fa-circle"></i>Student Exam List</a></li>
-                            </ul>
-                        </li>
+
 
                         @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
                         {
+                            <li>
+                                <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Student Exams</span><i class="fa fa-angle-right pull-right"></i></a>
+                                <ul class="sidebar-submenu">
+                                    <li class="@(ViewBag.Title == "StudentExamList" ? "active" : "")"><a href="/admin/exam"><i class="fa fa-circle"></i>Student Exam List</a></li>
+                                </ul>
+                            </li>
+
                             <li>
                                 <a class="sidebar-header" href=""><i data-feather="lock"></i><span>Question Levels</span><i class="fa fa-angle-right pull-right"></i></a>
                                 <ul class="sidebar-submenu">

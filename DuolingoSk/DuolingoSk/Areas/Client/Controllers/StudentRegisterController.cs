@@ -84,22 +84,14 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     tbl_Students objStudent = new tbl_Students();
                      
-                    objStudent.FirstName = userVM.FirstName;
-                    objStudent.LastName = userVM.LastName;
+                    objStudent.FullName = userVM.FullName; 
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
-                    objStudent.Password = userVM.Password;
-                    objStudent.Address = userVM.Address;
+                    objStudent.Password = userVM.Password; 
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-
-                    if (!string.IsNullOrEmpty(userVM.Dob))
-                    {
-                        DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                        objStudent.Dob = exp_Dob;
-                    }
-
+                      
                     objStudent.IsActive = true;
                     objStudent.IsDeleted = false;
                     objStudent.CreatedDate = DateTime.UtcNow; 
@@ -169,8 +161,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     // Set login details 
                     clsClientSession.SessionID = Session.SessionID;
                     clsClientSession.UserID = objStudent.StudentId;
-                    clsClientSession.FirstName = objStudent.FirstName;
-                    clsClientSession.LastName = objStudent.LastName;
+                    clsClientSession.FullName = objStudent.FullName; 
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
@@ -196,7 +187,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 {
                     WebClient client = new WebClient();
 
-                    string msg = "Hello " + userVM.FirstName + "\n\n";
+                    string msg = "Hello " + userVM.FullName + "\n\n";
                     msg += "You are student of Duolingo sk." + "\n\n";
 
                     msg += "Below are login details:" + "\n";
@@ -319,21 +310,19 @@ namespace DuolingoSk.Areas.Client.Controllers
            
         }
 
-        public ActionResult RegisterUsingSocial(string email,string firstname,string last_name)
+        public ActionResult RegisterUsingSocial(string email,string fullname)
         {
             ViewData["tbl_Packages"] = _db.tbl_Package.Where(o => o.IsActive == true && o.IsDeleted == false).ToList();
             StudentVM objStudent = new StudentVM();
             objStudent.Email = email;
-            objStudent.FirstName = firstname;
-            objStudent.LastName = last_name;
+            objStudent.FullName = fullname; 
 
             tbl_Students ojstu = _db.tbl_Students.Where(x => x.Email.ToLower() == email.ToLower() && !x.IsDeleted).FirstOrDefault();
             if(ojstu != null)
             {
                 clsClientSession.SessionID = Session.SessionID;
                 clsClientSession.UserID = ojstu.StudentId;
-                clsClientSession.FirstName = ojstu.FirstName;
-                clsClientSession.LastName = ojstu.LastName;
+                clsClientSession.FullName = ojstu.FullName; 
                 clsClientSession.ImagePath = ojstu.ProfilePicture;
                 clsClientSession.Email = ojstu.Email;
                 clsClientSession.MobileNumber = ojstu.MobileNo;
@@ -387,22 +376,14 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     tbl_Students objStudent = new tbl_Students();
 
-                    objStudent.FirstName = userVM.FirstName;
-                    objStudent.LastName = userVM.LastName;
+                    objStudent.FullName = userVM.FullName; 
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
-                    objStudent.Password = userVM.Password;
-                    objStudent.Address = userVM.Address;
+                    objStudent.Password = userVM.Password; 
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-
-                    if (!string.IsNullOrEmpty(userVM.Dob))
-                    {
-                        DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                        objStudent.Dob = exp_Dob;
-                    }
-
+                      
                     objStudent.IsActive = true;
                     objStudent.IsDeleted = false;
                     objStudent.CreatedDate = DateTime.UtcNow;
@@ -473,8 +454,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     // Set login details 
                     clsClientSession.SessionID = Session.SessionID;
                     clsClientSession.UserID = objStudent.StudentId;
-                    clsClientSession.FirstName = objStudent.FirstName;
-                    clsClientSession.LastName = objStudent.LastName;
+                    clsClientSession.FullName = objStudent.FullName; 
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;

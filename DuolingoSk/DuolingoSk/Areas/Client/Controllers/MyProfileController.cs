@@ -31,22 +31,15 @@ namespace DuolingoSk.Areas.Client.Controllers
                                     select new StudentVM
                                     {
                                         StudentId = s.StudentId,
-                                        FirstName = s.FirstName,
-                                        LastName = s.LastName,
+                                        FullName = s.FullName, 
                                         Password = s.Password,
                                         Email = s.Email,
                                         MobileNo = s.MobileNo,
                                         Address = s.Address,
-                                        City = s.City,
-                                        dtDob = s.Dob,
+                                        City = s.City, 
                                         ProfilePicture = s.ProfilePicture
                                     }).FirstOrDefault();
-
-            if (objStudent != null && objStudent.dtDob != null)
-            {
-                objStudent.Dob = Convert.ToDateTime(objStudent.dtDob).ToString("dd/MM/yyyy");
-            }
-
+             
             return View(objStudent);
         }
 
@@ -108,23 +101,12 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     #region UpdateUser
 
-                    objStudent.FirstName = userVM.FirstName;
-                    objStudent.LastName = userVM.LastName;
+                    objStudent.FullName = userVM.FullName; 
                     objStudent.Email = userVM.Email;  
                     objStudent.Address = userVM.Address;
                     objStudent.City = userVM.City; 
                     objStudent.ProfilePicture = fileName;
-
-                    if (!string.IsNullOrEmpty(userVM.Dob))
-                    {
-                        DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                        objStudent.Dob = exp_Dob;
-                    }
-                    else
-                    {
-                        objStudent.Dob = null;
-                    }
-
+                      
                     objStudent.UpdatedDate = DateTime.UtcNow;
                     objStudent.UpdatedBy = LoggedInUserId;
 

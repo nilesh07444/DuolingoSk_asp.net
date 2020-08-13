@@ -82,21 +82,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 xl-50">
-                <div class="card o-hidden widget-cards">
-                    <div class="bg-danger card-body">
-                        <div class="media static-top-widget row">
-                            <div class="icons-widgets col-4">
-                                <div class="align-self-center text-center"><i data-feather="users" class="font-danger"></i></div>
-                            </div>
-                            <div class="media-body col-8" style="cursor:pointer;" onclick="location.href='/admin/exam'">
-                                <span class="m-0">Pending Exams</span>
-                                <h3 class="mb-0"> <span class="counter">@Model.TotalPendingExams</span></h3>
+            @if (clsAdminSession.RoleID == (int)AdminRoles.AdminUser)
+            {
+                <div class="col-xl-3 col-md-6 xl-50">
+                    <div class="card o-hidden widget-cards">
+                        <div class="bg-danger card-body">
+                            <div class="media static-top-widget row">
+                                <div class="icons-widgets col-4">
+                                    <div class="align-self-center text-center"><i data-feather="users" class="font-danger"></i></div>
+                                </div>
+                                <div class="media-body col-8" style="cursor:pointer;" onclick="location.href='/admin/exam'">
+                                    <span class="m-0">Pending Exams</span>
+                                    <h3 class="mb-0"> <span class="counter">@Model.TotalPendingExams</span></h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 

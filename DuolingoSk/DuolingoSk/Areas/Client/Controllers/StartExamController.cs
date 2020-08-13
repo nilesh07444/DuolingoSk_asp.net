@@ -64,8 +64,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             StudentVM objstud = new StudentVM();
                             objstud.StudentId = stud.StudentId;
                             objstud.MaxScore = objexm.Overall.Value;
-                            objstud.FirstName = stud.FirstName;
-                            objstud.LastName = stud.LastName;
+                            objstud.FullName = stud.FullName; 
                             objstud.ProfilePicture = stud.ProfilePicture;
                             lststud.Add(objstud);
                         }
@@ -88,12 +87,9 @@ namespace DuolingoSk.Areas.Client.Controllers
         {            
             if (clsClientSession.UserID > 0)
             {
-                var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
-                
-                ViewBag.FirstName = objStudent.FirstName;
-                ViewBag.LastName = objStudent.LastName;
-
-                ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
+                var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault(); 
+                ViewBag.FullName = objStudent.FullName;  
+                //ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
 
                 //List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(Levl).ToList();                
                 ViewBag.LevelId = levelid;
@@ -122,9 +118,8 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
                
-                ViewBag.FirstName = objStudent.FirstName;
-                ViewBag.LastName = objStudent.LastName;
-                ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
+                ViewBag.FullName = objStudent.FullName; 
+                //ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
                 List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
                 return View();

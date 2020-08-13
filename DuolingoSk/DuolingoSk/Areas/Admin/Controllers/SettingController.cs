@@ -30,12 +30,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                                   SMTPPwd = s.SMTPPwd,
                                                   AdminSMSNumber = s.AdminSMSNumber,
                                                   AdminEmail = s.AdminEmail,
-                                                  FromEmail = s.FromEmail,
-                                                  RegistrationFee = s.RegistrationFee,
-                                                  RenewFee = s.RenewFee,
-                                                  TotalExamAttempt = s.TotalExamAttempt,
-                                                  MaxLevel = s.MaxLevel,
-                                                  FeeExpiryInDays = s.FeeExpiryInDays
+                                                  FromEmail = s.FromEmail, 
                                               }).FirstOrDefault();
 
             return View(objGenSetting);
@@ -78,12 +73,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 objGenSetting.AdminEmail = txtadminemail;
                 objGenSetting.AdminSMSNumber = txtsmsmobil.ToString();
                 objGenSetting.FromEmail = txtfrommail;
-                objGenSetting.EnableSSL = EnableSSL;
-                objGenSetting.RegistrationFee = txtRegistrationFee;
-                objGenSetting.RenewFee = txtRenewFee;
-                objGenSetting.TotalExamAttempt = txtTotalExamAttempt;
-                objGenSetting.MaxLevel = txtMaxQuestionLevel;
-                objGenSetting.FeeExpiryInDays = txtFeeExpiryInDays;
+                objGenSetting.EnableSSL = EnableSSL; 
 
                 _db.SaveChanges();
                 return "Success";

@@ -35,9 +35,9 @@
                     <center>
                         <form class="main-input">
                             <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Select Program *</label>
+                                <label class="text-left">Select Package *</label>
                                 <select class="form-control" name="Package" id="Package">
-                                    <option value="0" data-prc="0" data-attempt="0">--Select Program--</option>
+                                    <option value="0" data-prc="0" data-attempt="0">--Select Package--</option>
                                     @if (lstPackges != null && lstPackges.Count() > 0)
                                     {
                                         foreach (var objjj in lstPackges)
@@ -142,7 +142,7 @@
     });
     $(document).on("click", "#btnRenew", function () {
         if ($("#Package").val() == "0") {
-            alert("Please select Program");
+            alert("Please select Package");
             return false;
         }
         else {

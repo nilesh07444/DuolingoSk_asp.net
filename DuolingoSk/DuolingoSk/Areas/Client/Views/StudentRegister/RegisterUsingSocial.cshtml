@@ -13,6 +13,10 @@
     List<tbl_Package> lstPackges = ViewData["tbl_Packages"] as List<tbl_Package>;
 }
 <style>
+    .customform {
+        display: contents;
+    }
+
     .modal {
         top: 25%;
         opacity: 1 !important;
@@ -44,114 +48,90 @@
                 <p><hr /></p>
             </div>
 
-            <div class="row cont-main-top">              
-                <div class="contacts12-main col-lg-12">
-                    <center>
-                        @using (Html.BeginForm("RegisterUsingSocial", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "main-input", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();" }))
-                        {
+            <div class="container-fluid">
 
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    @using (Html.BeginForm("RegisterUsingSocial", "StudentRegister", FormMethod.Post, new { @id = "StudentUserFormId", @class = "customform", enctype = "multipart/form-data", role = "form", onsubmit = "return CheckRegister();" }))
+                    {
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "text-left" })
-                                @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "" })
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                                @Html.ValidationMessageFor(model => model.ProfilePictureFile, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Full Name", maxlength = "200" } })
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "", @placeholder = "Enter First Name", maxlength = "200" } })
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                        </div>
 
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Mobile No", maxlength = "200" } })
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "", @placeholder = "Enter Last Name", maxlength = "200" } })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                        </div>
 
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email Id", @readonly = "readonly", maxlength = "200" } })
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", @placeholder = "Enter Email Id", @readonly = "readonly", maxlength = "200" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
 
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", maxlength = "200" } })
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "", @placeholder = "Enter Mobile No", maxlength = "200" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
 
-                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "" })
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter City", maxlength = "200" } })
 
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", @placeholder = "Enter Password", maxlength = "200" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
 
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly = "@readonly" } })
-
-                                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "", @placeholder = "Enter Address", maxlength = "200" } })
-
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "", @placeholder = "Enter City", maxlength = "200" } })
-
-                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                            </div>
-                            <input type="hidden" id="hdnotptxt" value="" />
-                            <input type="hidden" id="hdndisc" value="0" />
-                            <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Package *</label>
-                                <select class="form-control" name="Package" id="Package">
-                                    <option value="0" data-prc="0" data-attempt="0">Demo</option>
-                                    @if (lstPackges != null && lstPackges.Count() > 0)
+                        <input type="hidden" id="hdnotptxt" value="" />
+                        <input type="hidden" id="hdndisc" value="0" />
+                        <div class="form-group col-sm-6">
+                            <label class="">Select Package *</label>
+                            <select class="form-control" name="Package" id="Package">
+                                <option value="0" data-prc="0" data-attempt="0">Demo</option>
+                                @if (lstPackges != null && lstPackges.Count() > 0)
+                                {
+                                    foreach (var objjj in lstPackges)
                                     {
-                                        foreach (var objjj in lstPackges)
-                                        {
-                                            <option value="@objjj.PackageId" data-prc="@objjj.PackageAmount" data-attempt="@objjj.TotalAttempt">@objjj.PackageName</option>
-                                        }
+                                        <option value="@objjj.PackageId" data-prc="@objjj.PackageAmount" data-attempt="@objjj.TotalAttempt">@objjj.PackageName</option>
                                     }
-                                </select>
-                            </div>
-                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
-                                <label class="text-left">Referal Code *</label>
-                            </div>
-                            <div style="max-width: 50%;margin-bottom:15px;">
-                                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
-                                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
-                            </div>
-                            <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Registration Fee *</label>
-                                <input type="text" placeholder="Registration Fee" id="Regfee" value="0" readonly>
-                            </div>
-                            <div class="top-inputs d-grid col-lg-6">
-                                <label class="text-left">Total Exam Attempts *</label>
-                                <input type="text" placeholder="Total Exam Attempts" id="ExamAttempt" value="0" readonly>
-                            </div>
-                            <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
-                            <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
-                            <div class="text-left col-lg-6">
-                                <button type="submit" class="btn btn-theme2">Sign Up</button>
-                            </div>
-                        }
-                    </center>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="">Registration Fee *</label>
+                            <input type="text" class="form-control" placeholder="Registration Fee" id="Regfee" value="0" readonly>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="">Total Exam Attempts *</label>
+                            <input type="text" class="form-control" placeholder="Total Exam Attempts" id="ExamAttempt" value="0" readonly>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="">Referral Code *</label>
+                            <input type="text" class="form-control" placeholder="Promo Code" value="" name="refrealcode" id="refrealcode" onblur="resetdiscount();">
+
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class=""></label>
+                            <input style="width: 25%; margin-top: 30px;" type="button" value="Apply" class="form-control btn btn-warning" onclick="checkrefrlcode();">
+                        </div>
+
+                        <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
+                        <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
+                        <div class=" col-lg-6">
+                            <button type="submit" class="btn btn-theme2">Sign Up</button>
+                        </div>
+                    }
+
                 </div>
                 <!-- //contact form -->
 
@@ -207,7 +187,7 @@
     });
 
     function CheckRegister() {
-        if ($("#FirstName").val() == "" || $("#LastName").val() == "" || $("#MobileNo").val() == "" || $("#MobileNo").val().length < 10 || $("#Password").val() == "") {
+        if ($("#FullName").val() == "" || $("#MobileNo").val() == "" || $("#MobileNo").val().length < 10 || $("#Password").val() == "") {
             return false;
         }
         else {

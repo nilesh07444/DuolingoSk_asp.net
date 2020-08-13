@@ -5,6 +5,7 @@
 }
 <div class="question" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
     <div class="questionbg">
+        <h1 style=" text-align: center; color: #a52929;">Copyright © SK International</h1>
         <span>
             <div class="columns">
                 <div class="column is-10">
@@ -53,7 +54,7 @@
         var tbidxx = 1;
     $.each(characters, function (i, el) {
         if (el == "_") {
-            $this.append('<span><span><input type="text" maxlength="1" tabindex="' + tbidxx + '" /></span></span>');
+            $this.append('<span><span><input type="text" maxlength="1" spellcheck="false" tabindex="' + tbidxx + '" /></span></span>');
             tbidxx = tbidxx + 1;
         }
         else {

@@ -4019,6 +4019,8 @@
     <Content Include="Areas\Admin\Views\Webinar\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Webinar\Add.cshtml" />
     <Content Include="Areas\Client\Views\StartExam\_QuestionType11.cshtml" />
+    <Content Include="Areas\Client\Views\Material\Detail.cshtml" />
+    <Content Include="Areas\Client\Views\Tips\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />
@@ -4094,7 +4096,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64211</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44331/</IISUrl>
+          <IISUrl>https://localhost:44339/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

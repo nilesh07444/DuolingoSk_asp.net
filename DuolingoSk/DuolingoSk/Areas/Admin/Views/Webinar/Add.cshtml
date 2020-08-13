@@ -113,9 +113,10 @@
                         window.location.href = "/admin/webinar";
                     }
                     else if (data == "NOSTUDENTFOUND") {
+                        alert("No Any student found to send webinar of this package");
                     }
                     else {
-                        alert("No Any student found to send webinar of this package");
+                        alert("Something went wrong. Please try again.");
                     }
                 },
                 error: function (data) {

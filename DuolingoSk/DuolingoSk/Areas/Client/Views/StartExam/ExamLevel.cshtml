@@ -11,10 +11,11 @@
         background-color: darkgray;
         cursor: not-allowed;
     }
+
     .card {
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         transition: 0.3s;
-        width: 90%;
+        /*width: 90%;*/
         border-radius: 5px;
     }
 </style>
@@ -31,14 +32,14 @@
     <div class="contact-top pt-5" style="padding-top: 1rem !important;">
         <div class="container py-md-3">
 
-            <div class="heading text-center mx-auto" style="text-align:left !important;margin-bottom:20px;">
+            <div class="heading text-center mx-auto" style="text-align:left !important;margin-bottom:20px; margin-left: 0px !important;">
                 <h3 class="head">Exam Levels</h3>
                 <p></p>
             </div>
 
             <div class="row cont-main-top">
 
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="card">
                         @if (lstLvl != null && lstLvl.Count() > 0)
                         {
@@ -63,8 +64,8 @@
                                                 if (IsCurre == true)
                                                 {
                                                     IsCurre = false;
-                                        <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info" onclick="startexm();">Start</a> <input type="hidden" id="hdnlevelid" value="@objj.Level_Id" /></td>
-                                                   
+                                                    <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info" onclick="startexm();">Start</a> <input type="hidden" id="hdnlevelid" value="@objj.Level_Id" /></td>
+
                                                 }
                                                 else
                                                 {
@@ -79,54 +80,65 @@
                         }
                         else
                         {
-                            <p>@ViewBag.Message</p>
+                            <p style="padding:15px;">@ViewBag.Message</p>
+                            <p style="padding:15px;">
+                                <a href="/renewaccount" class="btn btn-success">Renew account</a>
+                            </p>
                         }
-                    </div>                 
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="card" style="width: 99%;">
-                        @if (lstStudents != null && lstStudents.Count() > 0)
-                        {
-                            int cnts = 1;
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th colspan="4">Leaderboard</th>                                        
-                                    </tr>                                    
-                                </thead>
-                                <tbody>
-                                    @foreach (var objj in lstStudents)
+                <div class="col-md-4">
+                    <div class="card">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Leaderboard</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (lstStudents != null && lstStudents.Count() > 0)
+                                {
+                                    int cnts = 1;
+                                    foreach (var objj in lstStudents)
                                     {
-                                    <tr>
-                                        <td>@cnts</td>
-                                        <td>
-                                            @if (!string.IsNullOrEmpty(objj.ProfilePicture))
-                                            {
-                                                if (File.Exists(Server.MapPath("/Images/UserProfileMedia/" + objj.ProfilePicture)))
+                                        <tr>
+                                            <td>@cnts.</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(objj.ProfilePicture))
                                                 {
-                                                    <img src="/Images/UserProfileMedia/@objj.ProfilePicture" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height:40px;" />
+                                                    if (File.Exists(Server.MapPath("/Images/UserProfileMedia/" + objj.ProfilePicture)))
+                                                    {
+                                                        <img src="/Images/UserProfileMedia/@objj.ProfilePicture" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height:40px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@DuolingoSk.Helper.ErrorMessage.DefaultImagePath" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height: 40px;" />
+                                                    }
                                                 }
                                                 else
                                                 {
                                                     <img src="@DuolingoSk.Helper.ErrorMessage.DefaultImagePath" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height: 40px;" />
                                                 }
-                                            }
-                                            else
-                                            {
-                                                <img src="@DuolingoSk.Helper.ErrorMessage.DefaultImagePath" alt="" class="img-fluid img-40 blur-up lazyloaded" style="width: 40px; height: 40px;" />
-                                            }
-                                        </td>
-                                        <td>
-                                            <span>@objj.FirstName @objj.LastName</span>
-                                        </td>
-                                        <td><b>@objj.MaxScore pts</b></td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <span>@objj.FullName</span>
+                                            </td>
+                                            <td><b>@objj.MaxScore pts</b></td>
+                                        </tr>
                                         cnts = cnts + 1;
                                     }
-                                </tbody>
-                            </table>
-                        }
-                        
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4">No data found</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
                     </div>
                 </div>
 
@@ -145,6 +157,6 @@
             $('#frmstartexam').attr('action', "/startexam").submit();
         }
     }
-    
+
 </script>
 

@@ -112,30 +112,18 @@ namespace DuolingoSk.Model
             }
         }
 
-        public static string FirstName
+        public static string FullName
         {
             get
             {
-                return HttpContext.Current.Session["ClientFirstName"] != null ? Convert.ToString(HttpContext.Current.Session["ClientFirstName"]) : string.Empty;
+                return HttpContext.Current.Session["ClientFullName"] != null ? Convert.ToString(HttpContext.Current.Session["ClientFullName"]) : string.Empty;
             }
             set
             {
-                HttpContext.Current.Session["ClientFirstName"] = value;
+                HttpContext.Current.Session["ClientFullName"] = value;
             }
         }
-
-        public static string LastName
-        {
-            get
-            {
-                return HttpContext.Current.Session["ClientLastName"] != null ? Convert.ToString(HttpContext.Current.Session["ClientLastName"]) : string.Empty;
-            }
-            set
-            {
-                HttpContext.Current.Session["ClientLastName"] = value;
-            }
-        }
-
+          
         public static bool IsDemoUsed
         {
             get

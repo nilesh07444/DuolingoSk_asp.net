@@ -19,6 +19,6 @@ namespace DuolingoSk.Models
         public long StudentId { get; set; }
         public long StudentFeeId { get; set; }
         public long PackageId { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public System.DateTime CreatedDate { get; set; }
     }
 }

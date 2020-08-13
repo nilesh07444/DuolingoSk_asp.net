@@ -108,6 +108,8 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "Material", action = "Index", id = UrlParameter.Optional }
             );
 
+            
+
             context.MapRoute(
                 "Client_Tips",
                 "tips",
@@ -168,7 +170,20 @@ namespace DuolingoSk.Areas.Client
                 "package/detail",
                 new { controller = "Package", action = "Detail", id = UrlParameter.Optional }
             );
-             
+
+            context.MapRoute(
+                "Client_Material_Detail",
+                "material/detail",
+                new { controller = "Material", action = "Detail", id = UrlParameter.Optional }
+            );
+
+
+            context.MapRoute(
+                "Client_Tips_Detail",
+                "tips/detail",
+                new { controller = "Tips", action = "Detail", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

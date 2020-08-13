@@ -76,7 +76,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                                       {
                                                           StudentId = s.StudentId,
                                                           StudentFeeId = f.StudentFeeId,
-                                                          StudentName = s.FirstName + " " + s.LastName,
+                                                          StudentName = s.FullName,
                                                           MobileNo = s.MobileNo,
                                                           TotalWebinarUsed = _db.tbl_StudentWebinar.Where(x => x.StudentId == s.StudentId && x.StudentFeeId == f.StudentFeeId
                                                                                && x.PackageId == f.PackageId).Count()

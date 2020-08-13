@@ -273,9 +273,9 @@
     function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', { fields: 'first_name,last_name,email,name,id' }, function (response) {
-            debugger;
+        
             console.log('Successful login for: ' + response.name);
-            window.location = "/registerfb?email=" + response.email + "&firstname=" + response.first_name + "&last_name=" + response.last_name;
+            window.location = "/registerfb?email=" + response.email + "&fullname=" + response.name;
 
             //document.getElementById('status').innerHTML =
             //  'Thanks for logging in, ' + response.name + '!';
@@ -299,7 +299,7 @@
         console.log(element.id);
         auth2.attachClickHandler(element, {},
             function (googleUser) {
-                window.location = "/registerfb?email=" + googleUser.getBasicProfile().getEmail() + "&firstname=" + googleUser.getBasicProfile().getGivenName() + "&last_name=" + googleUser.getBasicProfile().getFamilyName();
+                window.location = "/registerfb?email=" + googleUser.getBasicProfile().getEmail() + "&fullname=" + googleUser.getBasicProfile().getName();
             }, function (error) {
                 alert(JSON.stringify(error, undefined, 2));
             });

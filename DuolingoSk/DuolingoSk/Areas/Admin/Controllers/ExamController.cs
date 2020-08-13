@@ -18,14 +18,14 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
         public ExamController()
         {
-            _db = new DuolingoSk_Entities();           
+            _db = new DuolingoSk_Entities();
         }
         // GET: Admin/Exam
         public ActionResult Index(int level = -1, string status = "-1")
         {
             List<ExamVM> lstExams = new List<ExamVM>();
             int resulstatusid = 2;
-            if(status == "Pending")
+            if (status == "Pending")
             {
                 resulstatusid = 1;
             }
@@ -34,14 +34,14 @@ namespace DuolingoSk.Areas.Admin.Controllers
                         join l in _db.tbl_QuestionLevel on e.QuestionLevelId equals l.Level_Id
                         join s in _db.tbl_Students on e.StudentId equals s.StudentId
                         join a in _db.tbl_AdminUsers on s.AdminUserId equals a.AdminUserId into outerAgent
-                        from agent in outerAgent.DefaultIfEmpty() 
+                        from agent in outerAgent.DefaultIfEmpty()
                         where (level == -1 || e.QuestionLevelId == level) && (status == "-1" || e.ResultStatus == resulstatusid)
                         select new ExamVM
                         {
                             Exam_Id = e.Exam_Id,
                             ExamDate = e.ExamDate,
                             StudentId = e.StudentId,
-                            StudentName = s.FirstName + " "+ s.LastName,
+                            StudentName = s.FullName,
                             AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                             LevelName = l.LevelName,
                             ResultStatus = e.ResultStatus,
@@ -49,8 +49,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
                         }).OrderByDescending(x => x.ExamDate).ToList();
 
             ViewData["LevelList"] = _db.tbl_QuestionLevel.Where(x => x.IsDeleted == false)
-                     .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.Level_Id).Trim(), Text = o.LevelName})
+                     .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.Level_Id).Trim(), Text = o.LevelName })
                      .OrderBy(x => x.Text).ToList();
+
             ViewBag.levelid = level;
             ViewBag.status = status;
             return View(lstExams);
@@ -59,39 +60,43 @@ namespace DuolingoSk.Areas.Admin.Controllers
         public ActionResult Detail(int Id)
         {
             StudentVM objStudent = (from s in _db.tbl_Students
-                            join ex in _db.tbl_Exam on s.StudentId equals ex.StudentId                            
-                            where ex.Exam_Id == Id
-                            select new StudentVM
-                            {
-                                FirstName = s.FirstName,
-                                StudentId = s.StudentId,
-                                LastName = s.LastName,
-                                Email = s.Email,
-                                MobileNo = s.MobileNo,
-                                ProfilePicture = s.ProfilePicture,
-                                IsActive = s.IsActive,
-                                CreatedDate = ex.ExamDate.Value       
-                            }).FirstOrDefault();
+                                    join ex in _db.tbl_Exam on s.StudentId equals ex.StudentId
+                                    where ex.Exam_Id == Id
+                                    select new StudentVM
+                                    {
+                                        FullName = s.FullName,
+                                        StudentId = s.StudentId,
+                                        Email = s.Email,
+                                        MobileNo = s.MobileNo,
+                                        ProfilePicture = s.ProfilePicture,
+                                        IsActive = s.IsActive,
+                                        CreatedDate = ex.ExamDate.Value
+                                    }).FirstOrDefault();
+
             tbl_Exam objexx = _db.tbl_Exam.Where(o => o.Exam_Id == Id).FirstOrDefault();
-            List<tbl_ExamResultDetails> lstExamsDetls =_db.tbl_ExamResultDetails.Where(o => o.ExamId == Id).ToList();
+
+            List<tbl_ExamResultDetails> lstExamsDetls = _db.tbl_ExamResultDetails.Where(o => o.ExamId == Id).ToList();
+
             ViewData["lstExamsDetls"] = lstExamsDetls;
             ViewData["objStudent"] = objStudent;
             ViewData["objexx"] = objexx;
-           List<tbl_Feedback> lstFeedbk = new List<tbl_Feedback>();
+
+            List<tbl_Feedback> lstFeedbk = new List<tbl_Feedback>();
             lstFeedbk = _db.tbl_Feedback.Where(o => o.ExamId == Id && o.StudentId == objStudent.StudentId).ToList();
             ViewData["feedback"] = lstFeedbk;
+
             return View();
         }
 
         [HttpPost]
-        public string SaveExamResult(long ExamId,string Literacy, string Comprehension, string Conversation, string Production, string Overall)
+        public string SaveExamResult(long ExamId, string Literacy, string Comprehension, string Conversation, string Production, string Overall)
         {
             string ReturnMessage = "";
 
             try
             {
                 tbl_Exam objEx = _db.tbl_Exam.Where(o => o.Exam_Id == ExamId).FirstOrDefault();
-                if(objEx != null)
+                if (objEx != null)
                 {
                     objEx.Literacy = Convert.ToDecimal(Literacy);
                     objEx.Comprehension = Convert.ToDecimal(Comprehension);
@@ -104,7 +109,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objEx.ModifiedDate = DateTime.UtcNow;
                     _db.SaveChanges();
                     string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
-                    if(objEx.Overall >= 50 && objEx.Overall <= 70)
+                    if (objEx.Overall >= 50 && objEx.Overall <= 70)
                     {
                         meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
                     }
@@ -128,7 +133,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     {
                         meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
                     }
-                    string flName = "Result_"+ objEx.Exam_Id+"_"+ objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
+                    string flName = "Result_" + objEx.Exam_Id + "_" + objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
                     StreamReader sr;
                     string file = Server.MapPath("~/Template/certificate.html");
                     string htmldata = "";
@@ -143,9 +148,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     htmlToPdfConverter.BrowserWidth = 1200;
 
                     // set PDF page size and orientation
-                    htmlToPdfConverter.Document.PageSize = PdfPageSize.A4; 
+                    htmlToPdfConverter.Document.PageSize = PdfPageSize.A4;
                     htmlToPdfConverter.Document.PageOrientation = PdfPageOrientation.Portrait;
-                    
+
                     // set PDF page margins
                     htmlToPdfConverter.Document.Margins = new PdfMargins(5);
 
@@ -153,8 +158,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     htmldata = htmldata.Replace("--OVERALL--", Overall).Replace("--Literacy--", Literacy).Replace("--Comprehension--", Comprehension).Replace("--Conversation--", Conversation).Replace("--Production--", Production).Replace("--METERIMG--", meterimg);
 
                     // convert HTML code to a PDF memory buffer
-                    htmlToPdfConverter.ConvertHtmlToFile(htmldata,"", Server.MapPath("~/Certificates/") + flName);
-                    
+                    htmlToPdfConverter.ConvertHtmlToFile(htmldata, "", Server.MapPath("~/Certificates/") + flName);
+
                 }
                 ReturnMessage = "Success";
             }
@@ -172,7 +177,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             tbl_Exam objEx = _db.tbl_Exam.Where(o => o.Exam_Id == examid).FirstOrDefault();
             if (objEx != null)
             {
-               tbl_Students objstud =  _db.tbl_Students.Where(o => o.StudentId == objEx.StudentId).FirstOrDefault();
+                tbl_Students objstud = _db.tbl_Students.Where(o => o.StudentId == objEx.StudentId).FirstOrDefault();
                 string profilpic = DuolingoSk.Helper.ErrorMessage.DefaultImagePath;
                 if (objstud != null && !string.IsNullOrEmpty(objstud.ProfilePicture))
                 {
@@ -233,7 +238,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 htmlToPdfConverter.Document.Margins = new PdfMargins(5);
 
                 // convert HTML code
-                htmldata = htmldata.Replace("--OVERALL--",Convert.ToInt32(objEx.Overall.Value).ToString()).Replace("--Literacy--", Convert.ToInt32(objEx.Literacy.Value).ToString()).Replace("--Comprehension--", Convert.ToInt32(objEx.Comprehension.Value).ToString()).Replace("--Conversation--", Convert.ToInt32(objEx.Conversation.Value).ToString()).Replace("--Production--", Convert.ToInt32(objEx.Production.Value).ToString()).Replace("--METERIMG--", meterimg).Replace("--PROFILEPIC--",profilpic).Replace("--DATE--", objEx.ExamDate.Value.ToString("MMMM dd,yyyy"));
+                htmldata = htmldata.Replace("--OVERALL--", Convert.ToInt32(objEx.Overall.Value).ToString()).Replace("--Literacy--", Convert.ToInt32(objEx.Literacy.Value).ToString()).Replace("--Comprehension--", Convert.ToInt32(objEx.Comprehension.Value).ToString()).Replace("--Conversation--", Convert.ToInt32(objEx.Conversation.Value).ToString()).Replace("--Production--", Convert.ToInt32(objEx.Production.Value).ToString()).Replace("--METERIMG--", meterimg).Replace("--PROFILEPIC--", profilpic).Replace("--DATE--", objEx.ExamDate.Value.ToString("MMMM dd,yyyy"));
 
                 // convert HTML code to a PDF memory buffer
                 // htmlToPdfConverter.ConvertHtmlToFile(htmldata, "", Server.MapPath("~/Certificates/") + flName);
@@ -244,8 +249,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 Response.AddHeader("Content-Type", "application/pdf");
 
                 // let the browser know how to open the PDF document, attachment or inline, and the file name
-                 Response.AddHeader("Content-Disposition", String.Format("{0}; filename=HtmlToPdf.pdf; size={1}",
-                    "inline", pdfBuffer.Length.ToString()));
+                Response.AddHeader("Content-Disposition", String.Format("{0}; filename=HtmlToPdf.pdf; size={1}",
+                   "inline", pdfBuffer.Length.ToString()));
 
                 // write the PDF buffer to HTTP response
                 Response.BinaryWrite(pdfBuffer);

@@ -1,0 +1,82 @@
+﻿@using DuolingoSk.Helper;
+@model MaterialVM
+@{
+    ViewBag.Title = "Material Detail"; 
+}
+
+
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / &nbsp; Material Detail</p>
+        </div>
+    </div>
+</section>
+
+<!-- Login -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5">
+        <div class="container py-md-3">
+
+            <div class="heading text-center mx-auto mb-5">
+                <h3 class="head">Material Detail</h3>
+                <p></p>
+            </div>
+
+            <div class="row cont-main-top">
+
+                <!-- contact address -->
+                <div class="contact col-lg-6 mt-lg-0 mt-10">
+                    <div class="cont-subs">
+
+                        <div class="cont-add">
+                            <div class="cont-add-lft">
+                            </div>
+                            <div class="cont-add-rgt">
+                                <p style="color: #ff2828;">Material Title:</p>
+                                <p class="contact-text-sub">@Model.MaterialTitle</p>
+                            </div>
+
+                        </div>
+                        <div class="cont-add">
+                            <div class="cont-add-lft">
+                            </div>
+                            <div class="cont-add-rgt">
+                                <p style="color: #ff2828;">File Type:</p>
+                                <p class="contact-text-sub">@(Model.MaterialFileType == (int)MaterialFileTypes.Document ? "Document" : (Model.MaterialFileType == (int)MaterialFileTypes.Video ? "Video" : ""))</p>
+                            </div>
+
+                        </div>
+
+                        @*<div class="cont-add add-3">
+                                <div class="cont-add-lft">
+                                    <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                </div>
+                                <div class="cont-add-rgt">
+                                    <a href="#">
+                                        <p class="contact-text-sub">Download Resume</p>
+                                    </a>
+                                </div>
+
+                            </div>*@
+                    </div>
+                </div>
+                <!-- //contact address -->
+                <!-- contact form -->
+                <div class="contacts12-main col-lg-6 ">
+
+                    <embed src="~/Images/MaterialMedia/@Model.MaterialFileName" width="500" height="600" controls controlsList="nodownload">
+                    @*<iframe src="~/Images/MaterialMedia/@Model.MaterialFileName"></iframe>*@
+
+                    @*<iframe width="420" height="315" src="@Model.MaterialVideoLink"></iframe>*@
+
+                </div>
+                <!-- //contact form -->
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

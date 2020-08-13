@@ -36,7 +36,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             Exam_Id = e.Exam_Id,
                             ExamDate = e.ExamDate,
                             StudentId = e.StudentId,
-                            StudentName = s.FirstName + " " + s.LastName,
+                            StudentName = s.FullName,
                             AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
                             LevelName = l.LevelName,
                             ResultStatus = e.ResultStatus,
@@ -113,7 +113,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 htmlToPdfConverter.Document.Margins = new PdfMargins(5);
 
                 // convert HTML code
-                htmldata = htmldata.Replace("--OVERALL--", Convert.ToInt32(objEx.Overall.Value).ToString()).Replace("--Literacy--", Convert.ToInt32(objEx.Literacy.Value).ToString()).Replace("--Comprehension--", Convert.ToInt32(objEx.Comprehension.Value).ToString()).Replace("--Conversation--", Convert.ToInt32(objEx.Conversation.Value).ToString()).Replace("--Production--", Convert.ToInt32(objEx.Production.Value).ToString()).Replace("--METERIMG--", meterimg).Replace("--PROFILEPIC--", profilpic).Replace("--DATE--", objEx.ExamDate.Value.ToString("MMMM dd,yyyy"));
+                htmldata = htmldata.Replace("--OVERALL--", Convert.ToInt32(objEx.Overall.Value).ToString()).Replace("--Literacy--", Convert.ToInt32(objEx.Literacy.Value).ToString()).Replace("--Comprehension--", Convert.ToInt32(objEx.Comprehension.Value).ToString()).Replace("--Conversation--", Convert.ToInt32(objEx.Conversation.Value).ToString()).Replace("--Production--", Convert.ToInt32(objEx.Production.Value).ToString()).Replace("--METERIMG--", meterimg).Replace("--PROFILEPIC--", profilpic).Replace("--DATE--", objEx.ExamDate.Value.ToString("MMMM dd, yyyy").ToUpper());
 
                 // convert HTML code to a PDF memory buffer
                 // htmlToPdfConverter.ConvertHtmlToFile(htmldata, "", Server.MapPath("~/Certificates/") + flName);

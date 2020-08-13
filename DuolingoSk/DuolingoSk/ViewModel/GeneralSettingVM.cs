@@ -16,11 +16,6 @@ namespace DuolingoSk
         public string SMTPPwd { get; set; }
         public string AdminSMSNumber { get; set; }
         public string AdminEmail { get; set; }
-        public string FromEmail { get; set; }
-        public decimal? RegistrationFee { get; set; }
-        public decimal? RenewFee { get; set; }
-        public int? TotalExamAttempt { get; set; }
-        public int? MaxLevel { get; set; }
-        public int? FeeExpiryInDays { get; set; }
+        public string FromEmail { get; set; } 
     }
 }

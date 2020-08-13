@@ -6,6 +6,7 @@
 }
 <div class="question 3q" data-queid="@Model.QuestionId" data-attrtyp="@Model.QuestionTypeId">
     <div class="questionbg">
+        <h1 style=" text-align: center; color: #a52929;">Copyright © SK International</h1>
         <span>
             <div class="columns">
                 <div class="column is-10">
@@ -34,7 +35,7 @@
             </div>
             <div class="column is-8">
                 <div class="control">
-                    <textarea placeholder="Your Response" rows="4" maxlength="250" id="txtresponse" class="textarea is-shadowless"></textarea>
+                    <textarea placeholder="Your Response" rows="4" maxlength="250" id="txtresponse" spellcheck="false" class="textarea is-shadowless"></textarea>
                     <p class="is-size-6 has-text-grey-light has-text-weight-semibold replyleft">Number of replay lefts : @Model.MaxReplay</p>
                 </div>
             </div>
