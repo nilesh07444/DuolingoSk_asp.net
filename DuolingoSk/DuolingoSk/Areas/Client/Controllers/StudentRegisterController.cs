@@ -16,29 +16,31 @@ namespace DuolingoSk.Areas.Client.Controllers
     {
         private readonly DuolingoSk_Entities _db;
         public string UserProfileDirectoryPath = "";
+        public PaymentGatewayVM objPaymentGateway = null;
 
         public StudentRegisterController()
         {
             _db = new DuolingoSk_Entities();
             UserProfileDirectoryPath = ErrorMessage.UserProfileDirectoryPath;
+            objPaymentGateway = CommonMethod.getPaymentGatewaykeys();
         }
 
         public ActionResult Index()
         {
             ViewData["tbl_Packages"] = _db.tbl_Package.Where(o => o.IsActive == true && o.IsDeleted == false).ToList();
-            StudentVM objStudent = new StudentVM(); 
+            StudentVM objStudent = new StudentVM();
             return View(objStudent);
         }
 
         [HttpPost]
-        public ActionResult Index(StudentVM userVM, HttpPostedFileBase ProfilePictureFile,FormCollection frm)
+        public ActionResult Index(StudentVM userVM, HttpPostedFileBase ProfilePictureFile, FormCollection frm)
         {
             try
             {
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 if (ModelState.IsValid)
                 {
-                     
+
                     #region Validation
 
                     // Validate duplicate MobileNo 
@@ -56,7 +58,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                         return View(userVM);
                     }
 
-                    
+
 
                     string fileName = string.Empty;
                     string path = Server.MapPath(UserProfileDirectoryPath);
@@ -83,18 +85,18 @@ namespace DuolingoSk.Areas.Client.Controllers
                     #region CreateUser
 
                     tbl_Students objStudent = new tbl_Students();
-                     
-                    objStudent.FullName = userVM.FullName; 
+
+                    objStudent.FullName = userVM.FullName;
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
-                    objStudent.Password = userVM.Password; 
+                    objStudent.Password = userVM.Password;
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-                      
+
                     objStudent.IsActive = true;
                     objStudent.IsDeleted = false;
-                    objStudent.CreatedDate = DateTime.UtcNow; 
+                    objStudent.CreatedDate = DateTime.UtcNow;
                     _db.tbl_Students.Add(objStudent);
                     _db.SaveChanges();
 
@@ -110,7 +112,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     #region PendingFeeEntry
                     int PackageId = Convert.ToInt32(frm["Package"]);
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-                                    
+
                     if (PackageId > 0)
                     {
                         var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
@@ -154,14 +156,14 @@ namespace DuolingoSk.Areas.Client.Controllers
 
 
                         }
-                    }                 
+                    }
 
                     #endregion PendingFeeEntry
 
                     // Set login details 
                     clsClientSession.SessionID = Session.SessionID;
                     clsClientSession.UserID = objStudent.StudentId;
-                    clsClientSession.FullName = objStudent.FullName; 
+                    clsClientSession.FullName = objStudent.FullName;
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
@@ -265,24 +267,34 @@ namespace DuolingoSk.Areas.Client.Controllers
         }
 
         [HttpPost]
-        public string GetPaymentToken(string Amount,string MobileNumber,string Email)
+        public string GetPaymentToken(string Amount, string MobileNumber, string Email)
         {
             try
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+                /*
                 string sURL = "https://sandbox-icp-api.bankopen.co/api/payment_token";
                 //string sURL = "https://icp-api.bankopen.co/api/payment_token";
-            
+                */
+                string sURL = objPaymentGateway.PaymentPaymentTokenUrl; 
+
                 WebRequest wrGETURL;
                 wrGETURL = WebRequest.Create(sURL);
 
                 wrGETURL.Method = "POST";
                 wrGETURL.ContentType = @"application/json; charset=utf-8";
-                //Sandbox
-                wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
 
+                wrGETURL.Headers.Add("Authorization", "Bearer " + objPaymentGateway.PaymentAPIKey + ":" + objPaymentGateway.PaymentSecretKey);
+                 
+                //Sandbox
+                //wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
+
+                /*
+                //Live
                 //wrGETURL.Headers.Add("Authorization", "Bearer 8dd56630-d1a3-11ea-b4a4-cd7b8d79485d:b6cea9a3cab16ed39ecc67dc4e87639c31560658");
+                */
+
                 using (var stream = new StreamWriter(wrGETURL.GetRequestStream()))
                 {
                     var bodyContent = new
@@ -303,26 +315,26 @@ namespace DuolingoSk.Areas.Client.Controllers
                 PaymentTokenVM myDeserializedClass = JsonConvert.DeserializeObject<PaymentTokenVM>(responseString);
                 return myDeserializedClass.id;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return "Fail"+ e.Message.ToString();
-            }            
-           
+                return "Fail" + e.Message.ToString();
+            }
+
         }
 
-        public ActionResult RegisterUsingSocial(string email,string fullname)
+        public ActionResult RegisterUsingSocial(string email, string fullname)
         {
             ViewData["tbl_Packages"] = _db.tbl_Package.Where(o => o.IsActive == true && o.IsDeleted == false).ToList();
             StudentVM objStudent = new StudentVM();
             objStudent.Email = email;
-            objStudent.FullName = fullname; 
+            objStudent.FullName = fullname;
 
             tbl_Students ojstu = _db.tbl_Students.Where(x => x.Email.ToLower() == email.ToLower() && !x.IsDeleted).FirstOrDefault();
-            if(ojstu != null)
+            if (ojstu != null)
             {
                 clsClientSession.SessionID = Session.SessionID;
                 clsClientSession.UserID = ojstu.StudentId;
-                clsClientSession.FullName = ojstu.FullName; 
+                clsClientSession.FullName = ojstu.FullName;
                 clsClientSession.ImagePath = ojstu.ProfilePicture;
                 clsClientSession.Email = ojstu.Email;
                 clsClientSession.MobileNumber = ojstu.MobileNo;
@@ -332,7 +344,7 @@ namespace DuolingoSk.Areas.Client.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterUsingSocial(StudentVM userVM, HttpPostedFileBase ProfilePictureFile,FormCollection frm)
+        public ActionResult RegisterUsingSocial(StudentVM userVM, HttpPostedFileBase ProfilePictureFile, FormCollection frm)
         {
             try
             {
@@ -376,14 +388,14 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                     tbl_Students objStudent = new tbl_Students();
 
-                    objStudent.FullName = userVM.FullName; 
+                    objStudent.FullName = userVM.FullName;
                     objStudent.Email = userVM.Email;
                     objStudent.MobileNo = userVM.MobileNo;
-                    objStudent.Password = userVM.Password; 
+                    objStudent.Password = userVM.Password;
                     objStudent.City = userVM.City;
                     objStudent.Remarks = userVM.Remarks;
                     objStudent.ProfilePicture = fileName;
-                      
+
                     objStudent.IsActive = true;
                     objStudent.IsDeleted = false;
                     objStudent.CreatedDate = DateTime.UtcNow;
@@ -404,11 +416,11 @@ namespace DuolingoSk.Areas.Client.Controllers
                     #region PendingFeeEntry
 
                     tbl_GeneralSetting objSetting = _db.tbl_GeneralSetting.FirstOrDefault();
-                  
+
                     if (PackageId > 0)
-                    {                       
+                    {
                         var objPckg = _db.tbl_Package.Where(o => o.PackageId == PackageId).FirstOrDefault();
-                       if(objPckg != null)
+                        if (objPckg != null)
                         {
                             DateTime exp_date = DateTime.UtcNow.AddDays(365); // default 365 days
                             if (objPckg.ExpiryInDays != null && objPckg.ExpiryInDays > 0)
@@ -427,7 +439,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             tbl_StudentFee objStudentFee = new tbl_StudentFee();
                             objStudentFee.StudentId = objStudent.StudentId;
                             objStudentFee.FeeStatus = "Complete";
-                            objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(objPckg.PackageAmount) - disc, 2);                          
+                            objStudentFee.FeeAmount = Math.Round(Convert.ToDecimal(objPckg.PackageAmount) - disc, 2);
                             objStudentFee.TotalExamAttempt = Convert.ToInt32(objPckg.TotalAttempt);
                             objStudentFee.TotalWebinarAttempt = objPckg.TotalWebinar != null ? Convert.ToInt32(objPckg.TotalWebinar) : 0;
                             objStudentFee.FeeExpiryDate = exp_date;
@@ -448,13 +460,13 @@ namespace DuolingoSk.Areas.Client.Controllers
 
                         }
                     }
-                  
+
                     #endregion PendingFeeEntry
 
                     // Set login details 
                     clsClientSession.SessionID = Session.SessionID;
                     clsClientSession.UserID = objStudent.StudentId;
-                    clsClientSession.FullName = objStudent.FullName; 
+                    clsClientSession.FullName = objStudent.FullName;
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
@@ -478,25 +490,25 @@ namespace DuolingoSk.Areas.Client.Controllers
             try
             {
                 DateTime dtNow = DateTime.UtcNow;
-                var objCop =  _db.tbl_CouponCode.Where(o => o.CouponCode == couponcode).FirstOrDefault();
-                if(objCop == null)
+                var objCop = _db.tbl_CouponCode.Where(o => o.CouponCode == couponcode).FirstOrDefault();
+                if (objCop == null)
                 {
                     return "Invalid Referal Code";
                 }
                 else
                 {
-                    if(objCop.ExpiryDate >= dtNow)
+                    if (objCop.ExpiryDate >= dtNow)
                     {
-                       int TotalUsed = _db.tbl_StudentFee.Where(o => o.CouponCode == couponcode).ToList().Count();
-                       if(TotalUsed >= objCop.TotalMaxUsage)
+                        int TotalUsed = _db.tbl_StudentFee.Where(o => o.CouponCode == couponcode).ToList().Count();
+                        if (TotalUsed >= objCop.TotalMaxUsage)
                         {
                             return "Referal Code Usage Over";
                         }
-                       else
+                        else
                         {
-                            return "Success^"+objCop.DiscountPercentage.ToString();
+                            return "Success^" + objCop.DiscountPercentage.ToString();
                         }
-                      
+
                     }
                     else
                     {
@@ -510,7 +522,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             }
 
         }
-        
+
     }
 
     public class PaymentTokenVM
@@ -518,6 +530,6 @@ namespace DuolingoSk.Areas.Client.Controllers
         public string amount { get; set; }
         public string mtx { get; set; }
         public string id { get; set; }
-        
+
     }
 }

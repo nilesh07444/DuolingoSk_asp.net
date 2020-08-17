@@ -30,13 +30,13 @@ namespace DuolingoSk.Areas.Client.Controllers
                 if (objStudent != null)
                 {
                     DateTime dtNowUtc = DateTime.UtcNow.Date;
-                    var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false) && o.FeeExpiryDate != null && o.FeeExpiryDate >= dtNowUtc).FirstOrDefault();                   
-                    if(objtblstudfee != null)
+                    var objtblstudfee = _db.tbl_StudentFee.Where(o => o.StudentId == clsClientSession.UserID && o.FeeStatus == "Complete" && (o.IsAttemptUsed == null || o.IsAttemptUsed == false) && o.FeeExpiryDate != null && o.FeeExpiryDate >= dtNowUtc).FirstOrDefault();
+                    if (objtblstudfee != null)
                     {
                         long pkgid = Convert.ToInt64(objtblstudfee.PackageId);
                         var objpkkg = _db.tbl_Package.Where(o => o.PackageId == pkgid).FirstOrDefault();
                         lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(objpkkg.MaxLevel.Value).ToList();
-                        lvlIdsUsed =  _db.tbl_Exam.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).OrderBy(x => x.ExamDate).ToList().Select(x => x.QuestionLevelId.Value).ToList();
+                        lvlIdsUsed = _db.tbl_Exam.Where(o => o.StudentFeeId == objtblstudfee.StudentFeeId).OrderBy(x => x.ExamDate).ToList().Select(x => x.QuestionLevelId.Value).ToList();
                     }
                     else
                     {
@@ -52,24 +52,27 @@ namespace DuolingoSk.Areas.Client.Controllers
                 ).ToList();
 
                 List<StudentVM> lststud = new List<StudentVM>();
-                if(lstResults != null && lstResults.Count() > 0)
+                if (lstResults != null && lstResults.Count() > 0)
                 {
-                    var lstexmresu = lstResults.ToList().Take(10).ToList();                  
-                    
-                    foreach(var objexm in lstResults)
+                    var lstexmresu = lstResults.ToList().Take(10).ToList();
+
+                    foreach (var objexm in lstResults)
                     {
                         var stud = _db.tbl_Students.Where(o => o.StudentId == objexm.StudentId).FirstOrDefault();
-                        if(stud != null)
+                        if (stud != null)
                         {
                             StudentVM objstud = new StudentVM();
                             objstud.StudentId = stud.StudentId;
                             objstud.MaxScore = objexm.Overall.Value;
-                            objstud.FullName = stud.FullName; 
+                            objstud.FullName = stud.FullName;
                             objstud.ProfilePicture = stud.ProfilePicture;
                             lststud.Add(objstud);
                         }
                     }
                 }
+
+                lststud = lststud.OrderByDescending(x => x.MaxScore).ToList();
+
                 ViewData["lststud"] = lststud;
                 ViewData["lvlIdsUsed"] = lvlIdsUsed;
                 return View("~/Areas/Client/Views/StartExam/ExamLevel.cshtml");
@@ -78,17 +81,17 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 return RedirectToRoute("Client_Login");
             }
-          
+
         }
 
-        [HttpPost]    
+        [HttpPost]
         // GET: Client/StartExam
         public ActionResult Index(int levelid)
-        {            
+        {
             if (clsClientSession.UserID > 0)
             {
-                var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault(); 
-                ViewBag.FullName = objStudent.FullName;  
+                var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
+                ViewBag.FullName = objStudent.FullName;
                 //ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
 
                 //List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(Levl).ToList();                
@@ -113,12 +116,12 @@ namespace DuolingoSk.Areas.Client.Controllers
 
         public ActionResult Demo()
         {
-          
+
             if (clsClientSession.UserID > 0)
             {
                 var objStudent = _db.tbl_Students.Where(o => o.StudentId == clsClientSession.UserID).FirstOrDefault();
-               
-                ViewBag.FullName = objStudent.FullName; 
+
+                ViewBag.FullName = objStudent.FullName;
                 //ViewBag.Dob = objStudent.Dob != null ? objStudent.Dob.Value.ToString() : "";
                 List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList().Take(1).ToList();
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
@@ -128,7 +131,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 return RedirectToRoute("Client_Login");
             }
-                   
+
         }
 
         public ActionResult StartNow(long LevelId)
@@ -143,7 +146,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             }
             ViewBag.DisplayFeedBack = "no";
             var objFeeback = _db.tbl_Feedback.Where(o => o.StudentId == LoggedInStudentId).FirstOrDefault();
-            if(objFeeback == null)
+            if (objFeeback == null)
             {
                 ViewBag.DisplayFeedBack = "yes";
             }
@@ -177,7 +180,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             {
                 List<long> TypIds = _db.tbl_QuestionType.ToList().Select(x => x.QuestionTypeId).ToList();
                 List<QuestionVM> lstQuestions = (from p in _db.tbl_QuestionsMaster
-                                                 where p.IsDeleted == false && p.IsActive == true && p.QuestionLevel == LevelId 
+                                                 where p.IsDeleted == false && p.IsActive == true && p.QuestionLevel == LevelId
                                                  select new QuestionVM
                                                  {
                                                      QuestionText = p.QuestionText,
@@ -220,7 +223,7 @@ namespace DuolingoSk.Areas.Client.Controllers
             long agntid = 0;
             string returnvl = "";
             ViewBag.DisplayFeedBack = "no";
-           
+
             Session["lstQuestionsExamDemo"] = null;
             if (Session["lstQuestionsExamDemo"] == null && clsClientSession.IsDemoUsed == false)
             {
@@ -268,7 +271,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 ViewData["lstQue"] = Session["lstQuestionsExamDemo"] as List<QuestionVM>;
             }
             ViewBag.ExamId = returnvl;
-           return PartialView("~/Areas/Client/Views/StartExam/_StartNowDemo.cshtml");
+            return PartialView("~/Areas/Client/Views/StartExam/_StartNowDemo.cshtml");
         }
 
         public List<Mp3OptionsVM> GetMp3Options(long QuestionId)

@@ -252,6 +252,7 @@
     <Compile Include="ViewModel\GeneralSettingVM.cs" />
     <Compile Include="ViewModel\MaterialVM.cs" />
     <Compile Include="ViewModel\PackageVM.cs" />
+    <Compile Include="ViewModel\PaymentGatewayVM.cs" />
     <Compile Include="ViewModel\QuestionLevelVM.cs" />
     <Compile Include="ViewModel\StudentFeeVM.cs" />
     <Compile Include="ViewModel\StudentVM.cs" />

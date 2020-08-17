@@ -27,8 +27,12 @@ namespace DuolingoSk.Areas.Client.Controllers
                                 {
                                     MaterialId = m.MaterialId,
                                     MaterialTitle = m.MaterialTitle,
-                                    MaterialFileName = m.MaterialFile
+                                    MaterialFileName = m.MaterialFile,
+                                    MaterialFileType = m.MaterialFileType,
+                                    MaterialVideoLink = m.MaterialVideoLink,
+                                    MaterialType = m.MaterialType
                                 }).ToList();
+
             }
             catch (Exception ex)
             {
@@ -46,16 +50,16 @@ namespace DuolingoSk.Areas.Client.Controllers
             try
             {
                 objMaterial = (from m in _db.tbl_Materials
-                                where m.IsActive && !m.IsDeleted && m.MaterialType == 1 && m.MaterialId == Id
-                                select new MaterialVM
-                                {
-                                    MaterialId = m.MaterialId,
-                                    MaterialTitle = m.MaterialTitle,
-                                    MaterialFileName = m.MaterialFile,
-                                    MaterialFileType = m.MaterialFileType,
-                                    MaterialType = m.MaterialType,
-                                    MaterialVideoLink = m.MaterialVideoLink
-                                }).FirstOrDefault();
+                               where m.IsActive && !m.IsDeleted && m.MaterialType == 1 && m.MaterialId == Id
+                               select new MaterialVM
+                               {
+                                   MaterialId = m.MaterialId,
+                                   MaterialTitle = m.MaterialTitle,
+                                   MaterialFileName = m.MaterialFile,
+                                   MaterialFileType = m.MaterialFileType,
+                                   MaterialType = m.MaterialType,
+                                   MaterialVideoLink = m.MaterialVideoLink
+                               }).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -65,6 +69,6 @@ namespace DuolingoSk.Areas.Client.Controllers
             return View(objMaterial);
 
         }
-         
+
     }
 }

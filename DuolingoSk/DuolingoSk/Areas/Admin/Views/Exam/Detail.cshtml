@@ -77,7 +77,6 @@
     .qheight {
         height: 580px !important;
     }
-
 </style>
 
 <div class="page-body">
@@ -88,17 +87,18 @@
 
             <div class="row">
                 @*<div class="col-md-2">
-                    <img src="@strimgpath @objStudert.ProfilePicture" style="height:100px;width:100px;" />
-                </div>*@
+                        <img src="@strimgpath @objStudert.ProfilePicture" style="height:100px;width:100px;" />
+                    </div>*@
                 <div class="col-md-9">
-                    <b>Student Name :</b> @objStudert.FirstName @objStudert.LastName <br />
+                    <b>Student Name :</b> @objStudert.FullName <br />
                     <b>Student Email :</b> @objStudert.Email <br />
                     <b>Student Mobile :</b>  @objStudert.MobileNo <br />
-                    <b>Exam Date :</b>  @objStudert.CreatedDate.ToString("dd-MMM-yyyy hh:mm:ss")
+                    <b>Exam Date :</b> @CommonMethod.ConvertFromUTC(objStudert.CreatedDate)
                 </div>
             </div>
 
         </div>
+
         @if (lstExm != null && lstExm.Count() > 0)
         {
             ExamIdd = lstExm.FirstOrDefault().ExamId.Value;
@@ -556,7 +556,7 @@
                             </div>
                         </div>
                     }
-                     else if (objExm.QuestionTypeId == 11)
+                    else if (objExm.QuestionTypeId == 11)
                     {
                         <div class="question">
                             <div class="questionbg">
@@ -579,7 +579,7 @@
                                     </div>
                                 </span>
                                 <h5 class="has-text-centered is-size-3 has-text-weight-meddium qtxt">@objExm.QuestionText</h5>
-                                <div class="level-item has-text-centered centersec image123" style="width: 60% !important; text-align: left !important;">
+                                <div class="level-item has-text-centered centersec image123" style="width: 100% !important; text-align: left !important;">
                                     <div style="border: 1px solid black; padding: 10px; border-radius: 11px;">
                                         @Html.Raw(objExm.QuestionOptionValue)
                                     </div>
@@ -603,15 +603,15 @@
                     <h5 class="has-text-centered is-size-5 has-text-weight-semibold" style="margin-bottom:10px;">
                         Feedback
                     </h5>
-                   @foreach(var objj in lstFeedback)
-                   {
-                    <div style="margin-bottom:10px;">
-                        <h5 class="is-size-6 has-text-weight-semibold">
-                            @objj.FeedbackQuestion
-                        </h5>                       
-                        <h4 class="is-size-6">@objj.FeedbackAnswer</h4>
-                    </div>
-                   }
+                    @foreach (var objj in lstFeedback)
+                    {
+                        <div style="margin-bottom:10px;">
+                            <h5 class="is-size-6 has-text-weight-semibold">
+                                @objj.FeedbackQuestion
+                            </h5>
+                            <h4 class="is-size-6">@objj.FeedbackAnswer</h4>
+                        </div>
+                    }
                 </div>
             }
             <div class="container1 needs-validation statement enginebox">
@@ -627,7 +627,7 @@
                 <div>
                     Production* <input type="number" class="form-control" id="Production" value="@objexx.Production" />
                 </div>
-                 <div>
+                <div>
                     Overall* <input type="number" class="form-control" id="Overall" value="@objexx.Overall" />
                 </div>
                 <input type="hidden" value="@ExamIdd" id="hdnExmId" />

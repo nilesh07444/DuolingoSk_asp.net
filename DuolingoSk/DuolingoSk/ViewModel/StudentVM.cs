@@ -17,6 +17,7 @@ namespace DuolingoSk
         //public string LastName { get; set; }
         [Required]
         [MaxLength(100), Display(Name = "Email Id")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
         [MaxLength(10), MinLength(10), Display(Name = "Mobile No *")]        

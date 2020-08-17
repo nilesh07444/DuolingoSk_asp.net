@@ -43,7 +43,18 @@
                                         <td>@counter.</td>
                                         <td>@item.MaterialTitle</td>
                                         <td>
-                                            <a  href="/client/material/detail/@item.MaterialId" class="btn btn-success">View</a>
+                                            @{
+                                                string material_url = "";
+                                                if (item.MaterialFileType == 2)
+                                                {
+                                                    material_url = item.MaterialVideoLink;
+                                                }
+                                                else
+                                                {
+                                                    material_url = "/client/material/detail/" + item.MaterialId;
+                                                }
+                                            }
+                                            <a target="_blank" href="@material_url" class="btn btn-success">View</a>
                                         </td>
                                     </tr>
                                     counter++;

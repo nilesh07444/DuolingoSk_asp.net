@@ -33,7 +33,7 @@
                 <div class="col">
                     <div class="page-header-left">
                         <h3>
-                            Student - @Model.FirstName  @Model.LastName
+                            Student - @Model.FullName
                         </h3>
                     </div>
                 </div>
@@ -85,13 +85,9 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>First Name:</td>
-                                            <td>@Model.FirstName</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Last Name:</td>
-                                            <td>@Model.LastName</td>
-                                        </tr>
+                                            <td>Student Name:</td>
+                                            <td>@Model.FullName</td>
+                                        </tr> 
                                         <tr>
                                             <td>Email Id:</td>
                                             <td>@Model.Email</td>
@@ -111,11 +107,7 @@
                                         <tr>
                                             <td>City:</td>
                                             <td>@Model.City</td>
-                                        </tr>
-                                        <tr>
-                                                <td>Date Of Birth:</td>
-                                                <td>@Model.Dob</td>
-                                            </tr>
+                                        </tr> 
                                         <tr>
                                             <td>Remarks:</td>
                                             <td>@Model.Remarks</td>

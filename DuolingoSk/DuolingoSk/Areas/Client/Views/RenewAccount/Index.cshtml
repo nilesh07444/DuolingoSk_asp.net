@@ -8,9 +8,14 @@
     int counter = 1;
     List<AgentPackageVM> lstPackges = ViewData["lstPackages"] as List<AgentPackageVM>;
     tbl_Students objstud = ViewData["objStudent"] as tbl_Students;
+
+    PaymentGatewayVM objPaymentGateway = CommonMethod.getPaymentGatewaykeys();
 }
-<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
-@*<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
+
+<script id="context" type="text/javascript" src="@objPaymentGateway.PaymentLayerUrl"></script>
+@*<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
+    <script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
+
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
@@ -168,7 +173,8 @@
                         // Sandbox
                         Layer.checkout({
                             token: $("#hdnPaymentTokenId").val(),
-                            accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                            accesskey: "@objPaymentGateway.PaymentAPIKey"
+                            //accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
                         },
                         //Layer.checkout({
                           //  token: $("#hdnPaymentTokenId").val(),

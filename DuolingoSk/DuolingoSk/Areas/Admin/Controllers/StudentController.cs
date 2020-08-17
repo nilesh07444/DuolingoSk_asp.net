@@ -19,11 +19,13 @@ namespace DuolingoSk.Areas.Admin.Controllers
     {
         private readonly DuolingoSk_Entities _db;
         public string UserProfileDirectoryPath = "";
+        public PaymentGatewayVM objPaymentGateway = null;
 
         public StudentController()
         {
             _db = new DuolingoSk_Entities();
             UserProfileDirectoryPath = ErrorMessage.UserProfileDirectoryPath;
+            objPaymentGateway = CommonMethod.getPaymentGatewaykeys();
         }
 
         public ActionResult Index(int agentId = -1)
@@ -652,18 +654,28 @@ namespace DuolingoSk.Areas.Admin.Controllers
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+                /*
                 string sURL = "https://sandbox-icp-api.bankopen.co/api/payment_token";
                 //string sURL = "https://icp-api.bankopen.co/api/payment_token";
+                */
+                string sURL = objPaymentGateway.PaymentPaymentTokenUrl;
 
                 WebRequest wrGETURL;
                 wrGETURL = WebRequest.Create(sURL);
 
                 wrGETURL.Method = "POST";
                 wrGETURL.ContentType = @"application/json; charset=utf-8";
-                //Sandbox
-                wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
 
+                wrGETURL.Headers.Add("Authorization", "Bearer " + objPaymentGateway.PaymentAPIKey + ": " + objPaymentGateway.PaymentSecretKey + "");
+
+                /*
+                //Sandbox
+                //wrGETURL.Headers.Add("Authorization", "Bearer 415101c0-d188-11ea-9f4a-d96d3de71820:6373ce269435bd7a56131741ba27201b426df201");
+
+                //Live
                 //wrGETURL.Headers.Add("Authorization", "Bearer 8dd56630-d1a3-11ea-b4a4-cd7b8d79485d:b6cea9a3cab16ed39ecc67dc4e87639c31560658");
+                */
+
                 using (var stream = new StreamWriter(wrGETURL.GetRequestStream()))
                 {
                     var bodyContent = new

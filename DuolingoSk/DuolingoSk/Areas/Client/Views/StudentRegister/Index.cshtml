@@ -4,6 +4,8 @@
 
 @{
     ViewBag.Title = "Register";
+
+    PaymentGatewayVM objPaymentGateway = CommonMethod.getPaymentGatewaykeys();
 }
 
 @{
@@ -104,8 +106,9 @@
 <script src="https://connect.facebook.net/en_US/sdk.js?hash=a0367c0c01abfd102914a01151a0e12d&amp;ua=modern_es6" async="" crossorigin="anonymous"></script>
 <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
-@*<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
+<script id="context" type="text/javascript" src="@objPaymentGateway.PaymentLayerUrl"></script>
+@*<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
+    <script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
 
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
@@ -212,13 +215,13 @@
                         <div class=" col-sm-6">
                             <button type="submit" class="btn btn-theme2">Sign Up</button>
                         </div>
-                         
+
                     }
-                     
+
                 </div>
 
                 <div class="row">
-                    
+
                     <div class="col-sm-12">
                         <hr style="border:1px solid #ddd;" />
                         <center>
@@ -358,9 +361,9 @@
         }
 
     }
-
-
+     
     function GetPaymntToken() {
+
         var amt = $("#Regfee").val();
         var mobileno = $("#MobileNo").val();
         var emil = $("#Email").val();
@@ -378,7 +381,8 @@
                         // Sandbox
                         Layer.checkout({
                             token: $("#hdnPaymentTokenId").val(),
-                            accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                            //accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                            accesskey: '@objPaymentGateway.PaymentAPIKey'
                         },
                         //Layer.checkout({
                           //  token: $("#hdnPaymentTokenId").val(),

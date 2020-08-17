@@ -4,6 +4,8 @@
 
 @{
     ViewBag.Title = "Add Student";
+
+    PaymentGatewayVM objPaymentGateway = CommonMethod.getPaymentGatewaykeys();
 }
 
 @{
@@ -19,8 +21,10 @@
         padding-top: 60px;
     }
 </style>
-<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
-@*<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
+
+<script id="context" type="text/javascript" src="@objPaymentGateway.PaymentLayerUrl"></script>
+@*<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
+    <script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -61,19 +65,11 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter First Name", maxlength = "200" } })
+                                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter Full Name", maxlength = "200" } })
 
                                 <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter Last Name", maxlength = "200" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group row">
@@ -114,14 +110,6 @@
 
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control col-md-8 clsDatePicker", @placeholder = "DD/MM/YYYY", @data_language = "en", @readonly = "readonly" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group row">
@@ -265,7 +253,8 @@
                         // Sandbox
                         Layer.checkout({
                             token: $("#hdnPaymentTokenId").val(),
-                            accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
+                            accesskey: "@objPaymentGateway.PaymentAPIKey"
+                            //accesskey: "415101c0-d188-11ea-9f4a-d96d3de71820"
                         },
                         //Layer.checkout({
                           //  token: $("#hdnPaymentTokenId").val(),
