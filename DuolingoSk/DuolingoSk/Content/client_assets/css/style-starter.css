@@ -12240,3 +12240,7 @@ body:after {
 .text-danger {
     text-align: left;
 }
+
+.MsoListParagraphCxSpFirst {
+    text-indent : 0px !important;
+}
