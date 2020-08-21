@@ -105,6 +105,9 @@
             tmrprvl = tmrprvl - 1;
             $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
             $('#prptmr').attr('value', tmrprvl);
+            if ($(".blockOverlay").length > 0) {
+                $.unblockUI();
+            }
         }
     }, 1000);
 
@@ -120,7 +123,8 @@
        window.localStorage.setItem('resultq',JSON.stringify(arryresult));
           var arrytemp = [];
           arrytemp.push(objans);
-          var URL = '/Client/StartExam/SaveExamResultPartially';
+      var URL = '@Url.Action("SaveExamResultPartially", "StartExam")';
+        //var URL = '/Client/StartExam/SaveExamResultPartially';
           $.ajax({
               url: URL,
               async: true,
@@ -138,7 +142,7 @@
         tmrglbl = setInterval(function () {
             if (tmrvl == 0) {
                 clearInterval(tmrglbl);
-                stoprecrding();          
+                stoprecrding();
             }
             else {
                 tmrvl = tmrvl - 1;
@@ -148,6 +152,9 @@
                 cntmin = cntmin + 1;
                 $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrvl));
                 $('progress').attr('value', tmrvl);
+                if ($(".blockOverlay").length > 0) {
+                    $.unblockUI();
+                }
             }
         }, 1000);
     }

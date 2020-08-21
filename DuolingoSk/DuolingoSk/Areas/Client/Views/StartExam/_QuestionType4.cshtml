@@ -86,7 +86,10 @@
         else {
             tmrvl = tmrvl - 1;
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
-          $('progress').attr('value', tmrvl);
+            $('progress').attr('value', tmrvl);
+            if ($(".blockOverlay").length > 0) {
+                $.unblockUI();
+            }
         }
    }, 1000);
 
@@ -100,7 +103,8 @@
         window.localStorage.setItem('resultq',JSON.stringify(arryresult));
           var arrytemp = [];
           arrytemp.push(objans);
-          var URL = '/Client/StartExam/SaveExamResultPartially';
+        var URL = '@Url.Action("SaveExamResultPartially", "StartExam")';
+        //var URL = '/Client/StartExam/SaveExamResultPartially';
           $.ajax({
               url: URL,
               async: true,

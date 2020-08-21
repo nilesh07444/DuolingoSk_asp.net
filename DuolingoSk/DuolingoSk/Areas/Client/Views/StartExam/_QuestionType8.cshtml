@@ -150,6 +150,9 @@
             tmrprvl = tmrprvl - 1;
             $(".tmrvlpre").html(secondsTimeSpanToHMS(tmrprvl));
             $('#prptmr').attr('value', tmrprvl);
+            if ($(".blockOverlay").length > 0) {
+                $.unblockUI();
+            }
         }
    }, 1000);
 
@@ -162,7 +165,8 @@
         window.localStorage.setItem('resultq',JSON.stringify(arryresult));
          var arrytemp = [];
          arrytemp.push(objans);
-         var URL = '/Client/StartExam/SaveExamResultPartially';
+      var URL = '@Url.Action("SaveExamResultPartially", "StartExam")';
+        //var URL = '/Client/StartExam/SaveExamResultPartially';
          $.ajax({
              url: URL,
              async: true,

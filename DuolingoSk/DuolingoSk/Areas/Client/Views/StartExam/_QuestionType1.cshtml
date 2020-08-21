@@ -45,7 +45,7 @@
 <script>
     var tmrvl = '@Model.QuestionTime';
    $(document).ready(function () {
-        debugger;
+        
         $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
         $('progress').attr('max', tmrvl);
     var characters = questionss[cntQs].QuestionOptionText.split("");
@@ -70,7 +70,7 @@
             idxx = idxx + 1;
             $(".pragrph input[type=text][tabindex=" + idxx + "]").focus();
       //$(this).next('.pragrph input[type=text]').focus();
-           } 
+           }
 
            if (this.value.length == 0) {
                var idxx = parseInt($(this).attr("tabindex"));
@@ -103,7 +103,10 @@
         else {
             tmrvl = tmrvl - 1;
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
-          $('progress').attr('value', tmrvl);
+            $('progress').attr('value', tmrvl);
+            if ($(".blockOverlay").length > 0) {
+                $.unblockUI();
+            }
         }
     }, 1000);
 
@@ -127,7 +130,8 @@
         window.localStorage.setItem('resultq', JSON.stringify(arryresult));
         var arrytemp = [];
         arrytemp.push(objans);
-        var URL = '/Client/StartExam/SaveExamResultPartially';
+        var URL = '@Url.Action("SaveExamResultPartially", "StartExam")';
+        //var URL = '/Client/StartExam/SaveExamResultPartially';
         $.ajax({
             url: URL,
             async: true,

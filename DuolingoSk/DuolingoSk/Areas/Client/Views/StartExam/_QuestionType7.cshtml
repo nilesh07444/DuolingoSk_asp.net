@@ -72,7 +72,7 @@
         $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
        $('progress').attr('max', tmrvl);
 
-       $(".startrecrd").click(function () {          
+       $(".startrecrd").click(function () {
            isstart = true;
            $(".recordnotstart").hide();
            $(".recordstart").show();
@@ -91,15 +91,18 @@
    var tmr = setInterval(function () {
         if (tmrvl == 0) {
             clearInterval(tmr);
-            stoprecrding();           
+            stoprecrding();
         }
-        else {            
+        else {
             if (tmrvl == 10 && isstart == false) {
                 $(".startrecrd").click();
             }
             tmrvl = tmrvl - 1;
           $(".tmrvl").html(secondsTimeSpanToHMS(tmrvl));
-          $('progress').attr('value', tmrvl);
+            $('progress').attr('value', tmrvl);
+            if ($(".blockOverlay").length > 0) {
+                $.unblockUI();
+            }
         }
    }, 1000);
 
@@ -112,7 +115,8 @@
         window.localStorage.setItem('resultq',JSON.stringify(arryresult));
          var arrytemp = [];
          arrytemp.push(objans);
-         var URL = '/Client/StartExam/SaveExamResultPartially';
+        var URL = '@Url.Action("SaveExamResultPartially", "StartExam")';
+        //var URL = '/Client/StartExam/SaveExamResultPartially';
          $.ajax({
              url: URL,
              async: true,
