@@ -31,19 +31,18 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             try
             {
-                lstAdminUsers = (from a in _db.tbl_AdminUsers 
+                lstAdminUsers = (from a in _db.tbl_AdminUsers
                                  where !a.IsDeleted && a.AdminRoleId == (int)AdminRoles.Agent
                                  select new AdminUserVM
                                  {
                                      AdminUserId = a.AdminUserId,
-                                     AdminRoleId = a.AdminRoleId, 
+                                     AgentCode = a.AgentCode,
+                                     AdminRoleId = a.AdminRoleId,
                                      FirstName = a.FirstName,
                                      LastName = a.LastName,
                                      Email = a.Email,
                                      MobileNo = a.MobileNo,
                                      ProfilePicture = a.ProfilePicture,
-                                     StudentRegistrationFee = a.StudentRegistrationFee,
-                                     StudentRenewFee = a.StudentRenewFee,
                                      IsActive = a.IsActive
                                  }).ToList();
             }
@@ -53,11 +52,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             return View(lstAdminUsers);
         }
-         
+
         public ActionResult Add()
         {
             AdminUserVM objAdminUser = new AdminUserVM();
-             
+
             return View(objAdminUser);
         }
 
@@ -77,8 +76,27 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     tbl_AdminUsers duplicateMobile = _db.tbl_AdminUsers.Where(x => x.MobileNo.ToLower() == userVM.MobileNo && !x.IsDeleted).FirstOrDefault();
                     if (duplicateMobile != null)
                     {
-                        ModelState.AddModelError("MobileNo", ErrorMessage.MobileNoExists); 
+                        ModelState.AddModelError("MobileNo", ErrorMessage.MobileNoExists);
                         return View(userVM);
+                    }
+
+                    // Validate duplicate AgentCode 
+                    tbl_AdminUsers duplicateAgentCode = _db.tbl_AdminUsers.Where(x => x.AgentCode.ToLower() == userVM.AgentCode.ToLower() && !x.IsDeleted).FirstOrDefault();
+                    if (duplicateAgentCode != null)
+                    {
+                        ModelState.AddModelError("AgentCode", ErrorMessage.AgentCodeExists);
+                        return View(userVM);
+                    }
+
+                    // Validate duplicate Email 
+                    if (!string.IsNullOrWhiteSpace(userVM.Email))
+                    {
+                        tbl_AdminUsers duplicateEmailId = _db.tbl_AdminUsers.Where(x => x.Email.ToLower() == userVM.Email.ToLower() && !x.IsDeleted).FirstOrDefault();
+                        if (duplicateEmailId != null)
+                        {
+                            ModelState.AddModelError("Email", ErrorMessage.EmailExists);
+                            return View(userVM);
+                        }
                     }
 
                     string fileName = string.Empty;
@@ -109,24 +127,15 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     objAdminUser.AdminRoleId = (int)AdminRoles.Agent; //userVM.AdminRoleId;
                     objAdminUser.FirstName = userVM.FirstName;
+                    objAdminUser.AgentCode = userVM.AgentCode;
                     objAdminUser.LastName = userVM.LastName;
                     objAdminUser.Email = userVM.Email;
                     objAdminUser.MobileNo = userVM.MobileNo;
-                    objAdminUser.Password = userVM.Password; 
+                    objAdminUser.Password = userVM.Password;
                     objAdminUser.Address = userVM.Address;
-                    objAdminUser.City = userVM.City; 
+                    objAdminUser.City = userVM.City;
                     objAdminUser.Remarks = userVM.Remarks;
                     objAdminUser.ProfilePicture = fileName;
-                    objAdminUser.MaxLevel = userVM.MaxLevel;
-
-                    //if (!string.IsNullOrEmpty(userVM.Dob))
-                    //{
-                    //    DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                    //    objAdminUser.Dob = exp_Dob;
-                    //}
-
-                    objAdminUser.StudentRegistrationFee = userVM.StudentRegistrationFee;
-                    objAdminUser.StudentRenewFee = userVM.StudentRenewFee;
 
                     objAdminUser.IsActive = true;
                     objAdminUser.IsDeleted = false;
@@ -148,7 +157,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 string ErrorMessage = ex.Message.ToString();
                 throw ex;
             }
-             
+
             return View(userVM);
         }
 
@@ -164,27 +173,19 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                 {
                                     AdminUserId = a.AdminUserId,
                                     AdminRoleId = a.AdminRoleId,
+                                    AgentCode = a.AgentCode,
                                     FirstName = a.FirstName,
                                     LastName = a.LastName,
                                     Email = a.Email,
                                     MobileNo = a.MobileNo,
-                                    Password = a.Password, 
+                                    Password = a.Password,
                                     Address = a.Address,
-                                    City = a.City, 
-                                    dtDob = a.Dob, 
+                                    City = a.City,
                                     Remarks = a.Remarks,
-                                    StudentRegistrationFee = a.StudentRegistrationFee,
-                                    StudentRenewFee = a.StudentRenewFee,
                                     ProfilePicture = a.ProfilePicture,
-                                    IsActive = a.IsActive,
-                                    MaxLevel = a.MaxLevel
+                                    IsActive = a.IsActive
                                 }).FirstOrDefault();
 
-                //if (objAdminUser.dtDob != null)
-                //{
-                //    objAdminUser.Dob = Convert.ToDateTime(objAdminUser.dtDob).ToString("dd/MM/yyyy");
-                //}
-                  
             }
             catch (Exception ex)
             {
@@ -210,7 +211,26 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     tbl_AdminUsers duplicateMobile = _db.tbl_AdminUsers.Where(x => x.MobileNo.ToLower() == userVM.MobileNo && x.AdminUserId != userVM.AdminUserId && !x.IsDeleted).FirstOrDefault();
                     if (duplicateMobile != null)
                     {
-                        ModelState.AddModelError("MobileNo", ErrorMessage.MobileNoExists); 
+                        ModelState.AddModelError("MobileNo", ErrorMessage.MobileNoExists);
+                        return View(userVM);
+                    }
+
+                    // Validate duplicate Email 
+                    if (!string.IsNullOrWhiteSpace(userVM.Email))
+                    {
+                        tbl_AdminUsers duplicateEmailId = _db.tbl_AdminUsers.Where(x => x.Email.ToLower() == userVM.Email.ToLower() && x.AdminUserId != userVM.AdminUserId && !x.IsDeleted).FirstOrDefault();
+                        if (duplicateEmailId != null)
+                        {
+                            ModelState.AddModelError("Email", ErrorMessage.EmailExists);
+                            return View(userVM);
+                        }
+                    }
+
+                    // Validate duplicate AgentCode 
+                    tbl_AdminUsers duplicateAgentCode = _db.tbl_AdminUsers.Where(x => x.AgentCode.ToLower() == userVM.AgentCode.ToLower() && x.AdminUserId != userVM.AdminUserId && !x.IsDeleted).FirstOrDefault();
+                    if (duplicateAgentCode != null)
+                    {
+                        ModelState.AddModelError("AgentCode", ErrorMessage.AgentCodeExists);
                         return View(userVM);
                     }
 
@@ -239,30 +259,17 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     #endregion Validation
 
                     #region UpdateUser
-                     
+
                     objAdminUser.FirstName = userVM.FirstName;
                     objAdminUser.LastName = userVM.LastName;
+                    objAdminUser.AgentCode = userVM.AgentCode;
                     objAdminUser.Email = userVM.Email;
                     objAdminUser.MobileNo = userVM.MobileNo;
-                    objAdminUser.Password = userVM.Password; 
+                    objAdminUser.Password = userVM.Password;
                     objAdminUser.Address = userVM.Address;
-                    objAdminUser.City = userVM.City; 
+                    objAdminUser.City = userVM.City;
                     objAdminUser.Remarks = userVM.Remarks;
                     objAdminUser.ProfilePicture = fileName;
-                    objAdminUser.MaxLevel = userVM.MaxLevel;
-
-                    //if (!string.IsNullOrEmpty(userVM.Dob))
-                    //{
-                    //    DateTime exp_Dob = DateTime.ParseExact(userVM.Dob, "dd/MM/yyyy", null);
-                    //    objAdminUser.Dob = exp_Dob;
-                    //}
-                    //else
-                    //{
-                    //    objAdminUser.Dob = null;
-                    //}
-
-                    objAdminUser.StudentRegistrationFee = userVM.StudentRegistrationFee;
-                    objAdminUser.StudentRenewFee = userVM.StudentRenewFee;
 
                     objAdminUser.UpdatedDate = DateTime.UtcNow;
                     objAdminUser.UpdatedBy = LoggedInUserId;
@@ -278,7 +285,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             {
                 string ErrorMessage = ex.Message.ToString();
             }
-             
+
             return View(userVM);
         }
 
@@ -414,32 +421,23 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                 {
                                     AdminUserId = a.AdminUserId,
                                     AdminRoleId = a.AdminRoleId,
+                                    AgentCode = a.AgentCode,
                                     FirstName = a.FirstName,
                                     LastName = a.LastName,
                                     Email = a.Email,
                                     MobileNo = a.MobileNo,
-                                    Password = a.Password, 
+                                    Password = a.Password,
                                     Address = a.Address,
-                                    City = a.City, 
-                                    MaxLevel = a.MaxLevel,
-                                    dtDob = a.Dob, 
+                                    City = a.City,
                                     Remarks = a.Remarks,
-                                    StudentRegistrationFee = a.StudentRegistrationFee,
-                                    StudentRenewFee = a.StudentRenewFee,
                                     ProfilePicture = a.ProfilePicture,
-                                    IsActive = a.IsActive, 
+                                    IsActive = a.IsActive,
                                     CreatedDate = a.CreatedDate,
                                     UpdatedDate = a.UpdatedDate,
                                     strCreatedBy = (uC != null ? uC.FirstName + " " + uC.LastName : ""),
                                     strModifiedBy = (uM != null ? uM.FirstName + " " + uM.LastName : "")
 
                                 }).FirstOrDefault();
-
-                //if (objAdminUser.dtDob != null)
-                //{
-                //    objAdminUser.Dob = Convert.ToDateTime(objAdminUser.dtDob).ToString("dd/MM/yyyy");
-                //}
-                 
 
             }
             catch (Exception ex)
@@ -449,7 +447,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             return View(objAdminUser);
         }
-         
+
         public string SendSMSOfCreateUser(AdminUserVM userVM)
         {
             try
@@ -464,10 +462,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     msg += "Below are login details:" + "\n";
                     msg += "Mobile No:" + userVM.MobileNo + "\n";
                     msg += "Password:" + userVM.Password + "\n\n";
-
-                    msg += "Fee details:" + "\n";
-                    msg += "Registration Fee:" + userVM.StudentRegistrationFee + "\n";
-                    msg += "Renew Fee:" + userVM.StudentRenewFee + "\n";
 
                     msg += "Regards," + "\n";
                     msg += "Duolingo Sk";
@@ -523,38 +517,44 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
         public ActionResult Packages(int AgentId = 0)
         {
-          List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
-                              join c in _db.tbl_Package on s.PackageId equals c.PackageId
-                              join p in _db.tbl_AdminUsers on s.AgentId equals p.AdminUserId
-                              where !s.IsDeleted.Value && (AgentId == 0 || s.AgentId.Value == AgentId)
-                              select new AgentPackageVM
-                              {
-                                  PackageId = s.PackageId.Value,
-                                  PackageName = c.PackageName,
-                                  AgentName = p.FirstName+" "+p.LastName,
-                                  PackageAmountAgent = s.PackageAmount,
-                                  PackageAgentId = s.PackageAgentId
-                              }).OrderBy(x => x.PackageName).ToList();
-           ViewData["Agents"] = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
-                       .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
-                       .OrderBy(x => x.Text).ToList();
+            List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
+                                                join c in _db.tbl_Package on s.PackageId equals c.PackageId
+                                                join p in _db.tbl_AdminUsers on s.AgentId equals p.AdminUserId
+                                                where !s.IsDeleted.Value && (AgentId == 0 || s.AgentId.Value == AgentId)
+                                                select new AgentPackageVM
+                                                {
+                                                    PackageId = s.PackageId.Value,
+                                                    PackageName = c.PackageName,
+                                                    AgentName = p.FirstName + " " + p.LastName,
+                                                    PackageAmountAgent = s.PackageAmount,
+                                                    PackageAgentId = s.PackageAgentId
+                                                }).OrderBy(x => x.PackageName).ToList();
+
+            ViewData["Agents"] = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
+                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
+                        .OrderBy(x => x.Text).ToList();
+
             ViewBag.AgentId = AgentId;
+
             return View(lstPackages);
         }
+
         public ActionResult AddPackage()
         {
             AgentPackageVM objAgnt = new AgentPackageVM();
 
             List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
-          
+
             objAgnt.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
-                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " "+ o.LastName })
+                        .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
                         .OrderBy(x => x.Text).ToList();
+
             objAgnt.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
-                      .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName})
+                      .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
                       .OrderBy(x => x.Text).ToList();
+
             ViewData["lstPackges"] = lstPackges;
-          
+
             return View(objAgnt);
         }
 
@@ -569,7 +569,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     long LoggedInUserId = Int64.Parse(clsAdminSession.UserID.ToString());
 
                     #region Validation
-                 
+
                     tbl_AgentPackage duplicate = _db.tbl_AgentPackage.Where(x => x.AgentId == pkg.AgentId && x.PackageId == pkg.PackageId && x.IsDeleted == false).FirstOrDefault();
                     if (duplicate != null)
                     {
@@ -586,10 +586,9 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                         return View(pkg);
                     }
-                   
+
                     #endregion Validation
 
-                   
                     tbl_AgentPackage objtbl_AgentPackage = new tbl_AgentPackage();
 
                     objtbl_AgentPackage.PackageId = Convert.ToInt32(pkg.PackageId);
@@ -603,7 +602,6 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     return RedirectToAction("Packages");
 
-                   
                 }
             }
             catch (Exception ex)
@@ -624,14 +622,17 @@ namespace DuolingoSk.Areas.Admin.Controllers
             objAgnt.PackageId = Convert.ToInt64(objPackgg.PackageId);
             objAgnt.AgentId = objPackgg.AgentId.Value;
             objAgnt.PackageAmountAgent = objPackgg.PackageAmount;
+
             List<tbl_Package> lstPackges = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true).ToList();
 
             objAgnt.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
                         .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
                         .OrderBy(x => x.Text).ToList();
+
             objAgnt.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
                       .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
                       .OrderBy(x => x.Text).ToList();
+
             ViewData["lstPackges"] = lstPackges;
 
             return View(objAgnt);
@@ -650,6 +651,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     #region Validation
 
                     tbl_AgentPackage duplicate = _db.tbl_AgentPackage.Where(x => x.AgentId == pkg.AgentId && x.PackageAgentId != pkg.PackageAgentId && x.PackageId == pkg.PackageId && x.IsDeleted == false).FirstOrDefault();
+
                     if (duplicate != null)
                     {
                         ModelState.AddModelError("PackageId", ErrorMessage.PackageExistsAgent);
@@ -658,9 +660,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
                         pkg.AgentList = _db.tbl_AdminUsers.Where(x => x.IsActive && !x.IsDeleted && x.AdminRoleId == 2)
                                     .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.AdminUserId).Trim(), Text = o.FirstName + " " + o.LastName })
                                     .OrderBy(x => x.Text).ToList();
+
                         pkg.PackageList = _db.tbl_Package.Where(o => o.IsDeleted == false && o.IsActive == true)
                                   .Select(o => new SelectListItem { Value = SqlFunctions.StringConvert((double)o.PackageId).Trim(), Text = o.PackageName })
                                   .OrderBy(x => x.Text).ToList();
+
                         ViewData["lstPackges"] = lstPackges;
 
                         return View(pkg);
@@ -668,18 +672,16 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
                     #endregion Validation
 
-
                     tbl_AgentPackage objtbl_AgentPackage = _db.tbl_AgentPackage.Where(o => o.PackageAgentId == pkg.PackageAgentId).FirstOrDefault();
 
                     objtbl_AgentPackage.PackageId = Convert.ToInt32(pkg.PackageId);
                     objtbl_AgentPackage.AgentId = pkg.AgentId;
-                    objtbl_AgentPackage.PackageAmount = pkg.PackageAmountAgent;                 
+                    objtbl_AgentPackage.PackageAmount = pkg.PackageAmountAgent;
                     objtbl_AgentPackage.ModifiedDate = DateTime.UtcNow;
-                    objtbl_AgentPackage.ModifiedBy = LoggedInUserId;                    
+                    objtbl_AgentPackage.ModifiedBy = LoggedInUserId;
                     _db.SaveChanges();
 
                     return RedirectToAction("Packages");
-
 
                 }
             }

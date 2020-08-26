@@ -26,14 +26,12 @@ namespace DuolingoSk.Models
         public Nullable<System.DateTime> Dob { get; set; }
         public string Remarks { get; set; }
         public string ProfilePicture { get; set; }
-        public Nullable<decimal> StudentRegistrationFee { get; set; }
-        public Nullable<decimal> StudentRenewFee { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<int> MaxLevel { get; set; }
+        public string AgentCode { get; set; }
     }
 }

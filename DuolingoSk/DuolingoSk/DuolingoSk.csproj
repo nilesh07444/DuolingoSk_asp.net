@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AgentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactFormController.cs" />
     <Compile Include="Areas\Admin\Controllers\CouponCodeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExamController.cs" />
@@ -156,10 +157,12 @@
     <Compile Include="Areas\Client\Controllers\MyExamsController.cs" />
     <Compile Include="Areas\Client\Controllers\MyProfileController.cs" />
     <Compile Include="Areas\Client\Controllers\PackageController.cs" />
+    <Compile Include="Areas\Client\Controllers\PrivacyController.cs" />
     <Compile Include="Areas\Client\Controllers\RenewAccountController.cs" />
     <Compile Include="Areas\Client\Controllers\StartExamController.cs" />
     <Compile Include="Areas\Client\Controllers\StudentLoginController.cs" />
     <Compile Include="Areas\Client\Controllers\StudentRegisterController.cs" />
+    <Compile Include="Areas\Client\Controllers\TermsConditionController.cs" />
     <Compile Include="Areas\Client\Controllers\TipsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\CustomAuthorize.cs" />
@@ -193,6 +196,9 @@
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_AgentPackage.cs">
+      <DependentUpon>DuolingoSk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ContactForm.cs">
       <DependentUpon>DuolingoSk.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CouponCode.cs">
@@ -4022,6 +4028,11 @@
     <Content Include="Areas\Client\Views\StartExam\_QuestionType11.cshtml" />
     <Content Include="Areas\Client\Views\Material\Detail.cshtml" />
     <Content Include="Areas\Client\Views\Tips\Detail.cshtml" />
+    <Content Include="Areas\Client\Views\Privacy\Index.cshtml" />
+    <Content Include="Areas\Client\Views\TermsCondition\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactForm\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ContactForm\Detail.cshtml" />
+    <Content Include="Areas\Client\Views\RenewAccount\UsedWebinarList.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

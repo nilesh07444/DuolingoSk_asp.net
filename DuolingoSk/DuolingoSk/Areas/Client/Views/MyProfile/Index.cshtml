@@ -47,23 +47,14 @@
                                 }
 
                             </div>
-
-
-
+                             
                             <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "", @placeholder = "Enter First Name", maxlength = "200" } })
+                                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "text-left" })
+                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "", @placeholder = "Enter Full Name", maxlength = "200" } })
 
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "", @placeholder = "Enter Last Name", maxlength = "200" } })
-
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                            </div>
-
+                             
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "text-left" })
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", @placeholder = "Enter Email Id", maxlength = "200" } })
@@ -77,21 +68,7 @@
 
                                 @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "clsDatePicker", @placeholder = "DD/MM/YYYY", maxlength = "200", @readonly = "@readonly" } })
-
-                                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="top-inputs d-grid col-lg-6">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "text-left" })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "", @placeholder = "Enter Address", maxlength = "200" } })
-
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-
+                               
                             <div class="top-inputs d-grid col-lg-6">
                                 @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "text-left" })
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "", @placeholder = "Enter City", maxlength = "200" } })

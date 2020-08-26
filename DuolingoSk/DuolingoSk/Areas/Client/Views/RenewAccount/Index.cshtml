@@ -86,7 +86,8 @@
                         <thead>
                             <tr>
                                 <th width="5%;">#</th>
-                                <th>Date</th>
+                                <th width="5%;">Date</th>
+                                <th>Package Name</th>
                                 <th>Total Attempt</th>
                                 <th>Total Webinar</th>
                                 <th>Fee Status</th>
@@ -98,22 +99,27 @@
                             {
                                 foreach (StudentFeeVM obj in Model)
                                 {
-                                    <tr class="grade">
-                                        <td>@counter.</td>
-                                        <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
-                                        <td>@obj.TotalExamAttempt</td>
-                                        <td>@obj.TotalWebinarAttempt</td>
-                                        <td>
-                                            @if (obj.FeeStatus == "Complete")
-                                            {
-                                                <span class="badge badge-success">@obj.FeeStatus</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge badge-primary">@obj.FeeStatus</span>
-                                            }
-                                        </td>
-                                    </tr>
+                            <tr class="grade">
+                                <td>@counter.</td>
+                                <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
+                                <td>@obj.PackageName</td>
+                                <td>@obj.UsedTotalAttempts/@obj.TotalExamAttempt</td>
+                                <td>
+                                    <a style="color:#000000;" href="/client/renewaccount/usedwebinarlist/@obj.StudentFeeId">
+                                        @obj.UsedTotalWebinar/@obj.TotalWebinarAttempt
+                                    </a>
+                                </td>
+                                <td>
+                                    @if (obj.FeeStatus == "Complete")
+                                    {
+                                        <span class="badge badge-success">@obj.FeeStatus</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-primary">@obj.FeeStatus</span>
+                                    }
+                                </td>
+                            </tr>
                                     counter++;
                                 }
                             }

@@ -31,5 +31,7 @@ namespace DuolingoSk
         //
         public DateTime? dtExpiryDate { get; set; }
 
+        public int TotalUsedByStudent { get; set; }
+
     }
 }

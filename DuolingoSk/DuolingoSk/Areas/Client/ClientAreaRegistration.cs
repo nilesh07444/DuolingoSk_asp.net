@@ -184,6 +184,18 @@ namespace DuolingoSk.Areas.Client
                 new { controller = "Tips", action = "Detail", id = UrlParameter.Optional }
             );
 
+            context.MapRoute(
+                "Client_Privacy",
+                "privacy",
+                new { controller = "Privacy", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Client_TermsCondition",
+                "termscondition",
+                new { controller = "TermsCondition", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

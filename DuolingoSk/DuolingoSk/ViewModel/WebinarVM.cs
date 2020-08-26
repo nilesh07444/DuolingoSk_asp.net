@@ -20,4 +20,25 @@ namespace DuolingoSk
         public List<SelectListItem> PackageNameList { get; set; }
 
     }
+
+    public class FeeWiseWebinarVM
+    {
+        public int StudentFeeId { get; set; }
+        public int? TotalWebinar { get; set; }
+        public int UsedTotalWebinar { get; set; }
+        public DateTime FeeDate { get; set; }
+        public int? PackageId { get; set; }
+        public string PackageName { get; set; }
+        public List<UsedWebinarVM> lstUsedWebinar { get; set; }
+    }
+
+    public class UsedWebinarVM
+    {
+        public int WebinarId { get; set; }
+        public long StudentWebinarId { get; set; }
+        public string WebinarMessage { get; set; }
+        public string PackageName { get; set; }
+        public DateTime CreatedDate { get; set; }
+    }
+
 }

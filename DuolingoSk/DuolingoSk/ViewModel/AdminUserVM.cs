@@ -12,6 +12,9 @@ namespace DuolingoSk
         public long AdminUserId { get; set; } 
         public int AdminRoleId { get; set; }
         [Required]
+        [MaxLength(20), Display(Name = "Agent Code *")]
+        public string AgentCode { get; set; }
+        [Required]
         [MaxLength(100), Display(Name = "First Name *")]
         public string FirstName { get; set; }
         [Required]
@@ -30,20 +33,7 @@ namespace DuolingoSk
         public string Address { get; set; }
         [MaxLength(100), Display(Name = "City")]
         public string City { get; set; }
-
-        //[Display(Name = "Date Of Birth")]
-        //public string Dob { get; set; }
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Registration Fee must be greater than 0")]
-        [Display(Name = "Registration Fee *")]
-        public decimal? StudentRegistrationFee { get; set; }
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Renew Fee must be greater than 0")]
-        [Display(Name = "Renew Fee *")]
-        public decimal? StudentRenewFee { get; set; }
-
+         
         public string ProfilePicture { get; set; }
          
         [MaxLength(200), Display(Name = "Remarks")]
@@ -52,14 +42,8 @@ namespace DuolingoSk
 
         [Display(Name = "Profile Picture")]
         public HttpPostedFileBase ProfilePictureFile { get; set; }
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Maximum Level must be greater than 0")]
-        [Display(Name = "Maximum Level *")]
-        public int? MaxLevel { get; set; }
-
-        // Addional fields 
-        public DateTime? dtDob { get; set; }
+          
+        // Addional fields  
         public string RoleName { get; set; }
          
         public string strCreatedBy { get; set; }

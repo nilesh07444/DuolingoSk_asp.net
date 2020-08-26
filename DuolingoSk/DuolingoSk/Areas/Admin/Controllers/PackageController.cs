@@ -12,6 +12,7 @@ using DuolingoSk.Models;
 
 namespace DuolingoSk.Areas.Admin.Controllers
 {
+    [CustomAuthorize]
     public class PackageController : Controller
     {
         private readonly DuolingoSk_Entities _db;

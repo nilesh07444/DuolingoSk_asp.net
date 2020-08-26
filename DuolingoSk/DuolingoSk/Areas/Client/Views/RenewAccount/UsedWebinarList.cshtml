@@ -1,0 +1,86 @@
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model FeeWiseWebinarVM
+@{
+    ViewBag.Title = "Fee Wise webinar list";
+    int counter = 1; 
+}
+ 
+<section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
+    <div class="breadcrum-bg">
+        <div class="container py-5">
+            <p><a href="/">Home</a> &nbsp; / <a href="/renewaccount">Fee List</a> / &nbsp; Fee wise webinar list</p>
+        </div>
+    </div>
+</section>
+
+<!-- Login -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="contact-top pt-5">
+        <div class="container py-md-3">
+
+            <div class="heading text-center mx-auto">
+                <h3 class="head">Fee wise webinar list</h3>
+                <p><hr /></p>
+            </div>
+
+            <div class="row">
+                <form action="/Client/StudentRegister" class="customform" enctype="multipart/form-data" id="StudentUserFormId" method="post" onsubmit="return CheckRegister();" role="form" novalidate="novalidate">
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Fee Date</label>
+                        <p>@Model.FeeDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Package Name</label>
+                        <p>@Model.PackageName</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Total Webinar</label>
+                        <p>@Model.TotalWebinar</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Used Webinar</label>
+                        <p>@Model.UsedTotalWebinar</p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row cont-main-top">
+
+                <div class="table-responsive" style="margin-top : 50px; margin-bottom : 50px;">
+                    <table id="tblGrid" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="5%;">#</th>
+                                <th width="15%;">Webinar Date</th>
+                                <th>Webinar Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.lstUsedWebinar.Count > 0)
+                            {
+                                foreach (UsedWebinarVM obj in Model.lstUsedWebinar)
+                                {
+                                    <tr class="grade">
+                                        <td>@counter.</td>
+                                        <td>@obj.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@obj.WebinarMessage</td>
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>

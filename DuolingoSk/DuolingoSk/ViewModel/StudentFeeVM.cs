@@ -9,6 +9,7 @@ namespace DuolingoSk
     {
         public int StudentFeeId { get; set; }
         public int StudentId { get; set; }
+        public int? PackageId { get; set; }
         public string FeeStatus { get; set; }
         public decimal FeeAmount { get; set; }
         public int TotalExamAttempt { get; set; }
@@ -25,6 +26,7 @@ namespace DuolingoSk
         public DateTime? FeeExpiryDate { get; set; }
         public bool? IsAttemptUsed { get; set; }
         public int UsedTotalAttempts { get; set; }
-
+        public int UsedTotalWebinar { get; set; }
+        public string PackageName { get; set; }
     }
 }
