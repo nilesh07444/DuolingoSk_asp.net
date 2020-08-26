@@ -4,23 +4,21 @@
 <div id="dvresultt" style="display:none;">
     <a href="#" style="display: none;"></a>
     <div class="porgressbr">
-        <span class="is-pulled-left"><p class="is-size-3 has-text-weight-semibold has-text-dark uplds">Uploading....</p></span>   
+        <span class="is-pulled-left"><p class="is-size-3 has-text-weight-semibold has-text-dark uplds">Uploading....</p></span>
         <progress max="100" id="progresstmfinish" class="progress is-small is-mycolor" value="100"></progress>
     </div>
     <h5 class="has-text-centered is-size-4 has-text-weight-semibold">Your test is in review</h5>
     <div class="level-item has-text-centered centersec">
-        <figure class="image is-centered enginethanks ">            
+        <figure class="image is-centered enginethanks ">
             <img src="~/Images/IA2.png" />
         </figure>
     </div>
     <br>
     @*<h5 class="has-text-centered is-size-6">
-        Your results will be emailed to your registered email within 48 hours.  
+        Your results will be emailed to your registered email within 48 hours.
     </h5>*@
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-migrate-3.3.0.js"></script>
-<script src="~/Scripts/jquery.blockUI.js"></script>
+
 <script>
     var IsFinishcall = true;
     var arryresult = [];
@@ -33,7 +31,8 @@
     var cntQs = 0;
     var tmmmrr = 50;
     var jji = 0;
-    var totlwv = 0;  
+    var totlwv = 0;
+    var flgstopdone = true;
     $(document).ready(function () {
         $(".question").hide();
     });
@@ -56,6 +55,7 @@
     function nextquestion(objthis) {
         $.unblockUI();
         if (IsFinishcall == true) {
+            flgstopdone = true;
             IsFinishcall = false;
             cntQs = cntQs + 1;
 
@@ -66,7 +66,7 @@
                     $(".container1").load('\getQuestion?QueId=' + qiid, function () {
                         IsFinishcall = true;
                     });
-                },250)              
+                },250)
             }
             else {
                 SaveAns(cntQs - 1);
@@ -93,7 +93,7 @@
                 }
 
 
-                //$(".container1").html($("#dvresultt").html());   
+                //$(".container1").html($("#dvresultt").html());
                 //$("#dvresultt").html("");
                 //startimes();
                 //alert("Thank you for the exam.You will get result in 24 hours.");
@@ -102,12 +102,12 @@
                 //    url: '/SaveExamResult',
                 //    async: true,
                 //    type: 'POST',
-                //    dataType: 'json',   
+                //    dataType: 'json',
                 //    data: window.localStorage.getItem('resultq'),
                 //    contentType: 'application/json; charset=utf-8',
                 //    success: function (data) {
                 //    // get the result and do some magic with it
-                //        var message = data.Message;                 
+                //        var message = data.Message;
 
                 //   // $("#resultMessage").html(message);
                 //}
@@ -117,23 +117,23 @@
 
         //$(".question").hide();
        // $(objthis).parents('.question').next('.question').show();
-        }    
-       
+        }
+
     }
 
     function startimes() {
         var tmr2 = setInterval(function () {
             if (tmmmrr == 0) {
-                clearInterval(tmr2);        
+                clearInterval(tmr2);
                 $(".uplds").html("Upload complete");
-              
+
             }
             else {
-                tmmmrr = tmmmrr - 1;            
+                tmmmrr = tmmmrr - 1;
                 $('#progresstmfinish').attr('value', tmmmrr);
             }
         }, 150);
-    }  
+    }
     function nextfeeback(q) {
         $(".feedback").hide();
         if (q == 2) {
@@ -159,7 +159,7 @@
         else if (q == 5) {
             var ans = $("input[name=feedopt4]:checked").val();
             var objans = { QuestionTxt: $(".feedback4 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
-            arryfeedback.push(objans);      
+            arryfeedback.push(objans);
             $(".feedback" + q).show();
         }
     }
@@ -167,7 +167,7 @@
         $.blockUI();
         var ans = $("#txtfeedback5").val();
         var objans = { QuestionTxt: $(".feedback5 .clsquefeedback").html(), Ans: ans, ExamId: exmid };
-        arryfeedback.push(objans);   
+        arryfeedback.push(objans);
         var URL = '/Client/StartExam/SaveFeedBack';
         $.ajax({
             url: URL,
@@ -177,27 +177,27 @@
             data: JSON.stringify(arryfeedback),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-           
+
             }
-        });      
+        });
         $(".container1").html($("#dvresultt").html());
-        $("#dvresultt").html("");       
-        totlwv = arrblob.length;  
+        $("#dvresultt").html("");
+        totlwv = arrblob.length;
         if (totlwv > 0) {
             $.blockUI({ message: 'Uploading... Please wait for 4 to 5 minutes' });
             savewavfiles(jji);
-            startimes(); 
+            startimes();
         }
         else {
-            startimes(); 
+            startimes();
             alert("Thank you for the exam.You will get result in 24 hours.");
             location.href = "/results";
         }
-            
+
     }
-   
-     
-    function savewavfiles(jji) {        
+
+
+    function savewavfiles(jji) {
         var xhr = new XMLHttpRequest();
 
         xhr.upload.onprogress = function (e) {
@@ -224,8 +224,8 @@
         formData.append(fileType + '-blob', objj.blobfl);
         formData.append('guid', objj.guidtxt);
         xhr.open('POST', '/SaveAudio');
-        xhr.send(formData);        
+        xhr.send(formData);
     }
 
-  
+
 </script>
