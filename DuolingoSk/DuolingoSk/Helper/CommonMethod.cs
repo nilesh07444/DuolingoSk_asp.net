@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuolingoSk.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -56,6 +57,17 @@ namespace DuolingoSk
             }
 
             return obj;
+        }
+
+        public static List<List<tbl_Package>> GetPackagesForSlider()
+        {
+            DuolingoSk_Entities _db = new DuolingoSk_Entities();
+
+            List<tbl_Package> lstPackages = _db.tbl_Package.Where(x => x.IsActive && !x.IsDeleted).ToList();
+
+            List<List<tbl_Package>> dataPackagesVMs = Split(lstPackages, 3);
+
+            return dataPackagesVMs;
         }
 
     }

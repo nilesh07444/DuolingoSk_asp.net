@@ -133,12 +133,15 @@
                                 }
                             </div>
 
-                            <div class="text-left col-lg-6">
+                            <div class="col-lg-6">
                                 <input type="hidden" id="hdnotptxt" value="" />
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
                             </div>
 
                         }
+
+                        <hr />
+
                         <button id="btnfblogin" class="loginBtn loginBtn--facebook" style="cursor:pointer;">
                             Login with Facebook
                         </button>
@@ -273,7 +276,7 @@
     function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', { fields: 'first_name,last_name,email,name,id' }, function (response) {
-        
+
             console.log('Successful login for: ' + response.name);
             window.location = "/registerfb?email=" + response.email + "&fullname=" + response.name;
 

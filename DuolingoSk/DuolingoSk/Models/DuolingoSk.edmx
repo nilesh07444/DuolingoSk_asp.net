@@ -21,15 +21,13 @@
           <Property Name="Dob" Type="datetime" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="600" />
           <Property Name="ProfilePicture" Type="nvarchar" MaxLength="100" />
-          <Property Name="StudentRegistrationFee" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="StudentRenewFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="bigint" />
           <Property Name="UpdatedDate" Type="datetime" />
-          <Property Name="MaxLevel" Type="int" />
+          <Property Name="AgentCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_AgentPackage">
           <Key>
@@ -44,6 +42,17 @@
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_ContactForm">
+          <Key>
+            <PropertyRef Name="ContactFormId" />
+          </Key>
+          <Property Name="ContactFormId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_CouponCode">
           <Key>
@@ -303,6 +312,7 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
         <EntityContainer Name="Duolingo_skModelStoreContainer">
           <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AgentPackage" EntityType="Self.tbl_AgentPackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ContactForm" EntityType="Self.tbl_ContactForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CouponCode" EntityType="Self.tbl_CouponCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam" EntityType="Self.tbl_Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ExamResultDetails" EntityType="Self.tbl_ExamResultDetails" Schema="dbo" store:Type="Tables" />
@@ -341,32 +351,6 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Duolingo_skModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tbl_AdminUsers">
-          <Key>
-            <PropertyRef Name="AdminUserId" />
-          </Key>
-          <Property Name="AdminUserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdminRoleId" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Dob" Type="DateTime" Precision="3" />
-          <Property Name="Remarks" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
-          <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StudentRegistrationFee" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="StudentRenewFee" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int64" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="MaxLevel" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_Mp3Options">
           <Key>
             <PropertyRef Name="Mp3OptionId" />
@@ -412,7 +396,6 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
           <Property Name="QuestionTypeName" Type="String" MaxLength="950" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DuolingoSk_Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_AdminUsers" EntityType="Self.tbl_AdminUsers" />
           <EntitySet Name="tbl_Mp3Options" EntityType="Self.tbl_Mp3Options" />
           <EntitySet Name="tbl_QuestionsMaster" EntityType="Self.tbl_QuestionsMaster" />
           <EntitySet Name="tbl_QuestionType" EntityType="Self.tbl_QuestionType" />
@@ -430,6 +413,8 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
           <EntitySet Name="tbl_Webinar" EntityType="Duolingo_skModel.tbl_Webinar" />
           <EntitySet Name="tbl_GeneralSetting" EntityType="Duolingo_skModel.tbl_GeneralSetting" />
           <EntitySet Name="tbl_Students" EntityType="Duolingo_skModel.tbl_Students" />
+          <EntitySet Name="tbl_AdminUsers" EntityType="Duolingo_skModel.tbl_AdminUsers" />
+          <EntitySet Name="tbl_ContactForm" EntityType="Duolingo_skModel.tbl_ContactForm" />
         </EntityContainer>
         <EntityType Name="tbl_Exam">
           <Key>
@@ -654,39 +639,47 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsDemoUsed" Type="Boolean" />
         </EntityType>
+        <EntityType Name="tbl_AdminUsers">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminRoleId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Dob" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="AgentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_ContactForm">
+          <Key>
+            <PropertyRef Name="ContactFormId" />
+          </Key>
+          <Property Name="ContactFormId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Duolingo_skModelStoreContainer" CdmEntityContainer="DuolingoSk_Entities">
-          <EntitySetMapping Name="tbl_AdminUsers">
-            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_AdminUsers">
-              <MappingFragment StoreEntitySet="tbl_AdminUsers">
-                <ScalarProperty Name="MaxLevel" ColumnName="MaxLevel" />
-                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
-                <ScalarProperty Name="AdminRoleId" ColumnName="AdminRoleId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Dob" ColumnName="Dob" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
-                <ScalarProperty Name="StudentRegistrationFee" ColumnName="StudentRegistrationFee" />
-                <ScalarProperty Name="StudentRenewFee" ColumnName="StudentRenewFee" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Mp3Options">
             <EntityTypeMapping TypeName="Duolingo_skModel.tbl_Mp3Options">
               <MappingFragment StoreEntitySet="tbl_Mp3Options">
@@ -968,6 +961,43 @@ warning 6002: The table/view 'duolingo.dbo.tbl_GeneralSetting' does not have a p
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AdminUsers">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_AdminUsers">
+              <MappingFragment StoreEntitySet="tbl_AdminUsers">
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AdminRoleId" ColumnName="AdminRoleId" />
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ContactForm">
+            <EntityTypeMapping TypeName="Duolingo_skModel.tbl_ContactForm">
+              <MappingFragment StoreEntitySet="tbl_ContactForm">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ContactFormId" ColumnName="ContactFormId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

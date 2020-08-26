@@ -31,6 +31,19 @@ namespace DuolingoSk.Areas.Client.Controllers
                 string MobileNo = frm["mobileno"];
                 string Message = frm["message"];
 
+                // Save in DB
+                tbl_ContactForm objContact = new tbl_ContactForm();
+                objContact.FullName = Name;
+                objContact.EmailId = EmailId;
+                objContact.MobileNo = MobileNo;
+                objContact.Message = Message;
+                objContact.CreatedDate = DateTime.UtcNow;
+                _db.tbl_ContactForm.Add(objContact);
+                _db.SaveChanges();
+
+                ReturnMessage = "SUCCESS";
+
+                /*
                 string bodyMsg = "";
 
                 bodyMsg += "Hi Admin, \r\n";
@@ -56,6 +69,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 {
                     ReturnMessage = "ERROR";
                 }
+                */
             }
             catch (Exception ex)
             {

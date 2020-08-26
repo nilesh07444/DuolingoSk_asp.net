@@ -3,13 +3,7 @@
 @{
     ViewBag.Title = "Agent";
 }
-
-@*<style>
-        body {
-            padding-top: 60px;
-        }
-    </style>*@
-
+ 
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -40,7 +34,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Add Admin User</h5>
+                        <h5>Add Agent</h5>
                     </div>
                     <div class="card-body">
                         @using (Html.BeginForm("Add", "Agent", FormMethod.Post, new { @id = "AgentUserFormId", @class = "needs-validation", enctype = "multipart/form-data", role = "form" }))
@@ -50,8 +44,16 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                             <div class="form-group row">
+                                @Html.LabelFor(model => model.AgentCode, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
+                                @Html.EditorFor(model => model.AgentCode, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter Agent Code", maxlength = "50" } })
+
+                                <lable class="col-xl-3 col-md-4"></lable>
+                                @Html.ValidationMessageFor(model => model.AgentCode, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group row">
                                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter First Name", maxlength = "200" } })
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter First Name", maxlength = "100" } })
 
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
@@ -59,7 +61,7 @@
 
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter Last Name", maxlength = "200" } })
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-8 sentensecase", @placeholder = "Enter Last Name", maxlength = "100" } })
 
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
@@ -105,18 +107,6 @@
                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
 
-
-
-                            @*
-            <div class="form-group row">
-                @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control col-md-8 clsDatePicker", @placeholder = "DD/MM/YYYY", @data_language = "en", @readonly = "readonly" } })
-
-                <lable class="col-xl-3 col-md-4"></lable>
-                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
-            </div>
-                            *@
-
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.ProfilePictureFile, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
                                 @Html.TextBoxFor(model => model.ProfilePictureFile, new { type = "file", @class = "form-control col-md-8" })
@@ -131,30 +121,6 @@
 
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.StudentRegistrationFee, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.StudentRegistrationFee, new { htmlAttributes = new { @class = "form-control col-md-8", @placeholder = "Enter Registration Fee", maxlength = "200" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.StudentRegistrationFee, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.StudentRenewFee, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.StudentRenewFee, new { htmlAttributes = new { @class = "form-control col-md-8", @placeholder = "Enter Renew Fee", maxlength = "200" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.StudentRenewFee, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.MaxLevel, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.MaxLevel, new { htmlAttributes = new { @class = "form-control col-md-8", @placeholder = "Enter Maximum Level", maxlength = "50" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.MaxLevel, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group row">
@@ -182,6 +148,5 @@
     $(document).on("click", "#btnCancel", function () {
         window.location.href = "/admin/agent";
     });
-
-
+     
 </script>

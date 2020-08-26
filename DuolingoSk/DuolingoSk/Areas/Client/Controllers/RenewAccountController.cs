@@ -32,7 +32,6 @@ namespace DuolingoSk.Areas.Client.Controllers
                 {
                     // Agent Student
                     tbl_AdminUsers objAgent = _db.tbl_AdminUsers.Where(x => x.AdminUserId == objStudent.AdminUserId).FirstOrDefault();
-                    ViewBag.RenewFee = objAgent.StudentRenewFee; 
 
                     List<AgentPackageVM> lstPackages = (from s in _db.tbl_AgentPackage
                                                         join c in _db.tbl_Package on s.PackageId equals c.PackageId
@@ -70,8 +69,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 }
                 else
                 {
-                    // Admin Student
-                     
+                    // Admin Student                     
                     List<AgentPackageVM> lstPackagesnew = (from s in _db.tbl_Package
                                                            where !s.IsDeleted
                                                            select new AgentPackageVM
@@ -102,18 +100,11 @@ namespace DuolingoSk.Areas.Client.Controllers
                               FeeExpiryDate = a.FeeExpiryDate,
                               IsAttemptUsed = a.IsAttemptUsed,
                               TotalWebinarAttempt = a.TotalWebinarAttempt,
+                              UsedTotalAttempts = _db.tbl_Exam.Where(x => x.StudentFeeId == a.StudentFeeId).ToList().Count,
+                              UsedTotalWebinar = _db.tbl_StudentWebinar.Where(x => x.StudentFeeId == a.StudentFeeId).ToList().Count,
+                              PackageName = a.PackageName
                           }).OrderByDescending(x => x.RequestedDate).ToList();
 
-                if (lstFee.Count > 0)
-                {
-                    lstFee.ForEach(fee =>
-                    {
-                        if (fee.IsAttemptUsed != true)
-                        {
-                            //fee.UsedTotalAttempts = getTotalUsedFeeAttempt(fee.StudentFeeId);
-                        }
-                    });
-                }
                 ViewData["objStudent"] = objStudent;
             }
             catch (Exception ex)
@@ -157,7 +148,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                             return ReturnMessage;
                         }
                     }
-                     
+
                     tbl_Students objStudent = _db.tbl_Students.Where(x => x.StudentId == LoggedInStudentId).FirstOrDefault();
                     int PackageId = Convert.ToInt32(frm["Package"]);
                     decimal PckPriceForPay = 0;
@@ -329,6 +320,36 @@ namespace DuolingoSk.Areas.Client.Controllers
             }
 
             return ReturnMessage;
+        }
+
+        public ActionResult UsedWebinarList(int Id) // Id = feeId
+        {
+            
+            tbl_StudentFee objStudentFee = _db.tbl_StudentFee.Where(x => x.StudentFeeId == Id).FirstOrDefault();
+
+            FeeWiseWebinarVM objFeeWiseWebinar = new FeeWiseWebinarVM();
+            objFeeWiseWebinar.StudentFeeId = Id;
+             
+            if (objStudentFee != null)
+            {
+                objFeeWiseWebinar.PackageId = objStudentFee.PackageId;
+                objFeeWiseWebinar.PackageName = objStudentFee.PackageName;
+                objFeeWiseWebinar.FeeDate = objStudentFee.RequestedDate;
+                objFeeWiseWebinar.TotalWebinar = objStudentFee.TotalWebinarAttempt;
+                objFeeWiseWebinar.UsedTotalWebinar = _db.tbl_StudentWebinar.Where(x => x.StudentFeeId == Id).ToList().Count;
+            }
+
+            objFeeWiseWebinar.lstUsedWebinar = (from sw in _db.tbl_StudentWebinar
+                                                join w in _db.tbl_Webinar on sw.WebinarId equals w.WebinarId
+                                                where sw.StudentFeeId == Id
+                                                select new UsedWebinarVM
+                                                {
+                                                    StudentWebinarId = sw.StudentWebinarId,
+                                                    CreatedDate = sw.CreatedDate,
+                                                    WebinarMessage = w.WebinarMessage
+                                                }).ToList();
+
+            return View(objFeeWiseWebinar);
         }
 
     }

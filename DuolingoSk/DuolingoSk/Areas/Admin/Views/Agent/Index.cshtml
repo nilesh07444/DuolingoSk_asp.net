@@ -44,11 +44,11 @@
                     <thead>
                         <tr>
                             <th width="5%;">#</th>
+                            <th>Agent Code</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Mobile No</th>
-                            <th>Registration Fee</th>
-                            <th>Renew Fee</th>
+                            <th>City</th>
                             <th width="10%;">Active</th>
                             <th width="10%;">Action</th>
                         </tr>
@@ -61,11 +61,11 @@
                             {
                                 <tr class="grade">
                                     <td>@counter.</td>
+                                    <td>@obj.AgentCode</td>
                                     <td>@obj.FirstName</td>
                                     <td>@obj.LastName</td>
                                     <td>@obj.MobileNo</td>
-                                    <td>@obj.StudentRegistrationFee</td>
-                                    <td>@obj.StudentRenewFee</td>
+                                    <td>@obj.City</td>
                                     @if (obj.IsActive == true)
                                     {
                                         <td><span class="badge badge-success" style="cursor:pointer;" title="Click to Inactive" onclick="fnChangeStatus('@obj.AdminUserId','InActive');">Active</span></td>

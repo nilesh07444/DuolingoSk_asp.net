@@ -15,13 +15,7 @@
     tbl_AdminUsers agentProfile = _db.tbl_AdminUsers.Where(x => x.AdminUserId == LoggedInUserId).FirstOrDefault();
     List<AgentPackageVM> lstPackges = ViewData["lstPackages"] as List<AgentPackageVM>;
 }
-
-<style>
-    body {
-        padding-top: 60px;
-    }
-</style>
-
+  
 <script id="context" type="text/javascript" src="@objPaymentGateway.PaymentLayerUrl"></script>
 @*<script id="context" type="text/javascript" src="https://sandbox-payments.open.money/layer"></script>
     <script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>*@
@@ -95,15 +89,7 @@
                                 <lable class="col-xl-3 col-md-4"></lable>
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
-                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control col-md-8 uppercase", @placeholder = "Enter Address", maxlength = "200" } })
-
-                                <lable class="col-xl-3 col-md-4"></lable>
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-
+                              
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "col-xl-3 col-md-4" })
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control col-md-8 uppercase", @placeholder = "Enter City", maxlength = "50" } })

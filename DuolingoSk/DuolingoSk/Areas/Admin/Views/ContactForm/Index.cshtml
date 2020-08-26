@@ -1,0 +1,90 @@
+﻿
+@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model List<tbl_ContactForm>
+@{
+    ViewBag.Title = "ContactForm";
+
+    int counter = 1;
+}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3>
+                            Contact Form List
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard"><i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item active">Contact Form List</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>Contact Form List</h5>
+            </div>
+            <div class="card-body vendor-table">
+
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                            <th width="5%;">#</th>
+                            <th>Date</th>
+                            <th>Full Name</th>
+                            <th>EmailId</th>
+                            <th>Mobile No</th> 
+                            <th width="10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (tbl_ContactForm obj in Model)
+                            {
+                                <tr class="grade">
+                                    <td>@counter.</td>
+                                    <td>@obj.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@obj.FullName</td>
+                                    <td>@obj.EmailId</td>
+                                    <td>@obj.MobileNo</td> 
+                                    <td>
+                                        <a title="View Contact Form" href="/admin/contactform/detail/@obj.ContactFormId"><i class="fa fa-eye font-success"></i></a>
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+</script> 

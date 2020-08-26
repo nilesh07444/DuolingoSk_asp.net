@@ -12012,7 +12012,7 @@ body:after {
   margin-bottom: 1.5rem; }
 
 .w3l-contacts-12 form.main-input input,
-.w3l-contacts-12 textareat {
+.w3l-contacts-12 textarea {
     color: #222;
     font-size: 16px;
     border: none;
@@ -12025,8 +12025,7 @@ body:after {
 }
 
 .w3l-contacts-12 textarea {
-  min-height: 170px;
-  margin: 1.5rem 0;
+  min-height: 170px; 
   resize: none; }
 
 .w3l-contacts-12 .cont-add h4 {
@@ -12243,4 +12242,8 @@ body:after {
 
 .MsoListParagraphCxSpFirst {
     text-indent : 0px !important;
+}
+
+.customform {
+    display: contents;
 }

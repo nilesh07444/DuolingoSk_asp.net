@@ -41,20 +41,12 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                     MobileNo = a.MobileNo,
                                     Password = a.Password, 
                                     Address = a.Address,
-                                    City = a.City, 
-                                    dtDob = a.Dob, 
+                                    City = a.City,  
                                     Remarks = a.Remarks,
                                     ProfilePicture = a.ProfilePicture,
-                                    IsActive = a.IsActive,
-                                    StudentRegistrationFee = a.StudentRegistrationFee,
-                                    StudentRenewFee = a.StudentRenewFee
+                                    IsActive = a.IsActive, 
                                 }).FirstOrDefault();
-
-                //if (objAdminUser.dtDob != null)
-                //{
-                //    objAdminUser.Dob = Convert.ToDateTime(objAdminUser.dtDob).ToString("dd/MM/yyyy");
-                //}
-                  
+                 
             }
             catch (Exception ex)
             {

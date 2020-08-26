@@ -25,7 +25,6 @@ namespace DuolingoSk.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbl_AdminUsers> tbl_AdminUsers { get; set; }
         public virtual DbSet<tbl_Mp3Options> tbl_Mp3Options { get; set; }
         public virtual DbSet<tbl_QuestionsMaster> tbl_QuestionsMaster { get; set; }
         public virtual DbSet<tbl_QuestionType> tbl_QuestionType { get; set; }
@@ -43,5 +42,7 @@ namespace DuolingoSk.Models
         public virtual DbSet<tbl_Webinar> tbl_Webinar { get; set; }
         public virtual DbSet<tbl_GeneralSetting> tbl_GeneralSetting { get; set; }
         public virtual DbSet<tbl_Students> tbl_Students { get; set; }
+        public virtual DbSet<tbl_AdminUsers> tbl_AdminUsers { get; set; }
+        public virtual DbSet<tbl_ContactForm> tbl_ContactForm { get; set; }
     }
 }
