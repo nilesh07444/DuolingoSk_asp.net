@@ -22,6 +22,7 @@
 <script src="https://code.jquery.com/jquery-migrate-3.3.0.js"></script>
 <script src="~/Scripts/jquery.blockUI.js"></script>
 <script>
+    var IsFinishcall = true;
     var arryresult = [];
     var arryfeedback = [];
     var arrblob = [];
@@ -33,6 +34,7 @@
     var tmmmrr = 50;
     var jji = 0;
     var totlwv = 0;
+    var flgstopdone = true;
     $(document).ready(function () {
         $(".question").hide();
     });
@@ -54,57 +56,62 @@
     }
 
     function nextquestion(objthis) {
-
+        $.unblockUI();
+        $.unblockUI();
         cntQs = cntQs + 1;
-
-        if (questionss.length > cntQs) {
-            //SaveAns(cntQs - 1);
-            var qiid = questionss[cntQs].QuestionId;
-            $(".container1").load('\getQuestiondemo?QueId=' + qiid, function () {
-
-            });
-        }
-        else {
-            //SaveAns(cntQs - 1);
-            if (displyfeeback == "yes") {
-                $(".container1").load('\getfeedback', function () {
-
+        if (IsFinishcall == true) {
+            flgstopdone = true;
+            IsFinishcall = false;
+            if (questionss.length > cntQs) {
+                //SaveAns(cntQs - 1);
+                var qiid = questionss[cntQs].QuestionId;
+                $(".container1").load('\getQuestiondemo?QueId=' + qiid, function () {
+                    IsFinishcall = true;
                 });
             }
             else {
-                $(".container1").html($("#dvresultt").html());
-                $("#dvresultt").html("");
-                totlwv = arrblob.length;
-                if (totlwv > 0) {
-                    $.blockUI({ message: 'Uploading... Please wait for 4 to 5 minutes' });
-                    savewavfiles(jji);
+                //SaveAns(cntQs - 1);
+                if (displyfeeback == "yes") {
+                    $(".container1").load('\getfeedback', function () {
+                        IsFinishcall = true;
+                    });
                 }
-                startimes();
+                else {
+                    $(".container1").html($("#dvresultt").html());
+                    $("#dvresultt").html("");
+                    totlwv = arrblob.length;
+                    if (totlwv > 0) {
+                        $.blockUI({ message: 'Uploading... Please wait for 4 to 5 minutes' });
+                        savewavfiles(jji);
+                    }
+                    startimes();
+                }
+
+
+                //$(".container1").html($("#dvresultt").html());
+                //$("#dvresultt").html("");
+                //startimes();
+                //alert("Thank you for the exam.You will get result in 24 hours.");
+                //location.href = "/results";
+                //$.ajax({
+                //    url: '/SaveExamResult',
+                //    async: true,
+                //    type: 'POST',
+                //    dataType: 'json',
+                //    data: window.localStorage.getItem('resultq'),
+                //    contentType: 'application/json; charset=utf-8',
+                //    success: function (data) {
+                //    // get the result and do some magic with it
+                //        var message = data.Message;
+
+                //   // $("#resultMessage").html(message);
+                //}
+                //});
+                // saveresult();
             }
 
-
-            //$(".container1").html($("#dvresultt").html());
-            //$("#dvresultt").html("");
-            //startimes();
-            //alert("Thank you for the exam.You will get result in 24 hours.");
-            //location.href = "/results";
-            //$.ajax({
-            //    url: '/SaveExamResult',
-            //    async: true,
-            //    type: 'POST',
-            //    dataType: 'json',
-            //    data: window.localStorage.getItem('resultq'),
-            //    contentType: 'application/json; charset=utf-8',
-            //    success: function (data) {
-            //    // get the result and do some magic with it
-            //        var message = data.Message;
-
-            //   // $("#resultMessage").html(message);
-            //}
-        //});
-           // saveresult();
         }
-
+   
         //$(".question").hide();
        // $(objthis).parents('.question').next('.question').show();
     }

@@ -19,9 +19,12 @@ function startrecrding() {
 }
 
 function stoprecrding() {  
-    $.blockUI();
-    mediaRecorder.stop();
-    mediaRecorder.stream.stop();
+    if (flgstopdone == true) {
+        flgstopdone = false;
+        $.blockUI();
+        mediaRecorder.stop();
+        mediaRecorder.stream.stop();
+    }    
 }
 
 
