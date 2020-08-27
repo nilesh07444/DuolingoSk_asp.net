@@ -278,11 +278,7 @@
     },1200);
 
     jQuery(document).ready(function () {
-
-        jQuery(".clsDatePicker").datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: true
-        });
+ 
         jQuery("#Package").change(function () {
             var prcc = jQuery("#Package option:selected").attr("data-prc");
             var attemmp = jQuery("#Package option:selected").attr("data-attempt");
@@ -474,7 +470,7 @@
                 // googleUser.getBasicProfile().getName()
                 window.location = "/registerfb?email=" + googleUser.getBasicProfile().getEmail() + "&fullname=" + googleUser.getBasicProfile().getName();
             }, function (error) {
-                alert(JSON.stringify(error, undefined, 2));
+                //alert(JSON.stringify(error, undefined, 2));
             });
     }
     startApp();
