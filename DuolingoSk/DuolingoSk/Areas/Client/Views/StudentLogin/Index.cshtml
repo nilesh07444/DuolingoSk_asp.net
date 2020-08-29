@@ -304,7 +304,7 @@
             function (googleUser) {
                 window.location = "/registerfb?email=" + googleUser.getBasicProfile().getEmail() + "&fullname=" + googleUser.getBasicProfile().getName();
             }, function (error) {
-                alert(JSON.stringify(error, undefined, 2));
+                //alert(JSON.stringify(error, undefined, 2));
             });
     }
     startApp();
