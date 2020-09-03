@@ -388,7 +388,20 @@
                     alert("You have already try free demo exam");
                 }
                 else {
-                    window.location.href = "/demoexam";
+                    if (navigator.userAgent.indexOf("Chrome") > -1) {
+                        navigator.mediaDevices.getUserMedia({ audio: true })
+                            .then(function (stream) {
+                                window.location.href = "/demoexam";
+                            })
+                            .catch(function (err) {
+                                alert("Please Check your microphone connected and It's Permission");
+                            });
+                        
+                    }
+                    else {
+                        alert("For Better Performance Use Chrome Browser Only");
+                    }
+                   
                 }
 
             }

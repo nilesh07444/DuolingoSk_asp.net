@@ -64,7 +64,7 @@
                                                 if (IsCurre == true)
                                                 {
                                                     IsCurre = false;
-                                                    <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info" onclick="startexm();">Start</a> <input type="hidden" id="hdnlevelid" value="@objj.Level_Id" /></td>
+                                                    <td style="width:130px;"><a href="javascript:void(0);" class="btn btn-info" onclick="startexm(this);">Start</a> <input type="hidden" id="hdnlevelid" value="@objj.Level_Id" /></td>
 
                                                 }
                                                 else
@@ -151,10 +151,28 @@
     <input type="hidden" value="" name="levelid" id="levelid" />
 </form>
 <script>
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function (stream) {
+           
+        })
+        .catch(function (err) {
+           // alert("Please Check your microphone");
+        });
     function startexm() {
         if ($("#hdnlevelid").length > 0) {
             $("#levelid").val($("#hdnlevelid").val());
-            $('#frmstartexam').attr('action', "/startexam").submit();
+            if (navigator.userAgent.indexOf("Chrome") > -1) {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function (stream) {
+                        $('#frmstartexam').attr('action', "/startexam").submit();
+                    })
+                    .catch(function (err) {
+                        alert("Please Check your microphone connected and It's Permission");
+                    });                
+            }
+            else {
+                alert("For Better Performance Use Chrome Browser Only");
+            }
         }
     }
 
