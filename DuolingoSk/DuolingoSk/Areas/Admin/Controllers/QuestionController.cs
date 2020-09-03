@@ -43,7 +43,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             List<tbl_QuestionLevel> lstQuestionLevel = _db.tbl_QuestionLevel.ToList();
             ViewData["lstQuestionLevel"] = lstQuestionLevel;
             ViewBag.Level = Level;
-             
+
             return View(lstQuestions);
         }
         public ActionResult Add()
@@ -55,7 +55,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost,ValidateInput(false)]
+        [HttpPost, ValidateInput(false)]
         public ActionResult AddQuestion(FormCollection frm)
         {
             int QuestionType = Convert.ToInt32(frm["QuestionTypeId"]);
@@ -112,12 +112,12 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 }
 
             }
-            else if(QuestionType == 11)
-            {                
+            else if (QuestionType == 11)
+            {
                 objtbl_QuestionsMaster.QuestionsHtml = questionss;
             }
-            
-            if(QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
+
+            if (QuestionType == 7 || QuestionType == 8 || QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
             {
                 if (frm["QuestionOptionText"] != null)
                 {
@@ -131,7 +131,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objtbl_QuestionsMaster.PreparationTime = (minutespre * 60) + secondspre;
                 }
 
-                if(QuestionType == 9 || QuestionType == 10 || QuestionType == 11) 
+                if (QuestionType == 9 || QuestionType == 10 || QuestionType == 11)
                 {
                     int minutesmin = Convert.ToInt32(frm["minutesmin"]);
                     int secondsmin = Convert.ToInt32(frm["secondsmin"]);
@@ -139,28 +139,28 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 }
             }
 
-            
+
 
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 if ((QuestionType == 3 || QuestionType == 9) && Request.Files.GetKey(i) == "mp3file")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                    string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                     fileUpload.SaveAs(pathmp3 + mp3nm);
                     objtbl_QuestionsMaster.Mp3FileName = mp3nm;
                 }
                 if ((QuestionType == 4 || QuestionType == 10) && Request.Files.GetKey(i) == "imagefile")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                    string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                     fileUpload.SaveAs(pathImg + mp3nm);
                     objtbl_QuestionsMaster.ImageName = mp3nm;
                 }
                 if (QuestionType == 5 && Request.Files.GetKey(i) == "mp3fileeword")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                    string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                     fileUpload.SaveAs(pathmp3 + mp3nm);
                     filenmsmp3.Add(mp3nm);
                 }
@@ -168,13 +168,13 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 if (QuestionType == 8 && Request.Files.GetKey(i) == "imgfl")
                 {
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
-                    string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                    string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                     fileUpload.SaveAs(pathImg + mp3nm);
                     filenmsimgs.Add(mp3nm);
                 }
             }
 
-            if(QuestionType == 8)
+            if (QuestionType == 8)
             {
                 objtbl_QuestionsMaster.Images = String.Join("^", filenmsimgs);
             }
@@ -218,7 +218,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 int preseconds = ts1.Seconds;
                 ViewBag.PreMinutes = prpminutes;
                 ViewBag.PreSeconds = preseconds;
-                if(objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10 || objQue.QuestionTypeId == 11) 
+                if (objQue.QuestionTypeId == 9 || objQue.QuestionTypeId == 10 || objQue.QuestionTypeId == 11)
                 {
                     TimeSpan ts2 = TimeSpan.FromSeconds(objQue.MinimumTime.Value);
                     int minminutes = ts2.Minutes;
@@ -236,7 +236,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
             int QuestionType = Convert.ToInt32(frm["QuestionTypeId"]);
             int QuestionId = Convert.ToInt32(frm["QuestionId"]);
             int minutes = Convert.ToInt32(frm["minutes"]);
-            int seconds = Convert.ToInt32(frm["seconds"]);            
+            int seconds = Convert.ToInt32(frm["seconds"]);
             string QuestionText = frm["QuestionText"].ToString();
             string questionss = frm["qcardtextques"].ToString();
             tbl_QuestionsMaster objtbl_QuestionsMaster = _db.tbl_QuestionsMaster.Where(o => o.QuestionId == QuestionId).FirstOrDefault();
@@ -319,7 +319,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
                     if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
-                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                         fileUpload.SaveAs(pathmp3 + mp3nm);
                         objtbl_QuestionsMaster.Mp3FileName = mp3nm;
                     }
@@ -330,7 +330,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
                     if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
-                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                         fileUpload.SaveAs(pathImg + mp3nm);
                         objtbl_QuestionsMaster.ImageName = mp3nm;
                     }
@@ -340,7 +340,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
                     if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
-                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                         fileUpload.SaveAs(pathmp3 + mp3nm);
                         filenmsmp3.Add(mp3nm);
                     }
@@ -351,16 +351,16 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     HttpPostedFileBase fileUpload = Request.Files.Get(i);
                     if (fileUpload != null && fileUpload.ContentLength > 0)
                     {
-                        string mp3nm = Guid.NewGuid() + "-" + Path.GetFileName(fileUpload.FileName);
+                        string mp3nm = Guid.NewGuid() + Path.GetExtension(fileUpload.FileName);
                         fileUpload.SaveAs(pathImg + mp3nm);
                         filenmsimgs.Add(mp3nm);
                     }
-                   
+
                 }
 
             }
             //_db.tbl_QuestionsMaster.Add(objtbl_QuestionsMaster);
-            
+
             if (QuestionType == 8)
             {
                 if (frm["hdnImgss"] != null)

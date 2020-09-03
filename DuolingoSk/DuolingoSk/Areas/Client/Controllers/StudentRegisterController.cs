@@ -167,6 +167,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
+                    clsClientSession.IsDemoUsed = objStudent.IsDemoUsed.HasValue ? objStudent.IsDemoUsed.Value : false;
 
                     return RedirectToAction("Index", "MyExams");
 
@@ -338,6 +339,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 clsClientSession.ImagePath = ojstu.ProfilePicture;
                 clsClientSession.Email = ojstu.Email;
                 clsClientSession.MobileNumber = ojstu.MobileNo;
+                clsClientSession.IsDemoUsed = ojstu.IsDemoUsed.HasValue ? ojstu.IsDemoUsed.Value : false;
                 return RedirectToAction("Index", "MyExams");
             }
             return View(objStudent);
@@ -470,6 +472,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                     clsClientSession.ImagePath = objStudent.ProfilePicture;
                     clsClientSession.Email = objStudent.Email;
                     clsClientSession.MobileNumber = objStudent.MobileNo;
+                    clsClientSession.IsDemoUsed = objStudent.IsDemoUsed.HasValue ? objStudent.IsDemoUsed.Value : false;
 
                     return RedirectToAction("Index", "MyExams");
 

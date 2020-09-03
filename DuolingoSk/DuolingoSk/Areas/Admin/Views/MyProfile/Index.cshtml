@@ -68,30 +68,12 @@
                                 <label for="txtMobileNo" class="col-xl-3 col-md-4">City</label>
                                 <lable class="form-control col-md-8">@Model.City</lable>
                             </div>
-
-                            @*<div class="form-group row">
-                                    <label for="txtMobileNo" class="col-xl-3 col-md-4">Date Of Birth</label>
-                                    <lable class="form-control col-md-8">@(Model.Dob != null ? Model.Dob : "")</lable>
-                                </div>*@
-
+                             
                             <div class="form-group row">
                                 <label for="txtMobileNo" class="col-xl-3 col-md-4">Remarks</label>
                                 <lable class="form-control col-md-8">@Model.Remarks</lable>
                             </div>
-
-                            @if (Model.AdminRoleId == (int)AdminRoles.Agent)
-                            {
-                                <div class="form-group row">
-                                    <label for="StudentRegistrationFee" class="col-xl-3 col-md-4">Student Registration Fee</label>
-                                    <lable class="form-control col-md-8">@Model.StudentRegistrationFee</lable>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="txtMobileNo" class="col-xl-3 col-md-4">Student Renew Fee</label>
-                                    <lable class="form-control col-md-8">@Model.StudentRenewFee</lable>
-                                </div>
-                            }
-
+                              
                         </form>
                     </div>
                 </div>
