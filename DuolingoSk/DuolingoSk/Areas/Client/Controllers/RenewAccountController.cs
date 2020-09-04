@@ -352,5 +352,48 @@ namespace DuolingoSk.Areas.Client.Controllers
             return View(objFeeWiseWebinar);
         }
 
+        public ActionResult UsedPackageExamList(int Id) // Id = feeId
+        {
+
+            tbl_StudentFee objStudentFee = _db.tbl_StudentFee.Where(x => x.StudentFeeId == Id).FirstOrDefault();
+
+            FeeWisePackageVM objFeeWiseExams = new FeeWisePackageVM();
+            objFeeWiseExams.StudentFeeId = Id;
+
+            if (objStudentFee != null)
+            {
+                objFeeWiseExams.PackageId = objStudentFee.PackageId;
+                objFeeWiseExams.PackageName = objStudentFee.PackageName;
+                objFeeWiseExams.FeeDate = objStudentFee.RequestedDate;
+                objFeeWiseExams.TotalExamAttempt = objStudentFee.TotalExamAttempt;
+                objFeeWiseExams.UsedTotalExams = _db.tbl_Exam.Where(x => x.StudentFeeId == Id).ToList().Count;
+            }
+
+            objFeeWiseExams.lstUsedPackageExam = (from e in _db.tbl_Exam
+                                                  join l in _db.tbl_QuestionLevel on e.QuestionLevelId equals l.Level_Id
+                                                  join f in _db.tbl_StudentFee on e.StudentFeeId equals f.StudentFeeId
+                                                  join s in _db.tbl_Students on e.StudentId equals s.StudentId
+                                                  join a in _db.tbl_AdminUsers on s.AdminUserId equals a.AdminUserId into outerAgent
+                                                  from agent in outerAgent.DefaultIfEmpty()
+                                                  where e.StudentFeeId == Id
+                                                  select new ExamVM
+                                                  {
+                                                      Exam_Id = e.Exam_Id,
+                                                      ExamDate = e.ExamDate,
+                                                      StudentId = e.StudentId,
+                                                      StudentName = s.FullName,
+                                                      AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                                                      LevelName = l.LevelName,
+                                                      ResultStatus = e.ResultStatus,
+                                                      OverAllScore = e.Overall.HasValue ? e.Overall.Value : 0,
+                                                      Score = e.Score,
+                                                      PackageName = f.PackageName
+                                                  }).OrderByDescending(x => x.ExamDate).ToList();
+
+            return View(objFeeWiseExams);
+        }
+
+
+
     }
 }

@@ -30,6 +30,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
 
             try
             {
+
                 lstPackage = (from m in _db.tbl_Package
                               where !m.IsDeleted
                               select new PackageVM
@@ -41,8 +42,11 @@ namespace DuolingoSk.Areas.Admin.Controllers
                                   TotalAttempt = m.TotalAttempt,
                                   MaxLevel = m.MaxLevel,
                                   TotalWebinar = m.TotalWebinar,
-                                  IsActive = m.IsActive
+                                  IsActive = m.IsActive,
+                                  TotalBuyPendingFeeCount = _db.tbl_StudentFee.Where(x => x.PackageId == m.PackageId && x.FeeStatus == "Pending").ToList().Count,
+                                  TotalBuyCompleteFeeCount = _db.tbl_StudentFee.Where(x => x.PackageId == m.PackageId && x.FeeStatus == "Complete").ToList().Count
                               }).ToList();
+
             }
             catch (Exception ex)
             {

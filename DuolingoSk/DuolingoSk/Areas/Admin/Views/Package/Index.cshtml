@@ -54,6 +54,9 @@
                             <th>Max Level</th>
                             <th>Total Webinar</th>
 
+                            <th>Total Buy (Pending Fee) </th>
+                            <th>Total Buy (Complete Fee) </th> 
+
                             <th width="10%;">Active</th>
                             <th width="10%;">Action</th>
                         </tr>
@@ -71,6 +74,9 @@
                                     <td>@obj.TotalAttempt</td>
                                     <td>@obj.MaxLevel</td>
                                     <td>@obj.TotalWebinar</td>
+
+                                    <td>@obj.TotalBuyPendingFeeCount</td>
+                                    <td>@obj.TotalBuyCompleteFeeCount</td>
 
                                     @if (obj.IsActive == true)
                                     {

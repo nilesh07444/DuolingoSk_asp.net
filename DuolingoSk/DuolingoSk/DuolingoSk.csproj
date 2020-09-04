@@ -4033,6 +4033,7 @@
     <Content Include="Areas\Admin\Views\ContactForm\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ContactForm\Detail.cshtml" />
     <Content Include="Areas\Client\Views\RenewAccount\UsedWebinarList.cshtml" />
+    <Content Include="Areas\Client\Views\RenewAccount\UsedPackageExamList.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="QuestionImage\990d3907-0d9b-490f-addf-7ad1af3313ba-" />
     <Content Include="QuestionMp3\1e1d6fc6-fade-49fd-b253-cff0f21afe34-" />

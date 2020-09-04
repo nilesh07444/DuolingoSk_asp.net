@@ -21,5 +21,6 @@ namespace DuolingoSk
         public string AgentName { get; set; }
         public string LevelName { get; set; } 
         public decimal OverAllScore { get; set; }
+        public string PackageName { get; set; }
     }
 }

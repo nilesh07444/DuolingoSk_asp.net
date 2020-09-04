@@ -62,7 +62,8 @@ namespace DuolingoSk.Areas.Admin.Controllers
                               TotalExamAttempt = a.TotalExamAttempt,
                               RequestedDate = a.RequestedDate,
                               StudentName = s.FullName,
-                              AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : "")
+                              AgentName = (agent != null ? agent.FirstName + " " + agent.LastName : ""),
+                              PackageName = a.PackageName
                           }).ToList();
 
                 ViewData["AgentList"] = _db.tbl_AdminUsers.Where(x => x.AdminRoleId == (int)AdminRoles.Agent && !x.IsDeleted)

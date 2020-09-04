@@ -27,6 +27,7 @@ namespace DuolingoSk.Areas.Client.Controllers
 
             lstExams = (from e in _db.tbl_Exam
                         join l in _db.tbl_QuestionLevel on e.QuestionLevelId equals l.Level_Id
+                        join f in _db.tbl_StudentFee on e.StudentFeeId equals f.StudentFeeId
                         join s in _db.tbl_Students on e.StudentId equals s.StudentId
                         join a in _db.tbl_AdminUsers on s.AdminUserId equals a.AdminUserId into outerAgent
                         from agent in outerAgent.DefaultIfEmpty()
@@ -41,7 +42,8 @@ namespace DuolingoSk.Areas.Client.Controllers
                             LevelName = l.LevelName,
                             ResultStatus = e.ResultStatus,
                             OverAllScore = e.Overall.HasValue ? e.Overall.Value : 0,
-                            Score = e.Score
+                            Score = e.Score,
+                            PackageName = f.PackageName
                         }).OrderByDescending(x => x.ExamDate).ToList();
 
             return View(lstExams);

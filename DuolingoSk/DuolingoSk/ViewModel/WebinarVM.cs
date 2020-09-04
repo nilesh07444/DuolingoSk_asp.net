@@ -41,4 +41,15 @@ namespace DuolingoSk
         public DateTime CreatedDate { get; set; }
     }
 
+    public class FeeWisePackageVM
+    {
+        public int StudentFeeId { get; set; }
+        public int? TotalExamAttempt { get; set; }
+        public int UsedTotalExams { get; set; }
+        public DateTime FeeDate { get; set; }
+        public int? PackageId { get; set; }
+        public string PackageName { get; set; }
+        public List<ExamVM> lstUsedPackageExam { get; set; }
+    }
+
 }

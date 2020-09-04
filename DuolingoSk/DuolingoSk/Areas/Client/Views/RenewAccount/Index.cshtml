@@ -103,7 +103,11 @@
                                 <td>@counter.</td>
                                 <td>@obj.RequestedDate.ToString("dd/MM/yyyy")</td>
                                 <td>@obj.PackageName</td>
-                                <td>@obj.UsedTotalAttempts/@obj.TotalExamAttempt</td>
+                                <td>
+                                    <a style="color:#000000;" href="/client/renewaccount/usedpackageexamlist/@obj.StudentFeeId">
+                                        @obj.UsedTotalAttempts/@obj.TotalExamAttempt
+                                    </a>
+                                </td>
                                 <td>
                                     <a style="color:#000000;" href="/client/renewaccount/usedwebinarlist/@obj.StudentFeeId">
                                         @obj.UsedTotalWebinar/@obj.TotalWebinarAttempt

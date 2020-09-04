@@ -1,14 +1,17 @@
-﻿@model List<ExamVM>
+﻿@using DuolingoSk.Model;
+@using DuolingoSk.Models;
+@using DuolingoSk.Helper;
+
+@model FeeWisePackageVM
 @{
-    ViewBag.Title = "MyExams";
+    ViewBag.Title = "Fee Wise exam list";
     int counter = 1;
 }
-
 
 <section class="w3l-contact-breadcrum" style="background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(/Content/client_assets/images/sk/7.jpg);">
     <div class="breadcrum-bg">
         <div class="container py-5">
-            <p><a href="/">Home</a> &nbsp; / &nbsp; Result List</p>
+            <p><a href="/">Home</a> &nbsp; / <a href="/renewaccount">Fee List</a> / &nbsp; Fee wise exam attend list</p>
         </div>
     </div>
 </section>
@@ -19,15 +22,32 @@
         <div class="container py-md-3">
 
             <div class="heading text-center mx-auto">
-                <h3 class="head">Results</h3>
-                <p></p>
+                <h3 class="head">Fee wise exam attend list</h3>
+                <p><hr /></p>
+            </div>
+
+            <div class="row">
+                <form action="/Client/StudentRegister" class="customform" enctype="multipart/form-data" id="StudentUserFormId" method="post" onsubmit="return CheckRegister();" role="form" novalidate="novalidate">
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Fee Date</label>
+                        <p>@Model.FeeDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Package Name</label>
+                        <p>@Model.PackageName</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Total Exam Attempts</label>
+                        <p>@Model.TotalExamAttempt</p>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label style="font-weight: bold;">Total Used Exams</label>
+                        <p>@Model.UsedTotalExams</p>
+                    </div>
+                </form>
             </div>
 
             <div class="row cont-main-top">
-
-                <div class="" style="width:100%">
-                    <a href="/examlevel" class="btn-theme2 btn mt-lg-5 mt-4 pull-right">Start New Exam</a>
-                </div>
 
                 <div class="table-responsive" style="margin-top : 50px; margin-bottom : 50px;">
                     <table id="tblGrid" class="table table-striped table-bordered" style="width:100%">
@@ -43,9 +63,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model != null && Model.Count > 0)
+                            @if (Model != null && Model.lstUsedPackageExam.Count > 0)
                             {
-                                foreach (ExamVM obj in Model)
+                                foreach (ExamVM obj in Model.lstUsedPackageExam)
                                 {
                                     <tr class="grade">
                                         <td>@counter.</td>
@@ -74,3 +94,5 @@
 
     </div>
 </section>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>

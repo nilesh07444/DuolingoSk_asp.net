@@ -45,6 +45,10 @@ namespace DuolingoSk
 
         //
         public string PackageImageName { get; set; }
+
+        //
+        public int TotalBuyPendingFeeCount { get; set; }
+        public int TotalBuyCompleteFeeCount { get; set; }
     }
 
     public class PackageInquiryVM
