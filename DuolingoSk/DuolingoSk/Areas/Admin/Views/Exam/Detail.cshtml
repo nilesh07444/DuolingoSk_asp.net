@@ -435,11 +435,21 @@
                                     </div>
                                 </div>
                                 <div>
-                                    Recording:
-                                    <audio controls>
-                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
+                                    <div class="pull-left">
+                                        Recording:
+                                        <audio controls>
+                                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    {
+                                        <div class="pull-right">
+                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -468,13 +478,25 @@
                                         }
                                     }
                                 </div>
-                                <div style="clear:both;padding-top:25px;">
-                                    <span>Recording:</span>
-                                    <audio controls>
-                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
+
+                                <div style="clear:both; padding-top:25px;">
+                                    <div class="pull-left">
+                                        Recording:
+                                        <audio controls>
+                                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    {
+                                        <div class="pull-right">
+                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                        </div>
+                                    }
+
                                 </div>
+
                             </div>
                         </div>
                     }
@@ -510,12 +532,22 @@
                                     <source src="/QuestionMp3/@objExm.QuestionOptionValue" type="audio/mpeg">
                                     Your browser does not support the audio element.
                                 </audio>
-                                <div>
-                                    Recording:
-                                    <audio controls>
-                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
+                                <div style="clear:both; padding-top:25px;">
+                                    <div class="pull-left">
+                                        Recording:
+                                        <audio controls>
+                                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    {
+                                        <div class="pull-right">
+                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -546,12 +578,22 @@
                                 <div class="level-item has-text-centered centersec image123">
                                     <figure class="image is-centered"><img src="/QuestionImage/@objExm.QuestionOptionValue"></figure>
                                 </div>
-                                <div>
-                                    Recording:
-                                    <audio controls>
-                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
+                                <div style="clear:both; padding-top:25px;">
+                                    <div class="pull-left">
+                                        Recording:
+                                        <audio controls>
+                                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    {
+                                        <div class="pull-right">
+                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -584,12 +626,23 @@
                                         @Html.Raw(objExm.QuestionOptionValue)
                                     </div>
                                 </div>
-                                <div style="margin-top:15px;">
-                                    Recording:
-                                    <audio controls>
-                                        <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio>
+
+                                <div style="clear:both; padding-top:25px;">
+                                    <div class="pull-left">
+                                        Recording:
+                                        <audio controls>
+                                            <source src="/TempFile/@objExm.QuestionOptiont_Ans" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    {
+                                        <div class="pull-right">
+                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
