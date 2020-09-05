@@ -52,7 +52,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/11/2020 23:06:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Detail.cshtml">
-      <publishTime>08/17/2020 23:20:34</publishTime>
+      <publishTime>09/04/2020 09:55:23</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Exam/Index.cshtml">
       <publishTime>08/09/2020 15:36:16</publishTime>
@@ -64,7 +64,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 15:56:25</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Fees/Index.cshtml">
-      <publishTime>07/19/2020 00:24:16</publishTime>
+      <publishTime>09/04/2020 23:36:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Login/Index.cshtml">
       <publishTime>08/26/2020 10:29:23</publishTime>
@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/02/2020 20:26:05</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Package/Index.cshtml">
-      <publishTime>08/02/2020 20:20:29</publishTime>
+      <publishTime>09/04/2020 23:31:33</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Package/Inquiry.cshtml">
       <publishTime>07/19/2020 00:00:38</publishTime>
@@ -166,7 +166,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/16/2020 17:49:42</publishTime>
     </File>
     <File Include="Areas/Client/Views/MyExams/Index.cshtml">
-      <publishTime>08/09/2020 15:36:16</publishTime>
+      <publishTime>09/04/2020 23:52:34</publishTime>
     </File>
     <File Include="Areas/Client/Views/MyProfile/ChangePassword.cshtml">
       <publishTime>07/04/2020 17:25:27</publishTime>
@@ -181,7 +181,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/26/2020 00:33:00</publishTime>
     </File>
     <File Include="Areas/Client/Views/RenewAccount/Index.cshtml">
-      <publishTime>08/26/2020 00:17:21</publishTime>
+      <publishTime>09/05/2020 00:19:39</publishTime>
+    </File>
+    <File Include="Areas/Client/Views/RenewAccount/UsedPackageExamList.cshtml">
+      <publishTime>09/05/2020 00:14:14</publishTime>
     </File>
     <File Include="Areas/Client/Views/RenewAccount/UsedWebinarList.cshtml">
       <publishTime>08/26/2020 00:16:41</publishTime>
@@ -280,10 +283,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/DuolingoSk.dll">
-      <publishTime>09/04/2020 00:02:08</publishTime>
+      <publishTime>09/05/2020 00:27:17</publishTime>
     </File>
     <File Include="bin/DuolingoSk.pdb">
-      <publishTime>09/04/2020 00:02:08</publishTime>
+      <publishTime>09/05/2020 00:27:17</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>

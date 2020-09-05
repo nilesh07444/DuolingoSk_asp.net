@@ -1,4 +1,6 @@
-﻿@model List<MaterialVM>
+﻿@using DuolingoSk.Helper;
+
+@model List<MaterialVM>
 @{
     ViewBag.Title = "Material";
     int counter = 1;
@@ -31,6 +33,7 @@
                             <tr>
                                 <th width="15%">Sr No.</th>
                                 <th>Material Title</th>
+                                <th>Material Type</th>
                                 <th width="15%">View Material</th>
                             </tr>
                         </thead>
@@ -42,10 +45,11 @@
                                     <tr>
                                         <td>@counter.</td>
                                         <td>@item.MaterialTitle</td>
+                                        <td>@(item.MaterialFileType == (int)MaterialFileTypes.Document ? "Document" : (item.MaterialFileType == (int)MaterialFileTypes.Video ? "Video" : ""))</td>
                                         <td>
                                             @{
                                                 string material_url = "";
-                                                if (item.MaterialFileType == 2)
+                                                if (item.MaterialFileType == (int)MaterialFileTypes.Video)
                                                 {
                                                     material_url = item.MaterialVideoLink;
                                                 }
