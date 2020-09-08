@@ -47,9 +47,9 @@ namespace DuolingoSk.Areas.Client.Controllers
                 ViewData["lstQuestionLevel"] = lstQuestionLevel;
 
                 List<tbl_Exam> lstResults = _db.tbl_Exam.Where(o => o.IsDeleted == false && o.ResultStatus == 2).GroupBy(p => p.StudentId)
-               .Select(g => g.OrderByDescending(p => p.Overall.HasValue ? p.Overall.Value : 0)
-                             .FirstOrDefault()
-                ).ToList();
+                                               .Select(g => g.OrderByDescending(p => p.Overall.HasValue ? p.Overall.Value : 0)
+                                                             .FirstOrDefault()
+                                                ).ToList();
 
                 List<StudentVM> lststud = new List<StudentVM>();
                 if (lstResults != null && lstResults.Count() > 0)

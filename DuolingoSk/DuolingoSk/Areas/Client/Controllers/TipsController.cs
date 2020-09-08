@@ -29,6 +29,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                                     MaterialTitle = m.MaterialTitle,
                                     MaterialFileName = m.MaterialFile,
                                     MaterialFileType = m.MaterialFileType,
+                                    MaterialVideoLink = m.MaterialVideoLink
                                 }).ToList();
             }
             catch (Exception ex)

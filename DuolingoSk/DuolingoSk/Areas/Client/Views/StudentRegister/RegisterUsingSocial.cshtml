@@ -118,7 +118,7 @@
                             <input type="text" class="form-control" placeholder="Total Exam Attempts" id="ExamAttempt" value="0" readonly>
                         </div>
                         <div class="form-group col-sm-6">
-                            <label class="">Referral Code *</label>
+                            <label class="">Referral Code (if applicable)</label>
                             <input type="text" class="form-control" placeholder="Promo Code" value="" name="refrealcode" id="refrealcode" onblur="resetdiscount();">
 
                         </div>
@@ -129,8 +129,10 @@
 
                         <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
                         <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
-                        <div class=" col-lg-6">
+                        <div class=" col-lg-12">
+                            <a class="btn btn-link" href="/forgetpassword" style="color: #e86f6f; float:right;">Forgot password?</a>
                             <button type="submit" class="btn btn-theme2">Sign Up</button>
+                            <p><a class="btn btn-link" style="padding-left: 0px; color: #e86f6f;" href="/login">Already have an account? login here </a></p>
                         </div>
                     }
 

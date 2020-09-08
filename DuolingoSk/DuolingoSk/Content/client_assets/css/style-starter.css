@@ -12247,3 +12247,7 @@ body:after {
 .customform {
     display: contents;
 }
+
+.page-footer ul li a {
+    color: #ffffff;
+}

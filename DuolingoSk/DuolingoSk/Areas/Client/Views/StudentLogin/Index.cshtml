@@ -118,11 +118,14 @@
                             <div class="top-inputs d-grid col-lg-6">
                                 <input type="password" placeholder="Password" id="password" name="password" required="">
                             </div>
-                            @*<div class="text-left col-lg-6">
-                                    <label for="rememberme"><input type="checkbox" id="rememberme" /> Remember Me</label>
-                                </div>*@
+                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
+                                <p>
+                                    <label for="rememberme" style="float: left;"><input type="checkbox" id="rememberme" style="width: auto;" /> Remember Me</label>
+                                    <a class="btn btn-link" href="/forgetpassword" style="color: #e86f6f; float:right;">Forgot password?</a>
+                                </p> 
+                            </div>
 
-                            <div class="top-inputs d-grid col-lg-6">
+                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
                                 @if (TempData["LoginError"] != null)
                                 {
                                     <span style="color:red; text-align: left;" class="errorcls">@TempData["LoginError"]</span>
@@ -135,20 +138,23 @@
 
                             <div class="col-lg-6">
                                 <input type="hidden" id="hdnotptxt" value="" />
+                                
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
+                                <p><a class="btn btn-link" href="/register" style="color: #e86f6f;">new here? sign up</a></p>
                             </div>
 
                         }
 
-                        <hr />
+                        <hr style="margin-top:20px;" />
 
                         <button id="btnfblogin" class="loginBtn loginBtn--facebook" style="cursor:pointer;">
                             Login with Facebook
                         </button>
-
+                        or
                         <button id="btngooglelogin" class="loginBtn loginBtn--google" style="cursor:pointer;">
                             Login with Google
                         </button>
+
                     </center>
                 </div>
                 <!-- //contact form -->
