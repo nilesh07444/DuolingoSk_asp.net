@@ -69,7 +69,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 }
                 profilpic = "https://www.duolingo-ielts-pte.in" + profilpic;
                 string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
-                if (objEx.Overall >= 50 && objEx.Overall <= 70)
+                if (objEx.Overall <= 70)
                 {
                     meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
                 }

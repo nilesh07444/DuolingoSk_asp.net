@@ -108,57 +108,57 @@ namespace DuolingoSk.Areas.Admin.Controllers
                     objEx.ModifiedBy = clsAdminSession.UserID;
                     objEx.ModifiedDate = DateTime.UtcNow;
                     _db.SaveChanges();
-                    string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
-                    if (objEx.Overall >= 50 && objEx.Overall <= 70)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
-                    }
-                    else if (objEx.Overall > 70 && objEx.Overall <= 90)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/60to80.png";
-                    }
-                    else if (objEx.Overall > 90 && objEx.Overall <= 110)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/90to110.png";
-                    }
-                    else if (objEx.Overall > 110 && objEx.Overall <= 130)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/110to130.png";
-                    }
-                    else if (objEx.Overall > 130 && objEx.Overall <= 150)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/130to150.png";
-                    }
-                    else if (objEx.Overall > 150 && objEx.Overall <= 160)
-                    {
-                        meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
-                    }
-                    string flName = "Result_" + objEx.Exam_Id + "_" + objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
-                    StreamReader sr;
-                    string file = Server.MapPath("~/Template/certificate.html");
-                    string htmldata = "";
-                    FileInfo fi = new FileInfo(file);
-                    sr = System.IO.File.OpenText(file);
-                    htmldata += sr.ReadToEnd();
+                    //string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                    //if (objEx.Overall <= 70)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
+                    //}
+                    //else if (objEx.Overall > 70 && objEx.Overall <= 90)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/60to80.png";
+                    //}
+                    //else if (objEx.Overall > 90 && objEx.Overall <= 110)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/90to110.png";
+                    //}
+                    //else if (objEx.Overall > 110 && objEx.Overall <= 130)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/110to130.png";
+                    //}
+                    //else if (objEx.Overall > 130 && objEx.Overall <= 150)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/130to150.png";
+                    //}
+                    //else if (objEx.Overall > 150 && objEx.Overall <= 160)
+                    //{
+                    //    meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                    //}
+                    //string flName = "Result_" + objEx.Exam_Id + "_" + objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
+                    //StreamReader sr;
+                    //string file = Server.MapPath("~/Template/certificate.html");
+                    //string htmldata = "";
+                    //FileInfo fi = new FileInfo(file);
+                    //sr = System.IO.File.OpenText(file);
+                    //htmldata += sr.ReadToEnd();
 
-                    // create the HTML to PDF converter
-                    HtmlToPdf htmlToPdfConverter = new HtmlToPdf();
+                    //// create the HTML to PDF converter
+                    //HtmlToPdf htmlToPdfConverter = new HtmlToPdf();
 
-                    // set browser width
-                    htmlToPdfConverter.BrowserWidth = 1200;
+                    //// set browser width
+                    //htmlToPdfConverter.BrowserWidth = 1200;
 
-                    // set PDF page size and orientation
-                    htmlToPdfConverter.Document.PageSize = PdfPageSize.A4;
-                    htmlToPdfConverter.Document.PageOrientation = PdfPageOrientation.Portrait;
+                    //// set PDF page size and orientation
+                    //htmlToPdfConverter.Document.PageSize = PdfPageSize.A4;
+                    //htmlToPdfConverter.Document.PageOrientation = PdfPageOrientation.Portrait;
 
-                    // set PDF page margins
-                    htmlToPdfConverter.Document.Margins = new PdfMargins(5);
+                    //// set PDF page margins
+                    //htmlToPdfConverter.Document.Margins = new PdfMargins(5);
 
-                    // convert HTML code
-                    htmldata = htmldata.Replace("--OVERALL--", Overall).Replace("--Literacy--", Literacy).Replace("--Comprehension--", Comprehension).Replace("--Conversation--", Conversation).Replace("--Production--", Production).Replace("--METERIMG--", meterimg);
+                    //// convert HTML code
+                    //htmldata = htmldata.Replace("--OVERALL--", Overall).Replace("--Literacy--", Literacy).Replace("--Comprehension--", Comprehension).Replace("--Conversation--", Conversation).Replace("--Production--", Production).Replace("--METERIMG--", meterimg);
 
-                    // convert HTML code to a PDF memory buffer
-                    htmlToPdfConverter.ConvertHtmlToFile(htmldata, "", Server.MapPath("~/Certificates/") + flName);
+                    //// convert HTML code to a PDF memory buffer
+                    //htmlToPdfConverter.ConvertHtmlToFile(htmldata, "", Server.MapPath("~/Certificates/") + flName);
 
                 }
                 ReturnMessage = "Success";
@@ -192,7 +192,7 @@ namespace DuolingoSk.Areas.Admin.Controllers
                 }
                 profilpic = "https://www.duolingo-ielts-pte.in" + profilpic;
                 string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
-                if (objEx.Overall >= 50 && objEx.Overall <= 70)
+                if (objEx.Overall <= 70)
                 {
                     meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
                 }

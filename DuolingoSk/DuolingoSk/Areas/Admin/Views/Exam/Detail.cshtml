@@ -716,27 +716,37 @@
         var Production = $("#Production").val();
         var Overall = $("#Overall").val();
         var flgrs = true;
+        var strmsg = "";
         if (Literacy == "") {
-            alert("Please Enter Literacy Score");
+            strmsg = "Literacy Score" + ",";
+            //alert("Please Enter Literacy Score");
             flgrs = false;
         }
 
         if (Comprehension == "") {
-            alert("Please Enter Comprehension Score");
+            strmsg = strmsg + "Comprehension Score" + ",";
+            //alert("Please Enter Comprehension Score");
             flgrs = false;
         }
 
         if (Conversation == "") {
-            alert("Please Enter Conversation Score");
+            strmsg = strmsg + "Conversation Score" + ",";
+            //alert("Please Enter Conversation Score");
             flgrs = false;
         }
         if (Production == "") {
-            alert("Please Enter Production Score");
+            strmsg = strmsg + "Production Score" + ",";
+            //alert("Please Enter Production Score");
             flgrs = false;
         }
         if (Overall == "") {
-            alert("Please Enter Overall Score");
+            strmsg = strmsg + "Overall Score" + ",";
+            //alert("Please Enter Overall Score");
             flgrs = false;
+        }
+        strmsg = strmsg.substring(0, strmsg.length - 1);
+        if (flgrs == false) {
+            alert("Please Enter " + strmsg);
         }
         if (flgrs == true) {
 
