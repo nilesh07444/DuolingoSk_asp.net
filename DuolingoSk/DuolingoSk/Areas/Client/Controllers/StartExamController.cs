@@ -56,7 +56,7 @@ namespace DuolingoSk.Areas.Client.Controllers
                 {
                     var lstexmresu = lstResults.ToList().Take(10).ToList();
 
-                    foreach (var objexm in lstResults)
+                    foreach (var objexm in lstexmresu)
                     {
                         var stud = _db.tbl_Students.Where(o => o.StudentId == objexm.StudentId).FirstOrDefault();
                         if (stud != null)

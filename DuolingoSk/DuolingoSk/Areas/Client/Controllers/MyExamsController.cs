@@ -67,31 +67,31 @@ namespace DuolingoSk.Areas.Client.Controllers
                         profilpic = DuolingoSk.Helper.ErrorMessage.DefaultImagePath;
                     }
                 }
-                profilpic = "https://www.duolingo-ielts-pte.in" + profilpic;
-                string meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                profilpic = "https://duolingo-pte-ielts.com" + profilpic;
+                string meterimg = "https://duolingo-pte-ielts.com/Images/150to160.png";
                 if (objEx.Overall <= 70)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/40to60.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/40to60.png";
                 }
                 else if (objEx.Overall > 70 && objEx.Overall <= 90)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/60to80.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/60to80.png";
                 }
                 else if (objEx.Overall > 90 && objEx.Overall <= 110)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/90to110.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/90to110.png";
                 }
                 else if (objEx.Overall > 110 && objEx.Overall <= 130)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/110to130.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/110to130.png";
                 }
                 else if (objEx.Overall > 130 && objEx.Overall <= 150)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/130to150.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/130to150.png";
                 }
                 else if (objEx.Overall > 150 && objEx.Overall <= 160)
                 {
-                    meterimg = "https://www.duolingo-ielts-pte.in/Images/150to160.png";
+                    meterimg = "https://duolingo-pte-ielts.com/Images/150to160.png";
                 }
                 string flName = "Result_" + objEx.Exam_Id + "_" + objEx.ExamDate.Value.ToString("ddMMyyyy") + ".pdf";
                 StreamReader sr;

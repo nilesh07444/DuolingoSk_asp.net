@@ -84,6 +84,10 @@
                             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "" })
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", maxlength = "200" } })
 
+                            <p style="margin-top: 5px;">
+                                <label for="showpassword" style="float: right;"><input type="checkbox" id="showpassword" onclick="fnShowPassword()" style="width: auto;" /> Show Password</label>
+                            </p>
+
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
 
@@ -376,5 +380,15 @@
         }
 
     }
+
+    function fnShowPassword()
+    {
+        var x = document.getElementById("Password");
+        if (x.type === "password") {
+        x.type = "text";
+        } else {
+        x.type = "password";
+        }
+        }
 
 </script>

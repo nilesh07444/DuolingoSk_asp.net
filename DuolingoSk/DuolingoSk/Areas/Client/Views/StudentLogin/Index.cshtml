@@ -115,14 +115,17 @@
                             <div class="top-inputs d-grid col-lg-6">
                                 <input type="text" placeholder="Mobile No" name="emailmobile" id="emailmobile" required="">
                             </div>
-                            <div class="top-inputs d-grid col-lg-6">
+                            <div class="top-inputs d-grid col-lg-6" style="margin-bottom:5px;">
                                 <input type="password" placeholder="Password" id="password" name="password" required="">
+                                <p style="margin-top: 5px;">
+                                    <label for="showpassword" style="float: right;"><input type="checkbox" id="showpassword" onclick="fnShowPassword()" style="width: auto;" /> Show Password</label>
+                                </p>
                             </div>
                             <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
                                 <p>
                                     <label for="rememberme" style="float: left;"><input type="checkbox" id="rememberme" style="width: auto;" /> Remember Me</label>
                                     <a class="btn btn-link" href="/forgetpassword" style="color: #e86f6f; float:right;">Forgot password?</a>
-                                </p> 
+                                </p>
                             </div>
 
                             <div class="top-inputs d-grid col-lg-6" style="margin-bottom:0px;">
@@ -138,7 +141,7 @@
 
                             <div class="col-lg-6">
                                 <input type="hidden" id="hdnotptxt" value="" />
-                                
+
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
                                 <p><a class="btn btn-link" href="/register" style="color: #e86f6f;">new here? sign up</a></p>
                             </div>
@@ -313,5 +316,16 @@
                 //alert(JSON.stringify(error, undefined, 2));
             });
     }
-    startApp();
+        startApp();
+
+    function fnShowPassword()
+    {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+        x.type = "text";
+        } else {
+        x.type = "password";
+        }
+    }
+
 </script>
