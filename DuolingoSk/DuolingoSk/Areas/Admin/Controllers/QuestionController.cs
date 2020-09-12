@@ -1,4 +1,5 @@
-﻿using DuolingoSk.Model;
+﻿using DuolingoSk.Filters;
+using DuolingoSk.Model;
 using DuolingoSk.Models;
 using DuolingoSk.ViewModel;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace DuolingoSk.Areas.Admin.Controllers
 {
+    [CustomAuthorize]
     public class QuestionController : Controller
     {
         private readonly DuolingoSk_Entities _db;

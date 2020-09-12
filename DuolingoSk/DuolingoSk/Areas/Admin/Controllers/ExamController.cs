@@ -1,4 +1,5 @@
-﻿using DuolingoSk.Helper;
+﻿using DuolingoSk.Filters;
+using DuolingoSk.Helper;
 using DuolingoSk.Model;
 using DuolingoSk.Models;
 using HiQPdf;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 
 namespace DuolingoSk.Areas.Admin.Controllers
 {
+    [CustomAuthorize]
     public class ExamController : Controller
     {
         private readonly DuolingoSk_Entities _db;
