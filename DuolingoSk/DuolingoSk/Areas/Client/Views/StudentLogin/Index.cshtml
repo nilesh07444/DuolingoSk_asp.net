@@ -141,7 +141,7 @@
 
                             <div class="col-lg-6">
                                 <input type="hidden" id="hdnotptxt" value="" />
-
+                                <input type="hidden" id="hdnotptxtvalid" value="false" />
                                 <button type="submit" class="btn btn-theme2">Sign In</button>
                                 <p><a class="btn btn-link" href="/register" style="color: #e86f6f;">new here? sign up</a></p>
                             </div>
@@ -214,7 +214,7 @@
             return false;
         }
         else {
-            if ($('#hdnotptxt').val() == "") {
+            if ($('#hdnotptxt').val() == "" || $("#hdnotptxtvalid").val() == "false") {
                  var URL = '@Url.Action("SendOTP", "StudentLogin")';
                $.ajax({
                 type: 'POST',
@@ -256,7 +256,9 @@
              alert("Invalid OTP");
             return false;
         }
-
+        else {
+            $("#hdnotptxtvalid").val("true");
+        }
         $("#theFormId").submit();
     }
 

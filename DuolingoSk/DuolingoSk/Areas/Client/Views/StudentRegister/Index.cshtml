@@ -207,15 +207,15 @@
                         </div>
 
                         @*<div style="max-width: 50%;margin-bottom:15px;">
-                                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
-                                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
-                            </div>*@
+                <input type="text" class="text-box single-line" name="refrealcode" id="refrealcode" style="width: 77%;" value="" onblur="resetdiscount();">
+                <input type="button" value="Apply" style="width:100px;" onclick="checkrefrlcode();">
+            </div>*@
 
                         <input type="hidden" id="hdnPaymentId" name="hdnPaymentId" value="" />
                         <input type="hidden" id="hdnPaymentTokenId" name="hdnPaymentTokenId" value="" />
                         <input type="hidden" id="hdnotptxt" value="" />
                         <input type="hidden" id="hdndisc" value="0" />
-
+                        <input type="hidden" id="hdnotptxtvalid" value="false" />
                         <div class=" col-sm-12">
                             <a class="btn btn-link" href="/forgetpassword" style="color: #e86f6f; float:right;">Forgot password?</a>
                             <button type="submit" class="btn btn-theme2">Sign Up</button>
@@ -310,7 +310,7 @@
             return false;
         }
         else {
-            if ($('#hdnotptxt').val() == "") {
+            if ($('#hdnotptxt').val() == "" || $("#hdnotptxtvalid").val() == "false") {
 
                  var URL = '@Url.Action("SendOTP", "StudentRegister")';
                $.ajax({
@@ -354,6 +354,9 @@
         if ($("#otptxt").val() != $('#hdnotptxt').val()) {
              alert("Invalid OTP");
             return false;
+        }
+        else {
+            $("#hdnotptxtvalid").val("true");
         }
         if (jQuery("#Package option:selected").attr("data-prc") == "0") {
             $("#StudentUserFormId").submit();

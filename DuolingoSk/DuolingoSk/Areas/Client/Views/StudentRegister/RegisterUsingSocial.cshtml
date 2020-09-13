@@ -99,6 +99,7 @@
                         </div>
 
                         <input type="hidden" id="hdnotptxt" value="" />
+                        <input type="hidden" id="hdnotptxtvalid" value="false" />
                         <input type="hidden" id="hdndisc" value="0" />
                         <div class="form-group col-sm-6">
                             <label class="">Select Package *</label>
@@ -195,7 +196,7 @@
             return false;
         }
         else {
-            if ($('#hdnotptxt').val() == "") {
+            if ($('#hdnotptxt').val() == "" || $("#hdnotptxtvalid").val() == "false") {
 
                  var URL = '@Url.Action("SendOTP", "StudentRegister")';
                $.ajax({
@@ -239,6 +240,9 @@
         if ($("#otptxt").val() != $('#hdnotptxt').val()) {
              alert("Invalid OTP");
             return false;
+        }
+        else {
+            $("#hdnotptxtvalid").val("true");
         }
         if (jQuery("#Package option:selected").attr("data-prc") == "0") {
             $("#StudentUserFormId").submit();

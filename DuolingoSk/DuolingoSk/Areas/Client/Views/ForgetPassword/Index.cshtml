@@ -81,6 +81,7 @@
 
                             <div class="col-lg-6">
                                 <input type="hidden" id="hdnotptxt" value="" />
+                                <input type="hidden" id="hdnotptxtvalid" value="false" />
                                 <button type="button" onclick="return FnForgetPassword();" class="btn btn-theme2">Submit</button>
                             </div>
                         </form>
@@ -161,7 +162,7 @@
         else {
             $(".errorcls").html("");
 
-            if ($('#hdnotptxt').val() == "") {
+            if ($('#hdnotptxt').val() == "" || $("#hdnotptxtvalid").val() == "false") {
 
                var URL = '@Url.Action("SendOTP", "ForgetPassword")';
 
@@ -206,7 +207,9 @@
              alert("Invalid OTP");
             return false;
         }
-
+        else {
+            $("#hdnotptxtvalid").val("true");
+        }
         $("#otpmodal").modal('hide');
         $("#changepwdmodal").modal('show');
     }
