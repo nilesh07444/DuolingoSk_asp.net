@@ -443,18 +443,28 @@
                                         </audio>
                                     </div>
 
-                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    @try
+                                    {
+                                        if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                        {
+                                            <div class="pull-right">
+                                                <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            </div>
+                                        }
+                                    }
+                                    catch (Exception e)
                                     {
                                         <div class="pull-right">
-                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            
                                         </div>
                                     }
+
 
                                 </div>
                             </div>
                         </div>
                     }
-                    else if (objExm.QuestionTypeId == 8)
+                    else if (objExm.QuestionTypeId == 8 && objExm.QuestionOptionValue != null)
                     {
                         List<string> lstimgss = objExm.QuestionOptionValue.Split('^').ToList();
                         <div class="question qt8">
@@ -488,19 +498,29 @@
                                         </audio>
                                     </div>
 
-                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    @try
+                                    {
+                                        if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                        {
+                                            <div class="pull-right">
+                                                <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            </div>
+                                        }
+                                    }
+                                    catch (Exception e)
                                     {
                                         <div class="pull-right">
-                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                           
                                         </div>
                                     }
+
 
                                 </div>
 
                             </div>
                         </div>
                     }
-                    else if (objExm.QuestionTypeId == 9)
+                    else if (objExm.QuestionTypeId == 9 && objExm.QuestionOptionValue != null)
                     {
                         <div class="question mp3q">
                             <div class="questionbg">
@@ -541,18 +561,28 @@
                                         </audio>
                                     </div>
 
-                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    @try
+                                    {
+                                        if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                        {
+                                            <div class="pull-right">
+                                                <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            </div>
+                                        }
+                                    }
+                                    catch (Exception e)
                                     {
                                         <div class="pull-right">
-                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            
                                         </div>
                                     }
+
 
                                 </div>
                             </div>
                         </div>
                     }
-                    else if (objExm.QuestionTypeId == 10)
+                    else if (objExm.QuestionTypeId == 10 && objExm.QuestionOptionValue != null)
                     {
                         <div class="question">
                             <div class="questionbg">
@@ -586,11 +616,19 @@
                                             Your browser does not support the audio element.
                                         </audio>
                                     </div>
-
-                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    @try
+                                    {
+                                        if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                        {
+                                            <div class="pull-right">
+                                                <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            </div>
+                                        }
+                                    }
+                                    catch (Exception e)
                                     {
                                         <div class="pull-right">
-                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                         
                                         </div>
                                     }
 
@@ -635,13 +673,22 @@
                                             Your browser does not support the audio element.
                                         </audio>
                                     </div>
-
-                                    @if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                    @try
+                                    {
+                                        if (!string.IsNullOrEmpty(objExm.QuestionOptiont_Ans) && File.Exists(Server.MapPath("~/TempFile/" + objExm.QuestionOptiont_Ans)))
+                                        {
+                                            <div class="pull-right">
+                                                <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                            </div>
+                                        }
+                                    }
+                                    catch (Exception e)
                                     {
                                         <div class="pull-right">
-                                            <a download href="~/TempFile/@objExm.QuestionOptiont_Ans" class="btn btn-success" style="color: #ffffff;">Download Recording File</a>
+                                          
                                         </div>
                                     }
+
 
                                 </div>
                             </div>
